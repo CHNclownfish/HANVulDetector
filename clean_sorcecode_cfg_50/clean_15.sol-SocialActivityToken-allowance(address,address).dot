@@ -1,0 +1,25 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(_owner != 0x0 && _spender != 0x0)
+
+IRs:
+TMP_206(bool) = _owner != 0
+TMP_207(bool) = _spender != 0
+TMP_208(bool) = TMP_206 && TMP_207
+TMP_209(None) = SOLIDITY_CALL require(bool)(TMP_208)"];
+1->2;
+2[label="Node Type: RETURN 2
+
+EXPRESSION:
+allowed[_owner][_spender]
+
+IRs:
+REF_75(mapping(address => uint256)) -> allowed[_owner]
+REF_76(uint256) -> REF_75[_spender]
+RETURN REF_76"];
+}

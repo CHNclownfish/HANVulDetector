@@ -1,0 +1,29 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(_sender != address(0))
+
+IRs:
+TMP_150 = CONVERT 0 to address
+TMP_151(bool) = _sender != TMP_150
+TMP_152(None) = SOLIDITY_CALL require(bool)(TMP_151)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)((free_transfer) || canTransferBefore(_sender) || canTransferIfLocked(_sender,_value))
+
+IRs:
+TMP_153(bool) = INTERNAL_CALL, FriendzToken.canTransferBefore(address)(_sender)
+TMP_154(bool) = free_transfer || TMP_153
+TMP_155(bool) = INTERNAL_CALL, FriendzToken.canTransferIfLocked(address,uint256)(_sender,_value)
+TMP_156(bool) = TMP_154 || TMP_155
+TMP_157(None) = SOLIDITY_CALL require(bool)(TMP_156)"];
+2->3;
+3[label="Node Type: _ 3
+"];
+}

@@ -1,0 +1,20 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->2;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+_mint(msg.sender,msg.sender,initialSupply,,)
+
+IRs:
+INTERNAL_CALL, ERC777._mint(address,address,uint256,bytes,bytes)(msg.sender,msg.sender,initialSupply,,)"];
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+ERC777(SKYBIT,SKYBIT,defaultOperators)
+
+IRs:
+INTERNAL_CALL, ERC777.constructor(string,string,address[])(SKYBIT,SKYBIT,defaultOperators)"];
+2->1;
+}

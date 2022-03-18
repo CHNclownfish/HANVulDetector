@@ -1,0 +1,96 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+delieveryDate = investors_deliveryDate[_investor]
+
+IRs:
+REF_61(uint256) -> investors_deliveryDate[_investor]
+delieveryDate(uint256) := REF_61(uint256)"];
+1->2;
+2[label="Node Type: NEW VARIABLE 2
+
+EXPRESSION:
+lockedAmt = investors_locked[_investor]
+
+IRs:
+REF_62(uint256) -> investors_locked[_investor]
+lockedAmt(uint256) := REF_62(uint256)"];
+2->3;
+3[label="Node Type: IF 3
+
+EXPRESSION:
+now <= delieveryDate
+
+IRs:
+TMP_106(bool) = now <= delieveryDate
+CONDITION TMP_106"];
+3->4[label="True"];
+3->5[label="False"];
+4[label="Node Type: RETURN 4
+
+EXPRESSION:
+lockedAmt
+
+IRs:
+RETURN lockedAmt"];
+5[label="Node Type: END_IF 5
+"];
+5->6;
+6[label="Node Type: IF 6
+
+EXPRESSION:
+now <= delieveryDate + 7776000
+
+IRs:
+TMP_107(uint256) = delieveryDate + 7776000
+TMP_108(bool) = now <= TMP_107
+CONDITION TMP_108"];
+6->7[label="True"];
+6->8[label="False"];
+7[label="Node Type: RETURN 7
+
+EXPRESSION:
+lockedAmt.mul(2).div(3)
+
+IRs:
+TMP_109(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['lockedAmt', '2'] 
+TMP_110(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_109', '3'] 
+RETURN TMP_110"];
+8[label="Node Type: END_IF 8
+"];
+8->9;
+9[label="Node Type: IF 9
+
+EXPRESSION:
+now <= delieveryDate + 15552000
+
+IRs:
+TMP_111(uint256) = delieveryDate + 15552000
+TMP_112(bool) = now <= TMP_111
+CONDITION TMP_112"];
+9->10[label="True"];
+9->11[label="False"];
+10[label="Node Type: RETURN 10
+
+EXPRESSION:
+lockedAmt.mul(1).div(3)
+
+IRs:
+TMP_113(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['lockedAmt', '1'] 
+TMP_114(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_113', '3'] 
+RETURN TMP_114"];
+11[label="Node Type: END_IF 11
+"];
+11->12;
+12[label="Node Type: RETURN 12
+
+EXPRESSION:
+0
+
+IRs:
+RETURN 0"];
+}

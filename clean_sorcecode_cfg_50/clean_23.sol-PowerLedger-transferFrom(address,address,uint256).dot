@@ -1,0 +1,73 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: IF 1
+
+EXPRESSION:
+balances[_from] >= _value && allowed[_from][msg.sender] >= _value
+
+IRs:
+REF_4(uint256) -> balances[_from]
+TMP_3(bool) = REF_4 >= _value
+REF_5(mapping(address => uint256)) -> allowed[_from]
+REF_6(uint256) -> REF_5[msg.sender]
+TMP_4(bool) = REF_6 >= _value
+TMP_5(bool) = TMP_3 && TMP_4
+CONDITION TMP_5"];
+1->2[label="True"];
+1->7[label="False"];
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+balances[_from] -= _value
+
+IRs:
+REF_7(uint256) -> balances[_from]
+REF_7(-> balances) = REF_7 - _value"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+allowed[_from][msg.sender] -= _value
+
+IRs:
+REF_8(mapping(address => uint256)) -> allowed[_from]
+REF_9(uint256) -> REF_8[msg.sender]
+REF_9(-> allowed) = REF_9 - _value"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+balances[_to] += _value
+
+IRs:
+REF_10(uint256) -> balances[_to]
+REF_10(-> balances) = REF_10 + _value"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+Transfer(_from,_to,_value)
+
+IRs:
+Emit Transfer(_from._to._value)"];
+5->6;
+6[label="Node Type: RETURN 6
+
+EXPRESSION:
+true
+
+IRs:
+RETURN True"];
+7[label="Node Type: END_IF 7
+"];
+7->8;
+8[label="Node Type: RETURN 8
+
+EXPRESSION:
+false
+
+IRs:
+RETURN False"];
+}

@@ -1,0 +1,48 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->4;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(bytes(channelId).length > 0)
+
+IRs:
+TMP_226 = CONVERT channelId to bytes
+REF_137 -> LENGTH TMP_226
+TMP_227(bool) = REF_137 > 0
+TMP_228(None) = SOLIDITY_CALL require(bool)(TMP_227)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+addressMap[channelId] = _address
+
+IRs:
+REF_138(address) -> addressMap[channelId]
+REF_138 (->addressMap) := _address(address)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+SetAddress(channelId,_address)
+
+IRs:
+Emit SetAddress(channelId._address)"];
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+onlyMaster()
+
+IRs:
+MODIFIER_CALL, Ownable.onlyMaster()()"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+onlyWhenNotStopped()
+
+IRs:
+MODIFIER_CALL, Ownable.onlyWhenNotStopped()()"];
+5->1;
+}

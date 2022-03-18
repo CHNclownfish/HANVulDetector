@@ -1,0 +1,22 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->2;
+1[label="Node Type: RETURN 1
+
+EXPRESSION:
+_grantAccess(getHolderId(_from),_to)
+
+IRs:
+TMP_179(uint256) = INTERNAL_CALL, EToken2.getHolderId(address)(_from)
+TMP_180(bool) = INTERNAL_CALL, EToken2._grantAccess(uint256,address)(TMP_179,_to)
+RETURN TMP_180"];
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+checkTrust(_from,msg.sender)
+
+IRs:
+MODIFIER_CALL, EToken2.checkTrust(address,address)(_from,msg.sender)"];
+2->1;
+}

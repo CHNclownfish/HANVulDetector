@@ -1,0 +1,19 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: RETURN 1
+
+EXPRESSION:
+lhs.length == rhs.length && keccak256()(lhs) == keccak256()(rhs)
+
+IRs:
+REF_10 -> LENGTH lhs
+REF_11 -> LENGTH rhs
+TMP_25(bool) = REF_10 == REF_11
+TMP_26(bytes32) = SOLIDITY_CALL keccak256()(lhs)
+TMP_27(bytes32) = SOLIDITY_CALL keccak256()(rhs)
+TMP_28(bool) = TMP_26 == TMP_27
+TMP_29(bool) = TMP_25 && TMP_28
+RETURN TMP_29"];
+}

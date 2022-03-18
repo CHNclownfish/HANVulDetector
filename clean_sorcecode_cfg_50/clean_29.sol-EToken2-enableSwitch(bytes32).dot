@@ -1,0 +1,29 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->3;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+switches[_switch] = true
+
+IRs:
+REF_7(bool) -> switches[_switch]
+REF_7 (->switches) := True(bool)"];
+1->2;
+2[label="Node Type: RETURN 2
+
+EXPRESSION:
+true
+
+IRs:
+RETURN True"];
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+onlyRole(issuance)
+
+IRs:
+MODIFIER_CALL, Ambi2Enabled.onlyRole(bytes32)(issuance)"];
+3->1;
+}

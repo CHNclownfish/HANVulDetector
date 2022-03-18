@@ -1,0 +1,24 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool,string)(msg.sender == initializer,Method can only be called by initializer)
+
+IRs:
+TMP_242(bool) = msg.sender == initializer
+TMP_243(None) = SOLIDITY_CALL require(bool,string)(TMP_242,Method can only be called by initializer)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool,string)(initializing,Method can only be called during initialization)
+
+IRs:
+TMP_244(None) = SOLIDITY_CALL require(bool,string)(initializing,Method can only be called during initialization)"];
+2->3;
+3[label="Node Type: _ 3
+"];
+}

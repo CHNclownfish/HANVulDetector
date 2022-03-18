@@ -1,0 +1,85 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: IF 1
+
+EXPRESSION:
+now < unlockedAt
+
+IRs:
+TMP_54(bool) = now < unlockedAt
+CONDITION TMP_54"];
+1->2[label="True"];
+1->3[label="False"];
+2[label="Node Type: THROW 2
+"];
+3[label="Node Type: END_IF 3
+"];
+3->4;
+4[label="Node Type: IF 4
+
+EXPRESSION:
+tokensCreated == 0
+
+IRs:
+TMP_55(bool) = tokensCreated == 0
+CONDITION TMP_55"];
+4->5[label="True"];
+4->6[label="False"];
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+tokensCreated = gnt.balanceOf(this)
+
+IRs:
+TMP_56(uint256) = HIGH_LEVEL_CALL, dest:gnt(GolemNetworkToken), function:balanceOf, arguments:['this']  
+tokensCreated(uint256) := TMP_56(uint256)"];
+5->6;
+6[label="Node Type: END_IF 6
+"];
+6->7;
+7[label="Node Type: NEW VARIABLE 7
+
+EXPRESSION:
+allocation = allocations[msg.sender]
+
+IRs:
+REF_39(uint256) -> allocations[msg.sender]
+allocation(uint256) := REF_39(uint256)"];
+7->8;
+8[label="Node Type: EXPRESSION 8
+
+EXPRESSION:
+allocations[msg.sender] = 0
+
+IRs:
+REF_40(uint256) -> allocations[msg.sender]
+REF_40 (->allocations) := 0(uint256)"];
+8->9;
+9[label="Node Type: NEW VARIABLE 9
+
+EXPRESSION:
+toTransfer = tokensCreated * allocation / totalAllocations
+
+IRs:
+TMP_57(uint256) = tokensCreated * allocation
+TMP_58(uint256) = TMP_57 / totalAllocations
+toTransfer(uint256) := TMP_58(uint256)"];
+9->10;
+10[label="Node Type: IF 10
+
+EXPRESSION:
+! gnt.transfer(msg.sender,toTransfer)
+
+IRs:
+TMP_59(bool) = HIGH_LEVEL_CALL, dest:gnt(GolemNetworkToken), function:transfer, arguments:['msg.sender', 'toTransfer']  
+TMP_60 = ! TMP_59 
+CONDITION TMP_60"];
+10->11[label="True"];
+10->12[label="False"];
+11[label="Node Type: THROW 11
+"];
+12[label="Node Type: END_IF 12
+"];
+}

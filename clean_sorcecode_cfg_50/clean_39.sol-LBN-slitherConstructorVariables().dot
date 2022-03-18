@@ -1,0 +1,23 @@
+digraph{
+0[label="Node Type: OTHER_ENTRYPOINT 0
+
+EXPRESSION:
+totalSupply = 100000000 * (10 ** uint256(decimals))
+
+IRs:
+TMP_123 = CONVERT decimals to uint256
+TMP_124(uint256) = 10 ** TMP_123
+TMP_125(uint256) = 100000000 * TMP_124
+totalSupply(uint256) := TMP_125(uint256)"];
+0->1;
+1[label="Node Type: OTHER_ENTRYPOINT 1
+
+EXPRESSION:
+airdropSupply = 9000000 * (10 ** uint256(decimals))
+
+IRs:
+TMP_126 = CONVERT decimals to uint256
+TMP_127(uint256) = 10 ** TMP_126
+TMP_128(uint256) = 9000000 * TMP_127
+airdropSupply(uint256) := TMP_128(uint256)"];
+}

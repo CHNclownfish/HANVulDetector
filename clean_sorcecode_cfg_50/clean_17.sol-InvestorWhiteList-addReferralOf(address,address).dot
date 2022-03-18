@@ -1,0 +1,37 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->3;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(investor != 0x0 && referral != 0x0 && referralList[investor] == 0x0 && investor != referral)
+
+IRs:
+TMP_202(bool) = investor != 0
+TMP_203(bool) = referral != 0
+TMP_204(bool) = TMP_202 && TMP_203
+REF_149(address) -> referralList[investor]
+TMP_205(bool) = REF_149 == 0
+TMP_206(bool) = TMP_204 && TMP_205
+TMP_207(bool) = investor != referral
+TMP_208(bool) = TMP_206 && TMP_207
+TMP_209(None) = SOLIDITY_CALL require(bool)(TMP_208)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+referralList[investor] = referral
+
+IRs:
+REF_150(address) -> referralList[investor]
+REF_150 (->referralList) := referral(address)"];
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+onlyOwner()
+
+IRs:
+MODIFIER_CALL, Ownable.onlyOwner()()"];
+3->1;
+}

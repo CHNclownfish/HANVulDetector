@@ -1,0 +1,13 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: RETURN 1
+
+EXPRESSION:
+_transfer(msg.sender,_to,_value)
+
+IRs:
+TMP_44(bool) = INTERNAL_CALL, StandardToken._transfer(address,address,uint256)(msg.sender,_to,_value)
+RETURN TMP_44"];
+}

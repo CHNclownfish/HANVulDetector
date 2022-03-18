@@ -1,0 +1,28 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->3;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+AdminTransferred(admin,newAdmin)
+
+IRs:
+Emit AdminTransferred(admin.newAdmin)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+admin = newAdmin
+
+IRs:
+admin(address) := newAdmin(address)"];
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+onlyOwner()
+
+IRs:
+MODIFIER_CALL, Ownable.onlyOwner()()"];
+3->1;
+}

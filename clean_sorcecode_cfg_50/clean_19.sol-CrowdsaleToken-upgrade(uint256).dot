@@ -1,0 +1,93 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+state = getUpgradeState()
+
+IRs:
+TMP_230(UpgradeableToken.UpgradeState) = INTERNAL_CALL, UpgradeableToken.getUpgradeState()()
+state(UpgradeableToken.UpgradeState) := TMP_230(UpgradeableToken.UpgradeState)"];
+1->2;
+2[label="Node Type: IF 2
+
+EXPRESSION:
+! (state == UpgradeState.ReadyToUpgrade || state == UpgradeState.Upgrading)
+
+IRs:
+REF_80(UpgradeableToken.UpgradeState) -> UpgradeState.ReadyToUpgrade
+TMP_231(bool) = state == REF_80
+REF_81(UpgradeableToken.UpgradeState) -> UpgradeState.Upgrading
+TMP_232(bool) = state == REF_81
+TMP_233(bool) = TMP_231 || TMP_232
+TMP_234 = ! TMP_233 
+CONDITION TMP_234"];
+2->3[label="True"];
+2->4[label="False"];
+3[label="Node Type: THROW 3
+"];
+4[label="Node Type: END_IF 4
+"];
+4->5;
+5[label="Node Type: IF 5
+
+EXPRESSION:
+value == 0
+
+IRs:
+TMP_235(bool) = value == 0
+CONDITION TMP_235"];
+5->6[label="True"];
+5->7[label="False"];
+6[label="Node Type: THROW 6
+"];
+7[label="Node Type: END_IF 7
+"];
+7->8;
+8[label="Node Type: EXPRESSION 8
+
+EXPRESSION:
+balances[msg.sender] = safeSub(balances[msg.sender],value)
+
+IRs:
+REF_82(uint256) -> balances[msg.sender]
+REF_83(uint256) -> balances[msg.sender]
+TMP_236(uint256) = INTERNAL_CALL, SafeMath.safeSub(uint256,uint256)(REF_83,value)
+REF_82 (->balances) := TMP_236(uint256)"];
+8->9;
+9[label="Node Type: EXPRESSION 9
+
+EXPRESSION:
+totalSupply = safeSub(totalSupply,value)
+
+IRs:
+TMP_237(uint256) = INTERNAL_CALL, SafeMath.safeSub(uint256,uint256)(totalSupply,value)
+totalSupply(uint256) := TMP_237(uint256)"];
+9->10;
+10[label="Node Type: EXPRESSION 10
+
+EXPRESSION:
+totalUpgraded = safeAdd(totalUpgraded,value)
+
+IRs:
+TMP_238(uint256) = INTERNAL_CALL, SafeMath.safeAdd(uint256,uint256)(totalUpgraded,value)
+totalUpgraded(uint256) := TMP_238(uint256)"];
+10->11;
+11[label="Node Type: EXPRESSION 11
+
+EXPRESSION:
+upgradeAgent.upgradeFrom(msg.sender,value)
+
+IRs:
+HIGH_LEVEL_CALL, dest:upgradeAgent(UpgradeAgent), function:upgradeFrom, arguments:['msg.sender', 'value']  "];
+11->12;
+12[label="Node Type: EXPRESSION 12
+
+EXPRESSION:
+Upgrade(msg.sender,upgradeAgent,value)
+
+IRs:
+Emit Upgrade(msg.sender.upgradeAgent.value)"];
+}

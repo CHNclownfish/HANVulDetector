@@ -1,0 +1,29 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->3;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool,string)(msg.sender == owner,only owner can use this method)
+
+IRs:
+TMP_71(bool) = msg.sender == owner
+TMP_72(None) = SOLIDITY_CALL require(bool,string)(TMP_71,only owner can use this method)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+selfdestruct(address)(msg.sender)
+
+IRs:
+TMP_73(None) = SOLIDITY_CALL selfdestruct(address)(msg.sender)"];
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+onlyOwner()
+
+IRs:
+MODIFIER_CALL, owned.onlyOwner()()"];
+3->1;
+}

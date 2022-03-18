@@ -1,0 +1,36 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: IF 1
+
+EXPRESSION:
+counter[validater][_sender] == 0
+
+IRs:
+REF_23(mapping(address => uint256)) -> counter[validater]
+REF_24(uint256) -> REF_23[_sender]
+TMP_134(bool) = REF_24 == 0
+CONDITION TMP_134"];
+1->2[label="True"];
+1->3[label="False"];
+2[label="Node Type: RETURN 2
+
+EXPRESSION:
+1
+
+IRs:
+RETURN 1"];
+3[label="Node Type: END_IF 3
+"];
+3->4;
+4[label="Node Type: RETURN 4
+
+EXPRESSION:
+counter[validater][_sender]
+
+IRs:
+REF_25(mapping(address => uint256)) -> counter[validater]
+REF_26(uint256) -> REF_25[_sender]
+RETURN REF_26"];
+}

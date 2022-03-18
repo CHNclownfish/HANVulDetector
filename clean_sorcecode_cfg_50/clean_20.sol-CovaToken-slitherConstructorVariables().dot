@@ -1,0 +1,12 @@
+digraph{
+0[label="Node Type: OTHER_ENTRYPOINT 0
+
+EXPRESSION:
+totalSupply_ = 65 * (10 ** (8 + 18))
+
+IRs:
+TMP_44(uint256) = 8 + 18
+TMP_45(uint256) = 10 ** TMP_44
+TMP_46(uint256) = 65 * TMP_45
+totalSupply_(uint256) := TMP_46(uint256)"];
+}

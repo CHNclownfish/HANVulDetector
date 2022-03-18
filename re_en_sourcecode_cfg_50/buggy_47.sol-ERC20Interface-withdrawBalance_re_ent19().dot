@@ -1,0 +1,36 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: IF 1
+
+EXPRESSION:
+! (msg.sender.send(userBalance_re_ent19[msg.sender]))
+
+IRs:
+REF_18(uint256) -> userBalance_re_ent19[msg.sender]
+TMP_19 = SEND dest:msg.sender value:REF_18
+TMP_20 = ! TMP_19 
+CONDITION TMP_20"];
+1->2[label="True"];
+1->3[label="False"];
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+revert()()
+
+IRs:
+TMP_21(None) = SOLIDITY_CALL revert()()"];
+2->3;
+3[label="Node Type: END_IF 3
+"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+userBalance_re_ent19[msg.sender] = 0
+
+IRs:
+REF_19(uint256) -> userBalance_re_ent19[msg.sender]
+REF_19 (->userBalance_re_ent19) := 0(uint256)"];
+}

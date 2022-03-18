@@ -1,0 +1,37 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->4;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+registry.createNewAccount(_newUser)
+
+IRs:
+HIGH_LEVEL_CALL, dest:registry(AccountRegistryInterface), function:createNewAccount, arguments:['_newUser']  "];
+1->2;
+2[label="Node Type: NEW VARIABLE 2
+
+EXPRESSION:
+_accountId = registry.accountIdForAddress(_newUser)
+
+IRs:
+TMP_38(uint256) = HIGH_LEVEL_CALL, dest:registry(AccountRegistryInterface), function:accountIdForAddress, arguments:['_newUser']  
+_accountId(uint256) := TMP_38(uint256)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+AccountCreated(_accountId,_newUser)
+
+IRs:
+Emit AccountCreated(_accountId._newUser)"];
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+nonZero(_newUser)
+
+IRs:
+MODIFIER_CALL, AccountRegistryLogic.nonZero(address)(_newUser)"];
+4->1;
+}

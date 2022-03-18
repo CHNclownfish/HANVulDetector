@@ -1,0 +1,104 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->10;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+frozenAddresses.push(address(0x9fd50776F133751E8Ae6abE1Be124638Bb917E05))
+
+IRs:
+TMP_210 = CONVERT 912480241548209455660388499842434547007005752837 to address
+REF_135 -> LENGTH frozenAddresses
+TMP_212(uint256) := REF_135(uint256)
+TMP_213(uint256) = TMP_212 + 1
+REF_135 (->frozenAddresses) := TMP_213(uint256)
+REF_136(address) -> frozenAddresses[TMP_212]
+REF_136 (->frozenAddresses) := TMP_210(address)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+frozenWallets[frozenAddresses[0]] = frozenWallet(true,30000000 * 10 ** uint256(decimals),0 * 10 ** uint256(decimals),now + 1 * 3600)
+
+IRs:
+REF_137(address) -> frozenAddresses[0]
+REF_138(AZT.frozenWallet) -> frozenWallets[REF_137]
+TMP_214 = CONVERT decimals to uint256
+TMP_215(uint256) = 10 ** TMP_214
+TMP_216(uint256) = 30000000 * TMP_215
+TMP_217 = CONVERT decimals to uint256
+TMP_218(uint256) = 10 ** TMP_217
+TMP_219(uint256) = 0 * TMP_218
+TMP_220(uint256) = 1 * 3600
+TMP_221(uint256) = now + TMP_220
+TMP_222 = new frozenWallet(True,TMP_216,TMP_219,TMP_221)
+REF_138 (->frozenWallets) := TMP_222(AZT.frozenWallet)"];
+2->5;
+3[label="Node Type: BEGIN_LOOP 3
+"];
+3->6;
+4[label="Node Type: END_LOOP 4
+"];
+5[label="Node Type: NEW VARIABLE 5
+
+EXPRESSION:
+i = 0
+
+IRs:
+i(uint256) := 0(uint256)"];
+5->3;
+6[label="Node Type: IF_LOOP 6
+
+EXPRESSION:
+i < frozenAddresses.length
+
+IRs:
+REF_139 -> LENGTH frozenAddresses
+TMP_223(bool) = i < REF_139
+CONDITION TMP_223"];
+6->7[label="True"];
+6->4[label="False"];
+7[label="Node Type: EXPRESSION 7
+
+EXPRESSION:
+balanceOf[frozenAddresses[i]] = frozenWallets[frozenAddresses[i]].rewardedAmount
+
+IRs:
+REF_140(address) -> frozenAddresses[i]
+REF_141(uint256) -> balanceOf[REF_140]
+REF_142(address) -> frozenAddresses[i]
+REF_143(AZT.frozenWallet) -> frozenWallets[REF_142]
+REF_144(uint256) -> REF_143.rewardedAmount
+REF_141 (->balanceOf) := REF_144(uint256)"];
+7->8;
+8[label="Node Type: EXPRESSION 8
+
+EXPRESSION:
+totalSupply = totalSupply.add(frozenWallets[frozenAddresses[i]].rewardedAmount)
+
+IRs:
+REF_146(address) -> frozenAddresses[i]
+REF_147(AZT.frozenWallet) -> frozenWallets[REF_146]
+REF_148(uint256) -> REF_147.rewardedAmount
+TMP_224(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalSupply', 'REF_148'] 
+totalSupply(uint256) := TMP_224(uint256)"];
+8->9;
+9[label="Node Type: EXPRESSION 9
+
+EXPRESSION:
+i ++
+
+IRs:
+TMP_225(uint256) := i(uint256)
+i(uint256) = i + 1"];
+9->6;
+10[label="Node Type: EXPRESSION 10
+
+EXPRESSION:
+TokenERC20(_tokenName,_tokenSymbol,_decimals)
+
+IRs:
+INTERNAL_CALL, TokenERC20.constructor(string,string,uint8)(_tokenName,_tokenSymbol,_decimals)"];
+10->1;
+}

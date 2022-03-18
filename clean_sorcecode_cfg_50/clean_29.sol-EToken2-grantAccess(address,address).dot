@@ -1,0 +1,44 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: IF 1
+
+EXPRESSION:
+! isCosignerSet(getHolderId(_from))
+
+IRs:
+TMP_182(uint256) = INTERNAL_CALL, EToken2.getHolderId(address)(_from)
+TMP_183(bool) = INTERNAL_CALL, EToken2.isCosignerSet(uint256)(TMP_182)
+TMP_184 = ! TMP_183 
+CONDITION TMP_184"];
+1->2[label="True"];
+1->4[label="False"];
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+_error(Cosigner not set)
+
+IRs:
+INTERNAL_CALL, EToken2._error(bytes32)(Cosigner not set)"];
+2->3;
+3[label="Node Type: RETURN 3
+
+EXPRESSION:
+false
+
+IRs:
+RETURN False"];
+4[label="Node Type: END_IF 4
+"];
+4->5;
+5[label="Node Type: RETURN 5
+
+EXPRESSION:
+_grantAccess(getHolderId(_from),_to)
+
+IRs:
+TMP_186(uint256) = INTERNAL_CALL, EToken2.getHolderId(address)(_from)
+TMP_187(bool) = INTERNAL_CALL, EToken2._grantAccess(uint256,address)(TMP_186,_to)
+RETURN TMP_187"];
+}

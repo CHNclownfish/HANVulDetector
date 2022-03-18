@@ -1,0 +1,14 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: RETURN 1
+
+EXPRESSION:
+assets[_symbol].isReissuable
+
+IRs:
+REF_19(EToken2.Asset) -> assets[_symbol]
+REF_20(bool) -> REF_19.isReissuable
+RETURN REF_20"];
+}

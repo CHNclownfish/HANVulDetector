@@ -1,0 +1,14 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: RETURN 1
+
+EXPRESSION:
+released && super.canUpgrade()
+
+IRs:
+TMP_327(bool) = INTERNAL_CALL, UpgradeableToken.canUpgrade()()
+TMP_328(bool) = released && TMP_327
+RETURN TMP_328"];
+}

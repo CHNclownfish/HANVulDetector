@@ -1,0 +1,12 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+_burnFrom(from,value)
+
+IRs:
+INTERNAL_CALL, FCS._burnFrom(address,uint256)(from,value)"];
+}

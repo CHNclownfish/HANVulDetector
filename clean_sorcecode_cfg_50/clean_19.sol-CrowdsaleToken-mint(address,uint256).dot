@@ -1,0 +1,48 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->4;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+totalSupply = totalSupply.plus(amount)
+
+IRs:
+TMP_300(uint256) = LIBRARY_CALL, dest:SafeMathLib, function:SafeMathLib.plus(uint256,uint256), arguments:['totalSupply', 'amount'] 
+totalSupply(uint256) := TMP_300(uint256)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+balances[receiver] = balances[receiver].plus(amount)
+
+IRs:
+REF_112(uint256) -> balances[receiver]
+REF_113(uint256) -> balances[receiver]
+TMP_301(uint256) = LIBRARY_CALL, dest:SafeMathLib, function:SafeMathLib.plus(uint256,uint256), arguments:['REF_113', 'amount'] 
+REF_112 (->balances) := TMP_301(uint256)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+Transfer(0,receiver,amount)
+
+IRs:
+Emit Transfer(0.receiver.amount)"];
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+onlyMintAgent()
+
+IRs:
+MODIFIER_CALL, MintableToken.onlyMintAgent()()"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+canMint()
+
+IRs:
+MODIFIER_CALL, MintableToken.canMint()()"];
+5->1;
+}

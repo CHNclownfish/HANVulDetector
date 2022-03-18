@@ -1,0 +1,99 @@
+digraph{
+0[label="Node Type: OTHER_ENTRYPOINT 0
+
+EXPRESSION:
+not_called_re_ent13 = true
+
+IRs:
+not_called_re_ent13(bool) := True(bool)"];
+0->1;
+1[label="Node Type: OTHER_ENTRYPOINT 1
+
+EXPRESSION:
+not_called_re_ent20 = true
+
+IRs:
+not_called_re_ent20(bool) := True(bool)"];
+1->2;
+2[label="Node Type: OTHER_ENTRYPOINT 2
+
+EXPRESSION:
+counter_re_ent28 = 0
+
+IRs:
+counter_re_ent28(uint256) := 0(uint256)"];
+2->3;
+3[label="Node Type: OTHER_ENTRYPOINT 3
+
+EXPRESSION:
+not_called_re_ent34 = true
+
+IRs:
+not_called_re_ent34(bool) := True(bool)"];
+3->4;
+4[label="Node Type: OTHER_ENTRYPOINT 4
+
+EXPRESSION:
+counter_re_ent21 = 0
+
+IRs:
+counter_re_ent21(uint256) := 0(uint256)"];
+4->5;
+5[label="Node Type: OTHER_ENTRYPOINT 5
+
+EXPRESSION:
+tokenRemained = 2 * (10 ** 9) * (10 ** uint256(decimals))
+
+IRs:
+TMP_283(uint256) = 10 ** 9
+TMP_284(uint256) = 2 * TMP_283
+TMP_285 = CONVERT decimals to uint256
+TMP_286(uint256) = 10 ** TMP_285
+TMP_287(uint256) = TMP_284 * TMP_286
+tokenRemained(uint256) := TMP_287(uint256)"];
+5->6;
+6[label="Node Type: OTHER_ENTRYPOINT 6
+
+EXPRESSION:
+totalSupply = 2 * (10 ** 9) * (10 ** uint256(decimals))
+
+IRs:
+TMP_288(uint256) = 10 ** 9
+TMP_289(uint256) = 2 * TMP_288
+TMP_290 = CONVERT decimals to uint256
+TMP_291(uint256) = 10 ** TMP_290
+TMP_292(uint256) = TMP_289 * TMP_291
+totalSupply(uint256) := TMP_292(uint256)"];
+6->7;
+7[label="Node Type: OTHER_ENTRYPOINT 7
+
+EXPRESSION:
+pause = false
+
+IRs:
+pause(bool) := False(bool)"];
+7->8;
+8[label="Node Type: OTHER_ENTRYPOINT 8
+
+EXPRESSION:
+counter_re_ent7 = 0
+
+IRs:
+counter_re_ent7(uint256) := 0(uint256)"];
+8->9;
+9[label="Node Type: OTHER_ENTRYPOINT 9
+
+EXPRESSION:
+counter_re_ent14 = 0
+
+IRs:
+counter_re_ent14(uint256) := 0(uint256)"];
+9->10;
+10[label="Node Type: OTHER_ENTRYPOINT 10
+
+EXPRESSION:
+counter_re_ent35 = 0
+
+IRs:
+counter_re_ent35(uint256) := 0(uint256)"];
+}

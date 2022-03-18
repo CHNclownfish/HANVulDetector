@@ -1,0 +1,228 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(value <= _balances[from])
+
+IRs:
+REF_135(uint256) -> _balances[from]
+TMP_190(bool) = value <= REF_135
+TMP_191(None) = SOLIDITY_CALL require(bool)(TMP_190)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(value <= _allowed[from][msg.sender])
+
+IRs:
+REF_136(mapping(address => uint256)) -> _allowed[from]
+REF_137(uint256) -> REF_136[msg.sender]
+TMP_192(bool) = value <= REF_137
+TMP_193(None) = SOLIDITY_CALL require(bool)(TMP_192)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+require(bool)(to != address(0))
+
+IRs:
+TMP_194 = CONVERT 0 to address
+TMP_195(bool) = to != TMP_194
+TMP_196(None) = SOLIDITY_CALL require(bool)(TMP_195)"];
+3->4;
+4[label="Node Type: IF 4
+
+EXPRESSION:
+value == 0
+
+IRs:
+TMP_197(bool) = value == 0
+CONDITION TMP_197"];
+4->5[label="True"];
+4->7[label="False"];
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+Transfer(from,to,0)
+
+IRs:
+Emit Transfer(from.to.0)"];
+5->6;
+6[label="Node Type: RETURN 6
+
+EXPRESSION:
+true
+
+IRs:
+RETURN True"];
+7[label="Node Type: END_IF 7
+"];
+7->8;
+8[label="Node Type: NEW VARIABLE 8
+
+EXPRESSION:
+tokensToTransfer = value
+
+IRs:
+tokensToTransfer(uint256) := value(uint256)"];
+8->9;
+9[label="Node Type: NEW VARIABLE 9
+
+EXPRESSION:
+tokensToBurn = 0
+
+IRs:
+tokensToBurn(uint256) := 0(uint256)"];
+9->10;
+10[label="Node Type: NEW VARIABLE 10
+
+EXPRESSION:
+tokensToDanPan = 0
+
+IRs:
+tokensToDanPan(uint256) := 0(uint256)"];
+10->11;
+11[label="Node Type: EXPRESSION 11
+
+EXPRESSION:
+_balances[from] = _balances[from].sub(value)
+
+IRs:
+REF_138(uint256) -> _balances[from]
+REF_139(uint256) -> _balances[from]
+TMP_199(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_139', 'value'] 
+REF_138 (->_balances) := TMP_199(uint256)"];
+11->12;
+12[label="Node Type: IF 12
+
+EXPRESSION:
+! _isWhitelisted(from,to)
+
+IRs:
+TMP_200(bool) = INTERNAL_CALL, DanPanCoin._isWhitelisted(address,address)(from,to)
+TMP_201 = ! TMP_200 
+CONDITION TMP_201"];
+12->13[label="True"];
+12->20[label="False"];
+13[label="Node Type: EXPRESSION 13
+
+EXPRESSION:
+tokensToBurn = findOnePercent(value)
+
+IRs:
+TMP_202(uint256) = INTERNAL_CALL, DanPanCoin.findOnePercent(uint256)(value)
+tokensToBurn(uint256) := TMP_202(uint256)"];
+13->14;
+14[label="Node Type: EXPRESSION 14
+
+EXPRESSION:
+tokensToDanPan = findDPPercent(value)
+
+IRs:
+TMP_203(uint256) = INTERNAL_CALL, DanPanCoin.findDPPercent(uint256)(value)
+tokensToDanPan(uint256) := TMP_203(uint256)"];
+14->15;
+15[label="Node Type: EXPRESSION 15
+
+EXPRESSION:
+tokensToTransfer = value.sub(tokensToBurn).sub(tokensToDanPan)
+
+IRs:
+TMP_204(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['value', 'tokensToBurn'] 
+TMP_205(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['TMP_204', 'tokensToDanPan'] 
+tokensToTransfer(uint256) := TMP_205(uint256)"];
+15->16;
+16[label="Node Type: EXPRESSION 16
+
+EXPRESSION:
+_totalSupply = _totalSupply.sub(tokensToBurn)
+
+IRs:
+TMP_206(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_totalSupply', 'tokensToBurn'] 
+_totalSupply(uint256) := TMP_206(uint256)"];
+16->17;
+17[label="Node Type: EXPRESSION 17
+
+EXPRESSION:
+Transfer(from,address(0),tokensToBurn)
+
+IRs:
+TMP_207 = CONVERT 0 to address
+Emit Transfer(from.TMP_207.tokensToBurn)"];
+17->18;
+18[label="Node Type: EXPRESSION 18
+
+EXPRESSION:
+_balances[DanPanAddress] = _balances[DanPanAddress].add(tokensToDanPan)
+
+IRs:
+REF_144(uint256) -> _balances[DanPanAddress]
+REF_145(uint256) -> _balances[DanPanAddress]
+TMP_209(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_145', 'tokensToDanPan'] 
+REF_144 (->_balances) := TMP_209(uint256)"];
+18->19;
+19[label="Node Type: EXPRESSION 19
+
+EXPRESSION:
+Transfer(from,DanPanAddress,tokensToDanPan)
+
+IRs:
+Emit Transfer(from.DanPanAddress.tokensToDanPan)"];
+19->20;
+20[label="Node Type: END_IF 20
+"];
+20->21;
+21[label="Node Type: EXPRESSION 21
+
+EXPRESSION:
+assert(bool)(tokensToBurn.add(tokensToTransfer).add(tokensToDanPan) == value)
+
+IRs:
+TMP_211(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['tokensToBurn', 'tokensToTransfer'] 
+TMP_212(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['TMP_211', 'tokensToDanPan'] 
+TMP_213(bool) = TMP_212 == value
+TMP_214(None) = SOLIDITY_CALL assert(bool)(TMP_213)"];
+21->22;
+22[label="Node Type: EXPRESSION 22
+
+EXPRESSION:
+_balances[to] = _balances[to].add(tokensToTransfer)
+
+IRs:
+REF_149(uint256) -> _balances[to]
+REF_150(uint256) -> _balances[to]
+TMP_215(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_150', 'tokensToTransfer'] 
+REF_149 (->_balances) := TMP_215(uint256)"];
+22->23;
+23[label="Node Type: EXPRESSION 23
+
+EXPRESSION:
+_allowed[from][msg.sender] = _allowed[from][msg.sender].sub(value)
+
+IRs:
+REF_152(mapping(address => uint256)) -> _allowed[from]
+REF_153(uint256) -> REF_152[msg.sender]
+REF_154(mapping(address => uint256)) -> _allowed[from]
+REF_155(uint256) -> REF_154[msg.sender]
+TMP_216(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_155', 'value'] 
+REF_153 (->_allowed) := TMP_216(uint256)"];
+23->24;
+24[label="Node Type: EXPRESSION 24
+
+EXPRESSION:
+Transfer(from,to,tokensToTransfer)
+
+IRs:
+Emit Transfer(from.to.tokensToTransfer)"];
+24->25;
+25[label="Node Type: RETURN 25
+
+EXPRESSION:
+true
+
+IRs:
+RETURN True"];
+}

@@ -1,0 +1,12 @@
+digraph G {
+bgcolor=transparent rankdir=UD;
+node [shape=box style=filled color=black fillcolor=white fontname=arial fontcolor=black];
+17 [label="17: PUSH1 0x00\l19: DUP1\l20: REVERT\l" fillcolor=lemonchiffon shape=Msquare color=crimson ];
+0 [label="0: PUSH1 0x80\l2: PUSH1 0x40\l4: MSTORE\l5: PUSH1 0x00\l7: PUSH1 0x03\l9: SSTORE\l10: CALLVALUE\l11: DUP1\l12: ISZERO\l13: PUSH2 0x0015\l16: JUMPI\l" fillcolor=lemonchiffon shape=Msquare fillcolor=gold ];
+100 [label="100: EXIT BLOCK\l" fillcolor=crimson ];
+21 [label="21: JUMPDEST\l22: POP\l23: CALLER\l24: PUSH1 0x00\l26: DUP1\l27: PUSH2 0x0100\l30: EXP\l31: DUP2\l32: SLOAD\l33: DUP2\l34: PUSH20 0xffffffffffffffffffffffffffffffffffffffff\l55: MUL\l56: NOT\l57: AND\l58: SWAP1\l59: DUP4\l60: PUSH20 0xffffffffffffffffffffffffffffffffffffffff\l81: AND\l82: MUL\l83: OR\l84: SWAP1\l85: SSTORE\l86: POP\l87: PUSH2 0x0798\l90: DUP1\l91: PUSH2 0x0065\l94: PUSH1 0x00\l96: CODECOPY\l97: PUSH1 0x00\l99: RETURN\l" shape=Msquare color=crimson ];
+0 -> 17;
+21 -> 100;
+17 -> 100;
+0 -> 21;
+}

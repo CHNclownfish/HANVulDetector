@@ -1,0 +1,22 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: RETURN 1
+
+EXPRESSION:
+keccak256()(abi.encode(EIP712DOMAIN_TYPEHASH,keccak256()(bytes(eip712Domain.name)),keccak256()(bytes(eip712Domain.version)),eip712Domain.chainId,eip712Domain.verifyingContract))
+
+IRs:
+REF_136(string) -> eip712Domain.name
+TMP_251 = CONVERT REF_136 to bytes
+TMP_252(bytes32) = SOLIDITY_CALL keccak256()(TMP_251)
+REF_137(string) -> eip712Domain.version
+TMP_253 = CONVERT REF_137 to bytes
+TMP_254(bytes32) = SOLIDITY_CALL keccak256()(TMP_253)
+REF_138(uint256) -> eip712Domain.chainId
+REF_139(address) -> eip712Domain.verifyingContract
+TMP_255(bytes) = SOLIDITY_CALL abi.encode()(EIP712DOMAIN_TYPEHASH,TMP_252,TMP_254,REF_138,REF_139)
+TMP_256(bytes32) = SOLIDITY_CALL keccak256()(TMP_255)
+RETURN TMP_256"];
+}

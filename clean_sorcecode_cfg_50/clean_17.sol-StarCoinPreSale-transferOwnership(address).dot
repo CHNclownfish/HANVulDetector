@@ -1,0 +1,28 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->2;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+super.transferOwnership(newOwner)
+
+IRs:
+INTERNAL_CALL, Ownable.transferOwnership(address)(newOwner)"];
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+onlyOwner()
+
+IRs:
+MODIFIER_CALL, Ownable.onlyOwner()()"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+icoEnded()
+
+IRs:
+MODIFIER_CALL, StarCoinPreSale.icoEnded()()"];
+3->1;
+}

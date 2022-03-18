@@ -1,0 +1,17 @@
+digraph{
+0[label="Node Type: OTHER_ENTRYPOINT 0
+
+EXPRESSION:
+totalAllocations = 30000
+
+IRs:
+totalAllocations(uint256) := 30000(uint256)"];
+0->1;
+1[label="Node Type: OTHER_ENTRYPOINT 1
+
+EXPRESSION:
+tokensCreated = 0
+
+IRs:
+tokensCreated(uint256) := 0(uint256)"];
+}

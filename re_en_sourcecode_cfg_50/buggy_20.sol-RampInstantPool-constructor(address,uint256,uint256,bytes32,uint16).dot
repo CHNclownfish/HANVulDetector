@@ -1,0 +1,60 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->6;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+swapsContract = _swapsContract
+
+IRs:
+swapsContract(address) := _swapsContract(address)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+paymentDetailsHash = _paymentDetailsHash
+
+IRs:
+paymentDetailsHash(bytes32) := _paymentDetailsHash(bytes32)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+minSwapAmount = _minSwapAmount
+
+IRs:
+minSwapAmount(uint256) := _minSwapAmount(uint256)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+maxSwapAmount = _maxSwapAmount
+
+IRs:
+maxSwapAmount(uint256) := _maxSwapAmount(uint256)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+ASSET_TYPE = _assetType
+
+IRs:
+ASSET_TYPE(uint16) := _assetType(uint16)"];
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+validateLimits(_minSwapAmount,_maxSwapAmount)
+
+IRs:
+MODIFIER_CALL, RampInstantPool.validateLimits(uint256,uint256)(_minSwapAmount,_maxSwapAmount)"];
+6->7;
+7[label="Node Type: EXPRESSION 7
+
+EXPRESSION:
+validateSwapsContract(_swapsContract,_assetType)
+
+IRs:
+MODIFIER_CALL, RampInstantPool.validateSwapsContract(address,uint16)(_swapsContract,_assetType)"];
+7->1;
+}

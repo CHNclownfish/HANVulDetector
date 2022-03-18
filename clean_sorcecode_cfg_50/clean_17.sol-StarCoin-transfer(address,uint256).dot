@@ -1,0 +1,21 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->2;
+1[label="Node Type: RETURN 1
+
+EXPRESSION:
+super.transfer(_to,_value)
+
+IRs:
+TMP_162(bool) = INTERNAL_CALL, BasicToken.transfer(address,uint256)(_to,_value)
+RETURN TMP_162"];
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+canTransfer(msg.sender)
+
+IRs:
+MODIFIER_CALL, StarCoin.canTransfer(address)(msg.sender)"];
+2->1;
+}

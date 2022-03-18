@@ -1,0 +1,7 @@
+digraph G {
+bgcolor=transparent rankdir=UD;
+node [shape=box style=filled color=black fillcolor=white fontname=arial fontcolor=black];
+82 [label="82: EXIT BLOCK\l" fillcolor=crimson ];
+0 [label="0: PUSH1 0x80\l2: PUSH1 0x40\l4: MSTORE\l5: CALLER\l6: PUSH1 0x00\l8: DUP1\l9: PUSH2 0x0100\l12: EXP\l13: DUP2\l14: SLOAD\l15: DUP2\l16: PUSH20 0xffffffffffffffffffffffffffffffffffffffff\l37: MUL\l38: NOT\l39: AND\l40: SWAP1\l41: DUP4\l42: PUSH20 0xffffffffffffffffffffffffffffffffffffffff\l63: AND\l64: MUL\l65: OR\l66: SWAP1\l67: SSTORE\l68: POP\l69: PUSH2 0x0907\l72: DUP1\l73: PUSH2 0x0053\l76: PUSH1 0x00\l78: CODECOPY\l79: PUSH1 0x00\l81: RETURN\l" shape=Msquare fillcolor=gold ];
+0 -> 82;
+}

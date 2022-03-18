@@ -1,0 +1,25 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool,string)(_value == 0 || allowance(msg.sender,_spender) == 0,Use increaseApproval or decreaseApproval to prevent double-spend.)
+
+IRs:
+TMP_185(bool) = _value == 0
+TMP_186(uint256) = INTERNAL_CALL, ERC20.allowance(address,address)(msg.sender,_spender)
+TMP_187(bool) = TMP_186 == 0
+TMP_188(bool) = TMP_185 || TMP_187
+TMP_189(None) = SOLIDITY_CALL require(bool,string)(TMP_188,Use increaseApproval or decreaseApproval to prevent double-spend.)"];
+1->2;
+2[label="Node Type: RETURN 2
+
+EXPRESSION:
+ERC20.approve(_spender,_value)
+
+IRs:
+TMP_190(bool) = INTERNAL_CALL, ERC20.approve(address,uint256)(_spender,_value)
+RETURN TMP_190"];
+}

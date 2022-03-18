@@ -1,0 +1,31 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+fillResults = fillOrderInternal(order,takerAssetFillAmount,signature)
+
+IRs:
+TMP_541(LibFillResults.FillResults) = INTERNAL_CALL, MExchangeCore.fillOrderInternal(LibOrder.Order,uint256,bytes)(order,takerAssetFillAmount,signature)
+fillResults(LibFillResults.FillResults) := TMP_541(LibFillResults.FillResults)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool,string)(fillResults.takerAssetFilledAmount == takerAssetFillAmount,COMPLETE_FILL_FAILED)
+
+IRs:
+REF_269(uint256) -> fillResults.takerAssetFilledAmount
+TMP_542(bool) = REF_269 == takerAssetFillAmount
+TMP_543(None) = SOLIDITY_CALL require(bool,string)(TMP_542,COMPLETE_FILL_FAILED)"];
+2->3;
+3[label="Node Type: RETURN 3
+
+EXPRESSION:
+fillResults
+
+IRs:
+RETURN fillResults"];
+}

@@ -1,0 +1,120 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->14;
+1[label="Node Type: IF 1
+
+EXPRESSION:
+_value == 0 && ! _isReissuable
+
+IRs:
+TMP_103(bool) = _value == 0
+TMP_104 = ! _isReissuable 
+TMP_105(bool) = TMP_103 && TMP_104
+CONDITION TMP_105"];
+1->2[label="True"];
+1->4[label="False"];
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+_error(Cannot issue 0 value fixed asset)
+
+IRs:
+INTERNAL_CALL, EToken2._error(bytes32)(Cannot issue 0 value fixed asset)"];
+2->3;
+3[label="Node Type: RETURN 3
+
+EXPRESSION:
+false
+
+IRs:
+RETURN False"];
+4[label="Node Type: END_IF 4
+"];
+4->5;
+5[label="Node Type: IF 5
+
+EXPRESSION:
+isCreated(_symbol)
+
+IRs:
+TMP_107(bool) = INTERNAL_CALL, EToken2.isCreated(bytes32)(_symbol)
+CONDITION TMP_107"];
+5->6[label="True"];
+5->8[label="False"];
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+_error(Asset already issued)
+
+IRs:
+INTERNAL_CALL, EToken2._error(bytes32)(Asset already issued)"];
+6->7;
+7[label="Node Type: RETURN 7
+
+EXPRESSION:
+false
+
+IRs:
+RETURN False"];
+8[label="Node Type: END_IF 8
+"];
+8->9;
+9[label="Node Type: NEW VARIABLE 9
+
+EXPRESSION:
+holderId = _createHolderId(msg.sender)
+
+IRs:
+TMP_109(uint256) = INTERNAL_CALL, EToken2._createHolderId(address)(msg.sender)
+holderId(uint256) := TMP_109(uint256)"];
+9->10;
+10[label="Node Type: EXPRESSION 10
+
+EXPRESSION:
+assets[_symbol] = Asset(holderId,_value,_name,_description,_isReissuable,_baseUnit,false)
+
+IRs:
+REF_69(EToken2.Asset) -> assets[_symbol]
+TMP_110 = new Asset(holderId,_value,_name,_description,_isReissuable,_baseUnit,False)
+REF_69 (->assets) := TMP_110(EToken2.Asset)"];
+10->11;
+11[label="Node Type: EXPRESSION 11
+
+EXPRESSION:
+assets[_symbol].wallets[holderId].balance = _value
+
+IRs:
+REF_70(EToken2.Asset) -> assets[_symbol]
+REF_71(mapping(uint256 => EToken2.Wallet)) -> REF_70.wallets
+REF_72(EToken2.Wallet) -> REF_71[holderId]
+REF_73(uint256) -> REF_72.balance
+REF_73 (->assets) := _value(uint256)"];
+11->12;
+12[label="Node Type: EXPRESSION 12
+
+EXPRESSION:
+eventsHistory.emitIssue(_symbol,_value,_address(holderId))
+
+IRs:
+TMP_111(address) = INTERNAL_CALL, EToken2._address(uint256)(holderId)
+HIGH_LEVEL_CALL, dest:eventsHistory(Emitter), function:emitIssue, arguments:['_symbol', '_value', 'TMP_111']  "];
+12->13;
+13[label="Node Type: RETURN 13
+
+EXPRESSION:
+true
+
+IRs:
+RETURN True"];
+14[label="Node Type: EXPRESSION 14
+
+EXPRESSION:
+checkEnabledSwitch(sha3()(_symbol,_isReissuable,Features.Issue))
+
+IRs:
+REF_75(EToken2.Features) -> Features.Issue
+TMP_113(bytes32) = SOLIDITY_CALL sha3()(_symbol,_isReissuable,REF_75)
+MODIFIER_CALL, EToken2.checkEnabledSwitch(bytes32)(TMP_113)"];
+14->1;
+}

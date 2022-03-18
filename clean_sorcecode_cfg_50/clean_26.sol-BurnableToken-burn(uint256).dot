@@ -1,0 +1,40 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+burner = msg.sender
+
+IRs:
+burner(address) := msg.sender(address)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+balances[burner] = safeSub(balances[burner],burnAmount)
+
+IRs:
+REF_38(uint256) -> balances[burner]
+REF_39(uint256) -> balances[burner]
+TMP_103(uint256) = INTERNAL_CALL, SafeMath.safeSub(uint256,uint256)(REF_39,burnAmount)
+REF_38 (->balances) := TMP_103(uint256)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+totalSupply = safeSub(totalSupply,burnAmount)
+
+IRs:
+TMP_104(uint256) = INTERNAL_CALL, SafeMath.safeSub(uint256,uint256)(totalSupply,burnAmount)
+totalSupply(uint256) := TMP_104(uint256)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+Burned(burner,burnAmount)
+
+IRs:
+Emit Burned(burner.burnAmount)"];
+}

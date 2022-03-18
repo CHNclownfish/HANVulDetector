@@ -1,0 +1,33 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+_txDataHash = keccak256()(abi.encode(_signatureDigest,_sender))
+
+IRs:
+TMP_8(bytes) = SOLIDITY_CALL abi.encode()(_signatureDigest,_sender)
+TMP_9(bytes32) = SOLIDITY_CALL keccak256()(TMP_8)
+_txDataHash(bytes32) := TMP_9(bytes32)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool,string)(! usedSignatures[_txDataHash],Signature not unique)
+
+IRs:
+REF_2(bool) -> usedSignatures[_txDataHash]
+TMP_10 = ! REF_2 
+TMP_11(None) = SOLIDITY_CALL require(bool,string)(TMP_10,Signature not unique)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+usedSignatures[_txDataHash] = true
+
+IRs:
+REF_3(bool) -> usedSignatures[_txDataHash]
+REF_3 (->usedSignatures) := True(bool)"];
+}

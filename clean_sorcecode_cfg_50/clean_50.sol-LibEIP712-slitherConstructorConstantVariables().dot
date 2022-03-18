@@ -1,0 +1,35 @@
+digraph{
+0[label="Node Type: OTHER_ENTRYPOINT 0
+
+EXPRESSION:
+EIP191_HEADER = 
+
+IRs:
+EIP191_HEADER(string) := (string)"];
+0->1;
+1[label="Node Type: OTHER_ENTRYPOINT 1
+
+EXPRESSION:
+EIP712_DOMAIN_NAME = 0x Protocol
+
+IRs:
+EIP712_DOMAIN_NAME(string) := 0x Protocol(string)"];
+1->2;
+2[label="Node Type: OTHER_ENTRYPOINT 2
+
+EXPRESSION:
+EIP712_DOMAIN_VERSION = 2
+
+IRs:
+EIP712_DOMAIN_VERSION(string) := 2(string)"];
+2->3;
+3[label="Node Type: OTHER_ENTRYPOINT 3
+
+EXPRESSION:
+EIP712_DOMAIN_SEPARATOR_SCHEMA_HASH = keccak256()(abi.encodePacked(EIP712Domain(,string name,,string version,,address verifyingContract,)))
+
+IRs:
+TMP_93(bytes) = SOLIDITY_CALL abi.encodePacked()(EIP712Domain(,string name,,string version,,address verifyingContract,))
+TMP_94(bytes32) = SOLIDITY_CALL keccak256()(TMP_93)
+EIP712_DOMAIN_SEPARATOR_SCHEMA_HASH(bytes32) := TMP_94(bytes32)"];
+}

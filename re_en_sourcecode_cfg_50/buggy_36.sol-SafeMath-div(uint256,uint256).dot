@@ -1,0 +1,30 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool,string)(b > 0,Safe div error)
+
+IRs:
+TMP_61(bool) = b > 0
+TMP_62(None) = SOLIDITY_CALL require(bool,string)(TMP_61,Safe div error)"];
+1->2;
+2[label="Node Type: NEW VARIABLE 2
+
+EXPRESSION:
+c = a / b
+
+IRs:
+TMP_63(uint256) = a / b
+c(uint256) := TMP_63(uint256)"];
+2->3;
+3[label="Node Type: RETURN 3
+
+EXPRESSION:
+c
+
+IRs:
+RETURN c"];
+}

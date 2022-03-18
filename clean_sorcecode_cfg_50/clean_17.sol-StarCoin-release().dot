@@ -1,0 +1,28 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->2;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+released = true
+
+IRs:
+released(bool) := True(bool)"];
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+onlyReleaseAgent()
+
+IRs:
+MODIFIER_CALL, StarCoin.onlyReleaseAgent()()"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+inReleaseState(false)
+
+IRs:
+MODIFIER_CALL, StarCoin.inReleaseState(bool)(False)"];
+3->1;
+}

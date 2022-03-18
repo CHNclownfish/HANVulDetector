@@ -1,0 +1,39 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->3;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(now > ico_fourth)
+
+IRs:
+TMP_177(bool) = now > ico_fourth
+TMP_178(None) = SOLIDITY_CALL require(bool)(TMP_177)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+stage = Stages.ENDED
+
+IRs:
+REF_49(SocialActivityToken.Stages) -> Stages.ENDED
+stage(SocialActivityToken.Stages) := REF_49(SocialActivityToken.Stages)"];
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+onlyOwner()
+
+IRs:
+MODIFIER_CALL, SocialActivityToken.onlyOwner()()"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+atStage(Stages.ICO)
+
+IRs:
+REF_50(SocialActivityToken.Stages) -> Stages.ICO
+MODIFIER_CALL, SocialActivityToken.atStage(SocialActivityToken.Stages)(REF_50)"];
+4->1;
+}

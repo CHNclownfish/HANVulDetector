@@ -1,0 +1,13 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: RETURN 1
+
+EXPRESSION:
+_MAXIMUM_TARGET.div(miningTarget)
+
+IRs:
+TMP_223(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['_MAXIMUM_TARGET', 'miningTarget'] 
+RETURN TMP_223"];
+}

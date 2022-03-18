@@ -1,0 +1,36 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: IF 1
+
+EXPRESSION:
+! released
+
+IRs:
+TMP_335 = ! released 
+CONDITION TMP_335"];
+1->2[label="True"];
+1->5[label="False"];
+2[label="Node Type: IF 2
+
+EXPRESSION:
+! transferAgents[_sender]
+
+IRs:
+REF_120(bool) -> transferAgents[_sender]
+TMP_336 = ! REF_120 
+CONDITION TMP_336"];
+2->3[label="True"];
+2->4[label="False"];
+3[label="Node Type: THROW 3
+"];
+4[label="Node Type: END_IF 4
+"];
+4->5;
+5[label="Node Type: END_IF 5
+"];
+5->6;
+6[label="Node Type: _ 6
+"];
+}

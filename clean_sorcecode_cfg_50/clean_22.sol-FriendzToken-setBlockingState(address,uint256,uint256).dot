@@ -1,0 +1,100 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->11;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(msg.sender == owner || msg.sender == co_owner)
+
+IRs:
+TMP_113(bool) = msg.sender == owner
+TMP_114(bool) = msg.sender == co_owner
+TMP_115(bool) = TMP_113 || TMP_114
+TMP_116(None) = SOLIDITY_CALL require(bool)(TMP_115)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(_addr != address(0))
+
+IRs:
+TMP_117 = CONVERT 0 to address
+TMP_118(bool) = _addr != TMP_117
+TMP_119(None) = SOLIDITY_CALL require(bool)(TMP_118)"];
+2->3;
+3[label="Node Type: NEW VARIABLE 3
+
+EXPRESSION:
+final_value = _value
+
+IRs:
+final_value(uint256) := _value(uint256)"];
+3->4;
+4[label="Node Type: IF 4
+
+EXPRESSION:
+release_dates[_addr] != 0x0
+
+IRs:
+REF_48(uint256) -> release_dates[_addr]
+TMP_120(bool) = REF_48 != 0
+CONDITION TMP_120"];
+4->5[label="True"];
+4->6[label="False"];
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+final_value = blocked_amounts[_addr].add(_value)
+
+IRs:
+REF_49(uint256) -> blocked_amounts[_addr]
+TMP_121(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_49', '_value'] 
+final_value(uint256) := TMP_121(uint256)"];
+5->6;
+6[label="Node Type: END_IF 6
+"];
+6->7;
+7[label="Node Type: EXPRESSION 7
+
+EXPRESSION:
+release_dates[_addr] = _end
+
+IRs:
+REF_51(uint256) -> release_dates[_addr]
+REF_51 (->release_dates) := _end(uint256)"];
+7->8;
+8[label="Node Type: EXPRESSION 8
+
+EXPRESSION:
+purchase_dates[_addr] = RELEASE_DATE
+
+IRs:
+REF_52(uint256) -> purchase_dates[_addr]
+REF_52 (->purchase_dates) := RELEASE_DATE(uint256)"];
+8->9;
+9[label="Node Type: EXPRESSION 9
+
+EXPRESSION:
+blocked_amounts[_addr] = final_value
+
+IRs:
+REF_53(uint256) -> blocked_amounts[_addr]
+REF_53 (->blocked_amounts) := final_value(uint256)"];
+9->10;
+10[label="Node Type: EXPRESSION 10
+
+EXPRESSION:
+UpdatedBlockingState(_addr,_end,RELEASE_DATE,final_value)
+
+IRs:
+Emit UpdatedBlockingState(_addr._end.RELEASE_DATE.final_value)"];
+11[label="Node Type: EXPRESSION 11
+
+EXPRESSION:
+isBlockingTransfer()
+
+IRs:
+MODIFIER_CALL, FriendzToken.isBlockingTransfer()()"];
+11->1;
+}

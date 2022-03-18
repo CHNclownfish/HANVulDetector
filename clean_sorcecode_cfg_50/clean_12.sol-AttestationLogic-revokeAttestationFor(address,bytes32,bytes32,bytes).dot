@@ -1,0 +1,20 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+validateRevokeForSig(_sender,_link,_nonce,_delegationSig)
+
+IRs:
+INTERNAL_CALL, AttestationLogic.validateRevokeForSig(address,bytes32,bytes32,bytes)(_sender,_link,_nonce,_delegationSig)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+revokeAttestationForUser(_link,_sender)
+
+IRs:
+INTERNAL_CALL, AttestationLogic.revokeAttestationForUser(bytes32,address)(_link,_sender)"];
+}

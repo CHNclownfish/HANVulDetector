@@ -1,0 +1,35 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+allowed[account][msg.sender] = safeSub(allowed[account][msg.sender],value)
+
+IRs:
+REF_44(mapping(address => uint256)) -> allowed[account]
+REF_45(uint256) -> REF_44[msg.sender]
+REF_46(mapping(address => uint256)) -> allowed[account]
+REF_47(uint256) -> REF_46[msg.sender]
+TMP_128(uint256) = INTERNAL_CALL, SafeMath.safeSub(uint256,uint256)(REF_47,value)
+REF_45 (->allowed) := TMP_128(uint256)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+_burn(account,value)
+
+IRs:
+INTERNAL_CALL, FCS._burn(address,uint256)(account,value)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+Approval(account,msg.sender,allowed[account][msg.sender])
+
+IRs:
+REF_48(mapping(address => uint256)) -> allowed[account]
+REF_49(uint256) -> REF_48[msg.sender]
+Emit Approval(account.msg.sender.REF_49)"];
+}

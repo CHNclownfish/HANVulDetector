@@ -1,0 +1,70 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: IF 1
+
+EXPRESSION:
+ieoState == State.halted
+
+IRs:
+REF_199(AcunarIEO.State) -> State.halted
+TMP_246(bool) = ieoState == REF_199
+CONDITION TMP_246"];
+1->2[label="True"];
+1->3[label="False"];
+2[label="Node Type: RETURN 2
+
+EXPRESSION:
+State.halted
+
+IRs:
+REF_200(AcunarIEO.State) -> State.halted
+RETURN REF_200"];
+3[label="Node Type: IF 3
+
+EXPRESSION:
+block.timestamp < saleStart
+
+IRs:
+TMP_247(bool) = block.timestamp < saleStart
+CONDITION TMP_247"];
+3->4[label="True"];
+3->5[label="False"];
+4[label="Node Type: RETURN 4
+
+EXPRESSION:
+State.beforeStart
+
+IRs:
+REF_201(AcunarIEO.State) -> State.beforeStart
+RETURN REF_201"];
+5[label="Node Type: IF 5
+
+EXPRESSION:
+block.timestamp >= saleStart && block.timestamp <= saleEnd
+
+IRs:
+TMP_248(bool) = block.timestamp >= saleStart
+TMP_249(bool) = block.timestamp <= saleEnd
+TMP_250(bool) = TMP_248 && TMP_249
+CONDITION TMP_250"];
+5->6[label="True"];
+5->7[label="False"];
+6[label="Node Type: RETURN 6
+
+EXPRESSION:
+State.running
+
+IRs:
+REF_202(AcunarIEO.State) -> State.running
+RETURN REF_202"];
+7[label="Node Type: RETURN 7
+
+EXPRESSION:
+State.afterEnd
+
+IRs:
+REF_203(AcunarIEO.State) -> State.afterEnd
+RETURN REF_203"];
+}

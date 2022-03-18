@@ -1,0 +1,18 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool,string)(_amount >= minSwapAmount && _amount <= maxSwapAmount,amount outside swap limits)
+
+IRs:
+TMP_165(bool) = _amount >= minSwapAmount
+TMP_166(bool) = _amount <= maxSwapAmount
+TMP_167(bool) = TMP_165 && TMP_166
+TMP_168(None) = SOLIDITY_CALL require(bool,string)(TMP_167,amount outside swap limits)"];
+1->2;
+2[label="Node Type: _ 2
+"];
+}

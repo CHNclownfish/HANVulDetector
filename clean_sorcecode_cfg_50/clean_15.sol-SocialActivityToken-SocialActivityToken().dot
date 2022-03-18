@@ -1,0 +1,66 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+owner = msg.sender
+
+IRs:
+owner(address) := msg.sender(address)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+balances[owner] = 350000000 * (uint256(10) ** decimals)
+
+IRs:
+REF_0(uint256) -> balances[owner]
+TMP_12 = CONVERT 10 to uint256
+TMP_13(uint256) = TMP_12 ** decimals
+TMP_14(uint256) = 350000000 * TMP_13
+REF_0 (->balances) := TMP_14(uint256)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+balances[address(this)] = 650000000 * (uint256(10) ** decimals)
+
+IRs:
+TMP_15 = CONVERT this to address
+REF_1(uint256) -> balances[TMP_15]
+TMP_16 = CONVERT 10 to uint256
+TMP_17(uint256) = TMP_16 ** decimals
+TMP_18(uint256) = 650000000 * TMP_17
+REF_1 (->balances) := TMP_18(uint256)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+stage = Stages.NOTSTARTED
+
+IRs:
+REF_2(SocialActivityToken.Stages) -> Stages.NOTSTARTED
+stage(SocialActivityToken.Stages) := REF_2(SocialActivityToken.Stages)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+Transfer(0,owner,balances[owner])
+
+IRs:
+REF_3(uint256) -> balances[owner]
+Emit Transfer(0.owner.REF_3)"];
+5->6;
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+Transfer(0,address(this),balances[address(this)])
+
+IRs:
+TMP_20 = CONVERT this to address
+TMP_21 = CONVERT this to address
+REF_4(uint256) -> balances[TMP_21]
+Emit Transfer(0.TMP_20.REF_4)"];
+}

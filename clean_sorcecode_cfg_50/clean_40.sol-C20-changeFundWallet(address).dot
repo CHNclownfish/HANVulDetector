@@ -1,0 +1,30 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->3;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(newFundWallet != address(0))
+
+IRs:
+TMP_248 = CONVERT 0 to address
+TMP_249(bool) = newFundWallet != TMP_248
+TMP_250(None) = SOLIDITY_CALL require(bool)(TMP_249)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+fundWallet = newFundWallet
+
+IRs:
+fundWallet(address) := newFundWallet(address)"];
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+onlyFundWallet()
+
+IRs:
+MODIFIER_CALL, C20.onlyFundWallet()()"];
+3->1;
+}

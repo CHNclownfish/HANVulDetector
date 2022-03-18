@@ -1,0 +1,16 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(isPauser(msg.sender))
+
+IRs:
+TMP_147(bool) = INTERNAL_CALL, PauserRole.isPauser(address)(msg.sender)
+TMP_148(None) = SOLIDITY_CALL require(bool)(TMP_147)"];
+1->2;
+2[label="Node Type: _ 2
+"];
+}

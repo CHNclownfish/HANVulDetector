@@ -1,0 +1,57 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->6;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+inviteAddress = signingLogic.recoverSigner(keccak256()(abi.encodePacked(msg.sender)),_sig)
+
+IRs:
+TMP_28(bytes) = SOLIDITY_CALL abi.encodePacked()(msg.sender)
+TMP_29(bytes32) = SOLIDITY_CALL keccak256()(TMP_28)
+TMP_30(address) = HIGH_LEVEL_CALL, dest:signingLogic(SigningLogicInterface), function:recoverSigner, arguments:['TMP_29', '_sig']  
+inviteAddress(address) := TMP_30(address)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(pendingInvites[inviteAddress])
+
+IRs:
+REF_6(bool) -> pendingInvites[inviteAddress]
+TMP_31(None) = SOLIDITY_CALL require(bool)(REF_6)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+pendingInvites[inviteAddress] = false
+
+IRs:
+REF_7(bool) -> pendingInvites[inviteAddress]
+REF_7 (->pendingInvites) := False(bool)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+createAccountForUser(msg.sender)
+
+IRs:
+INTERNAL_CALL, AccountRegistryLogic.createAccountForUser(address)(msg.sender)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+InviteAccepted(msg.sender,inviteAddress)
+
+IRs:
+Emit InviteAccepted(msg.sender.inviteAddress)"];
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+onlyNonUser()
+
+IRs:
+MODIFIER_CALL, AccountRegistryLogic.onlyNonUser()()"];
+6->1;
+}

@@ -1,0 +1,21 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool,string)(Operated.isActiveOperator(msg.sender),only active operator)
+
+IRs:
+TMP_308(bool) = INTERNAL_CALL, Operated.isActiveOperator(address)(msg.sender)
+TMP_309(None) = SOLIDITY_CALL require(bool,string)(TMP_308,only active operator)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+Operated._transferOperator(operator)
+
+IRs:
+INTERNAL_CALL, Operated._transferOperator(address)(operator)"];
+}

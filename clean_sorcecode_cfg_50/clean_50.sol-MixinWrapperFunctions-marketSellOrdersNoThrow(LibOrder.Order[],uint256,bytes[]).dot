@@ -1,0 +1,120 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+takerAssetData = orders[0].takerAssetData
+
+IRs:
+REF_229(LibOrder.Order) -> orders[0]
+REF_230(bytes) -> REF_229.takerAssetData
+takerAssetData(bytes) := REF_230(bytes)"];
+1->2;
+2[label="Node Type: NEW VARIABLE 2
+
+EXPRESSION:
+ordersLength = orders.length
+
+IRs:
+REF_231 -> LENGTH orders
+ordersLength(uint256) := REF_231(uint256)"];
+2->5;
+3[label="Node Type: BEGIN_LOOP 3
+"];
+3->6;
+4[label="Node Type: END_LOOP 4
+"];
+4->15;
+5[label="Node Type: NEW VARIABLE 5
+
+EXPRESSION:
+i = 0
+
+IRs:
+i(uint256) := 0(uint256)"];
+5->3;
+6[label="Node Type: IF_LOOP 6
+
+EXPRESSION:
+i != ordersLength
+
+IRs:
+TMP_511(bool) = i != ordersLength
+CONDITION TMP_511"];
+6->7[label="True"];
+6->4[label="False"];
+7[label="Node Type: EXPRESSION 7
+
+EXPRESSION:
+orders[i].takerAssetData = takerAssetData
+
+IRs:
+REF_232(LibOrder.Order) -> orders[i]
+REF_233(bytes) -> REF_232.takerAssetData
+REF_233 (->orders) := takerAssetData(bytes)"];
+7->8;
+8[label="Node Type: NEW VARIABLE 8
+
+EXPRESSION:
+remainingTakerAssetFillAmount = safeSub(takerAssetFillAmount,totalFillResults.takerAssetFilledAmount)
+
+IRs:
+REF_234(uint256) -> totalFillResults.takerAssetFilledAmount
+TMP_512(uint256) = INTERNAL_CALL, SafeMath.safeSub(uint256,uint256)(takerAssetFillAmount,REF_234)
+remainingTakerAssetFillAmount(uint256) := TMP_512(uint256)"];
+8->9;
+9[label="Node Type: NEW VARIABLE 9
+
+EXPRESSION:
+singleFillResults = fillOrderNoThrow(orders[i],remainingTakerAssetFillAmount,signatures[i])
+
+IRs:
+REF_235(LibOrder.Order) -> orders[i]
+REF_236(bytes) -> signatures[i]
+TMP_513(LibFillResults.FillResults) = INTERNAL_CALL, MixinWrapperFunctions.fillOrderNoThrow(LibOrder.Order,uint256,bytes)(REF_235,remainingTakerAssetFillAmount,REF_236)
+singleFillResults(LibFillResults.FillResults) := TMP_513(LibFillResults.FillResults)"];
+9->10;
+10[label="Node Type: EXPRESSION 10
+
+EXPRESSION:
+addFillResults(totalFillResults,singleFillResults)
+
+IRs:
+INTERNAL_CALL, LibFillResults.addFillResults(LibFillResults.FillResults,LibFillResults.FillResults)(totalFillResults,singleFillResults)"];
+10->11;
+11[label="Node Type: IF 11
+
+EXPRESSION:
+totalFillResults.takerAssetFilledAmount >= takerAssetFillAmount
+
+IRs:
+REF_237(uint256) -> totalFillResults.takerAssetFilledAmount
+TMP_515(bool) = REF_237 >= takerAssetFillAmount
+CONDITION TMP_515"];
+11->12[label="True"];
+11->13[label="False"];
+12[label="Node Type: BREAK 12
+"];
+12->4;
+13[label="Node Type: END_IF 13
+"];
+13->14;
+14[label="Node Type: EXPRESSION 14
+
+EXPRESSION:
+i ++
+
+IRs:
+TMP_516(uint256) := i(uint256)
+i(uint256) = i + 1"];
+14->6;
+15[label="Node Type: RETURN 15
+
+EXPRESSION:
+totalFillResults
+
+IRs:
+RETURN totalFillResults"];
+}

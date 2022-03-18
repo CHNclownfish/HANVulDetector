@@ -1,0 +1,29 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->3;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+fillResults = fillOrderInternal(order,takerAssetFillAmount,signature)
+
+IRs:
+TMP_286(LibFillResults.FillResults) = INTERNAL_CALL, MixinExchangeCore.fillOrderInternal(LibOrder.Order,uint256,bytes)(order,takerAssetFillAmount,signature)
+fillResults(LibFillResults.FillResults) := TMP_286(LibFillResults.FillResults)"];
+1->2;
+2[label="Node Type: RETURN 2
+
+EXPRESSION:
+fillResults
+
+IRs:
+RETURN fillResults"];
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+nonReentrant()
+
+IRs:
+MODIFIER_CALL, ReentrancyGuard.nonReentrant()()"];
+3->1;
+}

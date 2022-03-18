@@ -1,0 +1,405 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool,string)(signature.length > 0,LENGTH_GREATER_THAN_0_REQUIRED)
+
+IRs:
+REF_164 -> LENGTH signature
+TMP_374(bool) = REF_164 > 0
+TMP_375(None) = SOLIDITY_CALL require(bool,string)(TMP_374,LENGTH_GREATER_THAN_0_REQUIRED)"];
+1->2;
+2[label="Node Type: NEW VARIABLE 2
+
+EXPRESSION:
+signatureTypeRaw = uint8(signature.popLastByte())
+
+IRs:
+TMP_376(bytes1) = LIBRARY_CALL, dest:LibBytes, function:LibBytes.popLastByte(bytes), arguments:['signature'] 
+TMP_377 = CONVERT TMP_376 to uint8
+signatureTypeRaw(uint8) := TMP_377(uint8)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+require(bool,string)(signatureTypeRaw < uint8(SignatureType.NSignatureTypes),SIGNATURE_UNSUPPORTED)
+
+IRs:
+REF_166(MSignatureValidator.SignatureType) -> SignatureType.NSignatureTypes
+TMP_378 = CONVERT REF_166 to uint8
+TMP_379(bool) = signatureTypeRaw < TMP_378
+TMP_380(None) = SOLIDITY_CALL require(bool,string)(TMP_379,SIGNATURE_UNSUPPORTED)"];
+3->4;
+4[label="Node Type: NEW VARIABLE 4
+
+EXPRESSION:
+signatureType = MSignatureValidator.SignatureType(signatureTypeRaw)
+
+IRs:
+TMP_381 = CONVERT signatureTypeRaw to MSignatureValidator.SignatureType
+signatureType(MSignatureValidator.SignatureType) := TMP_381(MSignatureValidator.SignatureType)"];
+4->5;
+5[label="Node Type: NEW VARIABLE 5
+"];
+5->6;
+6[label="Node Type: NEW VARIABLE 6
+"];
+6->7;
+7[label="Node Type: NEW VARIABLE 7
+"];
+7->8;
+8[label="Node Type: NEW VARIABLE 8
+"];
+8->9;
+9[label="Node Type: IF 9
+
+EXPRESSION:
+signatureType == SignatureType.Illegal
+
+IRs:
+REF_167(MSignatureValidator.SignatureType) -> SignatureType.Illegal
+TMP_382(bool) = signatureType == REF_167
+CONDITION TMP_382"];
+9->10[label="True"];
+9->11[label="False"];
+10[label="Node Type: EXPRESSION 10
+
+EXPRESSION:
+revert(string)(SIGNATURE_ILLEGAL)
+
+IRs:
+TMP_383(None) = SOLIDITY_CALL revert(string)(SIGNATURE_ILLEGAL)"];
+10->50;
+11[label="Node Type: IF 11
+
+EXPRESSION:
+signatureType == SignatureType.Invalid
+
+IRs:
+REF_168(MSignatureValidator.SignatureType) -> SignatureType.Invalid
+TMP_384(bool) = signatureType == REF_168
+CONDITION TMP_384"];
+11->12[label="True"];
+11->15[label="False"];
+12[label="Node Type: EXPRESSION 12
+
+EXPRESSION:
+require(bool,string)(signature.length == 0,LENGTH_0_REQUIRED)
+
+IRs:
+REF_169 -> LENGTH signature
+TMP_385(bool) = REF_169 == 0
+TMP_386(None) = SOLIDITY_CALL require(bool,string)(TMP_385,LENGTH_0_REQUIRED)"];
+12->13;
+13[label="Node Type: EXPRESSION 13
+
+EXPRESSION:
+isValid = false
+
+IRs:
+isValid(bool) := False(bool)"];
+13->14;
+14[label="Node Type: RETURN 14
+
+EXPRESSION:
+isValid
+
+IRs:
+RETURN isValid"];
+15[label="Node Type: IF 15
+
+EXPRESSION:
+signatureType == SignatureType.EIP712
+
+IRs:
+REF_170(MSignatureValidator.SignatureType) -> SignatureType.EIP712
+TMP_387(bool) = signatureType == REF_170
+CONDITION TMP_387"];
+15->16[label="True"];
+15->23[label="False"];
+16[label="Node Type: EXPRESSION 16
+
+EXPRESSION:
+require(bool,string)(signature.length == 65,LENGTH_65_REQUIRED)
+
+IRs:
+REF_171 -> LENGTH signature
+TMP_388(bool) = REF_171 == 65
+TMP_389(None) = SOLIDITY_CALL require(bool,string)(TMP_388,LENGTH_65_REQUIRED)"];
+16->17;
+17[label="Node Type: EXPRESSION 17
+
+EXPRESSION:
+v = uint8(signature[0])
+
+IRs:
+REF_172(None) -> signature[0]
+TMP_390 = CONVERT REF_172 to uint8
+v(uint8) := TMP_390(uint8)"];
+17->18;
+18[label="Node Type: EXPRESSION 18
+
+EXPRESSION:
+r = signature.readBytes32(1)
+
+IRs:
+TMP_391(bytes32) = LIBRARY_CALL, dest:LibBytes, function:LibBytes.readBytes32(bytes,uint256), arguments:['signature', '1'] 
+r(bytes32) := TMP_391(bytes32)"];
+18->19;
+19[label="Node Type: EXPRESSION 19
+
+EXPRESSION:
+s = signature.readBytes32(33)
+
+IRs:
+TMP_392(bytes32) = LIBRARY_CALL, dest:LibBytes, function:LibBytes.readBytes32(bytes,uint256), arguments:['signature', '33'] 
+s(bytes32) := TMP_392(bytes32)"];
+19->20;
+20[label="Node Type: EXPRESSION 20
+
+EXPRESSION:
+recovered = ecrecover(bytes32,uint8,bytes32,bytes32)(hash,v,r,s)
+
+IRs:
+TMP_393(address) = SOLIDITY_CALL ecrecover(bytes32,uint8,bytes32,bytes32)(hash,v,r,s)
+recovered(address) := TMP_393(address)"];
+20->21;
+21[label="Node Type: EXPRESSION 21
+
+EXPRESSION:
+isValid = signerAddress == recovered
+
+IRs:
+TMP_394(bool) = signerAddress == recovered
+isValid(bool) := TMP_394(bool)"];
+21->22;
+22[label="Node Type: RETURN 22
+
+EXPRESSION:
+isValid
+
+IRs:
+RETURN isValid"];
+23[label="Node Type: IF 23
+
+EXPRESSION:
+signatureType == SignatureType.EthSign
+
+IRs:
+REF_175(MSignatureValidator.SignatureType) -> SignatureType.EthSign
+TMP_395(bool) = signatureType == REF_175
+CONDITION TMP_395"];
+23->24[label="True"];
+23->31[label="False"];
+24[label="Node Type: EXPRESSION 24
+
+EXPRESSION:
+require(bool,string)(signature.length == 65,LENGTH_65_REQUIRED)
+
+IRs:
+REF_176 -> LENGTH signature
+TMP_396(bool) = REF_176 == 65
+TMP_397(None) = SOLIDITY_CALL require(bool,string)(TMP_396,LENGTH_65_REQUIRED)"];
+24->25;
+25[label="Node Type: EXPRESSION 25
+
+EXPRESSION:
+v = uint8(signature[0])
+
+IRs:
+REF_177(None) -> signature[0]
+TMP_398 = CONVERT REF_177 to uint8
+v(uint8) := TMP_398(uint8)"];
+25->26;
+26[label="Node Type: EXPRESSION 26
+
+EXPRESSION:
+r = signature.readBytes32(1)
+
+IRs:
+TMP_399(bytes32) = LIBRARY_CALL, dest:LibBytes, function:LibBytes.readBytes32(bytes,uint256), arguments:['signature', '1'] 
+r(bytes32) := TMP_399(bytes32)"];
+26->27;
+27[label="Node Type: EXPRESSION 27
+
+EXPRESSION:
+s = signature.readBytes32(33)
+
+IRs:
+TMP_400(bytes32) = LIBRARY_CALL, dest:LibBytes, function:LibBytes.readBytes32(bytes,uint256), arguments:['signature', '33'] 
+s(bytes32) := TMP_400(bytes32)"];
+27->28;
+28[label="Node Type: EXPRESSION 28
+
+EXPRESSION:
+recovered = ecrecover(bytes32,uint8,bytes32,bytes32)(keccak256()(abi.encodePacked(Ethereum Signed Message:
+32,hash)),v,r,s)
+
+IRs:
+TMP_401(bytes) = SOLIDITY_CALL abi.encodePacked()(Ethereum Signed Message:
+32,hash)
+TMP_402(bytes32) = SOLIDITY_CALL keccak256()(TMP_401)
+TMP_403(address) = SOLIDITY_CALL ecrecover(bytes32,uint8,bytes32,bytes32)(TMP_402,v,r,s)
+recovered(address) := TMP_403(address)"];
+28->29;
+29[label="Node Type: EXPRESSION 29
+
+EXPRESSION:
+isValid = signerAddress == recovered
+
+IRs:
+TMP_404(bool) = signerAddress == recovered
+isValid(bool) := TMP_404(bool)"];
+29->30;
+30[label="Node Type: RETURN 30
+
+EXPRESSION:
+isValid
+
+IRs:
+RETURN isValid"];
+31[label="Node Type: IF 31
+
+EXPRESSION:
+signatureType == SignatureType.Wallet
+
+IRs:
+REF_181(MSignatureValidator.SignatureType) -> SignatureType.Wallet
+TMP_405(bool) = signatureType == REF_181
+CONDITION TMP_405"];
+31->32[label="True"];
+31->34[label="False"];
+32[label="Node Type: EXPRESSION 32
+
+EXPRESSION:
+isValid = isValidWalletSignature(hash,signerAddress,signature)
+
+IRs:
+TMP_406(bool) = INTERNAL_CALL, MixinSignatureValidator.isValidWalletSignature(bytes32,address,bytes)(hash,signerAddress,signature)
+isValid(bool) := TMP_406(bool)"];
+32->33;
+33[label="Node Type: RETURN 33
+
+EXPRESSION:
+isValid
+
+IRs:
+RETURN isValid"];
+34[label="Node Type: IF 34
+
+EXPRESSION:
+signatureType == SignatureType.Validator
+
+IRs:
+REF_182(MSignatureValidator.SignatureType) -> SignatureType.Validator
+TMP_407(bool) = signatureType == REF_182
+CONDITION TMP_407"];
+34->35[label="True"];
+34->41[label="False"];
+35[label="Node Type: NEW VARIABLE 35
+
+EXPRESSION:
+validatorAddress = signature.popLast20Bytes()
+
+IRs:
+TMP_408(address) = LIBRARY_CALL, dest:LibBytes, function:LibBytes.popLast20Bytes(bytes), arguments:['signature'] 
+validatorAddress(address) := TMP_408(address)"];
+35->36;
+36[label="Node Type: IF 36
+
+EXPRESSION:
+! allowedValidators[signerAddress][validatorAddress]
+
+IRs:
+REF_184(mapping(address => bool)) -> allowedValidators[signerAddress]
+REF_185(bool) -> REF_184[validatorAddress]
+TMP_409 = ! REF_185 
+CONDITION TMP_409"];
+36->37[label="True"];
+36->38[label="False"];
+37[label="Node Type: RETURN 37
+
+EXPRESSION:
+false
+
+IRs:
+RETURN False"];
+38[label="Node Type: END_IF 38
+"];
+38->39;
+39[label="Node Type: EXPRESSION 39
+
+EXPRESSION:
+isValid = isValidValidatorSignature(validatorAddress,hash,signerAddress,signature)
+
+IRs:
+TMP_410(bool) = INTERNAL_CALL, MixinSignatureValidator.isValidValidatorSignature(address,bytes32,address,bytes)(validatorAddress,hash,signerAddress,signature)
+isValid(bool) := TMP_410(bool)"];
+39->40;
+40[label="Node Type: RETURN 40
+
+EXPRESSION:
+isValid
+
+IRs:
+RETURN isValid"];
+41[label="Node Type: IF 41
+
+EXPRESSION:
+signatureType == SignatureType.PreSigned
+
+IRs:
+REF_186(MSignatureValidator.SignatureType) -> SignatureType.PreSigned
+TMP_411(bool) = signatureType == REF_186
+CONDITION TMP_411"];
+41->42[label="True"];
+41->44[label="False"];
+42[label="Node Type: EXPRESSION 42
+
+EXPRESSION:
+isValid = preSigned[hash][signerAddress]
+
+IRs:
+REF_187(mapping(address => bool)) -> preSigned[hash]
+REF_188(bool) -> REF_187[signerAddress]
+isValid(bool) := REF_188(bool)"];
+42->43;
+43[label="Node Type: RETURN 43
+
+EXPRESSION:
+isValid
+
+IRs:
+RETURN isValid"];
+44[label="Node Type: END_IF 44
+"];
+44->45;
+45[label="Node Type: END_IF 45
+"];
+45->46;
+46[label="Node Type: END_IF 46
+"];
+46->47;
+47[label="Node Type: END_IF 47
+"];
+47->48;
+48[label="Node Type: END_IF 48
+"];
+48->49;
+49[label="Node Type: END_IF 49
+"];
+49->50;
+50[label="Node Type: END_IF 50
+"];
+50->51;
+51[label="Node Type: EXPRESSION 51
+
+EXPRESSION:
+revert(string)(SIGNATURE_UNSUPPORTED)
+
+IRs:
+TMP_412(None) = SOLIDITY_CALL revert(string)(SIGNATURE_UNSUPPORTED)"];
+}

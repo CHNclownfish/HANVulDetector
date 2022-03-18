@@ -1,0 +1,22 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+assert(bool)(_b <= _a)
+
+IRs:
+TMP_17(bool) = _b <= _a
+TMP_18(None) = SOLIDITY_CALL assert(bool)(TMP_17)"];
+1->2;
+2[label="Node Type: RETURN 2
+
+EXPRESSION:
+_a - _b
+
+IRs:
+TMP_19(uint256) = _a - _b
+RETURN TMP_19"];
+}

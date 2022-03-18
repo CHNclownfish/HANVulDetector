@@ -1,0 +1,30 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->3;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(token.balanceOf(this) >= totalGenesisTokens)
+
+IRs:
+TMP_33(uint256) = HIGH_LEVEL_CALL, dest:token(ERC20), function:balanceOf, arguments:['this']  
+TMP_34(bool) = TMP_33 >= totalGenesisTokens
+TMP_35(None) = SOLIDITY_CALL require(bool)(TMP_34)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+started = true
+
+IRs:
+started(bool) := True(bool)"];
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+isNotStarted()
+
+IRs:
+MODIFIER_CALL, MerkleMine.isNotStarted()()"];
+3->1;
+}

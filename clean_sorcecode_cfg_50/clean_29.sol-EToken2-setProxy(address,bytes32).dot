@@ -1,0 +1,53 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->6;
+1[label="Node Type: IF 1
+
+EXPRESSION:
+proxies[_symbol] != 0x0 && assets[_symbol].isLocked
+
+IRs:
+REF_38(address) -> proxies[_symbol]
+TMP_50(bool) = REF_38 != 0
+REF_39(EToken2.Asset) -> assets[_symbol]
+REF_40(bool) -> REF_39.isLocked
+TMP_51(bool) = TMP_50 && REF_40
+CONDITION TMP_51"];
+1->2[label="True"];
+1->3[label="False"];
+2[label="Node Type: RETURN 2
+
+EXPRESSION:
+false
+
+IRs:
+RETURN False"];
+3[label="Node Type: END_IF 3
+"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+proxies[_symbol] = _address
+
+IRs:
+REF_41(address) -> proxies[_symbol]
+REF_41 (->proxies) := _address(address)"];
+4->5;
+5[label="Node Type: RETURN 5
+
+EXPRESSION:
+true
+
+IRs:
+RETURN True"];
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+onlyOwner(_symbol)
+
+IRs:
+MODIFIER_CALL, EToken2.onlyOwner(bytes32)(_symbol)"];
+6->1;
+}

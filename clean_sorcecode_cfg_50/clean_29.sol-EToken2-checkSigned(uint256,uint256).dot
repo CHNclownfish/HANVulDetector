@@ -1,0 +1,33 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: IF 1
+
+EXPRESSION:
+! isCosignerSet(_holderId) || _checkSigned(holders[_holderId].cosigner,_holderId,_required)
+
+IRs:
+TMP_234(bool) = INTERNAL_CALL, EToken2.isCosignerSet(uint256)(_holderId)
+TMP_235 = ! TMP_234 
+REF_146(EToken2.Holder) -> holders[_holderId]
+REF_147(Cosigner) -> REF_146.cosigner
+TMP_236(bool) = INTERNAL_CALL, EToken2._checkSigned(Cosigner,uint256,uint256)(REF_147,_holderId,_required)
+TMP_237(bool) = TMP_235 || TMP_236
+CONDITION TMP_237"];
+1->2[label="True"];
+1->3[label="False"];
+2[label="Node Type: _ 2
+"];
+2->4;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+_error(Cosigner: access denied)
+
+IRs:
+INTERNAL_CALL, EToken2._error(bytes32)(Cosigner: access denied)"];
+3->4;
+4[label="Node Type: END_IF 4
+"];
+}

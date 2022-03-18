@@ -1,0 +1,33 @@
+digraph{
+0[label="Node Type: OTHER_ENTRYPOINT 0
+
+EXPRESSION:
+name = Amplify
+
+IRs:
+name(string) := Amplify(string)"];
+0->1;
+1[label="Node Type: OTHER_ENTRYPOINT 1
+
+EXPRESSION:
+symbol = AMPX
+
+IRs:
+symbol(string) := AMPX(string)"];
+1->2;
+2[label="Node Type: OTHER_ENTRYPOINT 2
+
+EXPRESSION:
+decimals = 18
+
+IRs:
+decimals(uint8) := 18(uint256)"];
+2->3;
+3[label="Node Type: OTHER_ENTRYPOINT 3
+
+EXPRESSION:
+INITIAL_SUPPLY = 1200000000000000000000000000
+
+IRs:
+INITIAL_SUPPLY(uint256) := 1200000000000000000000000000(uint256)"];
+}

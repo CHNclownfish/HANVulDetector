@@ -1,0 +1,41 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+holderId = getHolderId(_holder)
+
+IRs:
+TMP_46(uint256) = INTERNAL_CALL, EToken2.getHolderId(address)(_holder)
+holderId(uint256) := TMP_46(uint256)"];
+1->3;
+3[label="Node Type: IF 3
+
+EXPRESSION:
+holders[holderId].addr == _holder
+
+IRs:
+REF_29(EToken2.Holder) -> holders[holderId]
+REF_30(address) -> REF_29.addr
+TMP_47(bool) = REF_30 == _holder
+CONDITION TMP_47"];
+3->4[label="True"];
+3->5[label="False"];
+4[label="Node Type: RETURN 4
+
+EXPRESSION:
+_balanceOf(holderId,_symbol)
+
+IRs:
+TMP_48(uint256) = INTERNAL_CALL, EToken2._balanceOf(uint256,bytes32)(holderId,_symbol)
+RETURN TMP_48"];
+5[label="Node Type: RETURN 5
+
+EXPRESSION:
+0
+
+IRs:
+RETURN 0"];
+}

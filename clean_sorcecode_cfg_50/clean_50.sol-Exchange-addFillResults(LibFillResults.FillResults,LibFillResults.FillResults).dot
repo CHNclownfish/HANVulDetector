@@ -1,0 +1,52 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+totalFillResults.makerAssetFilledAmount = safeAdd(totalFillResults.makerAssetFilledAmount,singleFillResults.makerAssetFilledAmount)
+
+IRs:
+REF_470(uint256) -> totalFillResults.makerAssetFilledAmount
+REF_471(uint256) -> totalFillResults.makerAssetFilledAmount
+REF_472(uint256) -> singleFillResults.makerAssetFilledAmount
+TMP_758(uint256) = INTERNAL_CALL, SafeMath.safeAdd(uint256,uint256)(REF_471,REF_472)
+REF_470 (->totalFillResults) := TMP_758(uint256)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+totalFillResults.takerAssetFilledAmount = safeAdd(totalFillResults.takerAssetFilledAmount,singleFillResults.takerAssetFilledAmount)
+
+IRs:
+REF_473(uint256) -> totalFillResults.takerAssetFilledAmount
+REF_474(uint256) -> totalFillResults.takerAssetFilledAmount
+REF_475(uint256) -> singleFillResults.takerAssetFilledAmount
+TMP_759(uint256) = INTERNAL_CALL, SafeMath.safeAdd(uint256,uint256)(REF_474,REF_475)
+REF_473 (->totalFillResults) := TMP_759(uint256)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+totalFillResults.makerFeePaid = safeAdd(totalFillResults.makerFeePaid,singleFillResults.makerFeePaid)
+
+IRs:
+REF_476(uint256) -> totalFillResults.makerFeePaid
+REF_477(uint256) -> totalFillResults.makerFeePaid
+REF_478(uint256) -> singleFillResults.makerFeePaid
+TMP_760(uint256) = INTERNAL_CALL, SafeMath.safeAdd(uint256,uint256)(REF_477,REF_478)
+REF_476 (->totalFillResults) := TMP_760(uint256)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+totalFillResults.takerFeePaid = safeAdd(totalFillResults.takerFeePaid,singleFillResults.takerFeePaid)
+
+IRs:
+REF_479(uint256) -> totalFillResults.takerFeePaid
+REF_480(uint256) -> totalFillResults.takerFeePaid
+REF_481(uint256) -> singleFillResults.takerFeePaid
+TMP_761(uint256) = INTERNAL_CALL, SafeMath.safeAdd(uint256,uint256)(REF_480,REF_481)
+REF_479 (->totalFillResults) := TMP_761(uint256)"];
+}

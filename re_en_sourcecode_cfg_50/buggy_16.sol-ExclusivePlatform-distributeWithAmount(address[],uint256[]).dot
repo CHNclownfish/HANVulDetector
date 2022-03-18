@@ -1,0 +1,59 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(_addresses.length == _amounts.length)
+
+IRs:
+REF_117 -> LENGTH _addresses
+REF_118 -> LENGTH _amounts
+TMP_184(bool) = REF_117 == REF_118
+TMP_185(None) = SOLIDITY_CALL require(bool)(TMP_184)"];
+1->4;
+2[label="Node Type: BEGIN_LOOP 2
+"];
+2->5;
+3[label="Node Type: END_LOOP 3
+"];
+4[label="Node Type: NEW VARIABLE 4
+
+EXPRESSION:
+i = 0
+
+IRs:
+i(uint256) := 0(uint256)"];
+4->2;
+5[label="Node Type: IF_LOOP 5
+
+EXPRESSION:
+i < _addresses.length
+
+IRs:
+REF_119 -> LENGTH _addresses
+TMP_186(bool) = i < REF_119
+CONDITION TMP_186"];
+5->6[label="True"];
+5->3[label="False"];
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+transfer(_addresses[i],_amounts[i])
+
+IRs:
+REF_120(address) -> _addresses[i]
+REF_121(uint256) -> _amounts[i]
+TMP_187(bool) = INTERNAL_CALL, ExclusivePlatform.transfer(address,uint256)(REF_120,REF_121)"];
+6->7;
+7[label="Node Type: EXPRESSION 7
+
+EXPRESSION:
+i ++
+
+IRs:
+TMP_188(uint256) := i(uint256)
+i(uint256) = i + 1"];
+7->5;
+}

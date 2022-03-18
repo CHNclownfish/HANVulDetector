@@ -1,0 +1,20 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+_minters.remove(account)
+
+IRs:
+LIBRARY_CALL, dest:Roles, function:Roles.remove(Roles.Role,address), arguments:['_minters', 'account'] "];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+MinterRemoved(account)
+
+IRs:
+Emit MinterRemoved(account)"];
+}

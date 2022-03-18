@@ -1,0 +1,31 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+_signatureDigest = generatePayTokensSchemaHash(_payer,_receiver,_amount,_nonce)
+
+IRs:
+TMP_217(bytes32) = INTERNAL_CALL, SigningLogic.generatePayTokensSchemaHash(address,address,uint256,bytes32)(_payer,_receiver,_amount,_nonce)
+_signatureDigest(bytes32) := TMP_217(bytes32)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool,string)(_payer == recoverSigner(_signatureDigest,_paymentSig),Invalid Payment Signature)
+
+IRs:
+TMP_218(address) = INTERNAL_CALL, SigningLogic.recoverSigner(bytes32,bytes)(_signatureDigest,_paymentSig)
+TMP_219(bool) = _payer == TMP_218
+TMP_220(None) = SOLIDITY_CALL require(bool,string)(TMP_219,Invalid Payment Signature)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+burnSignatureDigest(_signatureDigest,_payer)
+
+IRs:
+INTERNAL_CALL, SigningLogic.burnSignatureDigest(bytes32,address)(_signatureDigest,_payer)"];
+}

@@ -1,0 +1,42 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(not_called_re_ent34)
+
+IRs:
+TMP_130(None) = SOLIDITY_CALL require(bool)(not_called_re_ent34)"];
+1->2;
+2[label="Node Type: IF 2
+
+EXPRESSION:
+! (msg.sender.send(1000000000000000000))
+
+IRs:
+TMP_131 = SEND dest:msg.sender value:1000000000000000000
+TMP_132 = ! TMP_131 
+CONDITION TMP_132"];
+2->3[label="True"];
+2->4[label="False"];
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+revert()()
+
+IRs:
+TMP_133(None) = SOLIDITY_CALL revert()()"];
+3->4;
+4[label="Node Type: END_IF 4
+"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+not_called_re_ent34 = false
+
+IRs:
+not_called_re_ent34(bool) := False(bool)"];
+}

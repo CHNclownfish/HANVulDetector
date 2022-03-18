@@ -1,0 +1,91 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool,string)(orderInfo.orderStatus == uint8(OrderStatus.FILLABLE),ORDER_UNFILLABLE)
+
+IRs:
+REF_117(uint8) -> orderInfo.orderStatus
+REF_118(LibOrder.OrderStatus) -> OrderStatus.FILLABLE
+TMP_318 = CONVERT REF_118 to uint8
+TMP_319(bool) = REF_117 == TMP_318
+TMP_320(None) = SOLIDITY_CALL require(bool,string)(TMP_319,ORDER_UNFILLABLE)"];
+1->2;
+2[label="Node Type: IF 2
+
+EXPRESSION:
+order.senderAddress != address(0)
+
+IRs:
+REF_119(address) -> order.senderAddress
+TMP_321 = CONVERT 0 to address
+TMP_322(bool) = REF_119 != TMP_321
+CONDITION TMP_322"];
+2->3[label="True"];
+2->4[label="False"];
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+require(bool,string)(order.senderAddress == msg.sender,INVALID_SENDER)
+
+IRs:
+REF_120(address) -> order.senderAddress
+TMP_323(bool) = REF_120 == msg.sender
+TMP_324(None) = SOLIDITY_CALL require(bool,string)(TMP_323,INVALID_SENDER)"];
+3->4;
+4[label="Node Type: END_IF 4
+"];
+4->5;
+5[label="Node Type: IF 5
+
+EXPRESSION:
+order.takerAddress != address(0)
+
+IRs:
+REF_121(address) -> order.takerAddress
+TMP_325 = CONVERT 0 to address
+TMP_326(bool) = REF_121 != TMP_325
+CONDITION TMP_326"];
+5->6[label="True"];
+5->7[label="False"];
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+require(bool,string)(order.takerAddress == takerAddress,INVALID_TAKER)
+
+IRs:
+REF_122(address) -> order.takerAddress
+TMP_327(bool) = REF_122 == takerAddress
+TMP_328(None) = SOLIDITY_CALL require(bool,string)(TMP_327,INVALID_TAKER)"];
+6->7;
+7[label="Node Type: END_IF 7
+"];
+7->8;
+8[label="Node Type: IF 8
+
+EXPRESSION:
+orderInfo.orderTakerAssetFilledAmount == 0
+
+IRs:
+REF_123(uint256) -> orderInfo.orderTakerAssetFilledAmount
+TMP_329(bool) = REF_123 == 0
+CONDITION TMP_329"];
+8->9[label="True"];
+8->10[label="False"];
+9[label="Node Type: EXPRESSION 9
+
+EXPRESSION:
+require(bool,string)(isValidSignature(orderInfo.orderHash,order.makerAddress,signature),INVALID_ORDER_SIGNATURE)
+
+IRs:
+REF_124(bytes32) -> orderInfo.orderHash
+REF_125(address) -> order.makerAddress
+TMP_330(bool) = INTERNAL_CALL, ISignatureValidator.isValidSignature(bytes32,address,bytes)(REF_124,REF_125,signature)
+TMP_331(None) = SOLIDITY_CALL require(bool,string)(TMP_330,INVALID_ORDER_SIGNATURE)"];
+9->10;
+10[label="Node Type: END_IF 10
+"];
+}

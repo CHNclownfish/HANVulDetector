@@ -1,0 +1,15 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: RETURN 1
+
+EXPRESSION:
+_allowance(getHolderId(_from),getHolderId(_spender),_symbol)
+
+IRs:
+TMP_213(uint256) = INTERNAL_CALL, EToken2.getHolderId(address)(_from)
+TMP_214(uint256) = INTERNAL_CALL, EToken2.getHolderId(address)(_spender)
+TMP_215(uint256) = INTERNAL_CALL, EToken2._allowance(uint256,uint256,bytes32)(TMP_213,TMP_214,_symbol)
+RETURN TMP_215"];
+}

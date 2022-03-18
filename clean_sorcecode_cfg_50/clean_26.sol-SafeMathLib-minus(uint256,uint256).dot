@@ -1,0 +1,22 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+assert(b <= a)
+
+IRs:
+TMP_201(bool) = b <= a
+INTERNAL_CALL, SafeMathLib.assert(bool)(TMP_201)"];
+1->2;
+2[label="Node Type: RETURN 2
+
+EXPRESSION:
+a - b
+
+IRs:
+TMP_203(uint256) = a - b
+RETURN TMP_203"];
+}

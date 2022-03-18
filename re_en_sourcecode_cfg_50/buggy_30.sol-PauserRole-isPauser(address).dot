@@ -1,0 +1,13 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: RETURN 1
+
+EXPRESSION:
+_pausers.has(account)
+
+IRs:
+TMP_235(bool) = LIBRARY_CALL, dest:Roles, function:Roles.has(Roles.Role,address), arguments:['_pausers', 'account'] 
+RETURN TMP_235"];
+}

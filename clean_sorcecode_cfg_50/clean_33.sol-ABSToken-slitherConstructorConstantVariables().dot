@@ -1,0 +1,36 @@
+digraph{
+0[label="Node Type: OTHER_ENTRYPOINT 0
+
+EXPRESSION:
+name = ABSToken
+
+IRs:
+name(string) := ABSToken(string)"];
+0->1;
+1[label="Node Type: OTHER_ENTRYPOINT 1
+
+EXPRESSION:
+symbol = ABS
+
+IRs:
+symbol(string) := ABS(string)"];
+1->2;
+2[label="Node Type: OTHER_ENTRYPOINT 2
+
+EXPRESSION:
+decimals = 18
+
+IRs:
+decimals(uint8) := 18(uint256)"];
+2->3;
+3[label="Node Type: OTHER_ENTRYPOINT 3
+
+EXPRESSION:
+INITIAL_SUPPLY = 15000000000 * (10 ** uint256(decimals))
+
+IRs:
+TMP_120 = CONVERT decimals to uint256
+TMP_121(uint256) = 10 ** TMP_120
+TMP_122(uint256) = 15000000000 * TMP_121
+INITIAL_SUPPLY(uint256) := TMP_122(uint256)"];
+}

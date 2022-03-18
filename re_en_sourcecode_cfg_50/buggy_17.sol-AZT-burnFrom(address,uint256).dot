@@ -1,0 +1,53 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+balanceOf[_from] = balanceOf[_from].sub(_value)
+
+IRs:
+REF_179(uint256) -> balanceOf[_from]
+REF_180(uint256) -> balanceOf[_from]
+TMP_259(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_180', '_value'] 
+REF_179 (->balanceOf) := TMP_259(uint256)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+allowance[_from][msg.sender] = allowance[_from][msg.sender].sub(_value)
+
+IRs:
+REF_182(mapping(address => uint256)) -> allowance[_from]
+REF_183(uint256) -> REF_182[msg.sender]
+REF_184(mapping(address => uint256)) -> allowance[_from]
+REF_185(uint256) -> REF_184[msg.sender]
+TMP_260(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_185', '_value'] 
+REF_183 (->allowance) := TMP_260(uint256)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+totalSupply = totalSupply.sub(_value)
+
+IRs:
+TMP_261(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['totalSupply', '_value'] 
+totalSupply(uint256) := TMP_261(uint256)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+Burn(_from,_value)
+
+IRs:
+Emit Burn(_from._value)"];
+4->5;
+5[label="Node Type: RETURN 5
+
+EXPRESSION:
+true
+
+IRs:
+RETURN True"];
+}

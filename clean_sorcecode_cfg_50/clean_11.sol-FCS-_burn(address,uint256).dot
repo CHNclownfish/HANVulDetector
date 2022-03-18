@@ -1,0 +1,53 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool,string)(account != address(0),)
+
+IRs:
+TMP_120 = CONVERT 0 to address
+TMP_121(bool) = account != TMP_120
+TMP_122(None) = SOLIDITY_CALL require(bool,string)(TMP_121,)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool,string)(account != _owner,)
+
+IRs:
+TMP_123(bool) = account != _owner
+TMP_124(None) = SOLIDITY_CALL require(bool,string)(TMP_123,)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+balances[account] = safeSub(balances[account],value)
+
+IRs:
+REF_40(uint256) -> balances[account]
+REF_41(uint256) -> balances[account]
+TMP_125(uint256) = INTERNAL_CALL, SafeMath.safeSub(uint256,uint256)(REF_41,value)
+REF_40 (->balances) := TMP_125(uint256)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+balances[_owner] = safeAdd(balances[_owner],value)
+
+IRs:
+REF_42(uint256) -> balances[_owner]
+REF_43(uint256) -> balances[_owner]
+TMP_126(uint256) = INTERNAL_CALL, SafeMath.safeAdd(uint256,uint256)(REF_43,value)
+REF_42 (->balances) := TMP_126(uint256)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+Transfer(account,_owner,value)
+
+IRs:
+Emit Transfer(account._owner.value)"];
+}

@@ -1,0 +1,9 @@
+digraph{
+0[label="Node Type: OTHER_ENTRYPOINT 0
+
+EXPRESSION:
+BURN_ADDRESS = 0
+
+IRs:
+BURN_ADDRESS(address) := 0(uint256)"];
+}

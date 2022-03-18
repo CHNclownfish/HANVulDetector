@@ -1,0 +1,16 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: RETURN 1
+
+EXPRESSION:
+keccak256()(abi.encodePacked(,DOMAIN_SEPARATOR,hash(AttestationRequest(_dataHash,_nonce))))
+
+IRs:
+TMP_277 = new AttestationRequest(_dataHash,_nonce)
+TMP_278(bytes32) = INTERNAL_CALL, SigningLogic.hash(SigningLogic.AttestationRequest)(TMP_277)
+TMP_279(bytes) = SOLIDITY_CALL abi.encodePacked()(,DOMAIN_SEPARATOR,TMP_278)
+TMP_280(bytes32) = SOLIDITY_CALL keccak256()(TMP_279)
+RETURN TMP_280"];
+}

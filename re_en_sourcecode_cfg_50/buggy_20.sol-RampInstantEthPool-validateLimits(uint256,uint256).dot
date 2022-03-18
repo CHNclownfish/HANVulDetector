@@ -1,0 +1,25 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool,string)(_minAmount <= _maxAmount,min limit over max limit)
+
+IRs:
+TMP_323(bool) = _minAmount <= _maxAmount
+TMP_324(None) = SOLIDITY_CALL require(bool,string)(TMP_323,min limit over max limit)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool,string)(_maxAmount <= MAX_SWAP_AMOUNT_LIMIT,maxAmount too high)
+
+IRs:
+TMP_325(bool) = _maxAmount <= MAX_SWAP_AMOUNT_LIMIT
+TMP_326(None) = SOLIDITY_CALL require(bool,string)(TMP_325,maxAmount too high)"];
+2->3;
+3[label="Node Type: _ 3
+"];
+}

@@ -1,0 +1,14 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: RETURN 1
+
+EXPRESSION:
+assets[_symbol].baseUnit
+
+IRs:
+REF_13(EToken2.Asset) -> assets[_symbol]
+REF_14(uint8) -> REF_13.baseUnit
+RETURN REF_14"];
+}

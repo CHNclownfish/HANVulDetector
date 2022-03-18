@@ -1,0 +1,37 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->3;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(addr != 0x0)
+
+IRs:
+TMP_152(bool) = addr != 0
+TMP_153(None) = SOLIDITY_CALL require(bool)(TMP_152)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+releaseAgent = addr
+
+IRs:
+releaseAgent(address) := addr(address)"];
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+onlyOwner()
+
+IRs:
+MODIFIER_CALL, Ownable.onlyOwner()()"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+inReleaseState(false)
+
+IRs:
+MODIFIER_CALL, StarCoin.inReleaseState(bool)(False)"];
+4->1;
+}

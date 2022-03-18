@@ -1,0 +1,44 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->4;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+minSwapAmount = _minAmount
+
+IRs:
+minSwapAmount(uint256) := _minAmount(uint256)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+maxSwapAmount = _maxAmount
+
+IRs:
+maxSwapAmount(uint256) := _maxAmount(uint256)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+LimitsChanged(_minAmount,_maxAmount)
+
+IRs:
+Emit LimitsChanged(_minAmount._maxAmount)"];
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+onlyOwner()
+
+IRs:
+MODIFIER_CALL, Ownable.onlyOwner()()"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+validateLimits(_minAmount,_maxAmount)
+
+IRs:
+MODIFIER_CALL, RampInstantPool.validateLimits(uint256,uint256)(_minAmount,_maxAmount)"];
+5->1;
+}

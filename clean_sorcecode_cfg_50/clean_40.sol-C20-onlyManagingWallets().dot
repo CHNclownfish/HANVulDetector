@@ -1,0 +1,18 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(msg.sender == controlWallet || msg.sender == fundWallet)
+
+IRs:
+TMP_300(bool) = msg.sender == controlWallet
+TMP_301(bool) = msg.sender == fundWallet
+TMP_302(bool) = TMP_300 || TMP_301
+TMP_303(None) = SOLIDITY_CALL require(bool)(TMP_302)"];
+1->2;
+2[label="Node Type: _ 2
+"];
+}

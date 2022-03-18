@@ -1,0 +1,52 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(_amount == 0 || allowed[msg.sender][_spender] == 0)
+
+IRs:
+TMP_199(bool) = _amount == 0
+REF_71(mapping(address => uint256)) -> allowed[msg.sender]
+REF_72(uint256) -> REF_71[_spender]
+TMP_200(bool) = REF_72 == 0
+TMP_201(bool) = TMP_199 || TMP_200
+TMP_202(None) = SOLIDITY_CALL require(bool)(TMP_201)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(_spender != 0x0)
+
+IRs:
+TMP_203(bool) = _spender != 0
+TMP_204(None) = SOLIDITY_CALL require(bool)(TMP_203)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+allowed[msg.sender][_spender] = _amount
+
+IRs:
+REF_73(mapping(address => uint256)) -> allowed[msg.sender]
+REF_74(uint256) -> REF_73[_spender]
+REF_74 (->allowed) := _amount(uint256)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+Approval(msg.sender,_spender,_amount)
+
+IRs:
+Emit Approval(msg.sender._spender._amount)"];
+4->5;
+5[label="Node Type: RETURN 5
+
+EXPRESSION:
+true
+
+IRs:
+RETURN True"];
+}

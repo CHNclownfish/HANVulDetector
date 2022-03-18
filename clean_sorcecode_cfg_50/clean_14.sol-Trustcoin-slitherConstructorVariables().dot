@@ -1,0 +1,51 @@
+digraph{
+0[label="Node Type: OTHER_ENTRYPOINT 0
+
+EXPRESSION:
+name = Trustcoin
+
+IRs:
+name(string) := Trustcoin(string)"];
+0->1;
+1[label="Node Type: OTHER_ENTRYPOINT 1
+
+EXPRESSION:
+decimals = 6
+
+IRs:
+decimals(uint256) := 6(uint256)"];
+1->2;
+2[label="Node Type: OTHER_ENTRYPOINT 2
+
+EXPRESSION:
+symbol = TRST
+
+IRs:
+symbol(string) := TRST(string)"];
+2->3;
+3[label="Node Type: OTHER_ENTRYPOINT 3
+
+EXPRESSION:
+version = TRST1.0
+
+IRs:
+version(string) := TRST1.0(string)"];
+3->4;
+4[label="Node Type: OTHER_ENTRYPOINT 4
+
+EXPRESSION:
+totalTokens = 100000000 * (10 ** decimals)
+
+IRs:
+TMP_13(uint256) = 10 ** decimals
+TMP_14(uint256) = 100000000 * TMP_13
+totalTokens(uint256) := TMP_14(uint256)"];
+4->5;
+5[label="Node Type: OTHER_ENTRYPOINT 5
+
+EXPRESSION:
+migrationInfo = 
+
+IRs:
+migrationInfo(string) := (string)"];
+}

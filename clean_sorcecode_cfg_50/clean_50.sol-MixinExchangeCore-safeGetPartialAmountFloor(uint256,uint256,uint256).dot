@@ -1,0 +1,41 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool,string)(denominator > 0,DIVISION_BY_ZERO)
+
+IRs:
+TMP_232(bool) = denominator > 0
+TMP_233(None) = SOLIDITY_CALL require(bool,string)(TMP_232,DIVISION_BY_ZERO)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool,string)(! isRoundingErrorFloor(numerator,denominator,target),ROUNDING_ERROR)
+
+IRs:
+TMP_234(bool) = INTERNAL_CALL, LibMath.isRoundingErrorFloor(uint256,uint256,uint256)(numerator,denominator,target)
+TMP_235 = ! TMP_234 
+TMP_236(None) = SOLIDITY_CALL require(bool,string)(TMP_235,ROUNDING_ERROR)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+partialAmount = safeDiv(safeMul(numerator,target),denominator)
+
+IRs:
+TMP_237(uint256) = INTERNAL_CALL, SafeMath.safeMul(uint256,uint256)(numerator,target)
+TMP_238(uint256) = INTERNAL_CALL, SafeMath.safeDiv(uint256,uint256)(TMP_237,denominator)
+partialAmount(uint256) := TMP_238(uint256)"];
+3->4;
+4[label="Node Type: RETURN 4
+
+EXPRESSION:
+partialAmount
+
+IRs:
+RETURN partialAmount"];
+}

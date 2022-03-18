@@ -1,0 +1,51 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->5;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool,string)(msg.sender != address(0),)
+
+IRs:
+TMP_93 = CONVERT 0 to address
+TMP_94(bool) = msg.sender != TMP_93
+TMP_95(None) = SOLIDITY_CALL require(bool,string)(TMP_94,)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+_totalSupply = safeSub(_totalSupply,value)
+
+IRs:
+TMP_96(uint256) = INTERNAL_CALL, SafeMath.safeSub(uint256,uint256)(_totalSupply,value)
+_totalSupply(uint256) := TMP_96(uint256)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+balances[_owner] = safeSub(balances[_owner],value)
+
+IRs:
+REF_32(uint256) -> balances[_owner]
+REF_33(uint256) -> balances[_owner]
+TMP_97(uint256) = INTERNAL_CALL, SafeMath.safeSub(uint256,uint256)(REF_33,value)
+REF_32 (->balances) := TMP_97(uint256)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+Transfer(_owner,address(0),value)
+
+IRs:
+TMP_98 = CONVERT 0 to address
+Emit Transfer(_owner.TMP_98.value)"];
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+onlyOwner()
+
+IRs:
+MODIFIER_CALL, Owned.onlyOwner()()"];
+5->1;
+}

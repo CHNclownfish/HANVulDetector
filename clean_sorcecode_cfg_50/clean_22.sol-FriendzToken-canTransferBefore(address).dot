@@ -1,0 +1,21 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: RETURN 1
+
+EXPRESSION:
+(_sender == owner || _sender == presale_holder || _sender == ico_holder || _sender == reserved_holder || _sender == wallet_holder)
+
+IRs:
+TMP_81(bool) = _sender == owner
+TMP_82(bool) = _sender == presale_holder
+TMP_83(bool) = TMP_81 || TMP_82
+TMP_84(bool) = _sender == ico_holder
+TMP_85(bool) = TMP_83 || TMP_84
+TMP_86(bool) = _sender == reserved_holder
+TMP_87(bool) = TMP_85 || TMP_86
+TMP_88(bool) = _sender == wallet_holder
+TMP_89(bool) = TMP_87 || TMP_88
+RETURN TMP_89"];
+}

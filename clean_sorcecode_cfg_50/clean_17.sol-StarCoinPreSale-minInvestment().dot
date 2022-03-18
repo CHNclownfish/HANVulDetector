@@ -1,0 +1,17 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(msg.value >= 0.1 * 1000000000000000000)
+
+IRs:
+TMP_327(string) = 0.1 * 1000000000000000000
+TMP_328(bool) = msg.value >= TMP_327
+TMP_329(None) = SOLIDITY_CALL require(bool)(TMP_328)"];
+1->2;
+2[label="Node Type: _ 2
+"];
+}

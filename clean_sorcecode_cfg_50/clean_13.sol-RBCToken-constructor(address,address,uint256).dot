@@ -1,0 +1,46 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+admin = _admin
+
+IRs:
+admin(address) := _admin(address)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+owner = _owner
+
+IRs:
+owner(address) := _owner(address)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+totalSupply = _totalTokenAmount
+
+IRs:
+totalSupply(uint256) := _totalTokenAmount(uint256)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+balances[_owner] = _totalTokenAmount
+
+IRs:
+REF_126(uint256) -> balances[_owner]
+REF_126 (->balances) := _totalTokenAmount(uint256)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+Transfer(address(0x0),_owner,_totalTokenAmount)
+
+IRs:
+TMP_169 = CONVERT 0 to address
+Emit Transfer(TMP_169._owner._totalTokenAmount)"];
+}

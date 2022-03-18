@@ -1,0 +1,47 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool,string)(takerAssetFillAmount != 0,INVALID_TAKER_AMOUNT)
+
+IRs:
+TMP_1010(bool) = takerAssetFillAmount != 0
+TMP_1011(None) = SOLIDITY_CALL require(bool,string)(TMP_1010,INVALID_TAKER_AMOUNT)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool,string)(takerAssetFilledAmount <= takerAssetFillAmount,TAKER_OVERPAY)
+
+IRs:
+TMP_1012(bool) = takerAssetFilledAmount <= takerAssetFillAmount
+TMP_1013(None) = SOLIDITY_CALL require(bool,string)(TMP_1012,TAKER_OVERPAY)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+require(bool,string)(safeAdd(orderInfo.orderTakerAssetFilledAmount,takerAssetFilledAmount) <= order.takerAssetAmount,ORDER_OVERFILL)
+
+IRs:
+REF_716(uint256) -> orderInfo.orderTakerAssetFilledAmount
+TMP_1014(uint256) = INTERNAL_CALL, SafeMath.safeAdd(uint256,uint256)(REF_716,takerAssetFilledAmount)
+REF_717(uint256) -> order.takerAssetAmount
+TMP_1015(bool) = TMP_1014 <= REF_717
+TMP_1016(None) = SOLIDITY_CALL require(bool,string)(TMP_1015,ORDER_OVERFILL)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+require(bool,string)(safeMul(makerAssetFilledAmount,order.takerAssetAmount) <= safeMul(order.makerAssetAmount,takerAssetFilledAmount),INVALID_FILL_PRICE)
+
+IRs:
+REF_718(uint256) -> order.takerAssetAmount
+TMP_1017(uint256) = INTERNAL_CALL, SafeMath.safeMul(uint256,uint256)(makerAssetFilledAmount,REF_718)
+REF_719(uint256) -> order.makerAssetAmount
+TMP_1018(uint256) = INTERNAL_CALL, SafeMath.safeMul(uint256,uint256)(REF_719,takerAssetFilledAmount)
+TMP_1019(bool) = TMP_1017 <= TMP_1018
+TMP_1020(None) = SOLIDITY_CALL require(bool,string)(TMP_1019,INVALID_FILL_PRICE)"];
+}

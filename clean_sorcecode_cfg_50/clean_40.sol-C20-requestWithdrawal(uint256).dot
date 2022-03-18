@@ -1,0 +1,96 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->9;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(block.number > fundingEndBlock)
+
+IRs:
+TMP_198(bool) = block.number > fundingEndBlock
+TMP_199(None) = SOLIDITY_CALL require(bool)(TMP_198)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(amountTokensToWithdraw > 0)
+
+IRs:
+TMP_200(bool) = amountTokensToWithdraw > 0
+TMP_201(None) = SOLIDITY_CALL require(bool)(TMP_200)"];
+2->3;
+3[label="Node Type: NEW VARIABLE 3
+
+EXPRESSION:
+participant = msg.sender
+
+IRs:
+participant(address) := msg.sender(address)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+require(bool)(balanceOf(participant) >= amountTokensToWithdraw)
+
+IRs:
+TMP_202(uint256) = INTERNAL_CALL, StandardToken.balanceOf(address)(participant)
+TMP_203(bool) = TMP_202 >= amountTokensToWithdraw
+TMP_204(None) = SOLIDITY_CALL require(bool)(TMP_203)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+require(bool)(withdrawals[participant].tokens == 0)
+
+IRs:
+REF_77(C20.Withdrawal) -> withdrawals[participant]
+REF_78(uint256) -> REF_77.tokens
+TMP_205(bool) = REF_78 == 0
+TMP_206(None) = SOLIDITY_CALL require(bool)(TMP_205)"];
+5->6;
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+balances[participant] = safeSub(balances[participant],amountTokensToWithdraw)
+
+IRs:
+REF_79(uint256) -> balances[participant]
+REF_80(uint256) -> balances[participant]
+TMP_207(uint256) = INTERNAL_CALL, SafeMath.safeSub(uint256,uint256)(REF_80,amountTokensToWithdraw)
+REF_79 (->balances) := TMP_207(uint256)"];
+6->7;
+7[label="Node Type: EXPRESSION 7
+
+EXPRESSION:
+withdrawals[participant] = Withdrawal(amountTokensToWithdraw,previousUpdateTime)
+
+IRs:
+REF_81(C20.Withdrawal) -> withdrawals[participant]
+TMP_208 = new Withdrawal(amountTokensToWithdraw,previousUpdateTime)
+REF_81 (->withdrawals) := TMP_208(C20.Withdrawal)"];
+7->8;
+8[label="Node Type: EXPRESSION 8
+
+EXPRESSION:
+WithdrawRequest(participant,amountTokensToWithdraw)
+
+IRs:
+Emit WithdrawRequest(participant.amountTokensToWithdraw)"];
+9[label="Node Type: EXPRESSION 9
+
+EXPRESSION:
+isTradeable()
+
+IRs:
+MODIFIER_CALL, C20.isTradeable()()"];
+9->10;
+10[label="Node Type: EXPRESSION 10
+
+EXPRESSION:
+onlyWhitelist()
+
+IRs:
+MODIFIER_CALL, C20.onlyWhitelist()()"];
+10->1;
+}

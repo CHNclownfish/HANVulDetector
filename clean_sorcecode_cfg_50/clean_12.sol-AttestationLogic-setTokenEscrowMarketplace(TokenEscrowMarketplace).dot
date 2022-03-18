@@ -1,0 +1,36 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->4;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+oldTokenEscrowMarketplace = tokenEscrowMarketplace
+
+IRs:
+oldTokenEscrowMarketplace(address) := tokenEscrowMarketplace(TokenEscrowMarketplace)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+tokenEscrowMarketplace = _newTokenEscrowMarketplace
+
+IRs:
+tokenEscrowMarketplace(TokenEscrowMarketplace) := _newTokenEscrowMarketplace(TokenEscrowMarketplace)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+TokenEscrowMarketplaceChanged(oldTokenEscrowMarketplace,tokenEscrowMarketplace)
+
+IRs:
+Emit TokenEscrowMarketplaceChanged(oldTokenEscrowMarketplace.tokenEscrowMarketplace)"];
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+onlyDuringInitialization()
+
+IRs:
+MODIFIER_CALL, Initializable.onlyDuringInitialization()()"];
+4->1;
+}

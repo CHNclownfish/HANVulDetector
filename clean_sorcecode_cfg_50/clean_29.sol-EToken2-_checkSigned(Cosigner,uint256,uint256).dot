@@ -1,0 +1,14 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: RETURN 1
+
+EXPRESSION:
+_cosigner.consumeOperation(sha3()(msg.data,_holderId),_required)
+
+IRs:
+TMP_168(bytes32) = SOLIDITY_CALL sha3()(msg.data,_holderId)
+TMP_169(bool) = HIGH_LEVEL_CALL, dest:_cosigner(Cosigner), function:consumeOperation, arguments:['TMP_168', '_required']  
+RETURN TMP_169"];
+}

@@ -1,0 +1,20 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+_pausers.remove(account)
+
+IRs:
+LIBRARY_CALL, dest:Roles, function:Roles.remove(Roles.Role,address), arguments:['_pausers', 'account'] "];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+PauserRemoved(account)
+
+IRs:
+Emit PauserRemoved(account)"];
+}

@@ -1,0 +1,94 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+hash = keccak256(bytes)(abi.encodePacked(this,tokenGet,amountGet,tokenGive,amountGive,expires,nonce))
+
+IRs:
+TMP_264(bytes) = SOLIDITY_CALL abi.encodePacked()(this,tokenGet,amountGet,tokenGive,amountGive,expires,nonce)
+TMP_265(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_264)
+hash(bytes32) := TMP_265(bytes32)"];
+1->2;
+2[label="Node Type: NEW VARIABLE 2
+"];
+2->3;
+3[label="Node Type: IF 3
+
+EXPRESSION:
+! ((orders[user][hash] || ecrecover(bytes32,uint8,bytes32,bytes32)(keccak256(bytes)(abi.encodePacked(Ethereum Signed Message:
+32,hash)),v,r,s) == user) && block.number <= expires)
+
+IRs:
+REF_191(mapping(bytes32 => bool)) -> orders[user]
+REF_192(bool) -> REF_191[hash]
+TMP_266(bytes) = SOLIDITY_CALL abi.encodePacked()(Ethereum Signed Message:
+32,hash)
+TMP_267(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_266)
+TMP_268(address) = SOLIDITY_CALL ecrecover(bytes32,uint8,bytes32,bytes32)(TMP_267,v,r,s)
+TMP_269(bool) = TMP_268 == user
+TMP_270(bool) = REF_192 || TMP_269
+TMP_271(bool) = block.number <= expires
+TMP_272(bool) = TMP_270 && TMP_271
+TMP_273 = ! TMP_272 
+CONDITION TMP_273"];
+3->4[label="True"];
+3->5[label="False"];
+4[label="Node Type: RETURN 4
+
+EXPRESSION:
+0
+
+IRs:
+RETURN 0"];
+5[label="Node Type: END_IF 5
+"];
+5->6;
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+available1 = tokens[tokenGive][user].mul(amountGet) / amountGive
+
+IRs:
+REF_194(mapping(address => uint256)) -> tokens[tokenGive]
+REF_195(uint256) -> REF_194[user]
+TMP_274(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_195', 'amountGet'] 
+TMP_275(uint256) = TMP_274 / amountGive
+available1(uint256) := TMP_275(uint256)"];
+6->7;
+7[label="Node Type: IF 7
+
+EXPRESSION:
+amountGet.sub(orderFills[user][hash]) < available1
+
+IRs:
+REF_198(mapping(bytes32 => uint256)) -> orderFills[user]
+REF_199(uint256) -> REF_198[hash]
+TMP_276(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['amountGet', 'REF_199'] 
+TMP_277(bool) = TMP_276 < available1
+CONDITION TMP_277"];
+7->8[label="True"];
+7->9[label="False"];
+8[label="Node Type: RETURN 8
+
+EXPRESSION:
+amountGet.sub(orderFills[user][hash])
+
+IRs:
+REF_201(mapping(bytes32 => uint256)) -> orderFills[user]
+REF_202(uint256) -> REF_201[hash]
+TMP_278(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['amountGet', 'REF_202'] 
+RETURN TMP_278"];
+9[label="Node Type: END_IF 9
+"];
+9->10;
+10[label="Node Type: RETURN 10
+
+EXPRESSION:
+available1
+
+IRs:
+RETURN available1"];
+}

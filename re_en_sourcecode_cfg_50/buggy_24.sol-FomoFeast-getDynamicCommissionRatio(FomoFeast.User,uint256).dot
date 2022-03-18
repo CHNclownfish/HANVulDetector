@@ -1,0 +1,228 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: IF 1
+
+EXPRESSION:
+user.currentlevel == 1
+
+IRs:
+REF_72(uint256) -> user.currentlevel
+TMP_128(bool) = REF_72 == 1
+CONDITION TMP_128"];
+1->2[label="True"];
+1->6[label="False"];
+2[label="Node Type: IF 2
+
+EXPRESSION:
+depth == 1
+
+IRs:
+TMP_129(bool) = depth == 1
+CONDITION TMP_129"];
+2->3[label="True"];
+2->4[label="False"];
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+ratio = 50
+
+IRs:
+ratio(uint256) := 50(uint256)"];
+3->5;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+ratio = 0
+
+IRs:
+ratio(uint256) := 0(uint256)"];
+4->5;
+5[label="Node Type: END_IF 5
+"];
+5->31;
+6[label="Node Type: IF 6
+
+EXPRESSION:
+user.currentlevel == 2
+
+IRs:
+REF_73(uint256) -> user.currentlevel
+TMP_130(bool) = REF_73 == 2
+CONDITION TMP_130"];
+6->7[label="True"];
+6->14[label="False"];
+7[label="Node Type: IF 7
+
+EXPRESSION:
+depth == 1
+
+IRs:
+TMP_131(bool) = depth == 1
+CONDITION TMP_131"];
+7->8[label="True"];
+7->9[label="False"];
+8[label="Node Type: EXPRESSION 8
+
+EXPRESSION:
+ratio = 70
+
+IRs:
+ratio(uint256) := 70(uint256)"];
+8->13;
+9[label="Node Type: IF 9
+
+EXPRESSION:
+depth == 2
+
+IRs:
+TMP_132(bool) = depth == 2
+CONDITION TMP_132"];
+9->10[label="True"];
+9->11[label="False"];
+10[label="Node Type: EXPRESSION 10
+
+EXPRESSION:
+ratio = 50
+
+IRs:
+ratio(uint256) := 50(uint256)"];
+10->12;
+11[label="Node Type: EXPRESSION 11
+
+EXPRESSION:
+ratio = 0
+
+IRs:
+ratio(uint256) := 0(uint256)"];
+11->12;
+12[label="Node Type: END_IF 12
+"];
+12->13;
+13[label="Node Type: END_IF 13
+"];
+13->30;
+14[label="Node Type: IF 14
+
+EXPRESSION:
+depth == 1
+
+IRs:
+TMP_133(bool) = depth == 1
+CONDITION TMP_133"];
+14->15[label="True"];
+14->16[label="False"];
+15[label="Node Type: EXPRESSION 15
+
+EXPRESSION:
+ratio = 100
+
+IRs:
+ratio(uint256) := 100(uint256)"];
+15->29;
+16[label="Node Type: IF 16
+
+EXPRESSION:
+depth == 2
+
+IRs:
+TMP_134(bool) = depth == 2
+CONDITION TMP_134"];
+16->17[label="True"];
+16->18[label="False"];
+17[label="Node Type: EXPRESSION 17
+
+EXPRESSION:
+ratio = 70
+
+IRs:
+ratio(uint256) := 70(uint256)"];
+17->28;
+18[label="Node Type: IF 18
+
+EXPRESSION:
+depth == 3
+
+IRs:
+TMP_135(bool) = depth == 3
+CONDITION TMP_135"];
+18->19[label="True"];
+18->20[label="False"];
+19[label="Node Type: EXPRESSION 19
+
+EXPRESSION:
+ratio = 50
+
+IRs:
+ratio(uint256) := 50(uint256)"];
+19->27;
+20[label="Node Type: IF 20
+
+EXPRESSION:
+depth >= 4 && depth <= 10
+
+IRs:
+TMP_136(bool) = depth >= 4
+TMP_137(bool) = depth <= 10
+TMP_138(bool) = TMP_136 && TMP_137
+CONDITION TMP_138"];
+20->21[label="True"];
+20->22[label="False"];
+21[label="Node Type: EXPRESSION 21
+
+EXPRESSION:
+ratio = 10
+
+IRs:
+ratio(uint256) := 10(uint256)"];
+21->26;
+22[label="Node Type: IF 22
+
+EXPRESSION:
+depth >= 11 && depth <= 20
+
+IRs:
+TMP_139(bool) = depth >= 11
+TMP_140(bool) = depth <= 20
+TMP_141(bool) = TMP_139 && TMP_140
+CONDITION TMP_141"];
+22->23[label="True"];
+22->24[label="False"];
+23[label="Node Type: EXPRESSION 23
+
+EXPRESSION:
+ratio = 5
+
+IRs:
+ratio(uint256) := 5(uint256)"];
+23->25;
+24[label="Node Type: EXPRESSION 24
+
+EXPRESSION:
+ratio = 1
+
+IRs:
+ratio(uint256) := 1(uint256)"];
+24->25;
+25[label="Node Type: END_IF 25
+"];
+25->26;
+26[label="Node Type: END_IF 26
+"];
+26->27;
+27[label="Node Type: END_IF 27
+"];
+27->28;
+28[label="Node Type: END_IF 28
+"];
+28->29;
+29[label="Node Type: END_IF 29
+"];
+29->30;
+30[label="Node Type: END_IF 30
+"];
+30->31;
+31[label="Node Type: END_IF 31
+"];
+}

@@ -1,0 +1,116 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: IF 1
+
+EXPRESSION:
+! canUpgrade()
+
+IRs:
+TMP_120(bool) = INTERNAL_CALL, UpgradeableToken.canUpgrade()()
+TMP_121 = ! TMP_120 
+CONDITION TMP_121"];
+1->2[label="True"];
+1->3[label="False"];
+2[label="Node Type: THROW 2
+"];
+3[label="Node Type: END_IF 3
+"];
+3->4;
+4[label="Node Type: IF 4
+
+EXPRESSION:
+agent == 0x0
+
+IRs:
+TMP_122(bool) = agent == 0
+CONDITION TMP_122"];
+4->5[label="True"];
+4->6[label="False"];
+5[label="Node Type: THROW 5
+"];
+6[label="Node Type: END_IF 6
+"];
+6->7;
+7[label="Node Type: IF 7
+
+EXPRESSION:
+msg.sender != upgradeMaster
+
+IRs:
+TMP_123(bool) = msg.sender != upgradeMaster
+CONDITION TMP_123"];
+7->8[label="True"];
+7->9[label="False"];
+8[label="Node Type: THROW 8
+"];
+9[label="Node Type: END_IF 9
+"];
+9->10;
+10[label="Node Type: IF 10
+
+EXPRESSION:
+getUpgradeState() == UpgradeState.Upgrading
+
+IRs:
+TMP_124(UpgradeableToken.UpgradeState) = INTERNAL_CALL, UpgradeableToken.getUpgradeState()()
+REF_44(UpgradeableToken.UpgradeState) -> UpgradeState.Upgrading
+TMP_125(bool) = TMP_124 == REF_44
+CONDITION TMP_125"];
+10->11[label="True"];
+10->12[label="False"];
+11[label="Node Type: THROW 11
+"];
+12[label="Node Type: END_IF 12
+"];
+12->13;
+13[label="Node Type: EXPRESSION 13
+
+EXPRESSION:
+upgradeAgent = UpgradeAgent(agent)
+
+IRs:
+TMP_126 = CONVERT agent to UpgradeAgent
+upgradeAgent(UpgradeAgent) := TMP_126(UpgradeAgent)"];
+13->14;
+14[label="Node Type: IF 14
+
+EXPRESSION:
+! upgradeAgent.isUpgradeAgent()
+
+IRs:
+TMP_127(bool) = HIGH_LEVEL_CALL, dest:upgradeAgent(UpgradeAgent), function:isUpgradeAgent, arguments:[]  
+TMP_128 = ! TMP_127 
+CONDITION TMP_128"];
+14->15[label="True"];
+14->16[label="False"];
+15[label="Node Type: THROW 15
+"];
+16[label="Node Type: END_IF 16
+"];
+16->17;
+17[label="Node Type: IF 17
+
+EXPRESSION:
+upgradeAgent.originalSupply() != totalSupply
+
+IRs:
+TMP_129(uint256) = HIGH_LEVEL_CALL, dest:upgradeAgent(UpgradeAgent), function:originalSupply, arguments:[]  
+TMP_130(bool) = TMP_129 != totalSupply
+CONDITION TMP_130"];
+17->18[label="True"];
+17->19[label="False"];
+18[label="Node Type: THROW 18
+"];
+19[label="Node Type: END_IF 19
+"];
+19->20;
+20[label="Node Type: EXPRESSION 20
+
+EXPRESSION:
+UpgradeAgentSet(upgradeAgent)
+
+IRs:
+Emit UpgradeAgentSet(upgradeAgent)"];
+}

@@ -1,0 +1,223 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->28;
+1[label="Node Type: IF 1
+
+EXPRESSION:
+_fromId == _toId
+
+IRs:
+TMP_53(bool) = _fromId == _toId
+CONDITION TMP_53"];
+1->2[label="True"];
+1->4[label="False"];
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+_error(Cannot send to oneself)
+
+IRs:
+INTERNAL_CALL, EToken2._error(bytes32)(Cannot send to oneself)"];
+2->3;
+3[label="Node Type: RETURN 3
+
+EXPRESSION:
+false
+
+IRs:
+RETURN False"];
+4[label="Node Type: END_IF 4
+"];
+4->5;
+5[label="Node Type: IF 5
+
+EXPRESSION:
+_value == 0
+
+IRs:
+TMP_55(bool) = _value == 0
+CONDITION TMP_55"];
+5->6[label="True"];
+5->8[label="False"];
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+_error(Cannot send 0 value)
+
+IRs:
+INTERNAL_CALL, EToken2._error(bytes32)(Cannot send 0 value)"];
+6->7;
+7[label="Node Type: RETURN 7
+
+EXPRESSION:
+false
+
+IRs:
+RETURN False"];
+8[label="Node Type: END_IF 8
+"];
+8->9;
+9[label="Node Type: IF 9
+
+EXPRESSION:
+_balanceOf(_fromId,_symbol) < _value
+
+IRs:
+TMP_57(uint256) = INTERNAL_CALL, EToken2._balanceOf(uint256,bytes32)(_fromId,_symbol)
+TMP_58(bool) = TMP_57 < _value
+CONDITION TMP_58"];
+9->10[label="True"];
+9->12[label="False"];
+10[label="Node Type: EXPRESSION 10
+
+EXPRESSION:
+_error(Insufficient balance)
+
+IRs:
+INTERNAL_CALL, EToken2._error(bytes32)(Insufficient balance)"];
+10->11;
+11[label="Node Type: RETURN 11
+
+EXPRESSION:
+false
+
+IRs:
+RETURN False"];
+12[label="Node Type: END_IF 12
+"];
+12->13;
+13[label="Node Type: IF 13
+
+EXPRESSION:
+bytes(_reference).length > 0 && ! isEnabled(sha3()(_symbol,Features.TransferWithReference))
+
+IRs:
+TMP_60 = CONVERT _reference to bytes
+REF_50 -> LENGTH TMP_60
+TMP_61(bool) = REF_50 > 0
+REF_51(EToken2.Features) -> Features.TransferWithReference
+TMP_62(bytes32) = SOLIDITY_CALL sha3()(_symbol,REF_51)
+TMP_63(bool) = INTERNAL_CALL, EToken2.isEnabled(bytes32)(TMP_62)
+TMP_64 = ! TMP_63 
+TMP_65(bool) = TMP_61 && TMP_64
+CONDITION TMP_65"];
+13->14[label="True"];
+13->16[label="False"];
+14[label="Node Type: EXPRESSION 14
+
+EXPRESSION:
+_error(References feature is disabled)
+
+IRs:
+INTERNAL_CALL, EToken2._error(bytes32)(References feature is disabled)"];
+14->15;
+15[label="Node Type: RETURN 15
+
+EXPRESSION:
+false
+
+IRs:
+RETURN False"];
+16[label="Node Type: END_IF 16
+"];
+16->17;
+17[label="Node Type: IF 17
+
+EXPRESSION:
+_fromId != _senderId && _allowance(_fromId,_senderId,_symbol) < _value
+
+IRs:
+TMP_67(bool) = _fromId != _senderId
+TMP_68(uint256) = INTERNAL_CALL, EToken2._allowance(uint256,uint256,bytes32)(_fromId,_senderId,_symbol)
+TMP_69(bool) = TMP_68 < _value
+TMP_70(bool) = TMP_67 && TMP_69
+CONDITION TMP_70"];
+17->18[label="True"];
+17->20[label="False"];
+18[label="Node Type: EXPRESSION 18
+
+EXPRESSION:
+_error(Not enough allowance)
+
+IRs:
+INTERNAL_CALL, EToken2._error(bytes32)(Not enough allowance)"];
+18->19;
+19[label="Node Type: RETURN 19
+
+EXPRESSION:
+false
+
+IRs:
+RETURN False"];
+20[label="Node Type: END_IF 20
+"];
+20->21;
+21[label="Node Type: IF 21
+
+EXPRESSION:
+_fromId != _senderId
+
+IRs:
+TMP_72(bool) = _fromId != _senderId
+CONDITION TMP_72"];
+21->22[label="True"];
+21->23[label="False"];
+22[label="Node Type: EXPRESSION 22
+
+EXPRESSION:
+assets[_symbol].wallets[_fromId].allowance[_senderId] -= _value
+
+IRs:
+REF_52(EToken2.Asset) -> assets[_symbol]
+REF_53(mapping(uint256 => EToken2.Wallet)) -> REF_52.wallets
+REF_54(EToken2.Wallet) -> REF_53[_fromId]
+REF_55(mapping(uint256 => uint256)) -> REF_54.allowance
+REF_56(uint256) -> REF_55[_senderId]
+REF_56(-> assets) = REF_56 - _value"];
+22->23;
+23[label="Node Type: END_IF 23
+"];
+23->24;
+24[label="Node Type: EXPRESSION 24
+
+EXPRESSION:
+_transferDirect(_fromId,_toId,_value,_symbol)
+
+IRs:
+INTERNAL_CALL, EToken2._transferDirect(uint256,uint256,uint256,bytes32)(_fromId,_toId,_value,_symbol)"];
+24->25;
+25[label="Node Type: EXPRESSION 25
+
+EXPRESSION:
+eventsHistory.emitTransfer(_address(_fromId),_address(_toId),_symbol,_value,_reference)
+
+IRs:
+TMP_74(address) = INTERNAL_CALL, EToken2._address(uint256)(_fromId)
+TMP_75(address) = INTERNAL_CALL, EToken2._address(uint256)(_toId)
+HIGH_LEVEL_CALL, dest:eventsHistory(Emitter), function:emitTransfer, arguments:['TMP_74', 'TMP_75', '_symbol', '_value', '_reference']  "];
+25->26;
+26[label="Node Type: EXPRESSION 26
+
+EXPRESSION:
+_proxyTransferEvent(_fromId,_toId,_value,_symbol)
+
+IRs:
+INTERNAL_CALL, EToken2._proxyTransferEvent(uint256,uint256,uint256,bytes32)(_fromId,_toId,_value,_symbol)"];
+26->27;
+27[label="Node Type: RETURN 27
+
+EXPRESSION:
+true
+
+IRs:
+RETURN True"];
+28[label="Node Type: EXPRESSION 28
+
+EXPRESSION:
+checkSigned(_senderId,1)
+
+IRs:
+MODIFIER_CALL, EToken2.checkSigned(uint256,uint256)(_senderId,1)"];
+28->1;
+}

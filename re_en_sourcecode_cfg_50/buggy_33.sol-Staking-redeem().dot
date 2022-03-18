@@ -1,0 +1,96 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(! lock)
+
+IRs:
+TMP_133 = ! lock 
+TMP_134(None) = SOLIDITY_CALL require(bool)(TMP_133)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(! staker[msg.sender].redeem)
+
+IRs:
+REF_76(Staking.stake) -> staker[msg.sender]
+REF_77(bool) -> REF_76.redeem
+TMP_135 = ! REF_77 
+TMP_136(None) = SOLIDITY_CALL require(bool)(TMP_135)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+require(bool)(staker[msg.sender].time + stakeTime <= now)
+
+IRs:
+REF_78(Staking.stake) -> staker[msg.sender]
+REF_79(uint256) -> REF_78.time
+TMP_137(uint256) = REF_79 + stakeTime
+TMP_138(bool) = TMP_137 <= now
+TMP_139(None) = SOLIDITY_CALL require(bool)(TMP_138)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+require(bool)(token.transfer(msg.sender,staker[msg.sender].tokens))
+
+IRs:
+REF_81(Staking.stake) -> staker[msg.sender]
+REF_82(uint256) -> REF_81.tokens
+TMP_140(bool) = HIGH_LEVEL_CALL, dest:token(Token), function:transfer, arguments:['msg.sender', 'REF_82']  
+TMP_141(None) = SOLIDITY_CALL require(bool)(TMP_140)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+require(bool)(token.transferFrom(owner,msg.sender,staker[msg.sender].tokens * stakePercentage * 100 / 10000))
+
+IRs:
+REF_84(Staking.stake) -> staker[msg.sender]
+REF_85(uint256) -> REF_84.tokens
+TMP_142(uint256) = REF_85 * stakePercentage
+TMP_143(uint256) = TMP_142 * 100
+TMP_144(uint256) = TMP_143 / 10000
+TMP_145(bool) = HIGH_LEVEL_CALL, dest:token(Token), function:transferFrom, arguments:['owner', 'msg.sender', 'TMP_144']  
+TMP_146(None) = SOLIDITY_CALL require(bool)(TMP_145)"];
+5->6;
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+tokensRedeemed(msg.sender,staker[msg.sender].tokens,staker[msg.sender].tokens * stakePercentage * 100 / 10000)
+
+IRs:
+REF_86(Staking.stake) -> staker[msg.sender]
+REF_87(uint256) -> REF_86.tokens
+REF_88(Staking.stake) -> staker[msg.sender]
+REF_89(uint256) -> REF_88.tokens
+TMP_147(uint256) = REF_89 * stakePercentage
+TMP_148(uint256) = TMP_147 * 100
+TMP_149(uint256) = TMP_148 / 10000
+Emit tokensRedeemed(msg.sender.REF_87.TMP_149)"];
+6->7;
+7[label="Node Type: EXPRESSION 7
+
+EXPRESSION:
+staker[msg.sender].redeem = true
+
+IRs:
+REF_90(Staking.stake) -> staker[msg.sender]
+REF_91(bool) -> REF_90.redeem
+REF_91 (->staker) := True(bool)"];
+7->8;
+8[label="Node Type: EXPRESSION 8
+
+EXPRESSION:
+staker[msg.sender].tokens = 0
+
+IRs:
+REF_92(Staking.stake) -> staker[msg.sender]
+REF_93(uint256) -> REF_92.tokens
+REF_93 (->staker) := 0(uint256)"];
+}

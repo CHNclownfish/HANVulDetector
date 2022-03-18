@@ -1,0 +1,44 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: IF 1
+
+EXPRESSION:
+! (lastPlayer_re_ent16.send(jackpot_re_ent16))
+
+IRs:
+TMP_113 = SEND dest:lastPlayer_re_ent16 value:jackpot_re_ent16
+TMP_114 = ! TMP_113 
+CONDITION TMP_114"];
+1->2[label="True"];
+1->3[label="False"];
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+revert()()
+
+IRs:
+TMP_115(None) = SOLIDITY_CALL revert()()"];
+2->3;
+3[label="Node Type: END_IF 3
+"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+lastPlayer_re_ent16 = msg.sender
+
+IRs:
+lastPlayer_re_ent16(address) := msg.sender(address)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+jackpot_re_ent16 = address(this).balance
+
+IRs:
+TMP_116 = CONVERT this to address
+REF_92 -> BALANCE TMP_116
+jackpot_re_ent16(uint256) := REF_92(uint256)"];
+}

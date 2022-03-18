@@ -1,0 +1,62 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+symbol = FCS
+
+IRs:
+symbol(string) := FCS(string)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+name = Five Color Stone
+
+IRs:
+name(string) := Five Color Stone(string)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+decimals = 18
+
+IRs:
+decimals(uint8) := 18(uint256)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+_totalSupply = 2000000000000000000000000000
+
+IRs:
+_totalSupply(uint256) := 2000000000000000000000000000(uint256)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+_owner = 0xa45760889D1c27804Dc6D6B89D4095e8Eb99ab72
+
+IRs:
+_owner(address) := 938223060514068177248379148882853111076916669298(address)"];
+5->6;
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+balances[_owner] = _totalSupply
+
+IRs:
+REF_12(uint256) -> balances[_owner]
+REF_12 (->balances) := _totalSupply(uint256)"];
+6->7;
+7[label="Node Type: EXPRESSION 7
+
+EXPRESSION:
+Transfer(address(0),_owner,_totalSupply)
+
+IRs:
+TMP_76 = CONVERT 0 to address
+Emit Transfer(TMP_76._owner._totalSupply)"];
+}

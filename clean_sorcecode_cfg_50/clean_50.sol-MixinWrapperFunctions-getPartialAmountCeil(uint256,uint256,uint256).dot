@@ -1,0 +1,33 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool,string)(denominator > 0,DIVISION_BY_ZERO)
+
+IRs:
+TMP_461(bool) = denominator > 0
+TMP_462(None) = SOLIDITY_CALL require(bool,string)(TMP_461,DIVISION_BY_ZERO)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+partialAmount = safeDiv(safeAdd(safeMul(numerator,target),safeSub(denominator,1)),denominator)
+
+IRs:
+TMP_463(uint256) = INTERNAL_CALL, SafeMath.safeMul(uint256,uint256)(numerator,target)
+TMP_464(uint256) = INTERNAL_CALL, SafeMath.safeSub(uint256,uint256)(denominator,1)
+TMP_465(uint256) = INTERNAL_CALL, SafeMath.safeAdd(uint256,uint256)(TMP_463,TMP_464)
+TMP_466(uint256) = INTERNAL_CALL, SafeMath.safeDiv(uint256,uint256)(TMP_465,denominator)
+partialAmount(uint256) := TMP_466(uint256)"];
+2->3;
+3[label="Node Type: RETURN 3
+
+EXPRESSION:
+partialAmount
+
+IRs:
+RETURN partialAmount"];
+}

@@ -1,0 +1,48 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->5;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(_investor != address(0))
+
+IRs:
+TMP_120 = CONVERT 0 to address
+TMP_121(bool) = _investor != TMP_120
+TMP_122(None) = SOLIDITY_CALL require(bool)(TMP_121)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+investors_locked[_investor] = _value
+
+IRs:
+REF_69(uint256) -> investors_locked[_investor]
+REF_69 (->investors_locked) := _value(uint256)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+investors_deliveryDate[_investor] = _delieveryDate
+
+IRs:
+REF_70(uint256) -> investors_deliveryDate[_investor]
+REF_70 (->investors_deliveryDate) := _delieveryDate(uint256)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+UpdatedLockingState(investor,_investor,_value,_delieveryDate)
+
+IRs:
+Emit UpdatedLockingState(investor._investor._value._delieveryDate)"];
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+onlyOwner()
+
+IRs:
+MODIFIER_CALL, Ownable.onlyOwner()()"];
+5->1;
+}

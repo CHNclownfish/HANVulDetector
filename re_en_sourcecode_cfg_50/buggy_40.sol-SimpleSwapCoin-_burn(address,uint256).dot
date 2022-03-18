@@ -1,0 +1,43 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool,string)(account != address(0),ERC20: burn from the zero address)
+
+IRs:
+TMP_237 = CONVERT 0 to address
+TMP_238(bool) = account != TMP_237
+TMP_239(None) = SOLIDITY_CALL require(bool,string)(TMP_238,ERC20: burn from the zero address)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+_totalSupply = _totalSupply.sub(value)
+
+IRs:
+TMP_240(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_totalSupply', 'value'] 
+_totalSupply(uint256) := TMP_240(uint256)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+_balances[account] = _balances[account].sub(value)
+
+IRs:
+REF_178(uint256) -> _balances[account]
+REF_179(uint256) -> _balances[account]
+TMP_241(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_179', 'value'] 
+REF_178 (->_balances) := TMP_241(uint256)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+Transfer(account,address(0),value)
+
+IRs:
+TMP_242 = CONVERT 0 to address
+Emit Transfer(account.TMP_242.value)"];
+}

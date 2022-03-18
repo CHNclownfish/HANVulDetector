@@ -1,0 +1,18 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool,string)(msg.sender == owner || ! crowdsaleActive,Transfers are not allowed until after the crowdsale.)
+
+IRs:
+TMP_169(bool) = msg.sender == owner
+TMP_170 = ! crowdsaleActive 
+TMP_171(bool) = TMP_169 || TMP_170
+TMP_172(None) = SOLIDITY_CALL require(bool,string)(TMP_171,Transfers are not allowed until after the crowdsale.)"];
+1->2;
+2[label="Node Type: _ 2
+"];
+}

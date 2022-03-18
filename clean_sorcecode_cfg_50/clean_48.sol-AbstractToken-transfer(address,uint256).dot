@@ -1,0 +1,78 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: IF 1
+
+EXPRESSION:
+accounts[msg.sender] < _value
+
+IRs:
+REF_1(uint256) -> accounts[msg.sender]
+TMP_24(bool) = REF_1 < _value
+CONDITION TMP_24"];
+1->2[label="True"];
+1->3[label="False"];
+2[label="Node Type: RETURN 2
+
+EXPRESSION:
+false
+
+IRs:
+RETURN False"];
+3[label="Node Type: END_IF 3
+"];
+3->4;
+4[label="Node Type: IF 4
+
+EXPRESSION:
+_value > 0 && msg.sender != _to
+
+IRs:
+TMP_25(bool) = _value > 0
+TMP_26(bool) = msg.sender != _to
+TMP_27(bool) = TMP_25 && TMP_26
+CONDITION TMP_27"];
+4->5[label="True"];
+4->7[label="False"];
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+accounts[msg.sender] = safeSub(accounts[msg.sender],_value)
+
+IRs:
+REF_2(uint256) -> accounts[msg.sender]
+REF_3(uint256) -> accounts[msg.sender]
+TMP_28(uint256) = INTERNAL_CALL, SafeMath.safeSub(uint256,uint256)(REF_3,_value)
+REF_2 (->accounts) := TMP_28(uint256)"];
+5->6;
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+accounts[_to] = safeAdd(accounts[_to],_value)
+
+IRs:
+REF_4(uint256) -> accounts[_to]
+REF_5(uint256) -> accounts[_to]
+TMP_29(uint256) = INTERNAL_CALL, SafeMath.safeAdd(uint256,uint256)(REF_5,_value)
+REF_4 (->accounts) := TMP_29(uint256)"];
+6->7;
+7[label="Node Type: END_IF 7
+"];
+7->8;
+8[label="Node Type: EXPRESSION 8
+
+EXPRESSION:
+Transfer(msg.sender,_to,_value)
+
+IRs:
+Emit Transfer(msg.sender._to._value)"];
+8->9;
+9[label="Node Type: RETURN 9
+
+EXPRESSION:
+true
+
+IRs:
+RETURN True"];
+}

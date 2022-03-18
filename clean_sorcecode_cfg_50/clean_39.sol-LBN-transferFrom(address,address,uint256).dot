@@ -1,0 +1,106 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(_to != 0x0)
+
+IRs:
+TMP_60(bool) = _to != 0
+TMP_61(None) = SOLIDITY_CALL require(bool)(TMP_60)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(_value > 0)
+
+IRs:
+TMP_62(bool) = _value > 0
+TMP_63(None) = SOLIDITY_CALL require(bool)(TMP_62)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+require(bool)(balanceOf[_from] >= _value)
+
+IRs:
+REF_13(uint256) -> balanceOf[_from]
+TMP_64(bool) = REF_13 >= _value
+TMP_65(None) = SOLIDITY_CALL require(bool)(TMP_64)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+require(bool)(balanceOf[_to] + _value > balanceOf[_to])
+
+IRs:
+REF_14(uint256) -> balanceOf[_to]
+TMP_66(uint256) = REF_14 + _value
+REF_15(uint256) -> balanceOf[_to]
+TMP_67(bool) = TMP_66 > REF_15
+TMP_68(None) = SOLIDITY_CALL require(bool)(TMP_67)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+require(bool)(_value <= allowance[_from][msg.sender])
+
+IRs:
+REF_16(mapping(address => uint256)) -> allowance[_from]
+REF_17(uint256) -> REF_16[msg.sender]
+TMP_69(bool) = _value <= REF_17
+TMP_70(None) = SOLIDITY_CALL require(bool)(TMP_69)"];
+5->6;
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+balanceOf[_from] = SafeMath.safeSub(balanceOf[_from],_value)
+
+IRs:
+REF_18(uint256) -> balanceOf[_from]
+REF_20(uint256) -> balanceOf[_from]
+TMP_71(uint256) = INTERNAL_CALL, SafeMath.safeSub(uint256,uint256)(REF_20,_value)
+REF_18 (->balanceOf) := TMP_71(uint256)"];
+6->7;
+7[label="Node Type: EXPRESSION 7
+
+EXPRESSION:
+balanceOf[_to] = SafeMath.safeAdd(balanceOf[_to],_value)
+
+IRs:
+REF_21(uint256) -> balanceOf[_to]
+REF_23(uint256) -> balanceOf[_to]
+TMP_72(uint256) = INTERNAL_CALL, SafeMath.safeAdd(uint256,uint256)(REF_23,_value)
+REF_21 (->balanceOf) := TMP_72(uint256)"];
+7->8;
+8[label="Node Type: EXPRESSION 8
+
+EXPRESSION:
+allowance[_from][msg.sender] = SafeMath.safeSub(allowance[_from][msg.sender],_value)
+
+IRs:
+REF_24(mapping(address => uint256)) -> allowance[_from]
+REF_25(uint256) -> REF_24[msg.sender]
+REF_27(mapping(address => uint256)) -> allowance[_from]
+REF_28(uint256) -> REF_27[msg.sender]
+TMP_73(uint256) = INTERNAL_CALL, SafeMath.safeSub(uint256,uint256)(REF_28,_value)
+REF_25 (->allowance) := TMP_73(uint256)"];
+8->9;
+9[label="Node Type: EXPRESSION 9
+
+EXPRESSION:
+Transfer(_from,_to,_value)
+
+IRs:
+Emit Transfer(_from._to._value)"];
+9->10;
+10[label="Node Type: RETURN 10
+
+EXPRESSION:
+true
+
+IRs:
+RETURN True"];
+}

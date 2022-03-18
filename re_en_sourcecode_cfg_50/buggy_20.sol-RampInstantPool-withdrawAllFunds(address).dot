@@ -1,0 +1,22 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->2;
+1[label="Node Type: RETURN 1
+
+EXPRESSION:
+withdrawFunds(_to,availableFunds())
+
+IRs:
+TMP_117(uint256) = INTERNAL_CALL, RampInstantPool.availableFunds()()
+TMP_118(bool) = INTERNAL_CALL, RampInstantPool.withdrawFunds(address,uint256)(_to,TMP_117)
+RETURN TMP_118"];
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+onlyOwner()
+
+IRs:
+MODIFIER_CALL, Ownable.onlyOwner()()"];
+2->1;
+}

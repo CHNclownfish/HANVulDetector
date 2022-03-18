@@ -1,0 +1,66 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool,string)(! safeGuard,System Paused by Admin)
+
+IRs:
+TMP_192 = ! safeGuard 
+TMP_193(None) = SOLIDITY_CALL require(bool,string)(TMP_192,System Paused by Admin)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(token != address(0))
+
+IRs:
+TMP_194 = CONVERT 0 to address
+TMP_195(bool) = token != TMP_194
+TMP_196(None) = SOLIDITY_CALL require(bool)(TMP_195)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+require(bool)(tokens[token][msg.sender] >= amount)
+
+IRs:
+REF_122(mapping(address => uint256)) -> tokens[token]
+REF_123(uint256) -> REF_122[msg.sender]
+TMP_197(bool) = REF_123 >= amount
+TMP_198(None) = SOLIDITY_CALL require(bool)(TMP_197)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+tokens[token][msg.sender] = tokens[token][msg.sender].sub(amount)
+
+IRs:
+REF_124(mapping(address => uint256)) -> tokens[token]
+REF_125(uint256) -> REF_124[msg.sender]
+REF_126(mapping(address => uint256)) -> tokens[token]
+REF_127(uint256) -> REF_126[msg.sender]
+TMP_199(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_127', 'amount'] 
+REF_125 (->tokens) := TMP_199(uint256)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+ERC20Essential(token).transfer(msg.sender,amount)
+
+IRs:
+TMP_200 = CONVERT token to ERC20Essential
+TMP_201(bool) = HIGH_LEVEL_CALL, dest:TMP_200(ERC20Essential), function:transfer, arguments:['msg.sender', 'amount']  "];
+5->6;
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+Withdraw(now,token,msg.sender,amount,tokens[token][msg.sender])
+
+IRs:
+REF_130(mapping(address => uint256)) -> tokens[token]
+REF_131(uint256) -> REF_130[msg.sender]
+Emit Withdraw(now.token.msg.sender.amount.REF_131)"];
+}

@@ -1,0 +1,105 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->11;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+asset = assets[_symbol]
+
+IRs:
+REF_104(EToken2.Asset) -> assets[_symbol]
+asset(EToken2.Asset) := REF_104(EToken2.Asset)"];
+1->2;
+2[label="Node Type: NEW VARIABLE 2
+
+EXPRESSION:
+newOwnerId = _createHolderId(_newOwner)
+
+IRs:
+TMP_148(uint256) = INTERNAL_CALL, EToken2._createHolderId(address)(_newOwner)
+newOwnerId(uint256) := TMP_148(uint256)"];
+2->3;
+3[label="Node Type: IF 3
+
+EXPRESSION:
+asset.owner == newOwnerId
+
+IRs:
+REF_105(uint256) -> asset.owner
+TMP_149(bool) = REF_105 == newOwnerId
+CONDITION TMP_149"];
+3->4[label="True"];
+3->6[label="False"];
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+_error(Cannot pass ownership to oneself)
+
+IRs:
+INTERNAL_CALL, EToken2._error(bytes32)(Cannot pass ownership to oneself)"];
+4->5;
+5[label="Node Type: RETURN 5
+
+EXPRESSION:
+false
+
+IRs:
+RETURN False"];
+6[label="Node Type: END_IF 6
+"];
+6->7;
+7[label="Node Type: NEW VARIABLE 7
+
+EXPRESSION:
+oldOwner = _address(asset.owner)
+
+IRs:
+REF_106(uint256) -> asset.owner
+TMP_151(address) = INTERNAL_CALL, EToken2._address(uint256)(REF_106)
+oldOwner(address) := TMP_151(address)"];
+7->8;
+8[label="Node Type: EXPRESSION 8
+
+EXPRESSION:
+asset.owner = newOwnerId
+
+IRs:
+REF_107(uint256) -> asset.owner
+REF_107 (->asset) := newOwnerId(uint256)"];
+8->9;
+9[label="Node Type: EXPRESSION 9
+
+EXPRESSION:
+eventsHistory.emitOwnershipChange(oldOwner,_address(newOwnerId),_symbol)
+
+IRs:
+TMP_152(address) = INTERNAL_CALL, EToken2._address(uint256)(newOwnerId)
+HIGH_LEVEL_CALL, dest:eventsHistory(Emitter), function:emitOwnershipChange, arguments:['oldOwner', 'TMP_152', '_symbol']  "];
+9->10;
+10[label="Node Type: RETURN 10
+
+EXPRESSION:
+true
+
+IRs:
+RETURN True"];
+11[label="Node Type: EXPRESSION 11
+
+EXPRESSION:
+checkEnabledSwitch(sha3()(_symbol,Features.ChangeOwnership))
+
+IRs:
+REF_109(EToken2.Features) -> Features.ChangeOwnership
+TMP_154(bytes32) = SOLIDITY_CALL sha3()(_symbol,REF_109)
+MODIFIER_CALL, EToken2.checkEnabledSwitch(bytes32)(TMP_154)"];
+11->12;
+12[label="Node Type: EXPRESSION 12
+
+EXPRESSION:
+onlyOwner(_symbol)
+
+IRs:
+MODIFIER_CALL, EToken2.onlyOwner(bytes32)(_symbol)"];
+12->1;
+}

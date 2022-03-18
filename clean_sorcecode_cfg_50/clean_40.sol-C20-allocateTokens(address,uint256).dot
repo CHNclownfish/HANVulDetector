@@ -1,0 +1,72 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(vestingSet)
+
+IRs:
+TMP_151(None) = SOLIDITY_CALL require(bool)(vestingSet)"];
+1->2;
+2[label="Node Type: NEW VARIABLE 2
+
+EXPRESSION:
+developmentAllocation = safeMul(amountTokens,14942528735632185) / 100000000000000000
+
+IRs:
+TMP_152(uint256) = INTERNAL_CALL, SafeMath.safeMul(uint256,uint256)(amountTokens,14942528735632185)
+TMP_153(uint256) = TMP_152 / 100000000000000000
+developmentAllocation(uint256) := TMP_153(uint256)"];
+2->3;
+3[label="Node Type: NEW VARIABLE 3
+
+EXPRESSION:
+newTokens = safeAdd(amountTokens,developmentAllocation)
+
+IRs:
+TMP_154(uint256) = INTERNAL_CALL, SafeMath.safeAdd(uint256,uint256)(amountTokens,developmentAllocation)
+newTokens(uint256) := TMP_154(uint256)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+require(bool)(safeAdd(totalSupply,newTokens) <= tokenCap)
+
+IRs:
+TMP_155(uint256) = INTERNAL_CALL, SafeMath.safeAdd(uint256,uint256)(totalSupply,newTokens)
+TMP_156(bool) = TMP_155 <= tokenCap
+TMP_157(None) = SOLIDITY_CALL require(bool)(TMP_156)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+totalSupply = safeAdd(totalSupply,newTokens)
+
+IRs:
+TMP_158(uint256) = INTERNAL_CALL, SafeMath.safeAdd(uint256,uint256)(totalSupply,newTokens)
+totalSupply(uint256) := TMP_158(uint256)"];
+5->6;
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+balances[participant] = safeAdd(balances[participant],amountTokens)
+
+IRs:
+REF_66(uint256) -> balances[participant]
+REF_67(uint256) -> balances[participant]
+TMP_159(uint256) = INTERNAL_CALL, SafeMath.safeAdd(uint256,uint256)(REF_67,amountTokens)
+REF_66 (->balances) := TMP_159(uint256)"];
+6->7;
+7[label="Node Type: EXPRESSION 7
+
+EXPRESSION:
+balances[vestingContract] = safeAdd(balances[vestingContract],developmentAllocation)
+
+IRs:
+REF_68(uint256) -> balances[vestingContract]
+REF_69(uint256) -> balances[vestingContract]
+TMP_160(uint256) = INTERNAL_CALL, SafeMath.safeAdd(uint256,uint256)(REF_69,developmentAllocation)
+REF_68 (->balances) := TMP_160(uint256)"];
+}

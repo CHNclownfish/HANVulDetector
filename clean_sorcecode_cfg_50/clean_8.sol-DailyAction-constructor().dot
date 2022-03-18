@@ -1,0 +1,13 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+term = 86400 - 600
+
+IRs:
+TMP_115(uint256) = 86400 - 600
+term(uint256) := TMP_115(uint256)"];
+}

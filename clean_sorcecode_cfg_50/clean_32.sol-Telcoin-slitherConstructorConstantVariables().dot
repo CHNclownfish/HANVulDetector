@@ -1,0 +1,36 @@
+digraph{
+0[label="Node Type: OTHER_ENTRYPOINT 0
+
+EXPRESSION:
+name = Telcoin
+
+IRs:
+name(string) := Telcoin(string)"];
+0->1;
+1[label="Node Type: OTHER_ENTRYPOINT 1
+
+EXPRESSION:
+symbol = TEL
+
+IRs:
+symbol(string) := TEL(string)"];
+1->2;
+2[label="Node Type: OTHER_ENTRYPOINT 2
+
+EXPRESSION:
+decimals = 2
+
+IRs:
+decimals(uint8) := 2(uint256)"];
+2->3;
+3[label="Node Type: OTHER_ENTRYPOINT 3
+
+EXPRESSION:
+totalSupply = 100000000000 * (10 ** uint256(decimals))
+
+IRs:
+TMP_39 = CONVERT decimals to uint256
+TMP_40(uint256) = 10 ** TMP_39
+TMP_41(uint256) = 100000000000 * TMP_40
+totalSupply(uint256) := TMP_41(uint256)"];
+}
