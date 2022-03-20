@@ -1,9 +1,0 @@
-digraph{
-0[label="Node Type: OTHER_ENTRYPOINT 0
-
-EXPRESSION:
-not_called_re_ent27 = true
-
-IRs:
-not_called_re_ent27(bool) := True(bool)"];
-}
