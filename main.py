@@ -18,110 +18,85 @@ from GraphGenerator import graphGenerator_ethersolve
 from GraphGenerator import graphGenerator_slither
 from utils import readfile
 from utils import evaluate
+from utils import model_select
+from utils import fullset
 from DataLoader import dataloader
 
+# can add 'type': model_select('type') to the dict to compare different type of codes,
+# where types are 'source_code', 'runtime_code' and 'creation_code'
+models = {'source_code':model_select('source_code'),'runtime_code': model_select('runtime_code')}
 
-# file = '/Users/xiechunyao/creationcode_uncheck_call_label.json'
-file_runtime = 'reentrancy_runtimecode_label.json'
-file_sourcecode = 'reentrancy_sourcecode_label.json'
-# file = '/Users/xiechunyao/sourcecode_unchecked_low_level_calls_label.json'
-graphinfo_source = readfile(file_sourcecode)
-graphinfo_runtime = readfile(file_runtime)
-set_for_runtime = graphinfo_runtime.keys()
-set_for_source = graphinfo_source.keys()
+files_uncheck = {'source_code': 'uncheck_low_level_calls_sourcecode.json',
+                 'runtime_code': 'uncheck_low_level_calls_runtimecode.json',
+                 'creation_code': 'uncheck_low_level_calls_creationcode.json'}
 
-name_list = list(set(set_for_runtime) & set(set_for_source))
+files_reentrancy = {'source_code':'reentrancy_sourcecode.json',
+                    'runtime_code':'reentrancy_runtimecode.json'}
+
+# for detecting uncheck_low_lwvel_calls use this
+graphinfos = {key:readfile(files_uncheck[key]) for key in models}
+
+# for detecting reentrancy use this
+# graphinfos = {key:readfile(files_reentrancy[key]) for key in models}
+
+
+sets = {key:set(graphinfos[key].keys()) for key in models}
+name_list = set(fullset())
+for key in sets:
+    name_list &= sets[key]
+name_list = list(name_list)
 random.shuffle(name_list)
+print(len(name_list))
 
-runtime = 'bytecode'
-source = 'sourcecode'
-dataloader_runtime = dataloader(name_list,graphinfo_runtime)
-dataloader_sourcecode = dataloader(name_list,graphinfo_source)
-data_runtime = dataloader_runtime.createdata(runtime)
-data_sourcecode = dataloader_sourcecode.createdata(source)
+dataloaders = {key:dataloader(name_list,graphinfos[key]) for key in models}
+
+datas = {key:dataloaders[key].createdata(key) for key in models}
+
 print('dataset prepare finish')
 
-matrix_runtime = []
-matrix_source = []
+matrixs = {key:[] for key in models}
 # kf = KFold(n_splits=5,random_state=1,shuffle=True)
 kf = KFold(n_splits=5)
-metapaths_runtime = [['CF', 'FC'],['ELSE','ESLE'],['IF','FI']]
-metapaths_source = [['False', 'eslaF'], ['True', 'eurT'], ['CF', 'FC']]
-print('ready for training')
 
+
+mask = np.array(name_list)
 cnt = 0
-for train_idx, test_idx in kf.split(data_runtime):
+for train_idx, test_idx in kf.split(mask):
+    print('ready for training')
 
     cnt += 1
-
-    train_set_runtime = data_runtime[train_idx]
-    test_set_runtime = data_runtime[test_idx]
-    model_runtime = HAN(meta_paths=metapaths_runtime,
-                in_size=8,
-                hidden_size=32,
-                out_size=2,
-                num_heads=[8],
-                dropout=0)
-    loss_fcn_runtime = th.nn.CrossEntropyLoss()
-    optimizer_runtime = th.optim.Adam(model_runtime.parameters(), lr=0.001,
+    for type in models:
+        train_set = datas[type][train_idx]
+        test_set = datas[type][test_idx]
+        model = models[type]
+        loss_fcn= th.nn.CrossEntropyLoss()
+        optimizer = th.optim.Adam(model.parameters(), lr=0.001,
                               weight_decay=0.001)
 
-    for epoch in range(20):
-        epoch_loss_runtime = 0
-        model_runtime.train()
+        for epoch in range(20):
+            epoch_loss = 0
+            model.train()
 
-        for i,(g,l) in enumerate(train_set_runtime):
+            for i,(g,l) in enumerate(train_set):
 
-            features = g.ndata['f']
+                features = g.ndata['f']
 
-            logits = model_runtime(g,features)
-            loss_runtime = loss_fcn_runtime(logits, l)
+                logits = model(g,features)
+                loss = loss_fcn(logits, l)
 
-            optimizer_runtime.zero_grad()
-            loss_runtime.backward()
-            optimizer_runtime.step()
-            epoch_loss_runtime += loss_runtime.detach().item()
-        epoch_loss_runtime /= (i + 1)
-        print(epoch,epoch_loss_runtime)
+                optimizer.zero_grad()
+                loss.backward()
+                optimizer.step()
+                epoch_loss += loss.detach().item()
+            epoch_loss /= (i + 1)
+            print(epoch,epoch_loss)
 
-    scores_runtime = evaluate(test_set_runtime,model_runtime)
-    matrix_runtime.append(scores_runtime)
-    print('this is fold ', cnt, 'runtime code mat:',scores_runtime)
+        scores = evaluate(test_set,model)
+        matrixs[type].append(scores)
+        print('this is fold ', cnt, type,' mat:',scores)
 
 
-    train_set_source = data_sourcecode[train_idx]
-    test_set_source = data_sourcecode[test_idx]
-    model_source = HAN(meta_paths=metapaths_source,
-                        in_size=15,
-                        hidden_size=32,
-                        out_size=2,
-                        num_heads=[8],
-                        dropout=0)
-    loss_fcn_source = th.nn.CrossEntropyLoss()
-    optimizer_source = th.optim.Adam(model_source.parameters(), lr=0.001,
-                              weight_decay=0.001)
 
-    for epoch in range(20):
-        epoch_loss_source = 0
-        model_source.train()
 
-        for i,(g,l) in enumerate(train_set_source):
-
-            features = g.ndata['f']
-
-            logits = model_source(g,features)
-            loss_source = loss_fcn_source(logits, l)
-
-            optimizer_source.zero_grad()
-            loss_source.backward()
-            optimizer_source.step()
-            epoch_loss_source += loss_source.detach().item()
-        epoch_loss_source /= (i + 1)
-        print(epoch,epoch_loss_source)
-
-    scores_source = evaluate(test_set_source,model_source)
-    matrix_source.append(scores_source)
-    print('this is fold ', cnt, 'source code mat:',scores_source)
-
-print(matrix_runtime)
-print(matrix_source)
+for k in matrixs:
+    print(matrixs[k])

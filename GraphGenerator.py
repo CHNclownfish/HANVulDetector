@@ -58,9 +58,9 @@ class graphGenerator_ethersolve:
         for u,v in self.g.edges():
             if node_info[u][endwith] == 'JUMPI':
                 if node_info[v][startwith] == 'JUMPDEST':
-                    edgeLabel[(u,v)] = 'IF'
+                    edgeLabel[(u,v)] = 'True'
                 else:
-                    edgeLabel[(u,v)] = 'ELSE'
+                    edgeLabel[(u,v)] = 'Else'
             else:
                 edgeLabel[(u,v)] = 'CF'
 

@@ -5,6 +5,8 @@ import torch
 from sklearn.model_selection import cross_val_score
 from sklearn.metrics import accuracy_score
 from sklearn import metrics
+from model import HAN
+import GraphGenerator
 def readfile(jsonfile):
     with open(jsonfile) as f:
         data = json.load(f)
@@ -24,11 +26,73 @@ def evaluate(data,m):
     macro = metrics.precision_score(y_true, y_pred, average='macro')
     recall_micro = metrics.recall_score(y_true, y_pred, average='micro')
     recall_macro = metrics.recall_score(y_true, y_pred, average='macro')
-    f1 = metrics.f1_score(y_true, y_pred, average='weighted')
-    d = {'acc': acc,'micro': micro, 'macro': macro, 'recall_micro': recall_micro, 'recall_macro': recall_macro, 'f1': f1}
+    f1_micro = metrics.f1_score(y_true, y_pred, average='micro')
+    f1_macro = metrics.f1_score(y_true, y_pred, average='macro')
+    d = {'acc': acc,'micro': micro, 'macro': macro, 'recall_micro': recall_micro, 'recall_macro': recall_macro, 'f1_micro': f1_micro,'f1_macro':f1_macro}
     return d
 
+def fullset():
+    with open('fullset.json') as f:
+        data = json.load(f)
+    return data['fullset']
 
+def model_select(type):
+
+    metapaths= [['False', 'eslaF'], ['True', 'eurT'], ['CF', 'FC']]
+    if type == 'source_code':
+        model = HAN(meta_paths=metapaths,
+                    in_size=15,
+                    hidden_size=32,
+                    out_size=2,
+                    num_heads=[8],
+                    dropout=0)
+    if type == 'runtime_code' or type == 'creation_code':
+        model = HAN(meta_paths=metapaths,
+                    in_size=8,
+                    hidden_size=32,
+                    out_size=2,
+                    num_heads=[8],
+                    dropout=0)
+    return model
+
+
+
+# def readname(type,file):
+#     if type == 'creation' or type == 'source':
+#         name = file[:file.find('.')]
+#     if type == 'runtime':
+#         name = file[:file.find('_')]
+#     return name
+# path_clean_source = 'dataset/clean/clean_runtimebytecode_conbycon_cfg_50/'
+# path_reentrancy_source = 'dataset/reentrancy/re_runtimebytecode_conbycon_cfg_50/'
+# data_clean = os.listdir(path_clean_source)
+# data_reentrancy = os.listdir(path_reentrancy_source)
+# d = {}
+# for x in data_clean:
+#     if '.dot' in x:
+#         a = x.split('_')
+#         name = a[0] + '_' + a[1]
+#         # name = x[:x.find('.')]
+#         print(name)
+#         if name not in d:
+#             d[name] = {}
+#             d[name]['path'] = []
+#             d[name]['label'] = 0
+#         d[name]['path'].append(path_clean_source+x)
+#
+# for y in data_reentrancy:
+#     if '.dot' in y:
+#         b = y.split('_')
+#         name = b[0] + 'gy_' + a[1]
+#         #name = y[:y.find('.')]
+#         print(name)
+#         if name not in d:
+#
+#             d[name] = {}
+#             d[name]['path'] = []
+#             d[name]['label'] = 1
+#         d[name]['path'].append(path_reentrancy_source+y)
+#print(d)
 # def generategraph(dotfilepaths):
 #     g = nx.drawing.nx_pydot.read_dot(dotfilepaths[0])
 #     for i in range(1,len(dotfilepaths)):
