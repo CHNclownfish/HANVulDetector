@@ -63,10 +63,10 @@ def model_select(type):
 #     if type == 'runtime':
 #         name = file[:file.find('_')]
 #     return name
-# path_clean_source = 'dataset/clean/clean_runtimebytecode_conbycon_cfg_50/'
-# path_reentrancy_source = 'dataset/reentrancy/re_runtimebytecode_conbycon_cfg_50/'
-# data_clean = os.listdir(path_clean_source)
-# data_reentrancy = os.listdir(path_reentrancy_source)
+# path_clean_runtime = 'dataset/clean/clean_runtimebytecode_conbycon_cfg_50/'
+# path_reentrancy_runtime = 'dataset/reentrancy/re_runtimebytecode_conbycon_cfg_50/'
+# data_clean = os.listdir(path_clean_runtime)
+# data_reentrancy = os.listdir(path_reentrancy_runtime)
 # d = {}
 # for x in data_clean:
 #     if '.dot' in x:
@@ -78,12 +78,12 @@ def model_select(type):
 #             d[name] = {}
 #             d[name]['path'] = []
 #             d[name]['label'] = 0
-#         d[name]['path'].append(path_clean_source+x)
+#         d[name]['path'].append(path_clean_runtime+x)
 #
 # for y in data_reentrancy:
 #     if '.dot' in y:
 #         b = y.split('_')
-#         name = b[0] + 'gy_' + a[1]
+#         name = b[0] + 'gy_' + b[1]
 #         #name = y[:y.find('.')]
 #         print(name)
 #         if name not in d:
@@ -91,8 +91,10 @@ def model_select(type):
 #             d[name] = {}
 #             d[name]['path'] = []
 #             d[name]['label'] = 1
-#         d[name]['path'].append(path_reentrancy_source+y)
-#print(d)
+#         d[name]['path'].append(path_reentrancy_runtime+y)
+# print(d)
+# with open('reentrancy_runtimecode.json','w') as f:
+#     json.dump(d,f)
 # def generategraph(dotfilepaths):
 #     g = nx.drawing.nx_pydot.read_dot(dotfilepaths[0])
 #     for i in range(1,len(dotfilepaths)):
