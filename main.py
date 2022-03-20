@@ -22,7 +22,7 @@ from utils import model_select
 from utils import fullset
 from DataLoader import dataloader
 
-# can add 'type': model_select('type') to the dict to compare different type of codes,
+# can add 'type'to the list to compare different type of codes,
 # where types are 'source_code', 'runtime_code' and 'creation_code'
 types = ['source_code','runtime_code']
 
