@@ -1,9 +1,0 @@
-digraph{
-0[label="Node Type: OTHER_ENTRYPOINT 0
-
-EXPRESSION:
-mintingFinished = false
-
-IRs:
-mintingFinished(bool) := False(bool)"];
-}

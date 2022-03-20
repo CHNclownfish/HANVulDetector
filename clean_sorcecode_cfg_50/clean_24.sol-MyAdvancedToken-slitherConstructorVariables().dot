@@ -1,9 +1,0 @@
-digraph{
-0[label="Node Type: OTHER_ENTRYPOINT 0
-
-EXPRESSION:
-decimals = 5
-
-IRs:
-decimals(uint8) := 5(uint256)"];
-}
