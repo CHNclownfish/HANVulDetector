@@ -1,0 +1,28 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool,string)(_swapsContract != address(0),null swaps contract address)
+
+IRs:
+TMP_153 = CONVERT 0 to address
+TMP_154(bool) = _swapsContract != TMP_153
+TMP_155(None) = SOLIDITY_CALL require(bool,string)(TMP_154,null swaps contract address)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool,string)(RampInstantEscrowsPoolInterface(_swapsContract).ASSET_TYPE() == _assetType,pool asset type doesn't match swap contract)
+
+IRs:
+TMP_156 = CONVERT _swapsContract to RampInstantEscrowsPoolInterface
+TMP_157(uint16) = HIGH_LEVEL_CALL, dest:TMP_156(RampInstantEscrowsPoolInterface), function:ASSET_TYPE, arguments:[]  
+TMP_158(bool) = TMP_157 == _assetType
+TMP_159(None) = SOLIDITY_CALL require(bool,string)(TMP_158,pool asset type doesn't match swap contract)"];
+2->3;
+3[label="Node Type: _ 3
+"];
+}

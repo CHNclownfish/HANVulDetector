@@ -1,0 +1,21 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->2;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+ieoState = State.halted
+
+IRs:
+REF_67(AcunarIEO.State) -> State.halted
+ieoState(AcunarIEO.State) := REF_67(AcunarIEO.State)"];
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+onlyAdmin()
+
+IRs:
+MODIFIER_CALL, AcunarIEO.onlyAdmin()()"];
+2->1;
+}

@@ -1,0 +1,22 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+digest = keccak256(bytes)(abi.encodePacked(challenge_number,msg.sender,nonce))
+
+IRs:
+TMP_222(bytes) = SOLIDITY_CALL abi.encodePacked()(challenge_number,msg.sender,nonce)
+TMP_223(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_222)
+digest(bytes32) := TMP_223(bytes32)"];
+1->2;
+2[label="Node Type: RETURN 2
+
+EXPRESSION:
+digest
+
+IRs:
+RETURN digest"];
+}

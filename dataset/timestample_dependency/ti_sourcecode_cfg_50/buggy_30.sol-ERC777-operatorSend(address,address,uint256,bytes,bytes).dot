@@ -1,0 +1,21 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool,string)(isOperatorFor(msg.sender,sender),ERC777: caller is not an operator for holder)
+
+IRs:
+TMP_85(bool) = INTERNAL_CALL, ERC777.isOperatorFor(address,address)(msg.sender,sender)
+TMP_86(None) = SOLIDITY_CALL require(bool,string)(TMP_85,ERC777: caller is not an operator for holder)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+_send(msg.sender,sender,recipient,amount,data,operatorData,true)
+
+IRs:
+INTERNAL_CALL, ERC777._send(address,address,address,uint256,bytes,bytes,bool)(msg.sender,sender,recipient,amount,data,operatorData,True)"];
+}

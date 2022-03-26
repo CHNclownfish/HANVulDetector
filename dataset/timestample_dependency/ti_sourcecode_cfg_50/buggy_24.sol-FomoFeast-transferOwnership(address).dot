@@ -1,0 +1,30 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->3;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool,string)(newOwner != address(0),cannot transfer ownership to address zero)
+
+IRs:
+TMP_87 = CONVERT 0 to address
+TMP_88(bool) = newOwner != TMP_87
+TMP_89(None) = SOLIDITY_CALL require(bool,string)(TMP_88,cannot transfer ownership to address zero)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+owner = newOwner
+
+IRs:
+owner(address) := newOwner(address)"];
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+onlyOwner()
+
+IRs:
+MODIFIER_CALL, FomoFeast.onlyOwner()()"];
+3->1;
+}

@@ -1,0 +1,91 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: IF 1
+
+EXPRESSION:
+user.currentInvestAmount == 0
+
+IRs:
+REF_30(uint256) -> user.currentInvestAmount
+TMP_80(bool) = REF_30 == 0
+CONDITION TMP_80"];
+1->2[label="True"];
+1->3[label="False"];
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+amount = 0
+
+IRs:
+amount(uint256) := 0(uint256)"];
+2->10;
+3[label="Node Type: NEW VARIABLE 3
+
+EXPRESSION:
+commissionDays = now.sub(user.currentInvestTime).div(ONE_DAY)
+
+IRs:
+REF_32(uint256) -> user.currentInvestTime
+TMP_81(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['now', 'REF_32'] 
+TMP_82(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_81', 'ONE_DAY'] 
+commissionDays(uint256) := TMP_82(uint256)"];
+3->4;
+4[label="Node Type: IF 4
+
+EXPRESSION:
+commissionDays > user.currentInvestCycle
+
+IRs:
+REF_34(uint256) -> user.currentInvestCycle
+TMP_83(bool) = commissionDays > REF_34
+CONDITION TMP_83"];
+4->5[label="True"];
+4->6[label="False"];
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+commissionDays = user.currentInvestCycle
+
+IRs:
+REF_35(uint256) -> user.currentInvestCycle
+commissionDays(uint256) := REF_35(uint256)"];
+5->6;
+6[label="Node Type: END_IF 6
+"];
+6->7;
+7[label="Node Type: EXPRESSION 7
+
+EXPRESSION:
+amount = user.currentInvestAmount.mul(user.currentStaticCommissionRatio).mul(commissionDays)
+
+IRs:
+REF_36(uint256) -> user.currentInvestAmount
+REF_38(uint256) -> user.currentStaticCommissionRatio
+TMP_84(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_36', 'REF_38'] 
+TMP_85(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_84', 'commissionDays'] 
+amount(uint256) := TMP_85(uint256)"];
+7->8;
+8[label="Node Type: EXPRESSION 8
+
+EXPRESSION:
+amount = amount.div(1000)
+
+IRs:
+TMP_86(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['amount', '1000'] 
+amount(uint256) := TMP_86(uint256)"];
+8->9;
+9[label="Node Type: EXPRESSION 9
+
+EXPRESSION:
+amount = amount.sub(user.currentStaticCommissionWithdrawAmount)
+
+IRs:
+REF_42(uint256) -> user.currentStaticCommissionWithdrawAmount
+TMP_87(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['amount', 'REF_42'] 
+amount(uint256) := TMP_87(uint256)"];
+9->10;
+10[label="Node Type: END_IF 10
+"];
+}

@@ -1,0 +1,57 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: NEW VARIABLE 1
+"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(msg.value == 10000000000000000000)
+
+IRs:
+TMP_123(bool) = msg.value == 10000000000000000000
+TMP_124(None) = SOLIDITY_CALL require(bool)(TMP_123)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+require(bool)(now != pastBlockTime_tmstmp20)
+
+IRs:
+TMP_125(bool) = now != pastBlockTime_tmstmp20
+TMP_126(None) = SOLIDITY_CALL require(bool)(TMP_125)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+pastBlockTime_tmstmp20 = now
+
+IRs:
+pastBlockTime_tmstmp20(uint256) := now(uint256)"];
+4->5;
+5[label="Node Type: IF 5
+
+EXPRESSION:
+now % 15 == 0
+
+IRs:
+TMP_127(uint256) = now % 15
+TMP_128(bool) = TMP_127 == 0
+CONDITION TMP_128"];
+5->6[label="True"];
+5->7[label="False"];
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+msg.sender.transfer(address(this).balance)
+
+IRs:
+TMP_129 = CONVERT this to address
+REF_9 -> BALANCE TMP_129
+Transfer dest:msg.sender value:REF_9"];
+6->7;
+7[label="Node Type: END_IF 7
+"];
+}

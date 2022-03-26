@@ -1,0 +1,55 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+balances[from] = balances[from].sub(tokens)
+
+IRs:
+REF_48(uint256) -> balances[from]
+REF_49(uint256) -> balances[from]
+TMP_184(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_49', 'tokens'] 
+REF_48 (->balances) := TMP_184(uint256)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+allowed[from][msg.sender] = allowed[from][msg.sender].sub(tokens)
+
+IRs:
+REF_51(mapping(address => uint256)) -> allowed[from]
+REF_52(uint256) -> REF_51[msg.sender]
+REF_53(mapping(address => uint256)) -> allowed[from]
+REF_54(uint256) -> REF_53[msg.sender]
+TMP_185(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_54', 'tokens'] 
+REF_52 (->allowed) := TMP_185(uint256)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+balances[to] = balances[to].add(tokens)
+
+IRs:
+REF_56(uint256) -> balances[to]
+REF_57(uint256) -> balances[to]
+TMP_186(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_57', 'tokens'] 
+REF_56 (->balances) := TMP_186(uint256)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+Transfer(from,to,tokens)
+
+IRs:
+Emit Transfer(from.to.tokens)"];
+4->5;
+5[label="Node Type: RETURN 5
+
+EXPRESSION:
+true
+
+IRs:
+RETURN True"];
+}

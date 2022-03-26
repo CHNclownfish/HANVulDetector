@@ -1,0 +1,36 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(amount <= _allowed[account][msg.sender])
+
+IRs:
+REF_92(mapping(address => uint256)) -> _allowed[account]
+REF_93(uint256) -> REF_92[msg.sender]
+TMP_268(bool) = amount <= REF_93
+TMP_269(None) = SOLIDITY_CALL require(bool)(TMP_268)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+_allowed[account][msg.sender] = _allowed[account][msg.sender].sub(amount)
+
+IRs:
+REF_94(mapping(address => uint256)) -> _allowed[account]
+REF_95(uint256) -> REF_94[msg.sender]
+REF_96(mapping(address => uint256)) -> _allowed[account]
+REF_97(uint256) -> REF_96[msg.sender]
+TMP_270(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_97', 'amount'] 
+REF_95 (->_allowed) := TMP_270(uint256)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+_burn(account,amount)
+
+IRs:
+INTERNAL_CALL, DanPanCoin._burn(address,uint256)(account,amount)"];
+}

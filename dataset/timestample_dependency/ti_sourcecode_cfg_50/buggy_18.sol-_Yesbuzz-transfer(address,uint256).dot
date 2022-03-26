@@ -1,0 +1,83 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+toBurn = tokens.mul(burnPercent).div(1000)
+
+IRs:
+TMP_249(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['tokens', 'burnPercent'] 
+TMP_250(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_249', '1000'] 
+toBurn(uint256) := TMP_250(uint256)"];
+1->2;
+2[label="Node Type: NEW VARIABLE 2
+
+EXPRESSION:
+toSend = tokens.sub(toBurn)
+
+IRs:
+TMP_251(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['tokens', 'toBurn'] 
+toSend(uint256) := TMP_251(uint256)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+balances[msg.sender] = balances[msg.sender].sub(tokens)
+
+IRs:
+REF_52(uint256) -> balances[msg.sender]
+REF_53(uint256) -> balances[msg.sender]
+TMP_252(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_53', 'tokens'] 
+REF_52 (->balances) := TMP_252(uint256)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+balances[to] = balances[to].add(toSend)
+
+IRs:
+REF_55(uint256) -> balances[to]
+REF_56(uint256) -> balances[to]
+TMP_253(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_56', 'toSend'] 
+REF_55 (->balances) := TMP_253(uint256)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+Transfer(msg.sender,to,toSend)
+
+IRs:
+Emit Transfer(msg.sender.to.toSend)"];
+5->6;
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+balances[address(0)] = balances[address(0)].add(toBurn)
+
+IRs:
+TMP_255 = CONVERT 0 to address
+REF_58(uint256) -> balances[TMP_255]
+TMP_256 = CONVERT 0 to address
+REF_59(uint256) -> balances[TMP_256]
+TMP_257(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_59', 'toBurn'] 
+REF_58 (->balances) := TMP_257(uint256)"];
+6->7;
+7[label="Node Type: EXPRESSION 7
+
+EXPRESSION:
+Transfer(msg.sender,address(0),toBurn)
+
+IRs:
+TMP_258 = CONVERT 0 to address
+Emit Transfer(msg.sender.TMP_258.toBurn)"];
+7->8;
+8[label="Node Type: RETURN 8
+
+EXPRESSION:
+true
+
+IRs:
+RETURN True"];
+}

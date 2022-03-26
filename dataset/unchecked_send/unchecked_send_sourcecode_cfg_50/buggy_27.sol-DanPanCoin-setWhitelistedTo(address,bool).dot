@@ -1,0 +1,29 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->3;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+WhitelistTo(_addr,_whitelisted)
+
+IRs:
+Emit WhitelistTo(_addr._whitelisted)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+whitelistTo[_addr] = _whitelisted
+
+IRs:
+REF_120(bool) -> whitelistTo[_addr]
+REF_120 (->whitelistTo) := _whitelisted(bool)"];
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+onlyOwner()
+
+IRs:
+MODIFIER_CALL, Ownable.onlyOwner()()"];
+3->1;
+}

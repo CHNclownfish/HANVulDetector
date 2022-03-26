@@ -1,0 +1,14 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: RETURN 1
+
+EXPRESSION:
+(btc[account],eth[account])
+
+IRs:
+REF_48(string) -> btc[account]
+REF_49(address) -> eth[account]
+RETURN REF_48,REF_49"];
+}

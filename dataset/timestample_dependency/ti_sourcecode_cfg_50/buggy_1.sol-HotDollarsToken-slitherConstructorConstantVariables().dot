@@ -1,0 +1,11 @@
+digraph{
+0[label="Node Type: OTHER_ENTRYPOINT 0
+
+EXPRESSION:
+MAX_UINT256 = 2 ** 256 - 1
+
+IRs:
+TMP_84(uint256) = 2 ** 256
+TMP_85(uint256) = TMP_84 - 1
+MAX_UINT256(uint256) := TMP_85(uint256)"];
+}

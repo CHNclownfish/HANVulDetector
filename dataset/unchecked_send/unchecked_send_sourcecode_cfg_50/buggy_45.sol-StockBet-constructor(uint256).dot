@@ -1,0 +1,46 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(_bet > 0)
+
+IRs:
+TMP_18(bool) = _bet > 0
+TMP_19(None) = SOLIDITY_CALL require(bool)(TMP_18)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+owner = msg.sender
+
+IRs:
+owner(address) := msg.sender(address)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+state = State.SETUP
+
+IRs:
+REF_18(StockBet.State) -> State.SETUP
+state(StockBet.State) := REF_18(StockBet.State)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+bet = _bet
+
+IRs:
+bet(uint256) := _bet(uint256)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+GameCreated(bet)
+
+IRs:
+Emit GameCreated(bet)"];
+}

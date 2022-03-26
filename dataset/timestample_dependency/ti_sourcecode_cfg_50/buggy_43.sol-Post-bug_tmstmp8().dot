@@ -1,0 +1,57 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: NEW VARIABLE 1
+"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(msg.value == 10000000000000000000)
+
+IRs:
+TMP_252(bool) = msg.value == 10000000000000000000
+TMP_253(None) = SOLIDITY_CALL require(bool)(TMP_252)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+require(bool)(now != pastBlockTime_tmstmp8)
+
+IRs:
+TMP_254(bool) = now != pastBlockTime_tmstmp8
+TMP_255(None) = SOLIDITY_CALL require(bool)(TMP_254)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+pastBlockTime_tmstmp8 = now
+
+IRs:
+pastBlockTime_tmstmp8(uint256) := now(uint256)"];
+4->5;
+5[label="Node Type: IF 5
+
+EXPRESSION:
+now % 15 == 0
+
+IRs:
+TMP_256(uint256) = now % 15
+TMP_257(bool) = TMP_256 == 0
+CONDITION TMP_257"];
+5->6[label="True"];
+5->7[label="False"];
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+msg.sender.transfer(address(this).balance)
+
+IRs:
+TMP_258 = CONVERT this to address
+REF_48 -> BALANCE TMP_258
+Transfer dest:msg.sender value:REF_48"];
+6->7;
+7[label="Node Type: END_IF 7
+"];
+}

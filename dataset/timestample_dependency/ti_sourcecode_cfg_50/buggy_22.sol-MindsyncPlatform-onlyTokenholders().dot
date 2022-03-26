@@ -1,0 +1,17 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(tokenAddress.actualBalanceOf(msg.sender) > minimumTokensToVote)
+
+IRs:
+TMP_225(uint256) = HIGH_LEVEL_CALL, dest:tokenAddress(Token), function:actualBalanceOf, arguments:['msg.sender']  
+TMP_226(bool) = TMP_225 > minimumTokensToVote
+TMP_227(None) = SOLIDITY_CALL require(bool)(TMP_226)"];
+1->2;
+2[label="Node Type: _ 2
+"];
+}

@@ -1,0 +1,98 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(msg.sender == admin)
+
+IRs:
+TMP_107(bool) = msg.sender == admin
+TMP_108(None) = SOLIDITY_CALL require(bool)(TMP_107)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(type_ == 0 || type_ == 1)
+
+IRs:
+TMP_109(bool) = type_ == 0
+TMP_110(bool) = type_ == 1
+TMP_111(bool) = TMP_109 || TMP_110
+TMP_112(None) = SOLIDITY_CALL require(bool)(TMP_111)"];
+2->3;
+3[label="Node Type: IF 3
+
+EXPRESSION:
+type_ == 0
+
+IRs:
+TMP_113(bool) = type_ == 0
+CONDITION TMP_113"];
+3->4[label="True"];
+3->6[label="False"];
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+admin.transfer(feeAmount[admin][address(0)])
+
+IRs:
+REF_80(mapping(address => uint256)) -> feeAmount[admin]
+TMP_114 = CONVERT 0 to address
+REF_81(uint256) -> REF_80[TMP_114]
+Transfer dest:admin value:REF_81"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+feeAmount[admin][address(0)] = 0
+
+IRs:
+REF_82(mapping(address => uint256)) -> feeAmount[admin]
+TMP_116 = CONVERT 0 to address
+REF_83(uint256) -> REF_82[TMP_116]
+REF_83 (->feeAmount) := 0(uint256)"];
+5->9;
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+require(bool)(tokenAddr != address(0))
+
+IRs:
+TMP_117 = CONVERT 0 to address
+TMP_118(bool) = tokenAddr != TMP_117
+TMP_119(None) = SOLIDITY_CALL require(bool)(TMP_118)"];
+6->7;
+7[label="Node Type: EXPRESSION 7
+
+EXPRESSION:
+Token(tokenAddr).transfer(admin,feeAmount[admin][tokenAddr])
+
+IRs:
+TMP_120 = CONVERT tokenAddr to Token
+REF_85(mapping(address => uint256)) -> feeAmount[admin]
+REF_86(uint256) -> REF_85[tokenAddr]
+TMP_121(bool) = HIGH_LEVEL_CALL, dest:TMP_120(Token), function:transfer, arguments:['admin', 'REF_86']  "];
+7->8;
+8[label="Node Type: EXPRESSION 8
+
+EXPRESSION:
+feeAmount[admin][tokenAddr] = 0
+
+IRs:
+REF_87(mapping(address => uint256)) -> feeAmount[admin]
+REF_88(uint256) -> REF_87[tokenAddr]
+REF_88 (->feeAmount) := 0(uint256)"];
+8->9;
+9[label="Node Type: END_IF 9
+"];
+9->10;
+10[label="Node Type: RETURN 10
+
+EXPRESSION:
+true
+
+IRs:
+RETURN True"];
+}

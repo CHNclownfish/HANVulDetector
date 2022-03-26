@@ -1,0 +1,60 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool,string)(account != address(0),ERC777: mint to the zero address)
+
+IRs:
+TMP_537 = CONVERT 0 to address
+TMP_538(bool) = account != TMP_537
+TMP_539(None) = SOLIDITY_CALL require(bool,string)(TMP_538,ERC777: mint to the zero address)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+_totalSupply = _totalSupply.add(amount)
+
+IRs:
+TMP_540(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+_totalSupply(uint256) := TMP_540(uint256)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+_balances[account] = _balances[account].add(amount)
+
+IRs:
+REF_137(uint256) -> _balances[account]
+REF_138(uint256) -> _balances[account]
+TMP_541(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_138', 'amount'] 
+REF_137 (->_balances) := TMP_541(uint256)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+_callTokensReceived(operator,address(0),account,amount,userData,operatorData,true)
+
+IRs:
+TMP_542 = CONVERT 0 to address
+INTERNAL_CALL, ERC777._callTokensReceived(address,address,address,uint256,bytes,bytes,bool)(operator,TMP_542,account,amount,userData,operatorData,True)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+Minted(operator,account,amount,userData,operatorData)
+
+IRs:
+Emit Minted(operator.account.amount.userData.operatorData)"];
+5->6;
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+Transfer(address(0),account,amount)
+
+IRs:
+TMP_545 = CONVERT 0 to address
+Emit Transfer(TMP_545.account.amount)"];
+}

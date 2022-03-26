@@ -1,0 +1,42 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(spender != address(0))
+
+IRs:
+TMP_337 = CONVERT 0 to address
+TMP_338(bool) = spender != TMP_337
+TMP_339(None) = SOLIDITY_CALL require(bool)(TMP_338)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(owner != address(0))
+
+IRs:
+TMP_340 = CONVERT 0 to address
+TMP_341(bool) = owner != TMP_340
+TMP_342(None) = SOLIDITY_CALL require(bool)(TMP_341)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+_allowed[owner][spender] = value
+
+IRs:
+REF_116(mapping(address => uint256)) -> _allowed[owner]
+REF_117(uint256) -> REF_116[spender]
+REF_117 (->_allowed) := value(uint256)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+Approval(owner,spender,value)
+
+IRs:
+Emit Approval(owner.spender.value)"];
+}

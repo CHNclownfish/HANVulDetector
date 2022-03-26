@@ -1,0 +1,14 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: RETURN 1
+
+EXPRESSION:
+_allowed[owner][spender]
+
+IRs:
+REF_25(mapping(address => uint256)) -> _allowed[owner]
+REF_26(uint256) -> REF_25[spender]
+RETURN REF_26"];
+}

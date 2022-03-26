@@ -1,0 +1,44 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->3;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+swapsContract.transfer(_amount)
+
+IRs:
+Transfer dest:swapsContract value:_amount"];
+1->2;
+2[label="Node Type: RETURN 2
+
+EXPRESSION:
+true
+
+IRs:
+RETURN True"];
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+onlyActive()
+
+IRs:
+MODIFIER_CALL, Stoppable.onlyActive()()"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+onlySwapsContract()
+
+IRs:
+MODIFIER_CALL, RampInstantPool.onlySwapsContract()()"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+isWithinLimits(_amount)
+
+IRs:
+MODIFIER_CALL, RampInstantPool.isWithinLimits(uint256)(_amount)"];
+5->1;
+}

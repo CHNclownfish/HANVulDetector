@@ -1,0 +1,15 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool,string)(isActive,contract is stopped)
+
+IRs:
+TMP_74(None) = SOLIDITY_CALL require(bool,string)(isActive,contract is stopped)"];
+1->2;
+2[label="Node Type: _ 2
+"];
+}

@@ -1,0 +1,23 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->2;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+stakeTokens = _NewTokensThreshold * 10 ** uint256(10)
+
+IRs:
+TMP_82 = CONVERT 10 to uint256
+TMP_83(uint256) = 10 ** TMP_82
+TMP_84(uint256) = _NewTokensThreshold * TMP_83
+stakeTokens(uint256) := TMP_84(uint256)"];
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+onlyOwner()
+
+IRs:
+MODIFIER_CALL, Owned.onlyOwner()()"];
+2->1;
+}

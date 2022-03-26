@@ -1,0 +1,45 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool,string)(account != address(0),ERC20: burn from the zero address)
+
+IRs:
+TMP_107 = CONVERT 0 to address
+TMP_108(bool) = account != TMP_107
+TMP_109(None) = SOLIDITY_CALL require(bool,string)(TMP_108,ERC20: burn from the zero address)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+_totalSupply = _totalSupply.sub(value)
+
+IRs:
+TMP_110(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_totalSupply', 'value'] 
+_totalSupply(uint256) := TMP_110(uint256)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+_balances[account].amount = _balances[account].amount.sub(value)
+
+IRs:
+REF_83(LollypopToken.transferMapping) -> _balances[account]
+REF_84(uint256) -> REF_83.amount
+REF_85(LollypopToken.transferMapping) -> _balances[account]
+REF_86(uint256) -> REF_85.amount
+TMP_111(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_86', 'value'] 
+REF_84 (->_balances) := TMP_111(uint256)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+Transfer(account,address(0),value)
+
+IRs:
+TMP_112 = CONVERT 0 to address
+Emit Transfer(account.TMP_112.value)"];
+}

@@ -55,45 +55,49 @@ def model_select(type):
                     dropout=0)
     return model
 
-
-
+# path = '/Users/xiechunyao/Downloads/SolidiFI-benchmark-master/buggy_contracts/TOD/'
+# data = os.listdir(path)
+# for x in data:
+#     if '.sol' in x:
+#         print('slither '+ path +x + ' --print cfg')
+#
 # def readname(type,file):
 #     if type == 'creation' or type == 'source':
 #         name = file[:file.find('.')]
 #     if type == 'runtime':
 #         name = file[:file.find('_')]
 #     return name
-# path_clean_runtime = 'dataset/clean/clean_runtimebytecode_conbycon_cfg_50/'
-# path_reentrancy_runtime = 'dataset/reentrancy/re_runtimebytecode_conbycon_cfg_50/'
-# data_clean = os.listdir(path_clean_runtime)
-# data_reentrancy = os.listdir(path_reentrancy_runtime)
+# path_clean = 'dataset/clean/clean_creationcode_cfg/'
+# path_re= 'dataset/reentrancy/re_creationcode_cfg/'
+# data_clean = os.listdir(path_clean)
+# data_re = os.listdir(path_re)
 # d = {}
 # for x in data_clean:
 #     if '.dot' in x:
 #         a = x.split('_')
-#         name = a[0] + '_' + a[1]
-#         # name = x[:x.find('.')]
+#         name = a[0] + '_' + a[1] # for runtimecode
+#         #name = x[:x.find('.')] # for sourcecode
 #         print(name)
 #         if name not in d:
 #             d[name] = {}
 #             d[name]['path'] = []
 #             d[name]['label'] = 0
-#         d[name]['path'].append(path_clean_runtime+x)
+#         d[name]['path'].append(path_clean+x)
 #
-# for y in data_reentrancy:
+# for y in data_re:
 #     if '.dot' in y:
 #         b = y.split('_')
-#         name = b[0] + 'gy_' + b[1]
-#         #name = y[:y.find('.')]
+#         name = b[0] + '_' + b[1]
+#         # name = y[:y.find('.')]
 #         print(name)
 #         if name not in d:
-#
 #             d[name] = {}
 #             d[name]['path'] = []
 #             d[name]['label'] = 1
-#         d[name]['path'].append(path_reentrancy_runtime+y)
-# print(d)
-# with open('reentrancy_runtimecode.json','w') as f:
+#         d[name]['path'].append(path_re+y)
+# for name in d:
+#     print(name,d[name])
+# with open('reentancy_creationcode_path.json','w') as f:
 #     json.dump(d,f)
 # def generategraph(dotfilepaths):
 #     g = nx.drawing.nx_pydot.read_dot(dotfilepaths[0])

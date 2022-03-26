@@ -1,0 +1,29 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: RETURN 1
+
+EXPRESSION:
+(_from == owner || (! tokenFrozen && (! frozenWallets[_from].isFrozen || now >= frozenWallets[_from].frozenTime || balanceOf[_from].sub(_value) >= frozenWallets[_from].frozenAmount)))
+
+IRs:
+TMP_210(bool) = _from == owner
+TMP_211 = ! tokenFrozen 
+REF_65(AZT.frozenWallet) -> frozenWallets[_from]
+REF_66(bool) -> REF_65.isFrozen
+TMP_212 = ! REF_66 
+REF_67(AZT.frozenWallet) -> frozenWallets[_from]
+REF_68(uint256) -> REF_67.frozenTime
+TMP_213(bool) = now >= REF_68
+TMP_214(bool) = TMP_212 || TMP_213
+REF_69(uint256) -> balanceOf[_from]
+TMP_215(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_69', '_value'] 
+REF_71(AZT.frozenWallet) -> frozenWallets[_from]
+REF_72(uint256) -> REF_71.frozenAmount
+TMP_216(bool) = TMP_215 >= REF_72
+TMP_217(bool) = TMP_214 || TMP_216
+TMP_218(bool) = TMP_211 && TMP_217
+TMP_219(bool) = TMP_210 || TMP_218
+RETURN TMP_219"];
+}

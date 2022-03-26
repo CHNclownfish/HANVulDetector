@@ -1,0 +1,24 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool,string)(account != address(0),Roles: account is the zero address)
+
+IRs:
+TMP_129 = CONVERT 0 to address
+TMP_130(bool) = account != TMP_129
+TMP_131(None) = SOLIDITY_CALL require(bool,string)(TMP_130,Roles: account is the zero address)"];
+1->2;
+2[label="Node Type: RETURN 2
+
+EXPRESSION:
+role.bearer[account]
+
+IRs:
+REF_59(mapping(address => bool)) -> role.bearer
+REF_60(bool) -> REF_59[account]
+RETURN REF_60"];
+}

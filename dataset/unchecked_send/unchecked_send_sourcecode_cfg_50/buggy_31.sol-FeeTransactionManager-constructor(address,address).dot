@@ -1,0 +1,21 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+relayer = _relayer
+
+IRs:
+relayer(address) := _relayer(address)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+token = IERC20(_tokenAddress)
+
+IRs:
+TMP_53 = CONVERT _tokenAddress to IERC20
+token(IERC20) := TMP_53(IERC20)"];
+}

@@ -1,0 +1,16 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool,string)(msg.sender == swapsContract,only the swaps contract can call this)
+
+IRs:
+TMP_281(bool) = msg.sender == swapsContract
+TMP_282(None) = SOLIDITY_CALL require(bool,string)(TMP_281,only the swaps contract can call this)"];
+1->2;
+2[label="Node Type: _ 2
+"];
+}

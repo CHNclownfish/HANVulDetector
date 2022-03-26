@@ -1,0 +1,472 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+sponsor = userMapping[sponsorAddress]
+
+IRs:
+REF_56(FomoFeast.User) -> userMapping[sponsorAddress]
+sponsor(FomoFeast.User) := REF_56(FomoFeast.User)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool,string)(sponsor.totalInvestCount > 0,Invalid sponsor address)
+
+IRs:
+REF_57(uint256) -> sponsor.totalInvestCount
+TMP_187(bool) = REF_57 > 0
+TMP_188(None) = SOLIDITY_CALL require(bool,string)(TMP_187,Invalid sponsor address)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+require(bool,string)(investCycle == 30 || investCycle == 60 || investCycle == 90,Invalid invest cycle)
+
+IRs:
+TMP_189(bool) = investCycle == 30
+TMP_190(bool) = investCycle == 60
+TMP_191(bool) = TMP_189 || TMP_190
+TMP_192(bool) = investCycle == 90
+TMP_193(bool) = TMP_191 || TMP_192
+TMP_194(None) = SOLIDITY_CALL require(bool,string)(TMP_193,Invalid invest cycle)"];
+3->4;
+4[label="Node Type: NEW VARIABLE 4
+
+EXPRESSION:
+investAmount = msg.value.div(ONE_ETH)
+
+IRs:
+TMP_195(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['msg.value', 'ONE_ETH'] 
+investAmount(uint256) := TMP_195(uint256)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+investAmount = investAmount.mul(ONE_ETH)
+
+IRs:
+TMP_196(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['investAmount', 'ONE_ETH'] 
+investAmount(uint256) := TMP_196(uint256)"];
+5->6;
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+require(bool,string)(investAmount == msg.value,Invest amount is not integer)
+
+IRs:
+TMP_197(bool) = investAmount == msg.value
+TMP_198(None) = SOLIDITY_CALL require(bool,string)(TMP_197,Invest amount is not integer)"];
+6->7;
+7[label="Node Type: EXPRESSION 7
+
+EXPRESSION:
+require(bool,string)(investAmount >= ONE_ETH.mul(1) && investAmount <= ONE_ETH.mul(15),Invalid invest amount)
+
+IRs:
+TMP_199(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['ONE_ETH', '1'] 
+TMP_200(bool) = investAmount >= TMP_199
+TMP_201(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['ONE_ETH', '15'] 
+TMP_202(bool) = investAmount <= TMP_201
+TMP_203(bool) = TMP_200 && TMP_202
+TMP_204(None) = SOLIDITY_CALL require(bool,string)(TMP_203,Invalid invest amount)"];
+7->8;
+8[label="Node Type: NEW VARIABLE 8
+
+EXPRESSION:
+user = userMapping[msg.sender]
+
+IRs:
+REF_62(FomoFeast.User) -> userMapping[msg.sender]
+user(FomoFeast.User) := REF_62(FomoFeast.User)"];
+8->9;
+9[label="Node Type: NEW VARIABLE 9
+
+EXPRESSION:
+level = getLevelByInvestAmount(investAmount)
+
+IRs:
+TMP_205(uint256) = INTERNAL_CALL, FomoFeast.getLevelByInvestAmount(uint256)(investAmount)
+level(uint256) := TMP_205(uint256)"];
+9->10;
+10[label="Node Type: IF 10
+
+EXPRESSION:
+user.totalInvestCount > 0
+
+IRs:
+REF_63(uint256) -> user.totalInvestCount
+TMP_206(bool) = REF_63 > 0
+CONDITION TMP_206"];
+10->11[label="True"];
+10->33[label="False"];
+11[label="Node Type: EXPRESSION 11
+
+EXPRESSION:
+require(bool,string)(user.sponsorAddress == sponsorAddress,sponsor address is inconsistent)
+
+IRs:
+REF_64(address) -> user.sponsorAddress
+TMP_207(bool) = REF_64 == sponsorAddress
+TMP_208(None) = SOLIDITY_CALL require(bool,string)(TMP_207,sponsor address is inconsistent)"];
+11->12;
+12[label="Node Type: EXPRESSION 12
+
+EXPRESSION:
+require(bool,string)(user.currentInvestAmount == 0,Dumplicate invest)
+
+IRs:
+REF_65(uint256) -> user.currentInvestAmount
+TMP_209(bool) = REF_65 == 0
+TMP_210(None) = SOLIDITY_CALL require(bool,string)(TMP_209,Dumplicate invest)"];
+12->13;
+13[label="Node Type: EXPRESSION 13
+
+EXPRESSION:
+require(bool,string)(user.currentInvestTime == 0,Invalid state)
+
+IRs:
+REF_66(uint256) -> user.currentInvestTime
+TMP_211(bool) = REF_66 == 0
+TMP_212(None) = SOLIDITY_CALL require(bool,string)(TMP_211,Invalid state)"];
+13->14;
+14[label="Node Type: EXPRESSION 14
+
+EXPRESSION:
+require(bool,string)(user.currentInvestCycle == 0,Invalid state)
+
+IRs:
+REF_67(uint256) -> user.currentInvestCycle
+TMP_213(bool) = REF_67 == 0
+TMP_214(None) = SOLIDITY_CALL require(bool,string)(TMP_213,Invalid state)"];
+14->15;
+15[label="Node Type: EXPRESSION 15
+
+EXPRESSION:
+require(bool,string)(user.currentlevel == 0,Invalid state)
+
+IRs:
+REF_68(uint256) -> user.currentlevel
+TMP_215(bool) = REF_68 == 0
+TMP_216(None) = SOLIDITY_CALL require(bool,string)(TMP_215,Invalid state)"];
+15->16;
+16[label="Node Type: EXPRESSION 16
+
+EXPRESSION:
+require(bool,string)(user.currentStaticCommissionRatio == 0,Invalid state)
+
+IRs:
+REF_69(uint256) -> user.currentStaticCommissionRatio
+TMP_217(bool) = REF_69 == 0
+TMP_218(None) = SOLIDITY_CALL require(bool,string)(TMP_217,Invalid state)"];
+16->17;
+17[label="Node Type: EXPRESSION 17
+
+EXPRESSION:
+require(bool,string)(user.currentStaticCommissionWithdrawAmount == 0,Invalid state)
+
+IRs:
+REF_70(uint256) -> user.currentStaticCommissionWithdrawAmount
+TMP_219(bool) = REF_70 == 0
+TMP_220(None) = SOLIDITY_CALL require(bool,string)(TMP_219,Invalid state)"];
+17->18;
+18[label="Node Type: EXPRESSION 18
+
+EXPRESSION:
+user.totalInvestCount = user.totalInvestCount.add(1)
+
+IRs:
+REF_71(uint256) -> user.totalInvestCount
+REF_72(uint256) -> user.totalInvestCount
+TMP_221(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_72', '1'] 
+REF_71 (->user) := TMP_221(uint256)"];
+18->19;
+19[label="Node Type: EXPRESSION 19
+
+EXPRESSION:
+user.totalInvestAmount = user.totalInvestAmount.add(investAmount)
+
+IRs:
+REF_74(uint256) -> user.totalInvestAmount
+REF_75(uint256) -> user.totalInvestAmount
+TMP_222(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_75', 'investAmount'] 
+REF_74 (->user) := TMP_222(uint256)"];
+19->20;
+20[label="Node Type: EXPRESSION 20
+
+EXPRESSION:
+user.currentInvestTime = now
+
+IRs:
+REF_77(uint256) -> user.currentInvestTime
+REF_77 (->user) := now(uint256)"];
+20->21;
+21[label="Node Type: EXPRESSION 21
+
+EXPRESSION:
+user.currentInvestAmount = investAmount
+
+IRs:
+REF_78(uint256) -> user.currentInvestAmount
+REF_78 (->user) := investAmount(uint256)"];
+21->22;
+22[label="Node Type: EXPRESSION 22
+
+EXPRESSION:
+user.currentInvestCycle = investCycle
+
+IRs:
+REF_79(uint256) -> user.currentInvestCycle
+REF_79 (->user) := investCycle(uint256)"];
+22->23;
+23[label="Node Type: EXPRESSION 23
+
+EXPRESSION:
+user.currentlevel = level
+
+IRs:
+REF_80(uint256) -> user.currentlevel
+REF_80 (->user) := level(uint256)"];
+23->24;
+24[label="Node Type: EXPRESSION 24
+
+EXPRESSION:
+user.currentStaticCommissionRatio = getStaticCommissionRatio(level,investCycle)
+
+IRs:
+REF_81(uint256) -> user.currentStaticCommissionRatio
+TMP_223(uint256) = INTERNAL_CALL, FomoFeast.getStaticCommissionRatio(uint256,uint256)(level,investCycle)
+REF_81 (->user) := TMP_223(uint256)"];
+24->25;
+25[label="Node Type: EXPRESSION 25
+
+EXPRESSION:
+userMapping[msg.sender] = user
+
+IRs:
+REF_82(FomoFeast.User) -> userMapping[msg.sender]
+REF_82 (->userMapping) := user(FomoFeast.User)"];
+25->26;
+26[label="Node Type: NEW VARIABLE 26
+
+EXPRESSION:
+addressWalker = sponsorAddress
+
+IRs:
+addressWalker(address) := sponsorAddress(address)"];
+26->27;
+27[label="Node Type: BEGIN_LOOP 27
+"];
+27->28;
+28[label="Node Type: IF_LOOP 28
+
+EXPRESSION:
+addressWalker != GENESIS_USER_ADDRESS
+
+IRs:
+TMP_224(bool) = addressWalker != GENESIS_USER_ADDRESS
+CONDITION TMP_224"];
+28->29[label="True"];
+28->32[label="False"];
+29[label="Node Type: EXPRESSION 29
+
+EXPRESSION:
+sponsor = userMapping[addressWalker]
+
+IRs:
+REF_83(FomoFeast.User) -> userMapping[addressWalker]
+sponsor(FomoFeast.User) := REF_83(FomoFeast.User)"];
+29->30;
+30[label="Node Type: EXPRESSION 30
+
+EXPRESSION:
+sponsor.totalDownlineInvestAmount = sponsor.totalDownlineInvestAmount.add(investAmount)
+
+IRs:
+REF_84(uint256) -> sponsor.totalDownlineInvestAmount
+REF_85(uint256) -> sponsor.totalDownlineInvestAmount
+TMP_225(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_85', 'investAmount'] 
+REF_84 (->sponsor) := TMP_225(uint256)"];
+30->31;
+31[label="Node Type: EXPRESSION 31
+
+EXPRESSION:
+addressWalker = sponsor.sponsorAddress
+
+IRs:
+REF_87(address) -> sponsor.sponsorAddress
+addressWalker(address) := REF_87(address)"];
+31->28;
+32[label="Node Type: END_LOOP 32
+"];
+32->47;
+33[label="Node Type: EXPRESSION 33
+
+EXPRESSION:
+userMapping[msg.sender] = User(1,investAmount,0,0,0,1,0,investAmount,now,investAmount,investCycle,level,getStaticCommissionRatio(level,investCycle),0,0,0,0,sponsorAddress)
+
+IRs:
+REF_88(FomoFeast.User) -> userMapping[msg.sender]
+TMP_226(uint256) = INTERNAL_CALL, FomoFeast.getStaticCommissionRatio(uint256,uint256)(level,investCycle)
+TMP_227 = new User(1,investAmount,0,0,0,1,0,investAmount,now,investAmount,investCycle,level,TMP_226,0,0,0,0,sponsorAddress)
+REF_88 (->userMapping) := TMP_227(FomoFeast.User)"];
+33->34;
+34[label="Node Type: EXPRESSION 34
+
+EXPRESSION:
+addressMapping[totalUserCount] = msg.sender
+
+IRs:
+REF_89(address) -> addressMapping[totalUserCount]
+REF_89 (->addressMapping) := msg.sender(address)"];
+34->35;
+35[label="Node Type: EXPRESSION 35
+
+EXPRESSION:
+totalUserCount = totalUserCount.add(1)
+
+IRs:
+TMP_228(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalUserCount', '1'] 
+totalUserCount(uint256) := TMP_228(uint256)"];
+35->36;
+36[label="Node Type: NEW VARIABLE 36
+
+EXPRESSION:
+addressWalker_scope_0 = sponsorAddress
+
+IRs:
+addressWalker_scope_0(address) := sponsorAddress(address)"];
+36->37;
+37[label="Node Type: BEGIN_LOOP 37
+"];
+37->38;
+38[label="Node Type: IF_LOOP 38
+
+EXPRESSION:
+addressWalker_scope_0 != GENESIS_USER_ADDRESS
+
+IRs:
+TMP_229(bool) = addressWalker_scope_0 != GENESIS_USER_ADDRESS
+CONDITION TMP_229"];
+38->39[label="True"];
+38->46[label="False"];
+39[label="Node Type: EXPRESSION 39
+
+EXPRESSION:
+sponsor = userMapping[addressWalker_scope_0]
+
+IRs:
+REF_91(FomoFeast.User) -> userMapping[addressWalker_scope_0]
+sponsor(FomoFeast.User) := REF_91(FomoFeast.User)"];
+39->40;
+40[label="Node Type: EXPRESSION 40
+
+EXPRESSION:
+sponsor.downlineCount = sponsor.downlineCount.add(1)
+
+IRs:
+REF_92(uint256) -> sponsor.downlineCount
+REF_93(uint256) -> sponsor.downlineCount
+TMP_230(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_93', '1'] 
+REF_92 (->sponsor) := TMP_230(uint256)"];
+40->41;
+41[label="Node Type: IF 41
+
+EXPRESSION:
+addressWalker_scope_0 == sponsorAddress
+
+IRs:
+TMP_231(bool) = addressWalker_scope_0 == sponsorAddress
+CONDITION TMP_231"];
+41->42[label="True"];
+41->43[label="False"];
+42[label="Node Type: EXPRESSION 42
+
+EXPRESSION:
+sponsor.nodeCount = sponsor.nodeCount.add(1)
+
+IRs:
+REF_95(uint256) -> sponsor.nodeCount
+REF_96(uint256) -> sponsor.nodeCount
+TMP_232(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_96', '1'] 
+REF_95 (->sponsor) := TMP_232(uint256)"];
+42->43;
+43[label="Node Type: END_IF 43
+"];
+43->44;
+44[label="Node Type: EXPRESSION 44
+
+EXPRESSION:
+sponsor.totalDownlineInvestAmount = sponsor.totalDownlineInvestAmount.add(investAmount)
+
+IRs:
+REF_98(uint256) -> sponsor.totalDownlineInvestAmount
+REF_99(uint256) -> sponsor.totalDownlineInvestAmount
+TMP_233(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_99', 'investAmount'] 
+REF_98 (->sponsor) := TMP_233(uint256)"];
+44->45;
+45[label="Node Type: EXPRESSION 45
+
+EXPRESSION:
+addressWalker_scope_0 = sponsor.sponsorAddress
+
+IRs:
+REF_101(address) -> sponsor.sponsorAddress
+addressWalker_scope_0(address) := REF_101(address)"];
+45->38;
+46[label="Node Type: END_LOOP 46
+"];
+46->47;
+47[label="Node Type: END_IF 47
+"];
+47->48;
+48[label="Node Type: EXPRESSION 48
+
+EXPRESSION:
+addInvestRecord(msg.sender,now,investAmount,investCycle)
+
+IRs:
+INTERNAL_CALL, FomoFeast.addInvestRecord(address,uint256,uint256,uint256)(msg.sender,now,investAmount,investCycle)"];
+48->49;
+49[label="Node Type: EXPRESSION 49
+
+EXPRESSION:
+totalInvestCount = totalInvestCount.add(1)
+
+IRs:
+TMP_235(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalInvestCount', '1'] 
+totalInvestCount(uint256) := TMP_235(uint256)"];
+49->50;
+50[label="Node Type: EXPRESSION 50
+
+EXPRESSION:
+totalInvestAmount = totalInvestAmount.add(investAmount)
+
+IRs:
+TMP_236(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalInvestAmount', 'investAmount'] 
+totalInvestAmount(uint256) := TMP_236(uint256)"];
+50->51;
+51[label="Node Type: EXPRESSION 51
+
+EXPRESSION:
+engineerFunds = engineerFunds.add(investAmount.div(50))
+
+IRs:
+TMP_237(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['investAmount', '50'] 
+TMP_238(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['engineerFunds', 'TMP_237'] 
+engineerFunds(uint256) := TMP_238(uint256)"];
+51->52;
+52[label="Node Type: EXPRESSION 52
+
+EXPRESSION:
+operatorFunds = operatorFunds.add(investAmount.mul(3).div(100))
+
+IRs:
+TMP_239(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['investAmount', '3'] 
+TMP_240(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_239', '100'] 
+TMP_241(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['operatorFunds', 'TMP_240'] 
+operatorFunds(uint256) := TMP_241(uint256)"];
+}

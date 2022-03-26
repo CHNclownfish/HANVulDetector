@@ -1,0 +1,12 @@
+digraph G {
+bgcolor=transparent rankdir=UD;
+node [shape=box style=filled color=black fillcolor=white fontname=arial fontcolor=black];
+0 [label="0: PUSH1 0x80\l2: PUSH1 0x40\l4: MSTORE\l5: TIMESTAMP\l6: PUSH1 0x05\l8: SSTORE\l9: TIMESTAMP\l10: PUSH1 0x06\l12: SSTORE\l13: TIMESTAMP\l14: PUSH1 0x07\l16: SSTORE\l17: TIMESTAMP\l18: PUSH1 0x08\l20: SSTORE\l21: TIMESTAMP\l22: PUSH1 0x09\l24: SSTORE\l25: CALLVALUE\l26: DUP1\l27: ISZERO\l28: PUSH2 0x0024\l31: JUMPI\l" fillcolor=lemonchiffon shape=Msquare fillcolor=gold ];
+32 [label="32: PUSH1 0x00\l34: DUP1\l35: REVERT\l" fillcolor=lemonchiffon shape=Msquare color=crimson ];
+115 [label="115: EXIT BLOCK\l" fillcolor=crimson ];
+36 [label="36: JUMPDEST\l37: POP\l38: CALLER\l39: PUSH1 0x00\l41: DUP1\l42: PUSH2 0x0100\l45: EXP\l46: DUP2\l47: SLOAD\l48: DUP2\l49: PUSH20 0xffffffffffffffffffffffffffffffffffffffff\l70: MUL\l71: NOT\l72: AND\l73: SWAP1\l74: DUP4\l75: PUSH20 0xffffffffffffffffffffffffffffffffffffffff\l96: AND\l97: MUL\l98: OR\l99: SWAP1\l100: SSTORE\l101: POP\l102: PUSH2 0x2a21\l105: DUP1\l106: PUSH2 0x0074\l109: PUSH1 0x00\l111: CODECOPY\l112: PUSH1 0x00\l114: RETURN\l" shape=Msquare color=crimson ];
+0 -> 32;
+32 -> 115;
+36 -> 115;
+0 -> 36;
+}

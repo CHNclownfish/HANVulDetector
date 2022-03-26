@@ -1,0 +1,16 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+TokenERC20(18 * 10 ** 16,12 * 10 ** 16,XL Token,XL,8)
+
+IRs:
+TMP_147(uint256) = 10 ** 16
+TMP_148(uint256) = 18 * TMP_147
+TMP_149(uint256) = 10 ** 16
+TMP_150(uint256) = 12 * TMP_149
+INTERNAL_CALL, TokenERC20.constructor(uint256,uint256,string,string,uint8)(TMP_148,TMP_150,XL Token,XL,8)"];
+}

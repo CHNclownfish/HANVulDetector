@@ -1,0 +1,132 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->16;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+symbol = YESBUZ
+
+IRs:
+symbol(string) := YESBUZ(string)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+name = Yesbuzz
+
+IRs:
+name(string) := Yesbuzz(string)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+decimals = 8
+
+IRs:
+decimals(uint8) := 8(uint256)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+_totalSupply = 21000000 * 10 ** uint256(decimals)
+
+IRs:
+TMP_52 = CONVERT decimals to uint256
+TMP_53(uint256) = 10 ** TMP_52
+TMP_54(uint256) = 21000000 * TMP_53
+_totalSupply(uint256) := TMP_54(uint256)"];
+4->5;
+5[label="Node Type: IF 5
+
+EXPRESSION:
+locked
+
+IRs:
+CONDITION locked"];
+5->6[label="True"];
+5->7[label="False"];
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+revert()()
+
+IRs:
+TMP_55(None) = SOLIDITY_CALL revert()()"];
+6->7;
+7[label="Node Type: END_IF 7
+"];
+7->8;
+8[label="Node Type: EXPRESSION 8
+
+EXPRESSION:
+locked = true
+
+IRs:
+locked(bool) := True(bool)"];
+8->9;
+9[label="Node Type: EXPRESSION 9
+
+EXPRESSION:
+tokensMinted = 0
+
+IRs:
+tokensMinted(uint256) := 0(uint256)"];
+9->10;
+10[label="Node Type: EXPRESSION 10
+
+EXPRESSION:
+rewardEra = 0
+
+IRs:
+rewardEra(uint256) := 0(uint256)"];
+10->11;
+11[label="Node Type: EXPRESSION 11
+
+EXPRESSION:
+maxSupplyForEra = _totalSupply.div(2)
+
+IRs:
+TMP_56(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['_totalSupply', '2'] 
+maxSupplyForEra(uint256) := TMP_56(uint256)"];
+11->12;
+12[label="Node Type: EXPRESSION 12
+
+EXPRESSION:
+miningTarget = _MAXIMUM_TARGET
+
+IRs:
+miningTarget(uint256) := _MAXIMUM_TARGET(uint256)"];
+12->13;
+13[label="Node Type: EXPRESSION 13
+
+EXPRESSION:
+latestDifficultyPeriodStarted = block.number
+
+IRs:
+latestDifficultyPeriodStarted(uint256) := block.number(uint256)"];
+13->14;
+14[label="Node Type: EXPRESSION 14
+
+EXPRESSION:
+burnPercent = 10
+
+IRs:
+burnPercent(uint256) := 10(uint256)"];
+14->15;
+15[label="Node Type: EXPRESSION 15
+
+EXPRESSION:
+_startNewMiningEpoch()
+
+IRs:
+INTERNAL_CALL, _Yesbuzz._startNewMiningEpoch()()"];
+16[label="Node Type: EXPRESSION 16
+
+EXPRESSION:
+onlyOwner()
+
+IRs:
+MODIFIER_CALL, Owned.onlyOwner()()"];
+16->1;
+}

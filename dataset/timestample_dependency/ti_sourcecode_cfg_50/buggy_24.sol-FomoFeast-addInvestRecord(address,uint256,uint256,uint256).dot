@@ -1,0 +1,74 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+records = investRecordMapping[userAddress]
+
+IRs:
+REF_42(FomoFeast.InvestRecord[9]) -> investRecordMapping[userAddress]
+records(FomoFeast.InvestRecord[9]) := REF_42(FomoFeast.InvestRecord[9])"];
+1->4;
+2[label="Node Type: BEGIN_LOOP 2
+"];
+2->5;
+3[label="Node Type: END_LOOP 3
+"];
+3->9;
+4[label="Node Type: NEW VARIABLE 4
+
+EXPRESSION:
+i = 8
+
+IRs:
+i(uint256) := 8(uint256)"];
+4->2;
+5[label="Node Type: IF_LOOP 5
+
+EXPRESSION:
+i > 0
+
+IRs:
+TMP_164(bool) = i > 0
+CONDITION TMP_164"];
+5->6[label="True"];
+5->3[label="False"];
+6[label="Node Type: NEW VARIABLE 6
+
+EXPRESSION:
+prevRecord = records[i - 1]
+
+IRs:
+TMP_165(uint256) = i - 1
+REF_43(FomoFeast.InvestRecord) -> records[TMP_165]
+prevRecord(FomoFeast.InvestRecord) := REF_43(FomoFeast.InvestRecord)"];
+6->7;
+7[label="Node Type: EXPRESSION 7
+
+EXPRESSION:
+records[i] = prevRecord
+
+IRs:
+REF_44(FomoFeast.InvestRecord) -> records[i]
+REF_44 (->records) := prevRecord(FomoFeast.InvestRecord)"];
+7->8;
+8[label="Node Type: EXPRESSION 8
+
+EXPRESSION:
+-- i
+
+IRs:
+i(uint256) = i - 1"];
+8->5;
+9[label="Node Type: EXPRESSION 9
+
+EXPRESSION:
+records[0] = InvestRecord(time,amount,cycle)
+
+IRs:
+REF_45(FomoFeast.InvestRecord) -> records[0]
+TMP_166 = new InvestRecord(time,amount,cycle)
+REF_45 (->records) := TMP_166(FomoFeast.InvestRecord)"];
+}

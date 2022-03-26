@@ -1,0 +1,12 @@
+digraph G {
+bgcolor=transparent rankdir=UD;
+node [shape=box style=filled color=black fillcolor=white fontname=arial fontcolor=black];
+24 [label="24: JUMPDEST\l25: POP\l26: PUSH2 0x0176\l29: DUP1\l30: PUSH2 0x0028\l33: PUSH1 0x00\l35: CODECOPY\l36: PUSH1 0x00\l38: RETURN\l" shape=Msquare color=crimson ];
+20 [label="20: PUSH1 0x00\l22: DUP1\l23: REVERT\l" fillcolor=lemonchiffon shape=Msquare color=crimson ];
+0 [label="0: PUSH1 0x80\l2: PUSH1 0x40\l4: MSTORE\l5: TIMESTAMP\l6: PUSH1 0x00\l8: SSTORE\l9: TIMESTAMP\l10: PUSH1 0x01\l12: SSTORE\l13: CALLVALUE\l14: DUP1\l15: ISZERO\l16: PUSH2 0x0018\l19: JUMPI\l" fillcolor=lemonchiffon shape=Msquare fillcolor=gold ];
+39 [label="39: EXIT BLOCK\l" fillcolor=crimson ];
+20 -> 39;
+0 -> 20;
+0 -> 24;
+24 -> 39;
+}

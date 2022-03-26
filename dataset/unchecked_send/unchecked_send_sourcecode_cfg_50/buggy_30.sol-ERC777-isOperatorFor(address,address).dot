@@ -1,0 +1,22 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: RETURN 1
+
+EXPRESSION:
+operator == tokenHolder || (_defaultOperators[operator] && ! _revokedDefaultOperators[tokenHolder][operator]) || _operators[tokenHolder][operator]
+
+IRs:
+TMP_36(bool) = operator == tokenHolder
+REF_6(bool) -> _defaultOperators[operator]
+REF_7(mapping(address => bool)) -> _revokedDefaultOperators[tokenHolder]
+REF_8(bool) -> REF_7[operator]
+TMP_37 = ! REF_8 
+TMP_38(bool) = REF_6 && TMP_37
+TMP_39(bool) = TMP_36 || TMP_38
+REF_9(mapping(address => bool)) -> _operators[tokenHolder]
+REF_10(bool) -> REF_9[operator]
+TMP_40(bool) = TMP_39 || REF_10
+RETURN TMP_40"];
+}

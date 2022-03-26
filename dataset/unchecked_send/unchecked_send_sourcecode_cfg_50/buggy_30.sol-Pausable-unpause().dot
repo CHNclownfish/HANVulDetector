@@ -1,0 +1,36 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->3;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+_paused = false
+
+IRs:
+_paused(bool) := False(bool)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+Unpaused(msg.sender)
+
+IRs:
+Emit Unpaused(msg.sender)"];
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+onlyPauser()
+
+IRs:
+MODIFIER_CALL, PauserRole.onlyPauser()()"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+whenPaused()
+
+IRs:
+MODIFIER_CALL, Pausable.whenPaused()()"];
+4->1;
+}

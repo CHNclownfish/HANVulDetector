@@ -1,0 +1,58 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool,string)(! safeGuard,System Paused by Admin)
+
+IRs:
+TMP_269 = ! safeGuard 
+TMP_270(None) = SOLIDITY_CALL require(bool,string)(TMP_269,System Paused by Admin)"];
+1->2;
+2[label="Node Type: NEW VARIABLE 2
+
+EXPRESSION:
+hash = keccak256(bytes)(abi.encodePacked(this,tokenGet,amountGet,tokenGive,amountGive,expires,nonce))
+
+IRs:
+TMP_271(bytes) = SOLIDITY_CALL abi.encodePacked()(this,tokenGet,amountGet,tokenGive,amountGive,expires,nonce)
+TMP_272(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_271)
+hash(bytes32) := TMP_272(bytes32)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+require(bool)((orders[msg.sender][hash] || ecrecover(bytes32,uint8,bytes32,bytes32)(keccak256(bytes)(abi.encodePacked(Ethereum Signed Message:
+32,hash)),v,r,s) == msg.sender))
+
+IRs:
+REF_123(mapping(bytes32 => bool)) -> orders[msg.sender]
+REF_124(bool) -> REF_123[hash]
+TMP_273(bytes) = SOLIDITY_CALL abi.encodePacked()(Ethereum Signed Message:
+32,hash)
+TMP_274(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_273)
+TMP_275(address) = SOLIDITY_CALL ecrecover(bytes32,uint8,bytes32,bytes32)(TMP_274,v,r,s)
+TMP_276(bool) = TMP_275 == msg.sender
+TMP_277(bool) = REF_124 || TMP_276
+TMP_278(None) = SOLIDITY_CALL require(bool)(TMP_277)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+orderFills[msg.sender][hash] = amountGet
+
+IRs:
+REF_126(mapping(bytes32 => uint256)) -> orderFills[msg.sender]
+REF_127(uint256) -> REF_126[hash]
+REF_127 (->orderFills) := amountGet(uint256)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+Cancel(now,tokenGet,amountGet,tokenGive,amountGive,expires,nonce,msg.sender,v,r,s)
+
+IRs:
+Emit Cancel(now.tokenGet.amountGet.tokenGive.amountGive.expires.nonce.msg.sender.v.r.s)"];
+}

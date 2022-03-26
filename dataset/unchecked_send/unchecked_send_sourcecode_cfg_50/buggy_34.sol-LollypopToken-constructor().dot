@@ -1,0 +1,44 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+_maxTotalSupply = 1000000000 * 10 ** 18
+
+IRs:
+TMP_34(uint256) = 10 ** 18
+TMP_35(uint256) = 1000000000 * TMP_34
+_maxTotalSupply(uint256) := TMP_35(uint256)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+_totalSupply = 2000000 * 10 ** 18
+
+IRs:
+TMP_36(uint256) = 10 ** 18
+TMP_37(uint256) = 2000000 * TMP_36
+_totalSupply(uint256) := TMP_37(uint256)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+_balances[msg.sender].amount = _totalSupply
+
+IRs:
+REF_13(LollypopToken.transferMapping) -> _balances[msg.sender]
+REF_14(uint256) -> REF_13.amount
+REF_14 (->_balances) := _totalSupply(uint256)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+_balances[msg.sender].time = now
+
+IRs:
+REF_15(LollypopToken.transferMapping) -> _balances[msg.sender]
+REF_16(uint256) -> REF_15.time
+REF_16 (->_balances) := now(uint256)"];
+}

@@ -1,0 +1,87 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+len = fileExistenceProofs[dappBoxOrigin].length
+
+IRs:
+REF_39(ProofOfExistence.FileExistenceStruct[]) -> fileExistenceProofs[dappBoxOrigin]
+REF_40 -> LENGTH REF_39
+len(uint256) := REF_40(uint256)"];
+1->4;
+2[label="Node Type: BEGIN_LOOP 2
+"];
+2->5;
+3[label="Node Type: END_LOOP 3
+"];
+4[label="Node Type: NEW VARIABLE 4
+
+EXPRESSION:
+i = 0
+
+IRs:
+i(uint256) := 0(uint256)"];
+4->2;
+5[label="Node Type: IF_LOOP 5
+
+EXPRESSION:
+i < len
+
+IRs:
+TMP_24(bool) = i < len
+CONDITION TMP_24"];
+5->6[label="True"];
+5->3[label="False"];
+6[label="Node Type: NEW VARIABLE 6
+
+EXPRESSION:
+res = compareStrings(fileHash,fileExistenceProofs[dappBoxOrigin][i].fileHash) && compareStrings(filePathHash,fileExistenceProofs[dappBoxOrigin][i].filePathHash)
+
+IRs:
+REF_41(ProofOfExistence.FileExistenceStruct[]) -> fileExistenceProofs[dappBoxOrigin]
+REF_42(ProofOfExistence.FileExistenceStruct) -> REF_41[i]
+REF_43(string) -> REF_42.fileHash
+TMP_25(bool) = INTERNAL_CALL, ProofOfExistence.compareStrings(string,string)(fileHash,REF_43)
+REF_44(ProofOfExistence.FileExistenceStruct[]) -> fileExistenceProofs[dappBoxOrigin]
+REF_45(ProofOfExistence.FileExistenceStruct) -> REF_44[i]
+REF_46(string) -> REF_45.filePathHash
+TMP_26(bool) = INTERNAL_CALL, ProofOfExistence.compareStrings(string,string)(filePathHash,REF_46)
+TMP_27(bool) = TMP_25 && TMP_26
+res(bool) := TMP_27(bool)"];
+6->7;
+7[label="Node Type: IF 7
+
+EXPRESSION:
+res == true
+
+IRs:
+TMP_28(bool) = res == True
+CONDITION TMP_28"];
+7->8[label="True"];
+7->9[label="False"];
+8[label="Node Type: RETURN 8
+
+EXPRESSION:
+fileExistenceProofs[dappBoxOrigin][i].QRCodeHash
+
+IRs:
+REF_47(ProofOfExistence.FileExistenceStruct[]) -> fileExistenceProofs[dappBoxOrigin]
+REF_48(ProofOfExistence.FileExistenceStruct) -> REF_47[i]
+REF_49(bytes32) -> REF_48.QRCodeHash
+RETURN REF_49"];
+9[label="Node Type: END_IF 9
+"];
+9->10;
+10[label="Node Type: EXPRESSION 10
+
+EXPRESSION:
+i ++
+
+IRs:
+TMP_29(uint256) := i(uint256)
+i(uint256) = i + 1"];
+10->5;
+}

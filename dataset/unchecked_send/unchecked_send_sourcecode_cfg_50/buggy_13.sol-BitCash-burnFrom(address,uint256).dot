@@ -1,0 +1,68 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(balanceOf[_from] >= _value)
+
+IRs:
+REF_35(uint256) -> balanceOf[_from]
+TMP_44(bool) = REF_35 >= _value
+TMP_45(None) = SOLIDITY_CALL require(bool)(TMP_44)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(_value <= allowance[_from][msg.sender])
+
+IRs:
+REF_36(mapping(address => uint256)) -> allowance[_from]
+REF_37(uint256) -> REF_36[msg.sender]
+TMP_46(bool) = _value <= REF_37
+TMP_47(None) = SOLIDITY_CALL require(bool)(TMP_46)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+balanceOf[_from] -= _value
+
+IRs:
+REF_38(uint256) -> balanceOf[_from]
+REF_38(-> balanceOf) = REF_38 - _value"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+allowance[_from][msg.sender] -= _value
+
+IRs:
+REF_39(mapping(address => uint256)) -> allowance[_from]
+REF_40(uint256) -> REF_39[msg.sender]
+REF_40(-> allowance) = REF_40 - _value"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+totalSupply -= _value
+
+IRs:
+totalSupply(uint256) = totalSupply - _value"];
+5->6;
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+Burn(_from,_value)
+
+IRs:
+Emit Burn(_from._value)"];
+6->7;
+7[label="Node Type: RETURN 7
+
+EXPRESSION:
+true
+
+IRs:
+RETURN True"];
+}

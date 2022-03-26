@@ -1,0 +1,13 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: RETURN 1
+
+EXPRESSION:
+mod(a,b,SafeMath: modulo by zero)
+
+IRs:
+TMP_16(uint256) = INTERNAL_CALL, SafeMath.mod(uint256,uint256,string)(a,b,SafeMath: modulo by zero)
+RETURN TMP_16"];
+}

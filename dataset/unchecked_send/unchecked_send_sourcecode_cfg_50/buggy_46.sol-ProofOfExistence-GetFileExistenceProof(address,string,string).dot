@@ -1,0 +1,91 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->3;
+1[label="Node Type: BEGIN_LOOP 1
+"];
+1->4;
+2[label="Node Type: END_LOOP 2
+"];
+3[label="Node Type: NEW VARIABLE 3
+
+EXPRESSION:
+i = 0
+
+IRs:
+i(uint256) := 0(uint256)"];
+3->1;
+4[label="Node Type: IF_LOOP 4
+
+EXPRESSION:
+i < fileExistenceProofs[dappBoxOrigin].length
+
+IRs:
+REF_13(ProofOfExistence.FileExistenceStruct[]) -> fileExistenceProofs[dappBoxOrigin]
+REF_14 -> LENGTH REF_13
+TMP_6(bool) = i < REF_14
+CONDITION TMP_6"];
+4->5[label="True"];
+4->2[label="False"];
+5[label="Node Type: NEW VARIABLE 5
+
+EXPRESSION:
+res = compareStrings(fileHash,fileExistenceProofs[dappBoxOrigin][i].fileHash) && compareStrings(filePathHash,fileExistenceProofs[dappBoxOrigin][i].filePathHash)
+
+IRs:
+REF_15(ProofOfExistence.FileExistenceStruct[]) -> fileExistenceProofs[dappBoxOrigin]
+REF_16(ProofOfExistence.FileExistenceStruct) -> REF_15[i]
+REF_17(string) -> REF_16.fileHash
+TMP_7(bool) = INTERNAL_CALL, ProofOfExistence.compareStrings(string,string)(fileHash,REF_17)
+REF_18(ProofOfExistence.FileExistenceStruct[]) -> fileExistenceProofs[dappBoxOrigin]
+REF_19(ProofOfExistence.FileExistenceStruct) -> REF_18[i]
+REF_20(string) -> REF_19.filePathHash
+TMP_8(bool) = INTERNAL_CALL, ProofOfExistence.compareStrings(string,string)(filePathHash,REF_20)
+TMP_9(bool) = TMP_7 && TMP_8
+res(bool) := TMP_9(bool)"];
+5->6;
+6[label="Node Type: IF 6
+
+EXPRESSION:
+res == true
+
+IRs:
+TMP_10(bool) = res == True
+CONDITION TMP_10"];
+6->7[label="True"];
+6->8[label="False"];
+7[label="Node Type: RETURN 7
+
+EXPRESSION:
+(fileExistenceProofs[dappBoxOrigin][i].date,fileExistenceProofs[dappBoxOrigin][i].filesender,fileExistenceProofs[dappBoxOrigin][i].contractAddress,fileExistenceProofs[dappBoxOrigin][i].identifier,fileExistenceProofs[dappBoxOrigin][i].QRCodeHash)
+
+IRs:
+REF_21(ProofOfExistence.FileExistenceStruct[]) -> fileExistenceProofs[dappBoxOrigin]
+REF_22(ProofOfExistence.FileExistenceStruct) -> REF_21[i]
+REF_23(uint256) -> REF_22.date
+REF_24(ProofOfExistence.FileExistenceStruct[]) -> fileExistenceProofs[dappBoxOrigin]
+REF_25(ProofOfExistence.FileExistenceStruct) -> REF_24[i]
+REF_26(address) -> REF_25.filesender
+REF_27(ProofOfExistence.FileExistenceStruct[]) -> fileExistenceProofs[dappBoxOrigin]
+REF_28(ProofOfExistence.FileExistenceStruct) -> REF_27[i]
+REF_29(address) -> REF_28.contractAddress
+REF_30(ProofOfExistence.FileExistenceStruct[]) -> fileExistenceProofs[dappBoxOrigin]
+REF_31(ProofOfExistence.FileExistenceStruct) -> REF_30[i]
+REF_32(ProofOfExistence.BlockchainIdentification) -> REF_31.identifier
+REF_33(ProofOfExistence.FileExistenceStruct[]) -> fileExistenceProofs[dappBoxOrigin]
+REF_34(ProofOfExistence.FileExistenceStruct) -> REF_33[i]
+REF_35(bytes32) -> REF_34.QRCodeHash
+RETURN REF_23,REF_26,REF_29,REF_32,REF_35"];
+8[label="Node Type: END_IF 8
+"];
+8->9;
+9[label="Node Type: EXPRESSION 9
+
+EXPRESSION:
+i ++
+
+IRs:
+TMP_11(uint256) := i(uint256)
+i(uint256) = i + 1"];
+9->4;
+}

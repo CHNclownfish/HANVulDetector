@@ -1,0 +1,21 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(block.timestamp > coinTradeStart)
+
+IRs:
+TMP_298(bool) = block.timestamp > coinTradeStart
+TMP_299(None) = SOLIDITY_CALL require(bool)(TMP_298)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+super.transfer(to,value)
+
+IRs:
+TMP_300(bool) = INTERNAL_CALL, AcunarToken.transfer(address,uint256)(to,value)"];
+}

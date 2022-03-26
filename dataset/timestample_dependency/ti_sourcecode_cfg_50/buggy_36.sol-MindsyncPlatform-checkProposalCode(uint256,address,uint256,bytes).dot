@@ -1,0 +1,25 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+p = proposals[proposalNumber]
+
+IRs:
+REF_24(MindsyncPlatform.Proposal) -> proposals[proposalNumber]
+p(MindsyncPlatform.Proposal) := REF_24(MindsyncPlatform.Proposal)"];
+1->2;
+2[label="Node Type: RETURN 2
+
+EXPRESSION:
+p.proposalHash == keccak256(bytes)(abi.encodePacked(destination,weiAmount,transactionBytecode))
+
+IRs:
+REF_25(bytes32) -> p.proposalHash
+TMP_164(bytes) = SOLIDITY_CALL abi.encodePacked()(destination,weiAmount,transactionBytecode)
+TMP_165(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_164)
+TMP_166(bool) = REF_25 == TMP_165
+RETURN TMP_166"];
+}

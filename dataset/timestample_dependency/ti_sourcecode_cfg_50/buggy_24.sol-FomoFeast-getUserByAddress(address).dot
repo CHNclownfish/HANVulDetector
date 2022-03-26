@@ -1,0 +1,40 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+user = userMapping[userAddress]
+
+IRs:
+REF_159(FomoFeast.User) -> userMapping[userAddress]
+user(FomoFeast.User) := REF_159(FomoFeast.User)"];
+1->2;
+2[label="Node Type: RETURN 2
+
+EXPRESSION:
+((user.totalInvestCount,user.totalInvestAmount,user.totalStaticCommissionWithdrawAmount,user.totalDynamicCommissionWithdrawAmount,user.totalWithdrawAmount,user.downlineCount,user.nodeCount,user.totalDownlineInvestAmount,user.currentInvestTime,user.currentInvestAmount,user.currentInvestCycle,user.currentlevel,user.currentStaticCommissionRatio,user.staticCommissionBalance.add(getAvaliableStaticCommissionAmount(user)),user.dynamicCommissionBalance,user.calcDynamicCommissionAmount),user.sponsorAddress)
+
+IRs:
+REF_160(uint256) -> user.totalInvestCount
+REF_161(uint256) -> user.totalInvestAmount
+REF_162(uint256) -> user.totalStaticCommissionWithdrawAmount
+REF_163(uint256) -> user.totalDynamicCommissionWithdrawAmount
+REF_164(uint256) -> user.totalWithdrawAmount
+REF_165(uint256) -> user.downlineCount
+REF_166(uint256) -> user.nodeCount
+REF_167(uint256) -> user.totalDownlineInvestAmount
+REF_168(uint256) -> user.currentInvestTime
+REF_169(uint256) -> user.currentInvestAmount
+REF_170(uint256) -> user.currentInvestCycle
+REF_171(uint256) -> user.currentlevel
+REF_172(uint256) -> user.currentStaticCommissionRatio
+REF_173(uint256) -> user.staticCommissionBalance
+TMP_303(uint256) = INTERNAL_CALL, FomoFeast.getAvaliableStaticCommissionAmount(FomoFeast.User)(user)
+TMP_304(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_173', 'TMP_303'] 
+REF_175(uint256) -> user.dynamicCommissionBalance
+REF_176(uint256) -> user.calcDynamicCommissionAmount
+REF_177(address) -> user.sponsorAddress
+RETURN REF_160,REF_161,REF_162,REF_163,REF_164,REF_165,REF_166,REF_167,REF_168,REF_169,REF_170,REF_171,REF_172,TMP_304,REF_175,REF_176,REF_177"];
+}

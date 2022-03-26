@@ -1,0 +1,36 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(amount <= _allowed[account][msg.sender])
+
+IRs:
+REF_93(mapping(address => uint256)) -> _allowed[account]
+REF_94(uint256) -> REF_93[msg.sender]
+TMP_116(bool) = amount <= REF_94
+TMP_117(None) = SOLIDITY_CALL require(bool)(TMP_116)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+_allowed[account][msg.sender] = _allowed[account][msg.sender].sub(amount)
+
+IRs:
+REF_95(mapping(address => uint256)) -> _allowed[account]
+REF_96(uint256) -> REF_95[msg.sender]
+REF_97(mapping(address => uint256)) -> _allowed[account]
+REF_98(uint256) -> REF_97[msg.sender]
+TMP_118(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_98', 'amount'] 
+REF_96 (->_allowed) := TMP_118(uint256)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+_burn(account,amount)
+
+IRs:
+INTERNAL_CALL, HYDROGEN._burn(address,uint256)(account,amount)"];
+}

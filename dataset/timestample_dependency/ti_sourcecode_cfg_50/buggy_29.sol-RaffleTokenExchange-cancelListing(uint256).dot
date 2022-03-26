@@ -1,0 +1,51 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+listing = listingsById[id]
+
+IRs:
+REF_47(RaffleTokenExchange.Listing) -> listingsById[id]
+listing(RaffleTokenExchange.Listing) := REF_47(RaffleTokenExchange.Listing)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool,string)(listing.active,This listing was turned inactive already!)
+
+IRs:
+REF_48(bool) -> listing.active
+TMP_122(None) = SOLIDITY_CALL require(bool,string)(REF_48,This listing was turned inactive already!)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+require(bool,string)(listing.seller == msg.sender || owner == msg.sender,Only the listing owner or the contract owner can cancel the listing!)
+
+IRs:
+REF_49(address) -> listing.seller
+TMP_123(bool) = REF_49 == msg.sender
+TMP_124(bool) = owner == msg.sender
+TMP_125(bool) = TMP_123 || TMP_124
+TMP_126(None) = SOLIDITY_CALL require(bool,string)(TMP_125,Only the listing owner or the contract owner can cancel the listing!)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+listing.active = false
+
+IRs:
+REF_50(bool) -> listing.active
+REF_50 (->listing) := False(bool)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+Canceled(id)
+
+IRs:
+Emit Canceled(id)"];
+}

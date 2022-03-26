@@ -1,0 +1,23 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+_approve(msg.sender,spender,_allowances[msg.sender][spender].add(addedValue))
+
+IRs:
+REF_19(mapping(address => uint256)) -> _allowances[msg.sender]
+REF_20(uint256) -> REF_19[spender]
+TMP_98(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_20', 'addedValue'] 
+INTERNAL_CALL, UBBCToken._approve(address,address,uint256)(msg.sender,spender,TMP_98)"];
+1->2;
+2[label="Node Type: RETURN 2
+
+EXPRESSION:
+true
+
+IRs:
+RETURN True"];
+}

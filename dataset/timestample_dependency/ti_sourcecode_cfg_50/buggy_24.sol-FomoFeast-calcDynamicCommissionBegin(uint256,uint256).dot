@@ -1,0 +1,64 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->8;
+1[label="Node Type: BEGIN_LOOP 1
+"];
+1->4;
+2[label="Node Type: END_LOOP 2
+"];
+3[label="Node Type: NEW VARIABLE 3
+
+EXPRESSION:
+i = index
+
+IRs:
+i(uint256) := index(uint256)"];
+3->1;
+4[label="Node Type: IF_LOOP 4
+
+EXPRESSION:
+i < (index + length)
+
+IRs:
+TMP_359(uint256) = index + length
+TMP_360(bool) = i < TMP_359
+CONDITION TMP_360"];
+4->5[label="True"];
+4->2[label="False"];
+5[label="Node Type: NEW VARIABLE 5
+
+EXPRESSION:
+user = userMapping[addressMapping[i]]
+
+IRs:
+REF_349(address) -> addressMapping[i]
+REF_350(FomoFeast.User) -> userMapping[REF_349]
+user(FomoFeast.User) := REF_350(FomoFeast.User)"];
+5->6;
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+user.calcDynamicCommissionAmount = 0
+
+IRs:
+REF_351(uint256) -> user.calcDynamicCommissionAmount
+REF_351 (->user) := 0(uint256)"];
+6->7;
+7[label="Node Type: EXPRESSION 7
+
+EXPRESSION:
+++ i
+
+IRs:
+i(uint256) = i + 1"];
+7->4;
+8[label="Node Type: EXPRESSION 8
+
+EXPRESSION:
+onlyOwner()
+
+IRs:
+MODIFIER_CALL, FomoFeast.onlyOwner()()"];
+8->3;
+}

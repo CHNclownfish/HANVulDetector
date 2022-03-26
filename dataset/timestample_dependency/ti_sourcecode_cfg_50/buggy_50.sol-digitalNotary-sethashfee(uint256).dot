@@ -1,0 +1,29 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->3;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(newfee >= 0)
+
+IRs:
+TMP_35(bool) = newfee >= 0
+TMP_36(None) = SOLIDITY_CALL require(bool)(TMP_35)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+hashfee = newfee
+
+IRs:
+hashfee(uint256) := newfee(uint256)"];
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+onlyManager()
+
+IRs:
+MODIFIER_CALL, digitalNotary.onlyManager()()"];
+3->1;
+}

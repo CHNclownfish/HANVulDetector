@@ -1,0 +1,89 @@
+digraph{
+0[label="Node Type: OTHER_ENTRYPOINT 0
+
+EXPRESSION:
+bugv_tmstmp2 = block.timestamp
+
+IRs:
+bugv_tmstmp2(uint256) := block.timestamp(uint256)"];
+0->1;
+1[label="Node Type: OTHER_ENTRYPOINT 1
+
+EXPRESSION:
+bugv_tmstmp5 = block.timestamp
+
+IRs:
+bugv_tmstmp5(uint256) := block.timestamp(uint256)"];
+1->2;
+2[label="Node Type: OTHER_ENTRYPOINT 2
+
+EXPRESSION:
+_name = Lollypop
+
+IRs:
+_name(string) := Lollypop(string)"];
+2->3;
+3[label="Node Type: OTHER_ENTRYPOINT 3
+
+EXPRESSION:
+_symbol = Lolly
+
+IRs:
+_symbol(string) := Lolly(string)"];
+3->4;
+4[label="Node Type: OTHER_ENTRYPOINT 4
+
+EXPRESSION:
+_decimals = 18
+
+IRs:
+_decimals(uint8) := 18(uint256)"];
+4->5;
+5[label="Node Type: OTHER_ENTRYPOINT 5
+
+EXPRESSION:
+maxAgeOfToken = 31536000
+
+IRs:
+maxAgeOfToken(uint256) := 31536000(uint256)"];
+5->6;
+6[label="Node Type: OTHER_ENTRYPOINT 6
+
+EXPRESSION:
+minAgeOfToken = 86400
+
+IRs:
+minAgeOfToken(uint256) := 86400(uint256)"];
+6->7;
+7[label="Node Type: OTHER_ENTRYPOINT 7
+
+EXPRESSION:
+perDayBonus = 100
+
+IRs:
+perDayBonus(uint256) := 100(uint256)"];
+7->8;
+8[label="Node Type: OTHER_ENTRYPOINT 8
+
+EXPRESSION:
+bugv_tmstmp1 = block.timestamp
+
+IRs:
+bugv_tmstmp1(uint256) := block.timestamp(uint256)"];
+8->9;
+9[label="Node Type: OTHER_ENTRYPOINT 9
+
+EXPRESSION:
+bugv_tmstmp3 = block.timestamp
+
+IRs:
+bugv_tmstmp3(uint256) := block.timestamp(uint256)"];
+9->10;
+10[label="Node Type: OTHER_ENTRYPOINT 10
+
+EXPRESSION:
+bugv_tmstmp4 = block.timestamp
+
+IRs:
+bugv_tmstmp4(uint256) := block.timestamp(uint256)"];
+}

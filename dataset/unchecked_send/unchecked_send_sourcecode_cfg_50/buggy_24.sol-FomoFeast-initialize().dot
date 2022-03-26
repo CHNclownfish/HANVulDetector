@@ -1,0 +1,40 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool,string)(! initialized,already initialized)
+
+IRs:
+TMP_25 = ! initialized 
+TMP_26(None) = SOLIDITY_CALL require(bool,string)(TMP_25,already initialized)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+owner = msg.sender
+
+IRs:
+owner(address) := msg.sender(address)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+userMapping[GENESIS_USER_ADDRESS] = User(1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,address(0))
+
+IRs:
+REF_5(FomoFeast.User) -> userMapping[GENESIS_USER_ADDRESS]
+TMP_27 = CONVERT 0 to address
+TMP_28 = new User(1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,TMP_27)
+REF_5 (->userMapping) := TMP_28(FomoFeast.User)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+initialized = true
+
+IRs:
+initialized(bool) := True(bool)"];
+}

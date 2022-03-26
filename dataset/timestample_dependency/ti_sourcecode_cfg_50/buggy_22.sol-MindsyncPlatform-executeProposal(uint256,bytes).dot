@@ -1,0 +1,249 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+p = proposals[proposalNumber]
+
+IRs:
+REF_43(MindsyncPlatform.Proposal) -> proposals[proposalNumber]
+p(MindsyncPlatform.Proposal) := REF_43(MindsyncPlatform.Proposal)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(initialized)
+
+IRs:
+TMP_200(None) = SOLIDITY_CALL require(bool)(initialized)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+require(bool)(now > p.minExecutionDate && ! p.executed && p.proposalHash == keccak256(bytes)(abi.encodePacked(p.recipient,p.amount,transactionBytecode)))
+
+IRs:
+REF_44(uint256) -> p.minExecutionDate
+TMP_201(bool) = now > REF_44
+REF_45(bool) -> p.executed
+TMP_202 = ! REF_45 
+TMP_203(bool) = TMP_201 && TMP_202
+REF_46(bytes32) -> p.proposalHash
+REF_48(address) -> p.recipient
+REF_49(uint256) -> p.amount
+TMP_204(bytes) = SOLIDITY_CALL abi.encodePacked()(REF_48,REF_49,transactionBytecode)
+TMP_205(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_204)
+TMP_206(bool) = REF_46 == TMP_205
+TMP_207(bool) = TMP_203 && TMP_206
+TMP_208(None) = SOLIDITY_CALL require(bool)(TMP_207)"];
+3->4;
+4[label="Node Type: NEW VARIABLE 4
+
+EXPRESSION:
+quorum = 0
+
+IRs:
+quorum(uint256) := 0(uint256)"];
+4->5;
+5[label="Node Type: NEW VARIABLE 5
+
+EXPRESSION:
+yea = 0
+
+IRs:
+yea(uint256) := 0(uint256)"];
+5->6;
+6[label="Node Type: NEW VARIABLE 6
+
+EXPRESSION:
+nay = 0
+
+IRs:
+nay(uint256) := 0(uint256)"];
+6->9;
+7[label="Node Type: BEGIN_LOOP 7
+"];
+7->10;
+8[label="Node Type: END_LOOP 8
+"];
+8->19;
+9[label="Node Type: NEW VARIABLE 9
+
+EXPRESSION:
+i = 0
+
+IRs:
+i(uint256) := 0(uint256)"];
+9->7;
+10[label="Node Type: IF_LOOP 10
+
+EXPRESSION:
+i < p.votes.length
+
+IRs:
+REF_50(MindsyncPlatform.Vote[]) -> p.votes
+REF_51 -> LENGTH REF_50
+TMP_209(bool) = i < REF_51
+CONDITION TMP_209"];
+10->11[label="True"];
+10->8[label="False"];
+11[label="Node Type: NEW VARIABLE 11
+
+EXPRESSION:
+v = p.votes[i]
+
+IRs:
+REF_52(MindsyncPlatform.Vote[]) -> p.votes
+REF_53(MindsyncPlatform.Vote) -> REF_52[i]
+v(MindsyncPlatform.Vote) := REF_53(MindsyncPlatform.Vote)"];
+11->12;
+12[label="Node Type: NEW VARIABLE 12
+
+EXPRESSION:
+voteWeight = tokenAddress.actualBalanceOf(v.voter)
+
+IRs:
+REF_55(address) -> v.voter
+TMP_210(uint256) = HIGH_LEVEL_CALL, dest:tokenAddress(Token), function:actualBalanceOf, arguments:['REF_55']  
+voteWeight(uint256) := TMP_210(uint256)"];
+12->13;
+13[label="Node Type: EXPRESSION 13
+
+EXPRESSION:
+quorum += voteWeight
+
+IRs:
+quorum(uint256) = quorum + voteWeight"];
+13->14;
+14[label="Node Type: IF 14
+
+EXPRESSION:
+v.inSupport
+
+IRs:
+REF_56(bool) -> v.inSupport
+CONDITION REF_56"];
+14->15[label="True"];
+14->16[label="False"];
+15[label="Node Type: EXPRESSION 15
+
+EXPRESSION:
+yea += voteWeight
+
+IRs:
+yea(uint256) = yea + voteWeight"];
+15->17;
+16[label="Node Type: EXPRESSION 16
+
+EXPRESSION:
+nay += voteWeight
+
+IRs:
+nay(uint256) = nay + voteWeight"];
+16->17;
+17[label="Node Type: END_IF 17
+"];
+17->18;
+18[label="Node Type: EXPRESSION 18
+
+EXPRESSION:
+++ i
+
+IRs:
+i(uint256) = i + 1"];
+18->10;
+19[label="Node Type: NEW VARIABLE 19
+
+EXPRESSION:
+t = Token(tokenAddress)
+
+IRs:
+TMP_211 = CONVERT tokenAddress to Token
+t(Token) := TMP_211(Token)"];
+19->20;
+20[label="Node Type: EXPRESSION 20
+
+EXPRESSION:
+require(bool)(quorum >= t.totalSupply().mul(minimumQuorum).div(100))
+
+IRs:
+TMP_212(uint256) = HIGH_LEVEL_CALL, dest:t(Token), function:totalSupply, arguments:[]  
+TMP_213(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['TMP_212', 'minimumQuorum'] 
+TMP_214(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_213', '100'] 
+TMP_215(bool) = quorum >= TMP_214
+TMP_216(None) = SOLIDITY_CALL require(bool)(TMP_215)"];
+20->21;
+21[label="Node Type: IF 21
+
+EXPRESSION:
+yea > nay
+
+IRs:
+TMP_217(bool) = yea > nay
+CONDITION TMP_217"];
+21->22[label="True"];
+21->27[label="False"];
+22[label="Node Type: EXPRESSION 22
+
+EXPRESSION:
+p.executed = true
+
+IRs:
+REF_60(bool) -> p.executed
+REF_60 (->p) := True(bool)"];
+22->23;
+23[label="Node Type: NEW VARIABLE 23
+"];
+23->24;
+24[label="Node Type: EXPRESSION 24
+
+EXPRESSION:
+(success) = p.recipient.call.value(p.amount)(transactionBytecode)
+
+IRs:
+REF_61(address) -> p.recipient
+REF_64(uint256) -> p.amount
+TUPLE_0(bool,bytes) = LOW_LEVEL_CALL, dest:REF_61, function:call, arguments:['transactionBytecode'] value:REF_64 
+success(bool)= UNPACK TUPLE_0 index: 0 "];
+24->25;
+25[label="Node Type: EXPRESSION 25
+
+EXPRESSION:
+require(bool)(success)
+
+IRs:
+TMP_219(None) = SOLIDITY_CALL require(bool)(success)"];
+25->26;
+26[label="Node Type: EXPRESSION 26
+
+EXPRESSION:
+p.proposalPassed = true
+
+IRs:
+REF_65(bool) -> p.proposalPassed
+REF_65 (->p) := True(bool)"];
+26->28;
+27[label="Node Type: EXPRESSION 27
+
+EXPRESSION:
+p.proposalPassed = false
+
+IRs:
+REF_66(bool) -> p.proposalPassed
+REF_66 (->p) := False(bool)"];
+27->28;
+28[label="Node Type: END_IF 28
+"];
+28->29;
+29[label="Node Type: EXPRESSION 29
+
+EXPRESSION:
+ProposalTallied(proposalNumber,yea - nay,quorum,p.proposalPassed)
+
+IRs:
+TMP_220(uint256) = yea - nay
+REF_67(bool) -> p.proposalPassed
+Emit ProposalTallied(proposalNumber.TMP_220.quorum.REF_67)"];
+}

@@ -1,0 +1,36 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+implementer = _erc1820.getInterfaceImplementer(from,TOKENS_SENDER_INTERFACE_HASH)
+
+IRs:
+TMP_340(address) = HIGH_LEVEL_CALL, dest:_erc1820(IERC1820Registry), function:getInterfaceImplementer, arguments:['from', 'TOKENS_SENDER_INTERFACE_HASH']  
+implementer(address) := TMP_340(address)"];
+1->2;
+2[label="Node Type: IF 2
+
+EXPRESSION:
+implementer != address(0)
+
+IRs:
+TMP_341 = CONVERT 0 to address
+TMP_342(bool) = implementer != TMP_341
+CONDITION TMP_342"];
+2->3[label="True"];
+2->4[label="False"];
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+IERC777Sender(implementer).tokensToSend(operator,from,to,amount,userData,operatorData)
+
+IRs:
+TMP_343 = CONVERT implementer to IERC777Sender
+HIGH_LEVEL_CALL, dest:TMP_343(IERC777Sender), function:tokensToSend, arguments:['operator', 'from', 'to', 'amount', 'userData', 'operatorData']  "];
+3->4;
+4[label="Node Type: END_IF 4
+"];
+}
