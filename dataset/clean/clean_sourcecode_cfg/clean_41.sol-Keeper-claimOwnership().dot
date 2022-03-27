@@ -1,0 +1,37 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->4;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+OwnershipTransferred(owner,pendingOwner)
+
+IRs:
+Emit OwnershipTransferred(owner.pendingOwner)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+owner = pendingOwner
+
+IRs:
+owner(address) := pendingOwner(address)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+pendingOwner = address(0)
+
+IRs:
+TMP_27 = CONVERT 0 to address
+pendingOwner(address) := TMP_27(address)"];
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+onlyPendingOwner()
+
+IRs:
+MODIFIER_CALL, Claimable.onlyPendingOwner()()"];
+4->1;
+}

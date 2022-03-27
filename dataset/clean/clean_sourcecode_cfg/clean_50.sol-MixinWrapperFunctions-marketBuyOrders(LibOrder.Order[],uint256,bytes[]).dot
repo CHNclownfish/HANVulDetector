@@ -1,0 +1,141 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->17;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+makerAssetData = orders[0].makerAssetData
+
+IRs:
+REF_238(LibOrder.Order) -> orders[0]
+REF_239(bytes) -> REF_238.makerAssetData
+makerAssetData(bytes) := REF_239(bytes)"];
+1->2;
+2[label="Node Type: NEW VARIABLE 2
+
+EXPRESSION:
+ordersLength = orders.length
+
+IRs:
+REF_240 -> LENGTH orders
+ordersLength(uint256) := REF_240(uint256)"];
+2->5;
+3[label="Node Type: BEGIN_LOOP 3
+"];
+3->6;
+4[label="Node Type: END_LOOP 4
+"];
+4->16;
+5[label="Node Type: NEW VARIABLE 5
+
+EXPRESSION:
+i = 0
+
+IRs:
+i(uint256) := 0(uint256)"];
+5->3;
+6[label="Node Type: IF_LOOP 6
+
+EXPRESSION:
+i != ordersLength
+
+IRs:
+TMP_517(bool) = i != ordersLength
+CONDITION TMP_517"];
+6->7[label="True"];
+6->4[label="False"];
+7[label="Node Type: EXPRESSION 7
+
+EXPRESSION:
+orders[i].makerAssetData = makerAssetData
+
+IRs:
+REF_241(LibOrder.Order) -> orders[i]
+REF_242(bytes) -> REF_241.makerAssetData
+REF_242 (->orders) := makerAssetData(bytes)"];
+7->8;
+8[label="Node Type: NEW VARIABLE 8
+
+EXPRESSION:
+remainingMakerAssetFillAmount = safeSub(makerAssetFillAmount,totalFillResults.makerAssetFilledAmount)
+
+IRs:
+REF_243(uint256) -> totalFillResults.makerAssetFilledAmount
+TMP_518(uint256) = INTERNAL_CALL, SafeMath.safeSub(uint256,uint256)(makerAssetFillAmount,REF_243)
+remainingMakerAssetFillAmount(uint256) := TMP_518(uint256)"];
+8->9;
+9[label="Node Type: NEW VARIABLE 9
+
+EXPRESSION:
+remainingTakerAssetFillAmount = getPartialAmountFloor(orders[i].takerAssetAmount,orders[i].makerAssetAmount,remainingMakerAssetFillAmount)
+
+IRs:
+REF_244(LibOrder.Order) -> orders[i]
+REF_245(uint256) -> REF_244.takerAssetAmount
+REF_246(LibOrder.Order) -> orders[i]
+REF_247(uint256) -> REF_246.makerAssetAmount
+TMP_519(uint256) = INTERNAL_CALL, LibMath.getPartialAmountFloor(uint256,uint256,uint256)(REF_245,REF_247,remainingMakerAssetFillAmount)
+remainingTakerAssetFillAmount(uint256) := TMP_519(uint256)"];
+9->10;
+10[label="Node Type: NEW VARIABLE 10
+
+EXPRESSION:
+singleFillResults = fillOrderInternal(orders[i],remainingTakerAssetFillAmount,signatures[i])
+
+IRs:
+REF_248(LibOrder.Order) -> orders[i]
+REF_249(bytes) -> signatures[i]
+TMP_520(LibFillResults.FillResults) = INTERNAL_CALL, MExchangeCore.fillOrderInternal(LibOrder.Order,uint256,bytes)(REF_248,remainingTakerAssetFillAmount,REF_249)
+singleFillResults(LibFillResults.FillResults) := TMP_520(LibFillResults.FillResults)"];
+10->11;
+11[label="Node Type: EXPRESSION 11
+
+EXPRESSION:
+addFillResults(totalFillResults,singleFillResults)
+
+IRs:
+INTERNAL_CALL, LibFillResults.addFillResults(LibFillResults.FillResults,LibFillResults.FillResults)(totalFillResults,singleFillResults)"];
+11->12;
+12[label="Node Type: IF 12
+
+EXPRESSION:
+totalFillResults.makerAssetFilledAmount >= makerAssetFillAmount
+
+IRs:
+REF_250(uint256) -> totalFillResults.makerAssetFilledAmount
+TMP_522(bool) = REF_250 >= makerAssetFillAmount
+CONDITION TMP_522"];
+12->13[label="True"];
+12->14[label="False"];
+13[label="Node Type: BREAK 13
+"];
+13->4;
+14[label="Node Type: END_IF 14
+"];
+14->15;
+15[label="Node Type: EXPRESSION 15
+
+EXPRESSION:
+i ++
+
+IRs:
+TMP_523(uint256) := i(uint256)
+i(uint256) = i + 1"];
+15->6;
+16[label="Node Type: RETURN 16
+
+EXPRESSION:
+totalFillResults
+
+IRs:
+RETURN totalFillResults"];
+17[label="Node Type: EXPRESSION 17
+
+EXPRESSION:
+nonReentrant()
+
+IRs:
+MODIFIER_CALL, ReentrancyGuard.nonReentrant()()"];
+17->1;
+}

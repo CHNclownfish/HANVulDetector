@@ -1,0 +1,44 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(validater != address(0))
+
+IRs:
+TMP_135 = CONVERT 0 to address
+TMP_136(bool) = validater != TMP_135
+TMP_137(None) = SOLIDITY_CALL require(bool)(TMP_136)"];
+1->2;
+2[label="Node Type: NEW VARIABLE 2
+
+EXPRESSION:
+hash = uint256(msg.sender) * _count
+
+IRs:
+TMP_138 = CONVERT msg.sender to uint256
+TMP_139(uint256) = TMP_138 * _count
+hash(uint256) := TMP_139(uint256)"];
+2->3;
+3[label="Node Type: NEW VARIABLE 3
+
+EXPRESSION:
+signer = ECDSA.recover(ECDSA.toEthSignedMessageHash(bytes32(hash)),_signature)
+
+IRs:
+TMP_140 = CONVERT hash to bytes32
+TMP_141(bytes32) = LIBRARY_CALL, dest:ECDSA, function:ECDSA.toEthSignedMessageHash(bytes32), arguments:['TMP_140'] 
+TMP_142(address) = LIBRARY_CALL, dest:ECDSA, function:ECDSA.recover(bytes32,bytes), arguments:['TMP_141', '_signature'] 
+signer(address) := TMP_142(address)"];
+3->4;
+4[label="Node Type: RETURN 4
+
+EXPRESSION:
+(signer == validater)
+
+IRs:
+TMP_143(bool) = signer == validater
+RETURN TMP_143"];
+}

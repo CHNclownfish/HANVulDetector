@@ -1,0 +1,98 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(balanceOf[address(this)] > 0)
+
+IRs:
+TMP_99 = CONVERT this to address
+REF_49(uint256) -> balanceOf[TMP_99]
+TMP_100(bool) = REF_49 > 0
+TMP_101(None) = SOLIDITY_CALL require(bool)(TMP_100)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(! airdropTouched[msg.sender])
+
+IRs:
+REF_50(bool) -> airdropTouched[msg.sender]
+TMP_102 = ! REF_50 
+TMP_103(None) = SOLIDITY_CALL require(bool)(TMP_102)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+require(bool)(airdropCount < airdropCountLimit1 + airdropCountLimit2)
+
+IRs:
+TMP_104(uint256) = airdropCountLimit1 + airdropCountLimit2
+TMP_105(bool) = airdropCount < TMP_104
+TMP_106(None) = SOLIDITY_CALL require(bool)(TMP_105)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+airdropTouched[msg.sender] = true
+
+IRs:
+REF_51(bool) -> airdropTouched[msg.sender]
+REF_51 (->airdropTouched) := True(bool)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+airdropCount = SafeMath.safeAdd(airdropCount,1)
+
+IRs:
+TMP_107(uint256) = INTERNAL_CALL, SafeMath.safeAdd(uint256,uint256)(airdropCount,1)
+airdropCount(uint256) := TMP_107(uint256)"];
+5->6;
+6[label="Node Type: IF 6
+
+EXPRESSION:
+airdropCount <= airdropCountLimit1
+
+IRs:
+TMP_108(bool) = airdropCount <= airdropCountLimit1
+CONDITION TMP_108"];
+6->7[label="True"];
+6->8[label="False"];
+7[label="Node Type: EXPRESSION 7
+
+EXPRESSION:
+_transfer(address(this),msg.sender,airdropNum1)
+
+IRs:
+TMP_109 = CONVERT this to address
+INTERNAL_CALL, LBN._transfer(address,address,uint256)(TMP_109,msg.sender,airdropNum1)"];
+7->11;
+8[label="Node Type: IF 8
+
+EXPRESSION:
+airdropCount <= airdropCountLimit1 + airdropCountLimit2
+
+IRs:
+TMP_111(uint256) = airdropCountLimit1 + airdropCountLimit2
+TMP_112(bool) = airdropCount <= TMP_111
+CONDITION TMP_112"];
+8->9[label="True"];
+8->10[label="False"];
+9[label="Node Type: EXPRESSION 9
+
+EXPRESSION:
+_transfer(address(this),msg.sender,airdropNum2)
+
+IRs:
+TMP_113 = CONVERT this to address
+INTERNAL_CALL, LBN._transfer(address,address,uint256)(TMP_113,msg.sender,airdropNum2)"];
+9->10;
+10[label="Node Type: END_IF 10
+"];
+10->11;
+11[label="Node Type: END_IF 11
+"];
+}

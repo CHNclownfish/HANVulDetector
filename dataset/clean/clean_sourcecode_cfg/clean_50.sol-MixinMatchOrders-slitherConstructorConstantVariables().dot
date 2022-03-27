@@ -1,0 +1,19 @@
+digraph{
+0[label="Node Type: OTHER_ENTRYPOINT 0
+
+EXPRESSION:
+ZRX_ASSET_DATA = 0xf47261b0000000000000000000000000e41d2489571d322189246dafa5ebde1f4699f498
+
+IRs:
+ZRX_ASSET_DATA(bytes) := 0xf47261b0000000000000000000000000e41d2489571d322189246dafa5ebde1f4699f498(string)"];
+0->1;
+1[label="Node Type: OTHER_ENTRYPOINT 1
+
+EXPRESSION:
+EIP712_ZEROEX_TRANSACTION_SCHEMA_HASH = keccak256()(abi.encodePacked(ZeroExTransaction(,uint256 salt,,address signerAddress,,bytes data,)))
+
+IRs:
+TMP_697(bytes) = SOLIDITY_CALL abi.encodePacked()(ZeroExTransaction(,uint256 salt,,address signerAddress,,bytes data,))
+TMP_698(bytes32) = SOLIDITY_CALL keccak256()(TMP_697)
+EIP712_ZEROEX_TRANSACTION_SCHEMA_HASH(bytes32) := TMP_698(bytes32)"];
+}

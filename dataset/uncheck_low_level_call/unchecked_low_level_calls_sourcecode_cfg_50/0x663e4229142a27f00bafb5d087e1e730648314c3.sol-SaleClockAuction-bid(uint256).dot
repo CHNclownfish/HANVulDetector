@@ -1,0 +1,63 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+isGen0 = tokenIdToAuction[_tokenId].isGen0
+
+IRs:
+REF_299(ClockAuctionBase.Auction) -> tokenIdToAuction[_tokenId]
+REF_300(uint64) -> REF_299.isGen0
+isGen0(uint64) := REF_300(uint64)"];
+1->2;
+2[label="Node Type: NEW VARIABLE 2
+
+EXPRESSION:
+price = _bid(_tokenId,msg.value)
+
+IRs:
+TMP_1122(uint256) = INTERNAL_CALL, ClockAuctionBase._bid(uint256,uint256)(_tokenId,msg.value)
+price(uint256) := TMP_1122(uint256)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+_transfer(msg.sender,_tokenId)
+
+IRs:
+INTERNAL_CALL, ClockAuctionBase._transfer(address,uint256)(msg.sender,_tokenId)"];
+3->4;
+4[label="Node Type: IF 4
+
+EXPRESSION:
+isGen0 == 1
+
+IRs:
+TMP_1124(bool) = isGen0 == 1
+CONDITION TMP_1124"];
+4->5[label="True"];
+4->7[label="False"];
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+lastGen0SalePrices[gen0SaleCount % 5] = price
+
+IRs:
+TMP_1125(uint256) = gen0SaleCount % 5
+REF_301(uint256) -> lastGen0SalePrices[TMP_1125]
+REF_301 (->lastGen0SalePrices) := price(uint256)"];
+5->6;
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+gen0SaleCount ++
+
+IRs:
+TMP_1126(uint256) := gen0SaleCount(uint256)
+gen0SaleCount(uint256) = gen0SaleCount + 1"];
+6->7;
+7[label="Node Type: END_IF 7
+"];
+}

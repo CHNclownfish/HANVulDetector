@@ -1,0 +1,91 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->10;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(_to != 0x0)
+
+IRs:
+TMP_215(bool) = _to != 0
+TMP_216(None) = SOLIDITY_CALL require(bool)(TMP_215)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(_from == address(this))
+
+IRs:
+TMP_217 = CONVERT this to address
+TMP_218(bool) = _from == TMP_217
+TMP_219(None) = SOLIDITY_CALL require(bool)(TMP_218)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+balances[_from] = (balances[_from]).sub(_amount)
+
+IRs:
+REF_83(uint256) -> balances[_from]
+REF_84(uint256) -> balances[_from]
+TMP_220(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_84', '_amount'] 
+REF_83 (->balances) := TMP_220(uint256)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+balances[_to] = (balances[_to]).add(_amount)
+
+IRs:
+REF_86(uint256) -> balances[_to]
+REF_87(uint256) -> balances[_to]
+TMP_221(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_87', '_amount'] 
+REF_86 (->balances) := TMP_221(uint256)"];
+4->5;
+5[label="Node Type: IF 5
+
+EXPRESSION:
+_from == 0x0
+
+IRs:
+TMP_222(bool) = _from == 0
+CONDITION TMP_222"];
+5->6[label="True"];
+5->7[label="False"];
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+_totalsupply = _totalsupply.add(_amount)
+
+IRs:
+TMP_223(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalsupply', '_amount'] 
+_totalsupply(uint256) := TMP_223(uint256)"];
+6->7;
+7[label="Node Type: END_IF 7
+"];
+7->8;
+8[label="Node Type: EXPRESSION 8
+
+EXPRESSION:
+Transfer(_from,_to,_amount)
+
+IRs:
+Emit Transfer(_from._to._amount)"];
+8->9;
+9[label="Node Type: RETURN 9
+
+EXPRESSION:
+true
+
+IRs:
+RETURN True"];
+10[label="Node Type: EXPRESSION 10
+
+EXPRESSION:
+onlycentralAccount()
+
+IRs:
+MODIFIER_CALL, SocialActivityToken.onlycentralAccount()()"];
+10->1;
+}

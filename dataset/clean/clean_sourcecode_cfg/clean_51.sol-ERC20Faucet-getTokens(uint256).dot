@@ -1,0 +1,100 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->10;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(claimedTokens[msg.sender].add(amount) <= maxAllowanceInclusive)
+
+IRs:
+REF_0(uint256) -> claimedTokens[msg.sender]
+TMP_12(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_0', 'amount'] 
+TMP_13(bool) = TMP_12 <= maxAllowanceInclusive
+TMP_14(None) = SOLIDITY_CALL require(bool)(TMP_13)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(erc20Contract.balanceOf(this) >= amount)
+
+IRs:
+TMP_15(uint256) = HIGH_LEVEL_CALL, dest:erc20Contract(ERC20TokenInterface), function:balanceOf, arguments:['this']  
+TMP_16(bool) = TMP_15 >= amount
+TMP_17(None) = SOLIDITY_CALL require(bool)(TMP_16)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+claimedTokens[msg.sender] = claimedTokens[msg.sender].add(amount)
+
+IRs:
+REF_3(uint256) -> claimedTokens[msg.sender]
+REF_4(uint256) -> claimedTokens[msg.sender]
+TMP_18(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_4', 'amount'] 
+REF_3 (->claimedTokens) := TMP_18(uint256)"];
+3->4;
+4[label="Node Type: IF 4
+
+EXPRESSION:
+! erc20Contract.transfer(msg.sender,amount)
+
+IRs:
+TMP_19(bool) = HIGH_LEVEL_CALL, dest:erc20Contract(ERC20TokenInterface), function:transfer, arguments:['msg.sender', 'amount']  
+TMP_20 = ! TMP_19 
+CONDITION TMP_20"];
+4->5[label="True"];
+4->7[label="False"];
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+claimedTokens[msg.sender] = claimedTokens[msg.sender].sub(amount)
+
+IRs:
+REF_7(uint256) -> claimedTokens[msg.sender]
+REF_8(uint256) -> claimedTokens[msg.sender]
+TMP_21(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_8', 'amount'] 
+REF_7 (->claimedTokens) := TMP_21(uint256)"];
+5->6;
+6[label="Node Type: RETURN 6
+
+EXPRESSION:
+false
+
+IRs:
+RETURN False"];
+7[label="Node Type: END_IF 7
+"];
+7->8;
+8[label="Node Type: EXPRESSION 8
+
+EXPRESSION:
+GetTokens(msg.sender,amount)
+
+IRs:
+Emit GetTokens(msg.sender.amount)"];
+8->9;
+9[label="Node Type: RETURN 9
+
+EXPRESSION:
+true
+
+IRs:
+RETURN True"];
+10[label="Node Type: EXPRESSION 10
+
+EXPRESSION:
+notPaused()
+
+IRs:
+MODIFIER_CALL, ERC20Faucet.notPaused()()"];
+10->11;
+11[label="Node Type: EXPRESSION 11
+
+EXPRESSION:
+nonReentrant()
+
+IRs:
+MODIFIER_CALL, ERC20Faucet.nonReentrant()()"];
+11->1;
+}

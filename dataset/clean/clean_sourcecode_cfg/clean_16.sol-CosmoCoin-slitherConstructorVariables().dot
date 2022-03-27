@@ -1,0 +1,17 @@
+digraph{
+0[label="Node Type: OTHER_ENTRYPOINT 0
+
+EXPRESSION:
+totalSupply = 0
+
+IRs:
+totalSupply(uint256) := 0(uint256)"];
+0->1;
+1[label="Node Type: OTHER_ENTRYPOINT 1
+
+EXPRESSION:
+tokensAreFrozen = true
+
+IRs:
+tokensAreFrozen(bool) := True(bool)"];
+}

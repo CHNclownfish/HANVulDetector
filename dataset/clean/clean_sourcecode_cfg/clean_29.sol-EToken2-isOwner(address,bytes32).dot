@@ -1,0 +1,18 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: RETURN 1
+
+EXPRESSION:
+isCreated(_symbol) && (assets[_symbol].owner == getHolderId(_owner))
+
+IRs:
+TMP_42(bool) = INTERNAL_CALL, EToken2.isCreated(bytes32)(_symbol)
+REF_25(EToken2.Asset) -> assets[_symbol]
+REF_26(uint256) -> REF_25.owner
+TMP_43(uint256) = INTERNAL_CALL, EToken2.getHolderId(address)(_owner)
+TMP_44(bool) = REF_26 == TMP_43
+TMP_45(bool) = TMP_42 && TMP_44
+RETURN TMP_45"];
+}

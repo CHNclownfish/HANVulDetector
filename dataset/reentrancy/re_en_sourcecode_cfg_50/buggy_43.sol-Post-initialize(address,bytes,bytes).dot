@@ -1,0 +1,94 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->12;
+1[label="Node Type: IF 1
+
+EXPRESSION:
+multihash.length != 0
+
+IRs:
+REF_177 -> LENGTH multihash
+TMP_289(bool) = REF_177 != 0
+CONDITION TMP_289"];
+1->2[label="True"];
+1->3[label="False"];
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+ProofHash._setProofHash(multihash)
+
+IRs:
+INTERNAL_CALL, ProofHash._setProofHash(bytes)(multihash)"];
+2->3;
+3[label="Node Type: END_IF 3
+"];
+3->4;
+4[label="Node Type: IF 4
+
+EXPRESSION:
+operator != address(0)
+
+IRs:
+TMP_291 = CONVERT 0 to address
+TMP_292(bool) = operator != TMP_291
+CONDITION TMP_292"];
+4->5[label="True"];
+4->7[label="False"];
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+Operated._setOperator(operator)
+
+IRs:
+INTERNAL_CALL, Operated._setOperator(address)(operator)"];
+5->6;
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+Operated._activateOperator()
+
+IRs:
+INTERNAL_CALL, Operated._activateOperator()()"];
+6->7;
+7[label="Node Type: END_IF 7
+"];
+7->8;
+8[label="Node Type: IF 8
+
+EXPRESSION:
+metadata.length != 0
+
+IRs:
+REF_181 -> LENGTH metadata
+TMP_295(bool) = REF_181 != 0
+CONDITION TMP_295"];
+8->9[label="True"];
+8->10[label="False"];
+9[label="Node Type: EXPRESSION 9
+
+EXPRESSION:
+EventMetadata._setMetadata(metadata)
+
+IRs:
+INTERNAL_CALL, EventMetadata._setMetadata(bytes)(metadata)"];
+9->10;
+10[label="Node Type: END_IF 10
+"];
+10->11;
+11[label="Node Type: EXPRESSION 11
+
+EXPRESSION:
+Initialized(operator,multihash,metadata)
+
+IRs:
+Emit Initialized(operator.multihash.metadata)"];
+12[label="Node Type: EXPRESSION 12
+
+EXPRESSION:
+initializeTemplate()
+
+IRs:
+MODIFIER_CALL, Template.initializeTemplate()()"];
+12->1;
+}

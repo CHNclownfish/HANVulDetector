@@ -1,0 +1,103 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+ieoState = getCurrentState()
+
+IRs:
+TMP_252(AcunarIEO.State) = INTERNAL_CALL, AcunarIEO.getCurrentState()()
+ieoState(AcunarIEO.State) := TMP_252(AcunarIEO.State)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(ieoState == State.running)
+
+IRs:
+REF_207(AcunarIEO.State) -> State.running
+TMP_253(bool) = ieoState == REF_207
+TMP_254(None) = SOLIDITY_CALL require(bool)(TMP_253)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+require(bool)(msg.value >= minInvestment && msg.value <= maxInvestment)
+
+IRs:
+TMP_255(bool) = msg.value >= minInvestment
+TMP_256(bool) = msg.value <= maxInvestment
+TMP_257(bool) = TMP_255 && TMP_256
+TMP_258(None) = SOLIDITY_CALL require(bool)(TMP_257)"];
+3->4;
+4[label="Node Type: NEW VARIABLE 4
+
+EXPRESSION:
+tokens = msg.value / tokenPrice
+
+IRs:
+TMP_259(uint256) = msg.value / tokenPrice
+tokens(uint256) := TMP_259(uint256)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+require(bool)(raisedAmount + msg.value <= hardCap)
+
+IRs:
+TMP_260(uint256) = raisedAmount + msg.value
+TMP_261(bool) = TMP_260 <= hardCap
+TMP_262(None) = SOLIDITY_CALL require(bool)(TMP_261)"];
+5->6;
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+raisedAmount += msg.value
+
+IRs:
+raisedAmount(uint256) = raisedAmount + msg.value"];
+6->7;
+7[label="Node Type: EXPRESSION 7
+
+EXPRESSION:
+balances[msg.sender] += tokens
+
+IRs:
+REF_208(uint256) -> balances[msg.sender]
+REF_208(-> balances) = REF_208 + tokens"];
+7->8;
+8[label="Node Type: EXPRESSION 8
+
+EXPRESSION:
+balances[founder] -= tokens
+
+IRs:
+REF_209(uint256) -> balances[founder]
+REF_209(-> balances) = REF_209 - tokens"];
+8->9;
+9[label="Node Type: EXPRESSION 9
+
+EXPRESSION:
+deposit.transfer(msg.value)
+
+IRs:
+Transfer dest:deposit value:msg.value"];
+9->10;
+10[label="Node Type: EXPRESSION 10
+
+EXPRESSION:
+Invest(msg.sender,msg.value,tokens)
+
+IRs:
+Emit Invest(msg.sender.msg.value.tokens)"];
+10->11;
+11[label="Node Type: RETURN 11
+
+EXPRESSION:
+true
+
+IRs:
+RETURN True"];
+}

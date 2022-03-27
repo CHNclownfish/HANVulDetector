@@ -1,0 +1,49 @@
+digraph{
+0[label="Node Type: OTHER_ENTRYPOINT 0
+
+EXPRESSION:
+paused = false
+
+IRs:
+paused(bool) := False(bool)"];
+0->1;
+1[label="Node Type: OTHER_ENTRYPOINT 1
+
+EXPRESSION:
+collected = 0
+
+IRs:
+collected(uint256) := 0(uint256)"];
+1->2;
+2[label="Node Type: OTHER_ENTRYPOINT 2
+
+EXPRESSION:
+tokensSold = 0
+
+IRs:
+tokensSold(uint256) := 0(uint256)"];
+2->3;
+3[label="Node Type: OTHER_ENTRYPOINT 3
+
+EXPRESSION:
+weiRefunded = 0
+
+IRs:
+weiRefunded(uint256) := 0(uint256)"];
+3->4;
+4[label="Node Type: OTHER_ENTRYPOINT 4
+
+EXPRESSION:
+softCapReached = false
+
+IRs:
+softCapReached(bool) := False(bool)"];
+4->5;
+5[label="Node Type: OTHER_ENTRYPOINT 5
+
+EXPRESSION:
+crowdsaleFinished = false
+
+IRs:
+crowdsaleFinished(bool) := False(bool)"];
+}

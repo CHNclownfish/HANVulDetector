@@ -1,0 +1,44 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(_to != address(0x0))
+
+IRs:
+TMP_71 = CONVERT 0 to address
+TMP_72(bool) = _to != TMP_71
+TMP_73(None) = SOLIDITY_CALL require(bool)(TMP_72)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+balanceOf[_from] = balanceOf[_from].sub(_value)
+
+IRs:
+REF_33(uint256) -> balanceOf[_from]
+REF_34(uint256) -> balanceOf[_from]
+TMP_74(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_34', '_value'] 
+REF_33 (->balanceOf) := TMP_74(uint256)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+balanceOf[_to] = balanceOf[_to].add(_value)
+
+IRs:
+REF_36(uint256) -> balanceOf[_to]
+REF_37(uint256) -> balanceOf[_to]
+TMP_75(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_37', '_value'] 
+REF_36 (->balanceOf) := TMP_75(uint256)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+Transfer(_from,_to,_value)
+
+IRs:
+Emit Transfer(_from._to._value)"];
+}

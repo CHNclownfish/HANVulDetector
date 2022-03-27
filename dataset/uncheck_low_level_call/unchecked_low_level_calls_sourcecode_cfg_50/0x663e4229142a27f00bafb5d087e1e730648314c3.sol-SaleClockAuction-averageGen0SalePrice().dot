@@ -1,0 +1,63 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+sum = 0
+
+IRs:
+sum(uint256) := 0(uint256)"];
+1->4;
+2[label="Node Type: BEGIN_LOOP 2
+"];
+2->5;
+3[label="Node Type: END_LOOP 3
+"];
+3->8;
+4[label="Node Type: NEW VARIABLE 4
+
+EXPRESSION:
+i = 0
+
+IRs:
+i(uint256) := 0(uint256)"];
+4->2;
+5[label="Node Type: IF_LOOP 5
+
+EXPRESSION:
+i < 5
+
+IRs:
+TMP_1155(bool) = i < 5
+CONDITION TMP_1155"];
+5->6[label="True"];
+5->3[label="False"];
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+sum += lastGen0SalePrices[i]
+
+IRs:
+REF_313(uint256) -> lastGen0SalePrices[i]
+sum(uint256) = sum + REF_313"];
+6->7;
+7[label="Node Type: EXPRESSION 7
+
+EXPRESSION:
+i ++
+
+IRs:
+TMP_1156(uint256) := i(uint256)
+i(uint256) = i + 1"];
+7->5;
+8[label="Node Type: RETURN 8
+
+EXPRESSION:
+sum / 5
+
+IRs:
+TMP_1157(uint256) = sum / 5
+RETURN TMP_1157"];
+}

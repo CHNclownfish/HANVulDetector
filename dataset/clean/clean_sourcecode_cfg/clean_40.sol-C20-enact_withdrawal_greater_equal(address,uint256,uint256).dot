@@ -1,0 +1,41 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+assert(bool)(this.balance >= withdrawValue)
+
+IRs:
+REF_93 -> BALANCE this
+TMP_221(bool) = REF_93 >= withdrawValue
+TMP_222(None) = SOLIDITY_CALL assert(bool)(TMP_221)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+balances[fundWallet] = safeAdd(balances[fundWallet],tokens)
+
+IRs:
+REF_94(uint256) -> balances[fundWallet]
+REF_95(uint256) -> balances[fundWallet]
+TMP_223(uint256) = INTERNAL_CALL, SafeMath.safeAdd(uint256,uint256)(REF_95,tokens)
+REF_94 (->balances) := TMP_223(uint256)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+participant.transfer(withdrawValue)
+
+IRs:
+Transfer dest:participant value:withdrawValue"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+Withdraw(participant,tokens,withdrawValue)
+
+IRs:
+Emit Withdraw(participant.tokens.withdrawValue)"];
+}

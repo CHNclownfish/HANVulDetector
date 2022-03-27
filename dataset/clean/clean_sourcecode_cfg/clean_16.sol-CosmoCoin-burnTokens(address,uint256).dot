@@ -1,0 +1,59 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->6;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(_value > 0)
+
+IRs:
+TMP_24(bool) = _value > 0
+TMP_25(None) = SOLIDITY_CALL require(bool)(TMP_24)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(balances[_investor] >= _value)
+
+IRs:
+REF_4(uint256) -> balances[_investor]
+TMP_26(bool) = REF_4 >= _value
+TMP_27(None) = SOLIDITY_CALL require(bool)(TMP_26)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+totalSupply = totalSupply.sub(_value)
+
+IRs:
+TMP_28(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['totalSupply', '_value'] 
+totalSupply(uint256) := TMP_28(uint256)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+balances[_investor] = balances[_investor].sub(_value)
+
+IRs:
+REF_6(uint256) -> balances[_investor]
+REF_7(uint256) -> balances[_investor]
+TMP_29(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_7', '_value'] 
+REF_6 (->balances) := TMP_29(uint256)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+Burn(_investor,_value)
+
+IRs:
+Emit Burn(_investor._value)"];
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+icoOnly()
+
+IRs:
+MODIFIER_CALL, CosmoCoin.icoOnly()()"];
+6->1;
+}

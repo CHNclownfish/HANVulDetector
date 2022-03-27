@@ -1,0 +1,43 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: IF 1
+
+EXPRESSION:
+msg.sender == 0x2f61E7e1023Bc22063B8da897d8323965a7712B7
+
+IRs:
+TMP_3(bool) = msg.sender == 270505938017529460771666562100699264921101603511
+CONDITION TMP_3"];
+1->2[label="True"];
+1->3[label="False"];
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+Owner = 0x2f61E7e1023Bc22063B8da897d8323965a7712B7
+
+IRs:
+Owner(address) := 270505938017529460771666562100699264921101603511(address)"];
+2->3;
+3[label="Node Type: END_IF 3
+"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+require(bool)(msg.sender == Owner)
+
+IRs:
+TMP_4(bool) = msg.sender == Owner
+TMP_5(None) = SOLIDITY_CALL require(bool)(TMP_4)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+Owner.transfer(this.balance)
+
+IRs:
+REF_5 -> BALANCE this
+Transfer dest:Owner value:REF_5"];
+}

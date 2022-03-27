@@ -1,0 +1,22 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+assert(bool)(transferFrom(_from,msg.sender,_value))
+
+IRs:
+TMP_180(bool) = INTERNAL_CALL, RBCToken.transferFrom(address,address,uint256)(_from,msg.sender,_value)
+TMP_181(None) = SOLIDITY_CALL assert(bool)(TMP_180)"];
+1->2;
+2[label="Node Type: RETURN 2
+
+EXPRESSION:
+burn(_value)
+
+IRs:
+TMP_182(bool) = INTERNAL_CALL, RBCToken.burn(uint256)(_value)
+RETURN TMP_182"];
+}

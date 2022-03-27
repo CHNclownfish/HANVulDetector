@@ -1,0 +1,98 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->12;
+1[label="Node Type: BEGIN_LOOP 1
+"];
+1->4;
+2[label="Node Type: END_LOOP 2
+"];
+3[label="Node Type: NEW VARIABLE 3
+
+EXPRESSION:
+i = index
+
+IRs:
+i(uint256) := index(uint256)"];
+3->1;
+4[label="Node Type: IF_LOOP 4
+
+EXPRESSION:
+i < (index + length)
+
+IRs:
+TMP_382(uint256) = index + length
+TMP_383(bool) = i < TMP_382
+CONDITION TMP_383"];
+4->5[label="True"];
+4->2[label="False"];
+5[label="Node Type: NEW VARIABLE 5
+
+EXPRESSION:
+userAddress = addressMapping[i]
+
+IRs:
+REF_470(address) -> addressMapping[i]
+userAddress(address) := REF_470(address)"];
+5->6;
+6[label="Node Type: NEW VARIABLE 6
+
+EXPRESSION:
+user = userMapping[userAddress]
+
+IRs:
+REF_471(FomoFeast.User) -> userMapping[userAddress]
+user(FomoFeast.User) := REF_471(FomoFeast.User)"];
+6->7;
+7[label="Node Type: IF 7
+
+EXPRESSION:
+user.calcDynamicCommissionAmount > 0
+
+IRs:
+REF_472(uint256) -> user.calcDynamicCommissionAmount
+TMP_384(bool) = REF_472 > 0
+CONDITION TMP_384"];
+7->8[label="True"];
+7->10[label="False"];
+8[label="Node Type: EXPRESSION 8
+
+EXPRESSION:
+user.dynamicCommissionBalance = user.dynamicCommissionBalance.add(user.calcDynamicCommissionAmount)
+
+IRs:
+REF_473(uint256) -> user.dynamicCommissionBalance
+REF_474(uint256) -> user.dynamicCommissionBalance
+REF_476(uint256) -> user.calcDynamicCommissionAmount
+TMP_385(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_474', 'REF_476'] 
+REF_473 (->user) := TMP_385(uint256)"];
+8->9;
+9[label="Node Type: EXPRESSION 9
+
+EXPRESSION:
+addDynamicCommissionRecord(userAddress,now,user.calcDynamicCommissionAmount)
+
+IRs:
+REF_477(uint256) -> user.calcDynamicCommissionAmount
+INTERNAL_CALL, FomoFeast.addDynamicCommissionRecord(address,uint256,uint256)(userAddress,now,REF_477)"];
+9->10;
+10[label="Node Type: END_IF 10
+"];
+10->11;
+11[label="Node Type: EXPRESSION 11
+
+EXPRESSION:
+++ i
+
+IRs:
+i(uint256) = i + 1"];
+11->4;
+12[label="Node Type: EXPRESSION 12
+
+EXPRESSION:
+onlyOwner()
+
+IRs:
+MODIFIER_CALL, FomoFeast.onlyOwner()()"];
+12->3;
+}

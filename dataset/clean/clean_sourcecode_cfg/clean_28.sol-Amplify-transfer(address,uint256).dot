@@ -1,0 +1,21 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->2;
+1[label="Node Type: RETURN 1
+
+EXPRESSION:
+BasicToken.transfer(_to,_value)
+
+IRs:
+TMP_158(bool) = INTERNAL_CALL, BasicToken.transfer(address,uint256)(_to,_value)
+RETURN TMP_158"];
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+afterCrowdsale()
+
+IRs:
+MODIFIER_CALL, Amplify.afterCrowdsale()()"];
+2->1;
+}

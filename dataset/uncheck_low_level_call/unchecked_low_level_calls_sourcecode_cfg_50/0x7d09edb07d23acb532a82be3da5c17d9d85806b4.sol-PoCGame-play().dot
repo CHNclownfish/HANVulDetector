@@ -1,0 +1,121 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->12;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+blockNumber = timestamps[msg.sender]
+
+IRs:
+REF_2(uint256) -> timestamps[msg.sender]
+blockNumber(uint256) := REF_2(uint256)"];
+1->2;
+2[label="Node Type: IF 2
+
+EXPRESSION:
+blockNumber < block.number
+
+IRs:
+TMP_11(bool) = blockNumber < block.number
+CONDITION TMP_11"];
+2->3[label="True"];
+2->10[label="False"];
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+timestamps[msg.sender] = 0
+
+IRs:
+REF_3(uint256) -> timestamps[msg.sender]
+REF_3 (->timestamps) := 0(uint256)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+wagers[msg.sender] = 0
+
+IRs:
+REF_4(uint256) -> wagers[msg.sender]
+REF_4 (->wagers) := 0(uint256)"];
+4->5;
+5[label="Node Type: NEW VARIABLE 5
+
+EXPRESSION:
+winningNumber = uint256(keccak256()(abi.encodePacked(blockhash(uint256)(blockNumber),msg.sender))) % difficulty + 1
+
+IRs:
+TMP_12(uint256) = SOLIDITY_CALL blockhash(uint256)(blockNumber)
+TMP_13(bytes) = SOLIDITY_CALL abi.encodePacked()(TMP_12,msg.sender)
+TMP_14(bytes32) = SOLIDITY_CALL keccak256()(TMP_13)
+TMP_15 = CONVERT TMP_14 to uint256
+TMP_16(uint256) = TMP_15 % difficulty
+TMP_17(uint256) = TMP_16 + 1
+winningNumber(uint256) := TMP_17(uint256)"];
+5->6;
+6[label="Node Type: IF 6
+
+EXPRESSION:
+winningNumber == difficulty / 2
+
+IRs:
+TMP_18(uint256) = difficulty / 2
+TMP_19(bool) = winningNumber == TMP_18
+CONDITION TMP_19"];
+6->7[label="True"];
+6->8[label="False"];
+7[label="Node Type: EXPRESSION 7
+
+EXPRESSION:
+payout(msg.sender)
+
+IRs:
+INTERNAL_CALL, PoCGame.payout(address)(msg.sender)"];
+7->9;
+8[label="Node Type: EXPRESSION 8
+
+EXPRESSION:
+loseWager(betLimit / 2)
+
+IRs:
+TMP_21(uint256) = betLimit / 2
+INTERNAL_CALL, PoCGame.loseWager(uint256)(TMP_21)"];
+8->9;
+9[label="Node Type: END_IF 9
+"];
+9->11;
+10[label="Node Type: EXPRESSION 10
+
+EXPRESSION:
+revert()()
+
+IRs:
+TMP_23(None) = SOLIDITY_CALL revert()()"];
+10->11;
+11[label="Node Type: END_IF 11
+"];
+12[label="Node Type: EXPRESSION 12
+
+EXPRESSION:
+isOpenToPublic()
+
+IRs:
+MODIFIER_CALL, PoCGame.isOpenToPublic()()"];
+12->13;
+13[label="Node Type: EXPRESSION 13
+
+EXPRESSION:
+onlyRealPeople()
+
+IRs:
+MODIFIER_CALL, PoCGame.onlyRealPeople()()"];
+13->14;
+14[label="Node Type: EXPRESSION 14
+
+EXPRESSION:
+onlyPlayers()
+
+IRs:
+MODIFIER_CALL, PoCGame.onlyPlayers()()"];
+14->1;
+}

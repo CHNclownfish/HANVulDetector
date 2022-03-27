@@ -1,0 +1,43 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: IF 1
+
+EXPRESSION:
+y == 0
+
+IRs:
+TMP_65(bool) = y == 0
+CONDITION TMP_65"];
+1->2[label="True"];
+1->3[label="False"];
+2[label="Node Type: RETURN 2
+
+EXPRESSION:
+0
+
+IRs:
+RETURN 0"];
+3[label="Node Type: END_IF 3
+"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+assert(bool)(x <= MAX_UINT256 / y)
+
+IRs:
+TMP_66(uint256) = MAX_UINT256 / y
+TMP_67(bool) = x <= TMP_66
+TMP_68(None) = SOLIDITY_CALL assert(bool)(TMP_67)"];
+4->5;
+5[label="Node Type: RETURN 5
+
+EXPRESSION:
+x * y
+
+IRs:
+TMP_69(uint256) = x * y
+RETURN TMP_69"];
+}

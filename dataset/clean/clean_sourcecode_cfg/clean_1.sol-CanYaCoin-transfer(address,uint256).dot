@@ -1,0 +1,59 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: IF 1
+
+EXPRESSION:
+balances[msg.sender] >= _value
+
+IRs:
+REF_1(uint256) -> balances[msg.sender]
+TMP_0(bool) = REF_1 >= _value
+CONDITION TMP_0"];
+1->2[label="True"];
+1->6[label="False"];
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+balances[msg.sender] -= _value
+
+IRs:
+REF_2(uint256) -> balances[msg.sender]
+REF_2(-> balances) = REF_2 - _value"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+balances[_to] += _value
+
+IRs:
+REF_3(uint256) -> balances[_to]
+REF_3(-> balances) = REF_3 + _value"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+Transfer(msg.sender,_to,_value)
+
+IRs:
+Emit Transfer(msg.sender._to._value)"];
+4->5;
+5[label="Node Type: RETURN 5
+
+EXPRESSION:
+true
+
+IRs:
+RETURN True"];
+6[label="Node Type: END_IF 6
+"];
+6->7;
+7[label="Node Type: RETURN 7
+
+EXPRESSION:
+false
+
+IRs:
+RETURN False"];
+}

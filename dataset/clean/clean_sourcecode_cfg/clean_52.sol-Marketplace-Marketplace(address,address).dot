@@ -1,0 +1,22 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+acceptedToken = ERC20Interface(_acceptedToken)
+
+IRs:
+TMP_61 = CONVERT _acceptedToken to ERC20Interface
+acceptedToken(ERC20Interface) := TMP_61(ERC20Interface)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+nonFungibleRegistry = ERC721Interface(_nonFungibleRegistry)
+
+IRs:
+TMP_62 = CONVERT _nonFungibleRegistry to ERC721Interface
+nonFungibleRegistry(ERC721Interface) := TMP_62(ERC721Interface)"];
+}

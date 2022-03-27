@@ -1,0 +1,21 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+amount = msg.value / buyPrice
+
+IRs:
+TMP_85(uint256) = msg.value / buyPrice
+amount(uint256) := TMP_85(uint256)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+_transfer(this,msg.sender,amount)
+
+IRs:
+INTERNAL_CALL, MyAdvancedToken._transfer(address,address,uint256)(this,msg.sender,amount)"];
+}

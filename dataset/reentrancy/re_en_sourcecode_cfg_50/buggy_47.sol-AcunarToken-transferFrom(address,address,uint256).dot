@@ -1,0 +1,61 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(allowed[from][to] >= tokens)
+
+IRs:
+REF_69(mapping(address => uint256)) -> allowed[from]
+REF_70(uint256) -> REF_69[to]
+TMP_84(bool) = REF_70 >= tokens
+TMP_85(None) = SOLIDITY_CALL require(bool)(TMP_84)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(balances[from] >= tokens)
+
+IRs:
+REF_71(uint256) -> balances[from]
+TMP_86(bool) = REF_71 >= tokens
+TMP_87(None) = SOLIDITY_CALL require(bool)(TMP_86)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+balances[from] -= tokens
+
+IRs:
+REF_72(uint256) -> balances[from]
+REF_72(-> balances) = REF_72 - tokens"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+balances[to] += tokens
+
+IRs:
+REF_73(uint256) -> balances[to]
+REF_73(-> balances) = REF_73 + tokens"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+allowed[from][to] -= tokens
+
+IRs:
+REF_74(mapping(address => uint256)) -> allowed[from]
+REF_75(uint256) -> REF_74[to]
+REF_75(-> allowed) = REF_75 - tokens"];
+5->6;
+6[label="Node Type: RETURN 6
+
+EXPRESSION:
+true
+
+IRs:
+RETURN True"];
+}

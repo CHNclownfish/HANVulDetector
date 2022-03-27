@@ -1,0 +1,545 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->58;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(msg.value >= 1000000000000000)
+
+IRs:
+TMP_23(bool) = msg.value >= 1000000000000000
+TMP_24(None) = SOLIDITY_CALL require(bool)(TMP_23)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(! stopped && msg.sender != owner)
+
+IRs:
+TMP_25 = ! stopped 
+TMP_26(bool) = msg.sender != owner
+TMP_27(bool) = TMP_25 && TMP_26
+TMP_28(None) = SOLIDITY_CALL require(bool)(TMP_27)"];
+2->3;
+3[label="Node Type: NEW VARIABLE 3
+
+EXPRESSION:
+ethCent = price.USD(0)
+
+IRs:
+TMP_29(uint256) = HIGH_LEVEL_CALL, dest:price(FiatContract), function:USD, arguments:['0']  
+ethCent(uint256) := TMP_29(uint256)"];
+3->4;
+4[label="Node Type: NEW VARIABLE 4
+
+EXPRESSION:
+tokPrice = ethCent.mul(14)
+
+IRs:
+TMP_30(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['ethCent', '14'] 
+tokPrice(uint256) := TMP_30(uint256)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+tokPrice = tokPrice.div(10 ** 8)
+
+IRs:
+TMP_31(uint256) = 10 ** 8
+TMP_32(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['tokPrice', 'TMP_31'] 
+tokPrice(uint256) := TMP_32(uint256)"];
+5->6;
+6[label="Node Type: NEW VARIABLE 6
+
+EXPRESSION:
+no_of_tokens = msg.value.div(tokPrice)
+
+IRs:
+TMP_33(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['msg.value', 'tokPrice'] 
+no_of_tokens(uint256) := TMP_33(uint256)"];
+6->7;
+7[label="Node Type: NEW VARIABLE 7
+
+EXPRESSION:
+bonus_token = 0
+
+IRs:
+bonus_token(uint256) := 0(uint256)"];
+7->8;
+8[label="Node Type: IF 8
+
+EXPRESSION:
+now < ico_first
+
+IRs:
+TMP_34(bool) = now < ico_first
+CONDITION TMP_34"];
+8->9[label="True"];
+8->19[label="False"];
+9[label="Node Type: IF 9
+
+EXPRESSION:
+no_of_tokens >= 2000 * (uint256(10) ** decimals) && no_of_tokens <= 19999 * (uint256(10) ** decimals)
+
+IRs:
+TMP_35 = CONVERT 10 to uint256
+TMP_36(uint256) = TMP_35 ** decimals
+TMP_37(uint256) = 2000 * TMP_36
+TMP_38(bool) = no_of_tokens >= TMP_37
+TMP_39 = CONVERT 10 to uint256
+TMP_40(uint256) = TMP_39 ** decimals
+TMP_41(uint256) = 19999 * TMP_40
+TMP_42(bool) = no_of_tokens <= TMP_41
+TMP_43(bool) = TMP_38 && TMP_42
+CONDITION TMP_43"];
+9->10[label="True"];
+9->11[label="False"];
+10[label="Node Type: EXPRESSION 10
+
+EXPRESSION:
+bonus_token = no_of_tokens.mul(50).div(100)
+
+IRs:
+TMP_44(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['no_of_tokens', '50'] 
+TMP_45(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_44', '100'] 
+bonus_token(uint256) := TMP_45(uint256)"];
+10->18;
+11[label="Node Type: IF 11
+
+EXPRESSION:
+no_of_tokens > 19999 * (uint256(10) ** decimals) && no_of_tokens <= 149999 * (uint256(10) ** decimals)
+
+IRs:
+TMP_46 = CONVERT 10 to uint256
+TMP_47(uint256) = TMP_46 ** decimals
+TMP_48(uint256) = 19999 * TMP_47
+TMP_49(bool) = no_of_tokens > TMP_48
+TMP_50 = CONVERT 10 to uint256
+TMP_51(uint256) = TMP_50 ** decimals
+TMP_52(uint256) = 149999 * TMP_51
+TMP_53(bool) = no_of_tokens <= TMP_52
+TMP_54(bool) = TMP_49 && TMP_53
+CONDITION TMP_54"];
+11->12[label="True"];
+11->13[label="False"];
+12[label="Node Type: EXPRESSION 12
+
+EXPRESSION:
+bonus_token = no_of_tokens.mul(55).div(100)
+
+IRs:
+TMP_55(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['no_of_tokens', '55'] 
+TMP_56(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_55', '100'] 
+bonus_token(uint256) := TMP_56(uint256)"];
+12->17;
+13[label="Node Type: IF 13
+
+EXPRESSION:
+no_of_tokens > 149999 * (uint256(10) ** decimals)
+
+IRs:
+TMP_57 = CONVERT 10 to uint256
+TMP_58(uint256) = TMP_57 ** decimals
+TMP_59(uint256) = 149999 * TMP_58
+TMP_60(bool) = no_of_tokens > TMP_59
+CONDITION TMP_60"];
+13->14[label="True"];
+13->15[label="False"];
+14[label="Node Type: EXPRESSION 14
+
+EXPRESSION:
+bonus_token = no_of_tokens.mul(60).div(100)
+
+IRs:
+TMP_61(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['no_of_tokens', '60'] 
+TMP_62(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_61', '100'] 
+bonus_token(uint256) := TMP_62(uint256)"];
+14->16;
+15[label="Node Type: EXPRESSION 15
+
+EXPRESSION:
+bonus_token = no_of_tokens.mul(45).div(100)
+
+IRs:
+TMP_63(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['no_of_tokens', '45'] 
+TMP_64(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_63', '100'] 
+bonus_token(uint256) := TMP_64(uint256)"];
+15->16;
+16[label="Node Type: END_IF 16
+"];
+16->17;
+17[label="Node Type: END_IF 17
+"];
+17->18;
+18[label="Node Type: END_IF 18
+"];
+18->55;
+19[label="Node Type: IF 19
+
+EXPRESSION:
+now >= ico_first && now < ico_second
+
+IRs:
+TMP_65(bool) = now >= ico_first
+TMP_66(bool) = now < ico_second
+TMP_67(bool) = TMP_65 && TMP_66
+CONDITION TMP_67"];
+19->20[label="True"];
+19->30[label="False"];
+20[label="Node Type: IF 20
+
+EXPRESSION:
+no_of_tokens >= 2000 * (uint256(10) ** decimals) && no_of_tokens <= 19999 * (uint256(10) ** decimals)
+
+IRs:
+TMP_68 = CONVERT 10 to uint256
+TMP_69(uint256) = TMP_68 ** decimals
+TMP_70(uint256) = 2000 * TMP_69
+TMP_71(bool) = no_of_tokens >= TMP_70
+TMP_72 = CONVERT 10 to uint256
+TMP_73(uint256) = TMP_72 ** decimals
+TMP_74(uint256) = 19999 * TMP_73
+TMP_75(bool) = no_of_tokens <= TMP_74
+TMP_76(bool) = TMP_71 && TMP_75
+CONDITION TMP_76"];
+20->21[label="True"];
+20->22[label="False"];
+21[label="Node Type: EXPRESSION 21
+
+EXPRESSION:
+bonus_token = no_of_tokens.mul(40).div(100)
+
+IRs:
+TMP_77(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['no_of_tokens', '40'] 
+TMP_78(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_77', '100'] 
+bonus_token(uint256) := TMP_78(uint256)"];
+21->29;
+22[label="Node Type: IF 22
+
+EXPRESSION:
+no_of_tokens > 19999 * (uint256(10) ** decimals) && no_of_tokens <= 149999 * (uint256(10) ** decimals)
+
+IRs:
+TMP_79 = CONVERT 10 to uint256
+TMP_80(uint256) = TMP_79 ** decimals
+TMP_81(uint256) = 19999 * TMP_80
+TMP_82(bool) = no_of_tokens > TMP_81
+TMP_83 = CONVERT 10 to uint256
+TMP_84(uint256) = TMP_83 ** decimals
+TMP_85(uint256) = 149999 * TMP_84
+TMP_86(bool) = no_of_tokens <= TMP_85
+TMP_87(bool) = TMP_82 && TMP_86
+CONDITION TMP_87"];
+22->23[label="True"];
+22->24[label="False"];
+23[label="Node Type: EXPRESSION 23
+
+EXPRESSION:
+bonus_token = no_of_tokens.mul(45).div(100)
+
+IRs:
+TMP_88(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['no_of_tokens', '45'] 
+TMP_89(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_88', '100'] 
+bonus_token(uint256) := TMP_89(uint256)"];
+23->28;
+24[label="Node Type: IF 24
+
+EXPRESSION:
+no_of_tokens > 149999 * (uint256(10) ** decimals)
+
+IRs:
+TMP_90 = CONVERT 10 to uint256
+TMP_91(uint256) = TMP_90 ** decimals
+TMP_92(uint256) = 149999 * TMP_91
+TMP_93(bool) = no_of_tokens > TMP_92
+CONDITION TMP_93"];
+24->25[label="True"];
+24->26[label="False"];
+25[label="Node Type: EXPRESSION 25
+
+EXPRESSION:
+bonus_token = no_of_tokens.mul(50).div(100)
+
+IRs:
+TMP_94(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['no_of_tokens', '50'] 
+TMP_95(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_94', '100'] 
+bonus_token(uint256) := TMP_95(uint256)"];
+25->27;
+26[label="Node Type: EXPRESSION 26
+
+EXPRESSION:
+bonus_token = no_of_tokens.mul(35).div(100)
+
+IRs:
+TMP_96(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['no_of_tokens', '35'] 
+TMP_97(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_96', '100'] 
+bonus_token(uint256) := TMP_97(uint256)"];
+26->27;
+27[label="Node Type: END_IF 27
+"];
+27->28;
+28[label="Node Type: END_IF 28
+"];
+28->29;
+29[label="Node Type: END_IF 29
+"];
+29->54;
+30[label="Node Type: IF 30
+
+EXPRESSION:
+now >= ico_second && now < ico_third
+
+IRs:
+TMP_98(bool) = now >= ico_second
+TMP_99(bool) = now < ico_third
+TMP_100(bool) = TMP_98 && TMP_99
+CONDITION TMP_100"];
+30->31[label="True"];
+30->41[label="False"];
+31[label="Node Type: IF 31
+
+EXPRESSION:
+no_of_tokens >= 2000 * (uint256(10) ** decimals) && no_of_tokens <= 19999 * (uint256(10) ** decimals)
+
+IRs:
+TMP_101 = CONVERT 10 to uint256
+TMP_102(uint256) = TMP_101 ** decimals
+TMP_103(uint256) = 2000 * TMP_102
+TMP_104(bool) = no_of_tokens >= TMP_103
+TMP_105 = CONVERT 10 to uint256
+TMP_106(uint256) = TMP_105 ** decimals
+TMP_107(uint256) = 19999 * TMP_106
+TMP_108(bool) = no_of_tokens <= TMP_107
+TMP_109(bool) = TMP_104 && TMP_108
+CONDITION TMP_109"];
+31->32[label="True"];
+31->33[label="False"];
+32[label="Node Type: EXPRESSION 32
+
+EXPRESSION:
+bonus_token = no_of_tokens.mul(30).div(100)
+
+IRs:
+TMP_110(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['no_of_tokens', '30'] 
+TMP_111(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_110', '100'] 
+bonus_token(uint256) := TMP_111(uint256)"];
+32->40;
+33[label="Node Type: IF 33
+
+EXPRESSION:
+no_of_tokens > 19999 * (uint256(10) ** decimals) && no_of_tokens <= 149999 * (uint256(10) ** decimals)
+
+IRs:
+TMP_112 = CONVERT 10 to uint256
+TMP_113(uint256) = TMP_112 ** decimals
+TMP_114(uint256) = 19999 * TMP_113
+TMP_115(bool) = no_of_tokens > TMP_114
+TMP_116 = CONVERT 10 to uint256
+TMP_117(uint256) = TMP_116 ** decimals
+TMP_118(uint256) = 149999 * TMP_117
+TMP_119(bool) = no_of_tokens <= TMP_118
+TMP_120(bool) = TMP_115 && TMP_119
+CONDITION TMP_120"];
+33->34[label="True"];
+33->35[label="False"];
+34[label="Node Type: EXPRESSION 34
+
+EXPRESSION:
+bonus_token = no_of_tokens.mul(35).div(100)
+
+IRs:
+TMP_121(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['no_of_tokens', '35'] 
+TMP_122(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_121', '100'] 
+bonus_token(uint256) := TMP_122(uint256)"];
+34->39;
+35[label="Node Type: IF 35
+
+EXPRESSION:
+no_of_tokens > 149999 * (uint256(10) ** decimals)
+
+IRs:
+TMP_123 = CONVERT 10 to uint256
+TMP_124(uint256) = TMP_123 ** decimals
+TMP_125(uint256) = 149999 * TMP_124
+TMP_126(bool) = no_of_tokens > TMP_125
+CONDITION TMP_126"];
+35->36[label="True"];
+35->37[label="False"];
+36[label="Node Type: EXPRESSION 36
+
+EXPRESSION:
+bonus_token = no_of_tokens.mul(40).div(100)
+
+IRs:
+TMP_127(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['no_of_tokens', '40'] 
+TMP_128(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_127', '100'] 
+bonus_token(uint256) := TMP_128(uint256)"];
+36->38;
+37[label="Node Type: EXPRESSION 37
+
+EXPRESSION:
+bonus_token = no_of_tokens.mul(25).div(100)
+
+IRs:
+TMP_129(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['no_of_tokens', '25'] 
+TMP_130(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_129', '100'] 
+bonus_token(uint256) := TMP_130(uint256)"];
+37->38;
+38[label="Node Type: END_IF 38
+"];
+38->39;
+39[label="Node Type: END_IF 39
+"];
+39->40;
+40[label="Node Type: END_IF 40
+"];
+40->53;
+41[label="Node Type: IF 41
+
+EXPRESSION:
+now >= ico_third && now < ico_fourth
+
+IRs:
+TMP_131(bool) = now >= ico_third
+TMP_132(bool) = now < ico_fourth
+TMP_133(bool) = TMP_131 && TMP_132
+CONDITION TMP_133"];
+41->42[label="True"];
+41->52[label="False"];
+42[label="Node Type: IF 42
+
+EXPRESSION:
+no_of_tokens >= 2000 * (uint256(10) ** decimals) && no_of_tokens <= 19999 * (uint256(10) ** decimals)
+
+IRs:
+TMP_134 = CONVERT 10 to uint256
+TMP_135(uint256) = TMP_134 ** decimals
+TMP_136(uint256) = 2000 * TMP_135
+TMP_137(bool) = no_of_tokens >= TMP_136
+TMP_138 = CONVERT 10 to uint256
+TMP_139(uint256) = TMP_138 ** decimals
+TMP_140(uint256) = 19999 * TMP_139
+TMP_141(bool) = no_of_tokens <= TMP_140
+TMP_142(bool) = TMP_137 && TMP_141
+CONDITION TMP_142"];
+42->43[label="True"];
+42->44[label="False"];
+43[label="Node Type: EXPRESSION 43
+
+EXPRESSION:
+bonus_token = no_of_tokens.mul(20).div(100)
+
+IRs:
+TMP_143(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['no_of_tokens', '20'] 
+TMP_144(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_143', '100'] 
+bonus_token(uint256) := TMP_144(uint256)"];
+43->51;
+44[label="Node Type: IF 44
+
+EXPRESSION:
+no_of_tokens > 19999 * (uint256(10) ** decimals) && no_of_tokens <= 149999 * (uint256(10) ** decimals)
+
+IRs:
+TMP_145 = CONVERT 10 to uint256
+TMP_146(uint256) = TMP_145 ** decimals
+TMP_147(uint256) = 19999 * TMP_146
+TMP_148(bool) = no_of_tokens > TMP_147
+TMP_149 = CONVERT 10 to uint256
+TMP_150(uint256) = TMP_149 ** decimals
+TMP_151(uint256) = 149999 * TMP_150
+TMP_152(bool) = no_of_tokens <= TMP_151
+TMP_153(bool) = TMP_148 && TMP_152
+CONDITION TMP_153"];
+44->45[label="True"];
+44->46[label="False"];
+45[label="Node Type: EXPRESSION 45
+
+EXPRESSION:
+bonus_token = no_of_tokens.mul(25).div(100)
+
+IRs:
+TMP_154(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['no_of_tokens', '25'] 
+TMP_155(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_154', '100'] 
+bonus_token(uint256) := TMP_155(uint256)"];
+45->50;
+46[label="Node Type: IF 46
+
+EXPRESSION:
+no_of_tokens > 149999 * (uint256(10) ** decimals)
+
+IRs:
+TMP_156 = CONVERT 10 to uint256
+TMP_157(uint256) = TMP_156 ** decimals
+TMP_158(uint256) = 149999 * TMP_157
+TMP_159(bool) = no_of_tokens > TMP_158
+CONDITION TMP_159"];
+46->47[label="True"];
+46->48[label="False"];
+47[label="Node Type: EXPRESSION 47
+
+EXPRESSION:
+bonus_token = no_of_tokens.mul(30).div(100)
+
+IRs:
+TMP_160(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['no_of_tokens', '30'] 
+TMP_161(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_160', '100'] 
+bonus_token(uint256) := TMP_161(uint256)"];
+47->49;
+48[label="Node Type: EXPRESSION 48
+
+EXPRESSION:
+bonus_token = no_of_tokens.mul(15).div(100)
+
+IRs:
+TMP_162(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['no_of_tokens', '15'] 
+TMP_163(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_162', '100'] 
+bonus_token(uint256) := TMP_163(uint256)"];
+48->49;
+49[label="Node Type: END_IF 49
+"];
+49->50;
+50[label="Node Type: END_IF 50
+"];
+50->51;
+51[label="Node Type: END_IF 51
+"];
+51->52;
+52[label="Node Type: END_IF 52
+"];
+52->53;
+53[label="Node Type: END_IF 53
+"];
+53->54;
+54[label="Node Type: END_IF 54
+"];
+54->55;
+55[label="Node Type: END_IF 55
+"];
+55->56;
+56[label="Node Type: NEW VARIABLE 56
+
+EXPRESSION:
+total_token = no_of_tokens + bonus_token
+
+IRs:
+TMP_164(uint256) = no_of_tokens + bonus_token
+total_token(uint256) := TMP_164(uint256)"];
+56->57;
+57[label="Node Type: EXPRESSION 57
+
+EXPRESSION:
+this.transfer(msg.sender,total_token)
+
+IRs:
+TMP_165(bool) = HIGH_LEVEL_CALL, dest:this(address), function:transfer, arguments:['msg.sender', 'total_token']  "];
+58[label="Node Type: EXPRESSION 58
+
+EXPRESSION:
+atStage(Stages.ICO)
+
+IRs:
+REF_42(SocialActivityToken.Stages) -> Stages.ICO
+MODIFIER_CALL, SocialActivityToken.atStage(SocialActivityToken.Stages)(REF_42)"];
+58->1;
+}

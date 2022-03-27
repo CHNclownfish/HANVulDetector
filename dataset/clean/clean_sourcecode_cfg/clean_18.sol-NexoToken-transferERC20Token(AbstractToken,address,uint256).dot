@@ -1,0 +1,68 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->7;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(_token.balanceOf(address(this)) >= _value)
+
+IRs:
+TMP_113 = CONVERT this to address
+TMP_114(uint256) = HIGH_LEVEL_CALL, dest:_token(AbstractToken), function:balanceOf, arguments:['TMP_113']  
+TMP_115(bool) = TMP_114 >= _value
+TMP_116(None) = SOLIDITY_CALL require(bool)(TMP_115)"];
+1->2;
+2[label="Node Type: NEW VARIABLE 2
+
+EXPRESSION:
+receiverBalance = _token.balanceOf(_to)
+
+IRs:
+TMP_117(uint256) = HIGH_LEVEL_CALL, dest:_token(AbstractToken), function:balanceOf, arguments:['_to']  
+receiverBalance(uint256) := TMP_117(uint256)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+require(bool)(_token.transfer(_to,_value))
+
+IRs:
+TMP_118(bool) = HIGH_LEVEL_CALL, dest:_token(AbstractToken), function:transfer, arguments:['_to', '_value']  
+TMP_119(None) = SOLIDITY_CALL require(bool)(TMP_118)"];
+3->4;
+4[label="Node Type: NEW VARIABLE 4
+
+EXPRESSION:
+receiverNewBalance = _token.balanceOf(_to)
+
+IRs:
+TMP_120(uint256) = HIGH_LEVEL_CALL, dest:_token(AbstractToken), function:balanceOf, arguments:['_to']  
+receiverNewBalance(uint256) := TMP_120(uint256)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+assert(bool)(receiverNewBalance == add(receiverBalance,_value))
+
+IRs:
+TMP_121(uint256) = INTERNAL_CALL, SafeMath.add(uint256,uint256)(receiverBalance,_value)
+TMP_122(bool) = receiverNewBalance == TMP_121
+TMP_123(None) = SOLIDITY_CALL assert(bool)(TMP_122)"];
+5->6;
+6[label="Node Type: RETURN 6
+
+EXPRESSION:
+true
+
+IRs:
+RETURN True"];
+7[label="Node Type: EXPRESSION 7
+
+EXPRESSION:
+onlyOwner()
+
+IRs:
+MODIFIER_CALL, Owned.onlyOwner()()"];
+7->1;
+}

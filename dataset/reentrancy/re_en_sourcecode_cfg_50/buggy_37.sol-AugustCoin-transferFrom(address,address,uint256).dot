@@ -1,0 +1,55 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+balances[from] = safeSub(balances[from],tokens)
+
+IRs:
+REF_132(uint256) -> balances[from]
+REF_133(uint256) -> balances[from]
+TMP_223(uint256) = INTERNAL_CALL, SafeMath.safeSub(uint256,uint256)(REF_133,tokens)
+REF_132 (->balances) := TMP_223(uint256)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+allowed[from][msg.sender] = safeSub(allowed[from][msg.sender],tokens)
+
+IRs:
+REF_134(mapping(address => uint256)) -> allowed[from]
+REF_135(uint256) -> REF_134[msg.sender]
+REF_136(mapping(address => uint256)) -> allowed[from]
+REF_137(uint256) -> REF_136[msg.sender]
+TMP_224(uint256) = INTERNAL_CALL, SafeMath.safeSub(uint256,uint256)(REF_137,tokens)
+REF_135 (->allowed) := TMP_224(uint256)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+balances[to] = safeAdd(balances[to],tokens)
+
+IRs:
+REF_138(uint256) -> balances[to]
+REF_139(uint256) -> balances[to]
+TMP_225(uint256) = INTERNAL_CALL, SafeMath.safeAdd(uint256,uint256)(REF_139,tokens)
+REF_138 (->balances) := TMP_225(uint256)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+Transfer(from,to,tokens)
+
+IRs:
+Emit Transfer(from.to.tokens)"];
+4->5;
+5[label="Node Type: RETURN 5
+
+EXPRESSION:
+true
+
+IRs:
+RETURN True"];
+}

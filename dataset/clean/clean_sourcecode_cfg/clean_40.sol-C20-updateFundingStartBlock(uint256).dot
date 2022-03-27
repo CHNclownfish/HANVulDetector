@@ -1,0 +1,38 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->4;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(block.number < fundingStartBlock)
+
+IRs:
+TMP_257(bool) = block.number < fundingStartBlock
+TMP_258(None) = SOLIDITY_CALL require(bool)(TMP_257)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(block.number < newFundingStartBlock)
+
+IRs:
+TMP_259(bool) = block.number < newFundingStartBlock
+TMP_260(None) = SOLIDITY_CALL require(bool)(TMP_259)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+fundingStartBlock = newFundingStartBlock
+
+IRs:
+fundingStartBlock(uint256) := newFundingStartBlock(uint256)"];
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+onlyFundWallet()
+
+IRs:
+MODIFIER_CALL, C20.onlyFundWallet()()"];
+4->1;
+}

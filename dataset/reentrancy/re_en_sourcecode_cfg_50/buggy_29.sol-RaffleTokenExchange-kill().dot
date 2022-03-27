@@ -1,0 +1,20 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->2;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+selfdestruct(address)(owner)
+
+IRs:
+TMP_133(None) = SOLIDITY_CALL selfdestruct(address)(owner)"];
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+onlyContractOwner()
+
+IRs:
+MODIFIER_CALL, RaffleTokenExchange.onlyContractOwner()()"];
+2->1;
+}

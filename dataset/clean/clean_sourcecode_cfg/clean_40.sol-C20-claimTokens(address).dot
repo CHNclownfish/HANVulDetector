@@ -1,0 +1,48 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->5;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(_token != address(0))
+
+IRs:
+TMP_275 = CONVERT 0 to address
+TMP_276(bool) = _token != TMP_275
+TMP_277(None) = SOLIDITY_CALL require(bool)(TMP_276)"];
+1->2;
+2[label="Node Type: NEW VARIABLE 2
+
+EXPRESSION:
+token = Token(_token)
+
+IRs:
+TMP_278 = CONVERT _token to Token
+token(Token) := TMP_278(Token)"];
+2->3;
+3[label="Node Type: NEW VARIABLE 3
+
+EXPRESSION:
+balance = token.balanceOf(this)
+
+IRs:
+TMP_279(uint256) = HIGH_LEVEL_CALL, dest:token(Token), function:balanceOf, arguments:['this']  
+balance(uint256) := TMP_279(uint256)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+token.transfer(fundWallet,balance)
+
+IRs:
+TMP_280(bool) = HIGH_LEVEL_CALL, dest:token(Token), function:transfer, arguments:['fundWallet', 'balance']  "];
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+onlyFundWallet()
+
+IRs:
+MODIFIER_CALL, C20.onlyFundWallet()()"];
+5->1;
+}

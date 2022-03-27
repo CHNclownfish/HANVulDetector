@@ -1,0 +1,29 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool,string)(hasActiveOperator(),only when operator active)
+
+IRs:
+TMP_49(bool) = INTERNAL_CALL, Operated.hasActiveOperator()()
+TMP_50(None) = SOLIDITY_CALL require(bool,string)(TMP_49,only when operator active)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+_status = false
+
+IRs:
+_status(bool) := False(bool)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+OperatorUpdated(_operator,false)
+
+IRs:
+Emit OperatorUpdated(_operator.False)"];
+}

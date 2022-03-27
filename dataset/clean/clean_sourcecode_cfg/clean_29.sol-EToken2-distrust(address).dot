@@ -1,0 +1,32 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->3;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+holders[getHolderId(msg.sender)].trust[_to] = false
+
+IRs:
+TMP_177(uint256) = INTERNAL_CALL, EToken2.getHolderId(address)(msg.sender)
+REF_121(EToken2.Holder) -> holders[TMP_177]
+REF_122(mapping(address => bool)) -> REF_121.trust
+REF_123(bool) -> REF_122[_to]
+REF_123 (->holders) := False(bool)"];
+1->2;
+2[label="Node Type: RETURN 2
+
+EXPRESSION:
+true
+
+IRs:
+RETURN True"];
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+checkTrust(msg.sender,_to)
+
+IRs:
+MODIFIER_CALL, EToken2.checkTrust(address,address)(msg.sender,_to)"];
+3->1;
+}

@@ -1,0 +1,23 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->2;
+1[label="Node Type: RETURN 1
+
+EXPRESSION:
+_approve(_createHolderId(_spender),_value,_symbol,_createHolderId(_sender))
+
+IRs:
+TMP_209(uint256) = INTERNAL_CALL, EToken2._createHolderId(address)(_spender)
+TMP_210(uint256) = INTERNAL_CALL, EToken2._createHolderId(address)(_sender)
+TMP_211(bool) = INTERNAL_CALL, EToken2._approve(uint256,uint256,bytes32,uint256)(TMP_209,_value,_symbol,TMP_210)
+RETURN TMP_211"];
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+onlyProxy(_symbol)
+
+IRs:
+MODIFIER_CALL, EToken2.onlyProxy(bytes32)(_symbol)"];
+2->1;
+}

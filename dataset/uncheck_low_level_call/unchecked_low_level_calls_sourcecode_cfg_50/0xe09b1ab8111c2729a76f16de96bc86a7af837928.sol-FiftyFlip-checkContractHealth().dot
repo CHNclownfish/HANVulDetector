@@ -1,0 +1,20 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool,string)(address(this).balance >= lockedInBets + jackpotSize + devFeeSize,This contract doesn't have enough balance, it is stopped till someone donate to this game!)
+
+IRs:
+TMP_138 = CONVERT this to address
+REF_61 -> BALANCE TMP_138
+TMP_139(uint256) = lockedInBets + jackpotSize
+TMP_140(uint256) = TMP_139 + devFeeSize
+TMP_141(bool) = REF_61 >= TMP_140
+TMP_142(None) = SOLIDITY_CALL require(bool,string)(TMP_141,This contract doesn't have enough balance, it is stopped till someone donate to this game!)"];
+1->2;
+2[label="Node Type: _ 2
+"];
+}

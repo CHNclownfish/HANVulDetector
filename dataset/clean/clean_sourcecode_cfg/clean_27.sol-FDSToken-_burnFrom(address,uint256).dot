@@ -1,0 +1,35 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+_allowed[account][msg.sender] = _allowed[account][msg.sender].sub(value)
+
+IRs:
+REF_87(mapping(address => uint256)) -> _allowed[account]
+REF_88(uint256) -> REF_87[msg.sender]
+REF_89(mapping(address => uint256)) -> _allowed[account]
+REF_90(uint256) -> REF_89[msg.sender]
+TMP_96(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_90', 'value'] 
+REF_88 (->_allowed) := TMP_96(uint256)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+_burn(account,value)
+
+IRs:
+INTERNAL_CALL, ERC20._burn(address,uint256)(account,value)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+Approval(account,msg.sender,_allowed[account][msg.sender])
+
+IRs:
+REF_92(mapping(address => uint256)) -> _allowed[account]
+REF_93(uint256) -> REF_92[msg.sender]
+Emit Approval(account.msg.sender.REF_93)"];
+}

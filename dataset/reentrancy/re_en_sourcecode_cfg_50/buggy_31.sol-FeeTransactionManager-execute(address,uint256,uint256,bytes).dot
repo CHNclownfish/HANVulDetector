@@ -1,0 +1,69 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->7;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool,string)(tx.origin == relayer,Invalid transaction origin)
+
+IRs:
+TMP_109(bool) = tx.origin == relayer
+TMP_110(None) = SOLIDITY_CALL require(bool,string)(TMP_109,Invalid transaction origin)"];
+1->2;
+2[label="Node Type: NEW VARIABLE 2
+
+EXPRESSION:
+marmo = Marmo(msg.sender)
+
+IRs:
+TMP_111 = CONVERT msg.sender to Marmo
+marmo(Marmo) := TMP_111(Marmo)"];
+2->3;
+3[label="Node Type: NEW VARIABLE 3
+
+EXPRESSION:
+hash = keccak256(bytes)(abi.encodePacked(_to,_value,_fee))
+
+IRs:
+TMP_112(bytes) = SOLIDITY_CALL abi.encodePacked()(_to,_value,_fee)
+TMP_113(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_112)
+hash(bytes32) := TMP_113(bytes32)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+require(bool,string)(marmo.signer() == ECDSA.recover(hash,_signature),Invalid signature)
+
+IRs:
+TMP_114(address) = HIGH_LEVEL_CALL, dest:marmo(Marmo), function:signer, arguments:[]  
+TMP_115(address) = LIBRARY_CALL, dest:ECDSA, function:ECDSA.recover(bytes32,bytes), arguments:['hash', '_signature'] 
+TMP_116(bool) = TMP_114 == TMP_115
+TMP_117(None) = SOLIDITY_CALL require(bool,string)(TMP_116,Invalid signature)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+require(bool)(token.transferFrom(msg.sender,_to,_value))
+
+IRs:
+TMP_118(bool) = HIGH_LEVEL_CALL, dest:token(IERC20), function:transferFrom, arguments:['msg.sender', '_to', '_value']  
+TMP_119(None) = SOLIDITY_CALL require(bool)(TMP_118)"];
+5->6;
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+require(bool)(token.transferFrom(msg.sender,relayer,_fee))
+
+IRs:
+TMP_120(bool) = HIGH_LEVEL_CALL, dest:token(IERC20), function:transferFrom, arguments:['msg.sender', 'relayer', '_fee']  
+TMP_121(None) = SOLIDITY_CALL require(bool)(TMP_120)"];
+7[label="Node Type: EXPRESSION 7
+
+EXPRESSION:
+nonReentrant()
+
+IRs:
+MODIFIER_CALL, ReentrancyGuard.nonReentrant()()"];
+7->1;
+}

@@ -1,0 +1,50 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+currentContextAddress_ = currentContextAddress
+
+IRs:
+currentContextAddress_(address) := currentContextAddress(address)"];
+1->4;
+3[label="Node Type: RETURN 3
+
+EXPRESSION:
+contextAddress
+
+IRs:
+RETURN contextAddress"];
+4[label="Node Type: IF 4
+
+EXPRESSION:
+currentContextAddress_ == address(0)
+
+IRs:
+TMP_570 = CONVERT 0 to address
+TMP_571(bool) = currentContextAddress_ == TMP_570
+CONDITION TMP_571"];
+4->5[label="True"];
+4->6[label="False"];
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+contextAddress = msg.sender
+
+IRs:
+contextAddress(address) := msg.sender(address)"];
+5->7;
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+contextAddress = currentContextAddress_
+
+IRs:
+contextAddress(address) := currentContextAddress_(address)"];
+6->7;
+7[label="Node Type: END_IF 7
+"];
+7->3;
+}

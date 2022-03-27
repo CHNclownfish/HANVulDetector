@@ -1,0 +1,145 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->18;
+1[label="Node Type: IF 1
+
+EXPRESSION:
+next > 0
+
+IRs:
+TMP_10(bool) = next > 0
+CONDITION TMP_10"];
+1->2[label="True"];
+1->3[label="False"];
+2[label="Node Type: THROW 2
+"];
+3[label="Node Type: END_IF 3
+"];
+3->4;
+4[label="Node Type: NEW VARIABLE 4
+"];
+4->5;
+5[label="Node Type: NEW VARIABLE 5
+
+EXPRESSION:
+offset = transfers.length
+
+IRs:
+REF_4 -> LENGTH transfers
+offset(uint256) := REF_4(uint256)"];
+5->6;
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+transfers.length = transfers.length + data.length
+
+IRs:
+REF_5 -> LENGTH transfers
+REF_6 -> LENGTH transfers
+REF_7 -> LENGTH data
+TMP_11(uint256) = REF_6 + REF_7
+REF_5 (->transfers) := TMP_11(uint256)"];
+6->9;
+7[label="Node Type: BEGIN_LOOP 7
+"];
+7->10;
+8[label="Node Type: END_LOOP 8
+"];
+8->17;
+9[label="Node Type: NEW VARIABLE 9
+
+EXPRESSION:
+i = 0
+
+IRs:
+i(uint256) := 0(uint256)"];
+9->7;
+10[label="Node Type: IF_LOOP 10
+
+EXPRESSION:
+i < data.length
+
+IRs:
+REF_8 -> LENGTH data
+TMP_12(bool) = i < REF_8
+CONDITION TMP_12"];
+10->11[label="True"];
+10->8[label="False"];
+11[label="Node Type: NEW VARIABLE 11
+
+EXPRESSION:
+addr = address(data[i] & (D160 - 1))
+
+IRs:
+REF_9(uint256) -> data[i]
+TMP_13(uint256) = D160 - 1
+TMP_14(uint256) = REF_9 & TMP_13
+TMP_15 = CONVERT TMP_14 to address
+addr(address) := TMP_15(address)"];
+11->12;
+12[label="Node Type: NEW VARIABLE 12
+
+EXPRESSION:
+amount = data[i] / D160
+
+IRs:
+REF_10(uint256) -> data[i]
+TMP_16(uint256) = REF_10 / D160
+amount(uint256) := TMP_16(uint256)"];
+12->13;
+13[label="Node Type: EXPRESSION 13
+
+EXPRESSION:
+transfers[offset + i].addr = addr
+
+IRs:
+TMP_17(uint256) = offset + i
+REF_11(TokenSender.Transfer) -> transfers[TMP_17]
+REF_12(address) -> REF_11.addr
+REF_12 (->transfers) := addr(address)"];
+13->14;
+14[label="Node Type: EXPRESSION 14
+
+EXPRESSION:
+transfers[offset + i].amount = amount
+
+IRs:
+TMP_18(uint256) = offset + i
+REF_13(TokenSender.Transfer) -> transfers[TMP_18]
+REF_14(uint256) -> REF_13.amount
+REF_14 (->transfers) := amount(uint256)"];
+14->15;
+15[label="Node Type: EXPRESSION 15
+
+EXPRESSION:
+acc += amount
+
+IRs:
+acc(uint256) = acc + amount"];
+15->16;
+16[label="Node Type: EXPRESSION 16
+
+EXPRESSION:
+i ++
+
+IRs:
+TMP_19(uint256) := i(uint256)
+i(uint256) = i + 1"];
+16->10;
+17[label="Node Type: EXPRESSION 17
+
+EXPRESSION:
+totalToDistribute += acc
+
+IRs:
+totalToDistribute(uint256) = totalToDistribute + acc"];
+18[label="Node Type: EXPRESSION 18
+
+EXPRESSION:
+onlyOwner()
+
+IRs:
+MODIFIER_CALL, Owned.onlyOwner()()"];
+18->1;
+}

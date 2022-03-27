@@ -1,0 +1,58 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->7;
+1[label="Node Type: IF 1
+
+EXPRESSION:
+isLocked(_symbol)
+
+IRs:
+TMP_119(bool) = INTERNAL_CALL, EToken2.isLocked(bytes32)(_symbol)
+CONDITION TMP_119"];
+1->2[label="True"];
+1->4[label="False"];
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+_error(Asset is locked)
+
+IRs:
+INTERNAL_CALL, EToken2._error(bytes32)(Asset is locked)"];
+2->3;
+3[label="Node Type: RETURN 3
+
+EXPRESSION:
+false
+
+IRs:
+RETURN False"];
+4[label="Node Type: END_IF 4
+"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+assets[_symbol].isLocked = true
+
+IRs:
+REF_83(EToken2.Asset) -> assets[_symbol]
+REF_84(bool) -> REF_83.isLocked
+REF_84 (->assets) := True(bool)"];
+5->6;
+6[label="Node Type: RETURN 6
+
+EXPRESSION:
+true
+
+IRs:
+RETURN True"];
+7[label="Node Type: EXPRESSION 7
+
+EXPRESSION:
+onlyOwner(_symbol)
+
+IRs:
+MODIFIER_CALL, EToken2.onlyOwner(bytes32)(_symbol)"];
+7->1;
+}

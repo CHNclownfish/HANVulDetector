@@ -1,0 +1,47 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->3;
+1[label="Node Type: BEGIN_LOOP 1
+"];
+1->4;
+2[label="Node Type: END_LOOP 2
+"];
+3[label="Node Type: NEW VARIABLE 3
+
+EXPRESSION:
+i = 0
+
+IRs:
+i(uint256) := 0(uint256)"];
+3->1;
+4[label="Node Type: IF_LOOP 4
+
+EXPRESSION:
+i < _addresses.length
+
+IRs:
+REF_112 -> LENGTH _addresses
+TMP_178(bool) = i < REF_112
+CONDITION TMP_178"];
+4->5[label="True"];
+4->2[label="False"];
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+transfer(_addresses[i],_amount)
+
+IRs:
+REF_113(address) -> _addresses[i]
+TMP_179(bool) = INTERNAL_CALL, ExclusivePlatform.transfer(address,uint256)(REF_113,_amount)"];
+5->6;
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+i ++
+
+IRs:
+TMP_180(uint256) := i(uint256)
+i(uint256) = i + 1"];
+6->4;
+}

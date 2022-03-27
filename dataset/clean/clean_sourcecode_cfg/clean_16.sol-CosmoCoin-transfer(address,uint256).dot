@@ -1,0 +1,89 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->9;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(_to != address(0))
+
+IRs:
+TMP_32 = CONVERT 0 to address
+TMP_33(bool) = _to != TMP_32
+TMP_34(None) = SOLIDITY_CALL require(bool)(TMP_33)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(_to != address(this))
+
+IRs:
+TMP_35 = CONVERT this to address
+TMP_36(bool) = _to != TMP_35
+TMP_37(None) = SOLIDITY_CALL require(bool)(TMP_36)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+require(bool)(_amount > 0)
+
+IRs:
+TMP_38(bool) = _amount > 0
+TMP_39(None) = SOLIDITY_CALL require(bool)(TMP_38)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+require(bool)(_amount <= balances[msg.sender])
+
+IRs:
+REF_10(uint256) -> balances[msg.sender]
+TMP_40(bool) = _amount <= REF_10
+TMP_41(None) = SOLIDITY_CALL require(bool)(TMP_40)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+balances[msg.sender] = balances[msg.sender].sub(_amount)
+
+IRs:
+REF_11(uint256) -> balances[msg.sender]
+REF_12(uint256) -> balances[msg.sender]
+TMP_42(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_12', '_amount'] 
+REF_11 (->balances) := TMP_42(uint256)"];
+5->6;
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+balances[_to] = balances[_to].add(_amount)
+
+IRs:
+REF_14(uint256) -> balances[_to]
+REF_15(uint256) -> balances[_to]
+TMP_43(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_15', '_amount'] 
+REF_14 (->balances) := TMP_43(uint256)"];
+6->7;
+7[label="Node Type: EXPRESSION 7
+
+EXPRESSION:
+Transfer(msg.sender,_to,_amount)
+
+IRs:
+Emit Transfer(msg.sender._to._amount)"];
+7->8;
+8[label="Node Type: RETURN 8
+
+EXPRESSION:
+true
+
+IRs:
+RETURN True"];
+9[label="Node Type: EXPRESSION 9
+
+EXPRESSION:
+tokenUnfrozen()
+
+IRs:
+MODIFIER_CALL, CosmoCoin.tokenUnfrozen()()"];
+9->1;
+}

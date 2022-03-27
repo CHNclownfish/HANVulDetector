@@ -1,0 +1,17 @@
+digraph{
+0[label="Node Type: OTHER_ENTRYPOINT 0
+
+EXPRESSION:
+not_called_re_ent41 = true
+
+IRs:
+not_called_re_ent41(bool) := True(bool)"];
+0->1;
+1[label="Node Type: OTHER_ENTRYPOINT 1
+
+EXPRESSION:
+counter_re_ent7 = 0
+
+IRs:
+counter_re_ent7(uint256) := 0(uint256)"];
+}

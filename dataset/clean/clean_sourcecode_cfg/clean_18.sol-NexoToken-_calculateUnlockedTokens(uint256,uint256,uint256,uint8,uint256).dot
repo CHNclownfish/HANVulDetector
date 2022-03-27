@@ -1,0 +1,75 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: IF 1
+
+EXPRESSION:
+now < add(creationTime,_cliff)
+
+IRs:
+TMP_202(uint256) = INTERNAL_CALL, SafeMath.add(uint256,uint256)(creationTime,_cliff)
+TMP_203(bool) = now < TMP_202
+CONDITION TMP_203"];
+1->2[label="True"];
+1->3[label="False"];
+2[label="Node Type: RETURN 2
+
+EXPRESSION:
+_unvestedAmount
+
+IRs:
+RETURN _unvestedAmount"];
+3[label="Node Type: END_IF 3
+"];
+3->4;
+4[label="Node Type: NEW VARIABLE 4
+
+EXPRESSION:
+periods = div(sub(now,add(creationTime,_cliff)),_periodLength)
+
+IRs:
+TMP_204(uint256) = INTERNAL_CALL, SafeMath.add(uint256,uint256)(creationTime,_cliff)
+TMP_205(uint256) = INTERNAL_CALL, SafeMath.sub(uint256,uint256)(now,TMP_204)
+TMP_206(uint256) = INTERNAL_CALL, SafeMath.div(uint256,uint256)(TMP_205,_periodLength)
+periods(uint256) := TMP_206(uint256)"];
+4->7;
+6[label="Node Type: RETURN 6
+
+EXPRESSION:
+add(_unvestedAmount,mul(periods,_periodAmount))
+
+IRs:
+TMP_207(uint256) = INTERNAL_CALL, SafeMath.mul(uint256,uint256)(periods,_periodAmount)
+TMP_208(uint256) = INTERNAL_CALL, SafeMath.add(uint256,uint256)(_unvestedAmount,TMP_207)
+RETURN TMP_208"];
+7[label="Node Type: IF 7
+
+EXPRESSION:
+periods > _periodsNumber
+
+IRs:
+TMP_209(bool) = periods > _periodsNumber
+CONDITION TMP_209"];
+7->8[label="True"];
+7->9[label="False"];
+8[label="Node Type: EXPRESSION 8
+
+EXPRESSION:
+periods = _periodsNumber
+
+IRs:
+periods(uint256) := _periodsNumber(uint8)"];
+8->10;
+9[label="Node Type: EXPRESSION 9
+
+EXPRESSION:
+periods = periods
+
+IRs:
+periods(uint256) := periods(uint256)"];
+9->10;
+10[label="Node Type: END_IF 10
+"];
+10->6;
+}

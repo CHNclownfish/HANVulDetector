@@ -1,0 +1,79 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: NEW VARIABLE 1
+"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+contract_address = 0x96a65609a7b84e8842732deb08f56c3e21ac6f8a
+
+IRs:
+contract_address(address) := 860058034268601496487720091517100350015881899914(uint256)"];
+2->3;
+3[label="Node Type: NEW VARIABLE 3
+"];
+3->4;
+4[label="Node Type: NEW VARIABLE 4
+"];
+4->5;
+5[label="Node Type: NEW VARIABLE 5
+"];
+5->6;
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+k = 1
+
+IRs:
+k(uint256) := 1(uint256)"];
+6->7;
+7[label="Node Type: EXPRESSION 7
+
+EXPRESSION:
+c2 = 0xaa27f8c1160886aacba64b2319d8d5469ef2af79
+
+IRs:
+c2(address) := 971419829653490591361283601475125848543985839993(uint256)"];
+7->8;
+8[label="Node Type: EXPRESSION 8
+
+EXPRESSION:
+contract_address.call(register,CentraToken)
+
+IRs:
+TMP_0(bool) = LOW_LEVEL_CALL, dest:contract_address, function:call, arguments:['register', 'CentraToken']  "];
+8->9;
+9[label="Node Type: IF 9
+
+EXPRESSION:
+! contract_address.call(bytes4(keccak256()(transfer(address,uint256))),c2,k)
+
+IRs:
+TMP_1(bytes32) = SOLIDITY_CALL keccak256()(transfer(address,uint256))
+TMP_2 = CONVERT TMP_1 to bytes4
+TMP_3(bool) = LOW_LEVEL_CALL, dest:contract_address, function:call, arguments:['TMP_2', 'c2', 'k']  
+TMP_4 = ! TMP_3 
+CONDITION TMP_4"];
+9->10[label="True"];
+9->11[label="False"];
+10[label="Node Type: RETURN 10
+
+EXPRESSION:
+false
+
+IRs:
+RETURN False"];
+11[label="Node Type: END_IF 11
+"];
+11->12;
+12[label="Node Type: RETURN 12
+
+EXPRESSION:
+true
+
+IRs:
+RETURN True"];
+}

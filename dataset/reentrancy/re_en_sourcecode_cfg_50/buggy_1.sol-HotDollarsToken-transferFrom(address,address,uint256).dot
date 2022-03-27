@@ -1,0 +1,83 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+allowance = allowed[_from][msg.sender]
+
+IRs:
+REF_57(mapping(address => uint256)) -> allowed[_from]
+REF_58(uint256) -> REF_57[msg.sender]
+allowance(uint256) := REF_58(uint256)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(balances[_from] >= _value && allowance >= _value)
+
+IRs:
+REF_59(uint256) -> balances[_from]
+TMP_79(bool) = REF_59 >= _value
+TMP_80(bool) = allowance >= _value
+TMP_81(bool) = TMP_79 && TMP_80
+TMP_82(None) = SOLIDITY_CALL require(bool)(TMP_81)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+balances[_to] += _value
+
+IRs:
+REF_60(uint256) -> balances[_to]
+REF_60(-> balances) = REF_60 + _value"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+balances[_from] -= _value
+
+IRs:
+REF_61(uint256) -> balances[_from]
+REF_61(-> balances) = REF_61 - _value"];
+4->5;
+5[label="Node Type: IF 5
+
+EXPRESSION:
+allowance < MAX_UINT256
+
+IRs:
+TMP_83(bool) = allowance < MAX_UINT256
+CONDITION TMP_83"];
+5->6[label="True"];
+5->7[label="False"];
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+allowed[_from][msg.sender] -= _value
+
+IRs:
+REF_62(mapping(address => uint256)) -> allowed[_from]
+REF_63(uint256) -> REF_62[msg.sender]
+REF_63(-> allowed) = REF_63 - _value"];
+6->7;
+7[label="Node Type: END_IF 7
+"];
+7->8;
+8[label="Node Type: EXPRESSION 8
+
+EXPRESSION:
+Transfer(_from,_to,_value)
+
+IRs:
+Emit Transfer(_from._to._value)"];
+8->9;
+9[label="Node Type: RETURN 9
+
+EXPRESSION:
+true
+
+IRs:
+RETURN True"];
+}

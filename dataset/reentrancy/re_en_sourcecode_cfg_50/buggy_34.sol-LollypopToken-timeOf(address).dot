@@ -1,0 +1,14 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: RETURN 1
+
+EXPRESSION:
+_balances[account].time
+
+IRs:
+REF_108(LollypopToken.transferMapping) -> _balances[account]
+REF_109(uint256) -> REF_108.time
+RETURN REF_109"];
+}

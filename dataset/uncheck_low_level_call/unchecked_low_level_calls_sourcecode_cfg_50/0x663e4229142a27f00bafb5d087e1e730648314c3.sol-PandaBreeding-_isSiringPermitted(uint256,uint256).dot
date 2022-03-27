@@ -1,0 +1,34 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+matronOwner = pandaIndexToOwner[_matronId]
+
+IRs:
+REF_107(address) -> pandaIndexToOwner[_matronId]
+matronOwner(address) := REF_107(address)"];
+1->2;
+2[label="Node Type: NEW VARIABLE 2
+
+EXPRESSION:
+sireOwner = pandaIndexToOwner[_sireId]
+
+IRs:
+REF_108(address) -> pandaIndexToOwner[_sireId]
+sireOwner(address) := REF_108(address)"];
+2->3;
+3[label="Node Type: RETURN 3
+
+EXPRESSION:
+(matronOwner == sireOwner || sireAllowedToAddress[_sireId] == matronOwner)
+
+IRs:
+TMP_507(bool) = matronOwner == sireOwner
+REF_109(address) -> sireAllowedToAddress[_sireId]
+TMP_508(bool) = REF_109 == matronOwner
+TMP_509(bool) = TMP_507 || TMP_508
+RETURN TMP_509"];
+}

@@ -1,0 +1,37 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->4;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+NewOwner(owner,potentialOwner)
+
+IRs:
+Emit NewOwner(owner.potentialOwner)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+owner = potentialOwner
+
+IRs:
+owner(address) := potentialOwner(address)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+potentialOwner = address(0)
+
+IRs:
+TMP_90 = CONVERT 0 to address
+potentialOwner(address) := TMP_90(address)"];
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+onlyPotentialOwner()
+
+IRs:
+MODIFIER_CALL, Owned.onlyPotentialOwner()()"];
+4->1;
+}

@@ -1,0 +1,99 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(controlWalletInput != address(0))
+
+IRs:
+TMP_120 = CONVERT 0 to address
+TMP_121(bool) = controlWalletInput != TMP_120
+TMP_122(None) = SOLIDITY_CALL require(bool)(TMP_121)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(priceNumeratorInput > 0)
+
+IRs:
+TMP_123(bool) = priceNumeratorInput > 0
+TMP_124(None) = SOLIDITY_CALL require(bool)(TMP_123)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+require(bool)(endBlockInput > startBlockInput)
+
+IRs:
+TMP_125(bool) = endBlockInput > startBlockInput
+TMP_126(None) = SOLIDITY_CALL require(bool)(TMP_125)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+fundWallet = msg.sender
+
+IRs:
+fundWallet(address) := msg.sender(address)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+controlWallet = controlWalletInput
+
+IRs:
+controlWallet(address) := controlWalletInput(address)"];
+5->6;
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+whitelist[fundWallet] = true
+
+IRs:
+REF_56(bool) -> whitelist[fundWallet]
+REF_56 (->whitelist) := True(bool)"];
+6->7;
+7[label="Node Type: EXPRESSION 7
+
+EXPRESSION:
+whitelist[controlWallet] = true
+
+IRs:
+REF_57(bool) -> whitelist[controlWallet]
+REF_57 (->whitelist) := True(bool)"];
+7->8;
+8[label="Node Type: EXPRESSION 8
+
+EXPRESSION:
+currentPrice = Price(priceNumeratorInput,1000)
+
+IRs:
+TMP_127 = new Price(priceNumeratorInput,1000)
+currentPrice(C20.Price) := TMP_127(C20.Price)"];
+8->9;
+9[label="Node Type: EXPRESSION 9
+
+EXPRESSION:
+fundingStartBlock = startBlockInput
+
+IRs:
+fundingStartBlock(uint256) := startBlockInput(uint256)"];
+9->10;
+10[label="Node Type: EXPRESSION 10
+
+EXPRESSION:
+fundingEndBlock = endBlockInput
+
+IRs:
+fundingEndBlock(uint256) := endBlockInput(uint256)"];
+10->11;
+11[label="Node Type: EXPRESSION 11
+
+EXPRESSION:
+previousUpdateTime = now
+
+IRs:
+previousUpdateTime(uint256) := now(uint256)"];
+}

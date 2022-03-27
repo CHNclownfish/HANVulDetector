@@ -1,0 +1,241 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+orderInfo.orderHash = getOrderHash(order)
+
+IRs:
+REF_66(bytes32) -> orderInfo.orderHash
+TMP_290(bytes32) = INTERNAL_CALL, LibOrder.getOrderHash(LibOrder.Order)(order)
+REF_66 (->orderInfo) := TMP_290(bytes32)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+orderInfo.orderTakerAssetFilledAmount = filled[orderInfo.orderHash]
+
+IRs:
+REF_67(uint256) -> orderInfo.orderTakerAssetFilledAmount
+REF_68(bytes32) -> orderInfo.orderHash
+REF_69(uint256) -> filled[REF_68]
+REF_67 (->orderInfo) := REF_69(uint256)"];
+2->3;
+3[label="Node Type: IF 3
+
+EXPRESSION:
+order.makerAssetAmount == 0
+
+IRs:
+REF_70(uint256) -> order.makerAssetAmount
+TMP_291(bool) = REF_70 == 0
+CONDITION TMP_291"];
+3->4[label="True"];
+3->6[label="False"];
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+orderInfo.orderStatus = uint8(OrderStatus.INVALID_MAKER_ASSET_AMOUNT)
+
+IRs:
+REF_71(uint8) -> orderInfo.orderStatus
+REF_72(LibOrder.OrderStatus) -> OrderStatus.INVALID_MAKER_ASSET_AMOUNT
+TMP_292 = CONVERT REF_72 to uint8
+REF_71 (->orderInfo) := TMP_292(uint8)"];
+4->5;
+5[label="Node Type: RETURN 5
+
+EXPRESSION:
+orderInfo
+
+IRs:
+RETURN orderInfo"];
+6[label="Node Type: END_IF 6
+"];
+6->7;
+7[label="Node Type: IF 7
+
+EXPRESSION:
+order.takerAssetAmount == 0
+
+IRs:
+REF_73(uint256) -> order.takerAssetAmount
+TMP_293(bool) = REF_73 == 0
+CONDITION TMP_293"];
+7->8[label="True"];
+7->10[label="False"];
+8[label="Node Type: EXPRESSION 8
+
+EXPRESSION:
+orderInfo.orderStatus = uint8(OrderStatus.INVALID_TAKER_ASSET_AMOUNT)
+
+IRs:
+REF_74(uint8) -> orderInfo.orderStatus
+REF_75(LibOrder.OrderStatus) -> OrderStatus.INVALID_TAKER_ASSET_AMOUNT
+TMP_294 = CONVERT REF_75 to uint8
+REF_74 (->orderInfo) := TMP_294(uint8)"];
+8->9;
+9[label="Node Type: RETURN 9
+
+EXPRESSION:
+orderInfo
+
+IRs:
+RETURN orderInfo"];
+10[label="Node Type: END_IF 10
+"];
+10->11;
+11[label="Node Type: IF 11
+
+EXPRESSION:
+orderInfo.orderTakerAssetFilledAmount >= order.takerAssetAmount
+
+IRs:
+REF_76(uint256) -> orderInfo.orderTakerAssetFilledAmount
+REF_77(uint256) -> order.takerAssetAmount
+TMP_295(bool) = REF_76 >= REF_77
+CONDITION TMP_295"];
+11->12[label="True"];
+11->14[label="False"];
+12[label="Node Type: EXPRESSION 12
+
+EXPRESSION:
+orderInfo.orderStatus = uint8(OrderStatus.FULLY_FILLED)
+
+IRs:
+REF_78(uint8) -> orderInfo.orderStatus
+REF_79(LibOrder.OrderStatus) -> OrderStatus.FULLY_FILLED
+TMP_296 = CONVERT REF_79 to uint8
+REF_78 (->orderInfo) := TMP_296(uint8)"];
+12->13;
+13[label="Node Type: RETURN 13
+
+EXPRESSION:
+orderInfo
+
+IRs:
+RETURN orderInfo"];
+14[label="Node Type: END_IF 14
+"];
+14->15;
+15[label="Node Type: IF 15
+
+EXPRESSION:
+block.timestamp >= order.expirationTimeSeconds
+
+IRs:
+REF_80(uint256) -> order.expirationTimeSeconds
+TMP_297(bool) = block.timestamp >= REF_80
+CONDITION TMP_297"];
+15->16[label="True"];
+15->18[label="False"];
+16[label="Node Type: EXPRESSION 16
+
+EXPRESSION:
+orderInfo.orderStatus = uint8(OrderStatus.EXPIRED)
+
+IRs:
+REF_81(uint8) -> orderInfo.orderStatus
+REF_82(LibOrder.OrderStatus) -> OrderStatus.EXPIRED
+TMP_298 = CONVERT REF_82 to uint8
+REF_81 (->orderInfo) := TMP_298(uint8)"];
+16->17;
+17[label="Node Type: RETURN 17
+
+EXPRESSION:
+orderInfo
+
+IRs:
+RETURN orderInfo"];
+18[label="Node Type: END_IF 18
+"];
+18->19;
+19[label="Node Type: IF 19
+
+EXPRESSION:
+cancelled[orderInfo.orderHash]
+
+IRs:
+REF_83(bytes32) -> orderInfo.orderHash
+REF_84(bool) -> cancelled[REF_83]
+CONDITION REF_84"];
+19->20[label="True"];
+19->22[label="False"];
+20[label="Node Type: EXPRESSION 20
+
+EXPRESSION:
+orderInfo.orderStatus = uint8(OrderStatus.CANCELLED)
+
+IRs:
+REF_85(uint8) -> orderInfo.orderStatus
+REF_86(LibOrder.OrderStatus) -> OrderStatus.CANCELLED
+TMP_299 = CONVERT REF_86 to uint8
+REF_85 (->orderInfo) := TMP_299(uint8)"];
+20->21;
+21[label="Node Type: RETURN 21
+
+EXPRESSION:
+orderInfo
+
+IRs:
+RETURN orderInfo"];
+22[label="Node Type: END_IF 22
+"];
+22->23;
+23[label="Node Type: IF 23
+
+EXPRESSION:
+orderEpoch[order.makerAddress][order.senderAddress] > order.salt
+
+IRs:
+REF_87(address) -> order.makerAddress
+REF_88(mapping(address => uint256)) -> orderEpoch[REF_87]
+REF_89(address) -> order.senderAddress
+REF_90(uint256) -> REF_88[REF_89]
+REF_91(uint256) -> order.salt
+TMP_300(bool) = REF_90 > REF_91
+CONDITION TMP_300"];
+23->24[label="True"];
+23->26[label="False"];
+24[label="Node Type: EXPRESSION 24
+
+EXPRESSION:
+orderInfo.orderStatus = uint8(OrderStatus.CANCELLED)
+
+IRs:
+REF_92(uint8) -> orderInfo.orderStatus
+REF_93(LibOrder.OrderStatus) -> OrderStatus.CANCELLED
+TMP_301 = CONVERT REF_93 to uint8
+REF_92 (->orderInfo) := TMP_301(uint8)"];
+24->25;
+25[label="Node Type: RETURN 25
+
+EXPRESSION:
+orderInfo
+
+IRs:
+RETURN orderInfo"];
+26[label="Node Type: END_IF 26
+"];
+26->27;
+27[label="Node Type: EXPRESSION 27
+
+EXPRESSION:
+orderInfo.orderStatus = uint8(OrderStatus.FILLABLE)
+
+IRs:
+REF_94(uint8) -> orderInfo.orderStatus
+REF_95(LibOrder.OrderStatus) -> OrderStatus.FILLABLE
+TMP_302 = CONVERT REF_95 to uint8
+REF_94 (->orderInfo) := TMP_302(uint8)"];
+27->28;
+28[label="Node Type: RETURN 28
+
+EXPRESSION:
+orderInfo
+
+IRs:
+RETURN orderInfo"];
+}

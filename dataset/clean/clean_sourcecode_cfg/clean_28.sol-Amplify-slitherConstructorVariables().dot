@@ -1,0 +1,9 @@
+digraph{
+0[label="Node Type: OTHER_ENTRYPOINT 0
+
+EXPRESSION:
+crowdsaleActive = true
+
+IRs:
+crowdsaleActive(bool) := True(bool)"];
+}

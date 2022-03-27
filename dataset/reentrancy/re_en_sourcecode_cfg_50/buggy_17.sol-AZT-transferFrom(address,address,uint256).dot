@@ -1,0 +1,33 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+allowance[_from][msg.sender] = allowance[_from][msg.sender].sub(_value)
+
+IRs:
+REF_93(mapping(address => uint256)) -> allowance[_from]
+REF_94(uint256) -> REF_93[msg.sender]
+REF_95(mapping(address => uint256)) -> allowance[_from]
+REF_96(uint256) -> REF_95[msg.sender]
+TMP_158(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_96', '_value'] 
+REF_94 (->allowance) := TMP_158(uint256)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+_transfer(_from,_to,_value)
+
+IRs:
+INTERNAL_CALL, AZT._transfer(address,address,uint256)(_from,_to,_value)"];
+2->3;
+3[label="Node Type: RETURN 3
+
+EXPRESSION:
+true
+
+IRs:
+RETURN True"];
+}

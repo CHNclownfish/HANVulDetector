@@ -1,0 +1,38 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(_auction.duration >= 60)
+
+IRs:
+REF_283(uint64) -> _auction.duration
+TMP_1028(bool) = REF_283 >= 60
+TMP_1029(None) = SOLIDITY_CALL require(bool)(TMP_1028)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+tokenIdToAuction[_tokenId] = _auction
+
+IRs:
+REF_284(ClockAuctionBase.Auction) -> tokenIdToAuction[_tokenId]
+REF_284 (->tokenIdToAuction) := _auction(ClockAuctionBase.Auction)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+AuctionCreated(uint256(_tokenId),uint256(_auction.startingPrice),uint256(_auction.endingPrice),uint256(_auction.duration))
+
+IRs:
+TMP_1030 = CONVERT _tokenId to uint256
+REF_285(uint128) -> _auction.startingPrice
+TMP_1031 = CONVERT REF_285 to uint256
+REF_286(uint128) -> _auction.endingPrice
+TMP_1032 = CONVERT REF_286 to uint256
+REF_287(uint64) -> _auction.duration
+TMP_1033 = CONVERT REF_287 to uint256
+Emit AuctionCreated(TMP_1030.TMP_1031.TMP_1032.TMP_1033)"];
+}

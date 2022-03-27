@@ -1,0 +1,45 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+_name = UBBC Token
+
+IRs:
+_name(string) := UBBC Token(string)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+_symbol = UBBC
+
+IRs:
+_symbol(string) := UBBC(string)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+_decimals = 18
+
+IRs:
+_decimals(uint8) := 18(uint256)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+_totalSupply = 260000000000000000000000000
+
+IRs:
+_totalSupply(uint256) := 260000000000000000000000000(uint256)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+_balances[0x0e475cd2c1f8222868cf85B4f97D7EB70fB3ffD3] = _totalSupply
+
+IRs:
+REF_20(uint256) -> _balances[81517309748061588532977612522843733581968441299]
+REF_20 (->_balances) := _totalSupply(uint256)"];
+}

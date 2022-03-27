@@ -1,0 +1,74 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+ordersLength = orders.length
+
+IRs:
+REF_266 -> LENGTH orders
+ordersLength(uint256) := REF_266(uint256)"];
+1->2;
+2[label="Node Type: NEW VARIABLE 2
+
+EXPRESSION:
+ordersInfo = new LibOrder.OrderInfo[](ordersLength)
+
+IRs:
+TMP_537 = new LibOrder.OrderInfo[](ordersLength)
+ordersInfo(LibOrder.OrderInfo[]) := TMP_537(LibOrder.OrderInfo)"];
+2->5;
+3[label="Node Type: BEGIN_LOOP 3
+"];
+3->6;
+4[label="Node Type: END_LOOP 4
+"];
+4->9;
+5[label="Node Type: NEW VARIABLE 5
+
+EXPRESSION:
+i = 0
+
+IRs:
+i(uint256) := 0(uint256)"];
+5->3;
+6[label="Node Type: IF_LOOP 6
+
+EXPRESSION:
+i != ordersLength
+
+IRs:
+TMP_538(bool) = i != ordersLength
+CONDITION TMP_538"];
+6->7[label="True"];
+6->4[label="False"];
+7[label="Node Type: EXPRESSION 7
+
+EXPRESSION:
+ordersInfo[i] = getOrderInfo(orders[i])
+
+IRs:
+REF_267(LibOrder.OrderInfo) -> ordersInfo[i]
+REF_268(LibOrder.Order) -> orders[i]
+TMP_539(LibOrder.OrderInfo) = INTERNAL_CALL, IExchangeCore.getOrderInfo(LibOrder.Order)(REF_268)
+REF_267 (->ordersInfo) := TMP_539(LibOrder.OrderInfo)"];
+7->8;
+8[label="Node Type: EXPRESSION 8
+
+EXPRESSION:
+i ++
+
+IRs:
+TMP_540(uint256) := i(uint256)
+i(uint256) = i + 1"];
+8->6;
+9[label="Node Type: RETURN 9
+
+EXPRESSION:
+ordersInfo
+
+IRs:
+RETURN ordersInfo"];
+}

@@ -1,0 +1,31 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+signer = ECRecovery.recover(_hash,_sig)
+
+IRs:
+TMP_185(address) = LIBRARY_CALL, dest:ECRecovery, function:ECRecovery.recover(bytes32,bytes), arguments:['_hash', '_sig'] 
+signer(address) := TMP_185(address)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(signer != address(0))
+
+IRs:
+TMP_186 = CONVERT 0 to address
+TMP_187(bool) = signer != TMP_186
+TMP_188(None) = SOLIDITY_CALL require(bool)(TMP_187)"];
+2->3;
+3[label="Node Type: RETURN 3
+
+EXPRESSION:
+signer
+
+IRs:
+RETURN signer"];
+}

@@ -1,0 +1,71 @@
+digraph{
+0[label="Node Type: OTHER_ENTRYPOINT 0
+
+EXPRESSION:
+ZRX_ASSET_DATA = 0xf47261b0000000000000000000000000e41d2489571d322189246dafa5ebde1f4699f498
+
+IRs:
+ZRX_ASSET_DATA(bytes) := 0xf47261b0000000000000000000000000e41d2489571d322189246dafa5ebde1f4699f498(string)"];
+0->1;
+1[label="Node Type: OTHER_ENTRYPOINT 1
+
+EXPRESSION:
+EIP191_HEADER = 
+
+IRs:
+EIP191_HEADER(string) := (string)"];
+1->2;
+2[label="Node Type: OTHER_ENTRYPOINT 2
+
+EXPRESSION:
+EIP712_DOMAIN_NAME = 0x Protocol
+
+IRs:
+EIP712_DOMAIN_NAME(string) := 0x Protocol(string)"];
+2->3;
+3[label="Node Type: OTHER_ENTRYPOINT 3
+
+EXPRESSION:
+EIP712_DOMAIN_VERSION = 2
+
+IRs:
+EIP712_DOMAIN_VERSION(string) := 2(string)"];
+3->4;
+4[label="Node Type: OTHER_ENTRYPOINT 4
+
+EXPRESSION:
+EIP712_DOMAIN_SEPARATOR_SCHEMA_HASH = keccak256()(abi.encodePacked(EIP712Domain(,string name,,string version,,address verifyingContract,)))
+
+IRs:
+TMP_1048(bytes) = SOLIDITY_CALL abi.encodePacked()(EIP712Domain(,string name,,string version,,address verifyingContract,))
+TMP_1049(bytes32) = SOLIDITY_CALL keccak256()(TMP_1048)
+EIP712_DOMAIN_SEPARATOR_SCHEMA_HASH(bytes32) := TMP_1049(bytes32)"];
+4->5;
+5[label="Node Type: OTHER_ENTRYPOINT 5
+
+EXPRESSION:
+EIP712_ORDER_SCHEMA_HASH = keccak256()(abi.encodePacked(Order(,address makerAddress,,address takerAddress,,address feeRecipientAddress,,address senderAddress,,uint256 makerAssetAmount,,uint256 takerAssetAmount,,uint256 makerFee,,uint256 takerFee,,uint256 expirationTimeSeconds,,uint256 salt,,bytes makerAssetData,,bytes takerAssetData,)))
+
+IRs:
+TMP_1050(bytes) = SOLIDITY_CALL abi.encodePacked()(Order(,address makerAddress,,address takerAddress,,address feeRecipientAddress,,address senderAddress,,uint256 makerAssetAmount,,uint256 takerAssetAmount,,uint256 makerFee,,uint256 takerFee,,uint256 expirationTimeSeconds,,uint256 salt,,bytes makerAssetData,,bytes takerAssetData,))
+TMP_1051(bytes32) = SOLIDITY_CALL keccak256()(TMP_1050)
+EIP712_ORDER_SCHEMA_HASH(bytes32) := TMP_1051(bytes32)"];
+5->6;
+6[label="Node Type: OTHER_ENTRYPOINT 6
+
+EXPRESSION:
+EIP712_ZEROEX_TRANSACTION_SCHEMA_HASH = keccak256()(abi.encodePacked(ZeroExTransaction(,uint256 salt,,address signerAddress,,bytes data,)))
+
+IRs:
+TMP_1052(bytes) = SOLIDITY_CALL abi.encodePacked()(ZeroExTransaction(,uint256 salt,,address signerAddress,,bytes data,))
+TMP_1053(bytes32) = SOLIDITY_CALL keccak256()(TMP_1052)
+EIP712_ZEROEX_TRANSACTION_SCHEMA_HASH(bytes32) := TMP_1053(bytes32)"];
+6->7;
+7[label="Node Type: OTHER_ENTRYPOINT 7
+
+EXPRESSION:
+VERSION = 2.0.0
+
+IRs:
+VERSION(string) := 2.0.0(string)"];
+}

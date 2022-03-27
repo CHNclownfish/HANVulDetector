@@ -1,0 +1,31 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+_delegationDigest = generateAttestForDelegationSchemaHash(_subject,_requester,_reward,_dataHash,_requestNonce)
+
+IRs:
+TMP_343(bytes32) = INTERNAL_CALL, SigningLogic.generateAttestForDelegationSchemaHash(address,address,uint256,bytes32,bytes32)(_subject,_requester,_reward,_dataHash,_requestNonce)
+_delegationDigest(bytes32) := TMP_343(bytes32)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool,string)(_attester == recoverSigner(_delegationDigest,_delegationSig),Invalid AttestFor Signature)
+
+IRs:
+TMP_344(address) = INTERNAL_CALL, SigningLogic.recoverSigner(bytes32,bytes)(_delegationDigest,_delegationSig)
+TMP_345(bool) = _attester == TMP_344
+TMP_346(None) = SOLIDITY_CALL require(bool,string)(TMP_345,Invalid AttestFor Signature)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+burnSignatureDigest(_delegationDigest,_attester)
+
+IRs:
+INTERNAL_CALL, SigningLogic.burnSignatureDigest(bytes32,address)(_delegationDigest,_attester)"];
+}

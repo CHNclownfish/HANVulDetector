@@ -1,0 +1,31 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->3;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(! frozenAccount[_from])
+
+IRs:
+REF_121(bool) -> frozenAccount[_from]
+TMP_151 = ! REF_121 
+TMP_152(None) = SOLIDITY_CALL require(bool)(TMP_151)"];
+1->2;
+2[label="Node Type: RETURN 2
+
+EXPRESSION:
+super.transferFrom(_from,_to,_value)
+
+IRs:
+TMP_153(bool) = INTERNAL_CALL, StandardToken.transferFrom(address,address,uint256)(_from,_to,_value)
+RETURN TMP_153"];
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+whenNotPaused()
+
+IRs:
+MODIFIER_CALL, Pausable.whenNotPaused()()"];
+3->1;
+}

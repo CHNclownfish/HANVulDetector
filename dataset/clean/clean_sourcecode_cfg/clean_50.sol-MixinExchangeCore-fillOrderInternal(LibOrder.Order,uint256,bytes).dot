@@ -1,0 +1,94 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+orderInfo = getOrderInfo(order)
+
+IRs:
+TMP_303(LibOrder.OrderInfo) = INTERNAL_CALL, MixinExchangeCore.getOrderInfo(LibOrder.Order)(order)
+orderInfo(LibOrder.OrderInfo) := TMP_303(LibOrder.OrderInfo)"];
+1->2;
+2[label="Node Type: NEW VARIABLE 2
+
+EXPRESSION:
+takerAddress = getCurrentContextAddress()
+
+IRs:
+TMP_304(address) = INTERNAL_CALL, MTransactions.getCurrentContextAddress()()
+takerAddress(address) := TMP_304(address)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+assertFillableOrder(order,orderInfo,takerAddress,signature)
+
+IRs:
+INTERNAL_CALL, MixinExchangeCore.assertFillableOrder(LibOrder.Order,LibOrder.OrderInfo,address,bytes)(order,orderInfo,takerAddress,signature)"];
+3->4;
+4[label="Node Type: NEW VARIABLE 4
+
+EXPRESSION:
+remainingTakerAssetAmount = safeSub(order.takerAssetAmount,orderInfo.orderTakerAssetFilledAmount)
+
+IRs:
+REF_96(uint256) -> order.takerAssetAmount
+REF_97(uint256) -> orderInfo.orderTakerAssetFilledAmount
+TMP_306(uint256) = INTERNAL_CALL, SafeMath.safeSub(uint256,uint256)(REF_96,REF_97)
+remainingTakerAssetAmount(uint256) := TMP_306(uint256)"];
+4->5;
+5[label="Node Type: NEW VARIABLE 5
+
+EXPRESSION:
+takerAssetFilledAmount = min256(takerAssetFillAmount,remainingTakerAssetAmount)
+
+IRs:
+TMP_307(uint256) = INTERNAL_CALL, SafeMath.min256(uint256,uint256)(takerAssetFillAmount,remainingTakerAssetAmount)
+takerAssetFilledAmount(uint256) := TMP_307(uint256)"];
+5->6;
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+assertValidFill(order,orderInfo,takerAssetFillAmount,takerAssetFilledAmount,fillResults.makerAssetFilledAmount)
+
+IRs:
+REF_98(uint256) -> fillResults.makerAssetFilledAmount
+INTERNAL_CALL, MixinExchangeCore.assertValidFill(LibOrder.Order,LibOrder.OrderInfo,uint256,uint256,uint256)(order,orderInfo,takerAssetFillAmount,takerAssetFilledAmount,REF_98)"];
+6->7;
+7[label="Node Type: EXPRESSION 7
+
+EXPRESSION:
+fillResults = calculateFillResults(order,takerAssetFilledAmount)
+
+IRs:
+TMP_309(LibFillResults.FillResults) = INTERNAL_CALL, MixinExchangeCore.calculateFillResults(LibOrder.Order,uint256)(order,takerAssetFilledAmount)
+fillResults(LibFillResults.FillResults) := TMP_309(LibFillResults.FillResults)"];
+7->8;
+8[label="Node Type: EXPRESSION 8
+
+EXPRESSION:
+updateFilledState(order,takerAddress,orderInfo.orderHash,orderInfo.orderTakerAssetFilledAmount,fillResults)
+
+IRs:
+REF_99(bytes32) -> orderInfo.orderHash
+REF_100(uint256) -> orderInfo.orderTakerAssetFilledAmount
+INTERNAL_CALL, MixinExchangeCore.updateFilledState(LibOrder.Order,address,bytes32,uint256,LibFillResults.FillResults)(order,takerAddress,REF_99,REF_100,fillResults)"];
+8->9;
+9[label="Node Type: EXPRESSION 9
+
+EXPRESSION:
+settleOrder(order,takerAddress,fillResults)
+
+IRs:
+INTERNAL_CALL, MixinExchangeCore.settleOrder(LibOrder.Order,address,LibFillResults.FillResults)(order,takerAddress,fillResults)"];
+9->10;
+10[label="Node Type: RETURN 10
+
+EXPRESSION:
+fillResults
+
+IRs:
+RETURN fillResults"];
+}

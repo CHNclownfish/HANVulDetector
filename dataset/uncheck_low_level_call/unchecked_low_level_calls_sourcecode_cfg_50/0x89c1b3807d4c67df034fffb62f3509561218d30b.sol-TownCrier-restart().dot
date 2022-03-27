@@ -1,0 +1,29 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: IF 1
+
+EXPRESSION:
+msg.sender == requests[0].requester && newVersion == 0
+
+IRs:
+REF_8(TownCrier.Request) -> requests[0]
+REF_9(address) -> REF_8.requester
+TMP_13(bool) = msg.sender == REF_9
+TMP_14(bool) = newVersion == 0
+TMP_15(bool) = TMP_13 && TMP_14
+CONDITION TMP_15"];
+1->2[label="True"];
+1->3[label="False"];
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+killswitch = false
+
+IRs:
+killswitch(bool) := False(bool)"];
+2->3;
+3[label="Node Type: END_IF 3
+"];
+}

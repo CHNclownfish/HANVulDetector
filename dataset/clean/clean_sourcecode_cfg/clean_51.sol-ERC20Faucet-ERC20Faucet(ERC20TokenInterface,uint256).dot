@@ -1,0 +1,28 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+mOwner = msg.sender
+
+IRs:
+mOwner(address) := msg.sender(address)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+maxAllowanceInclusive = _maxAllowanceInclusive
+
+IRs:
+maxAllowanceInclusive(uint256) := _maxAllowanceInclusive(uint256)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+erc20Contract = _erc20ContractAddress
+
+IRs:
+erc20Contract(ERC20TokenInterface) := _erc20ContractAddress(ERC20TokenInterface)"];
+}

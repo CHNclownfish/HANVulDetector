@@ -1,0 +1,17 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(_amount + totalSupply_ < MAXIMUM_SUPPLY)
+
+IRs:
+TMP_185(uint256) = _amount + totalSupply_
+TMP_186(bool) = TMP_185 < MAXIMUM_SUPPLY
+TMP_187(None) = SOLIDITY_CALL require(bool)(TMP_186)"];
+1->2;
+2[label="Node Type: _ 2
+"];
+}

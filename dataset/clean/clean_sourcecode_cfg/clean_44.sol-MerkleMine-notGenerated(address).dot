@@ -1,0 +1,17 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(! generated[_recipient])
+
+IRs:
+REF_14(bool) -> generated[_recipient]
+TMP_62 = ! REF_14 
+TMP_63(None) = SOLIDITY_CALL require(bool)(TMP_62)"];
+1->2;
+2[label="Node Type: _ 2
+"];
+}

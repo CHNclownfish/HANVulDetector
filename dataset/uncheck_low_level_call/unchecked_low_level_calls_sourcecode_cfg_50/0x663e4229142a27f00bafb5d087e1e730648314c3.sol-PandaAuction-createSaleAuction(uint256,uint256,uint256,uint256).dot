@@ -1,0 +1,47 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->5;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(_owns(msg.sender,_pandaId))
+
+IRs:
+TMP_1624(bool) = INTERNAL_CALL, PandaOwnership._owns(address,uint256)(msg.sender,_pandaId)
+TMP_1625(None) = SOLIDITY_CALL require(bool)(TMP_1624)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(! isPregnant(_pandaId))
+
+IRs:
+TMP_1626(bool) = INTERNAL_CALL, PandaBreeding.isPregnant(uint256)(_pandaId)
+TMP_1627 = ! TMP_1626 
+TMP_1628(None) = SOLIDITY_CALL require(bool)(TMP_1627)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+_approve(_pandaId,saleAuction)
+
+IRs:
+INTERNAL_CALL, PandaOwnership._approve(uint256,address)(_pandaId,saleAuction)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+saleAuction.createAuction(_pandaId,_startingPrice,_endingPrice,_duration,msg.sender)
+
+IRs:
+HIGH_LEVEL_CALL, dest:saleAuction(SaleClockAuction), function:createAuction, arguments:['_pandaId', '_startingPrice', '_endingPrice', '_duration', 'msg.sender']  "];
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+whenNotPaused()
+
+IRs:
+MODIFIER_CALL, PandaAccessControl.whenNotPaused()()"];
+5->1;
+}

@@ -1,0 +1,25 @@
+digraph{
+0[label="Node Type: OTHER_ENTRYPOINT 0
+
+EXPRESSION:
+blocksPerRound = 6800
+
+IRs:
+blocksPerRound(uint256) := 6800(uint256)"];
+0->1;
+1[label="Node Type: OTHER_ENTRYPOINT 1
+
+EXPRESSION:
+ticketPrice = 100000000000000000
+
+IRs:
+ticketPrice(uint256) := 100000000000000000(uint256)"];
+1->2;
+2[label="Node Type: OTHER_ENTRYPOINT 2
+
+EXPRESSION:
+blockReward = 5000000000000000000
+
+IRs:
+blockReward(uint256) := 5000000000000000000(uint256)"];
+}

@@ -1,0 +1,51 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(_matronId > 0)
+
+IRs:
+TMP_552(bool) = _matronId > 0
+TMP_553(None) = SOLIDITY_CALL require(bool)(TMP_552)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(_sireId > 0)
+
+IRs:
+TMP_554(bool) = _sireId > 0
+TMP_555(None) = SOLIDITY_CALL require(bool)(TMP_554)"];
+2->3;
+3[label="Node Type: NEW VARIABLE 3
+
+EXPRESSION:
+matron = pandas[_matronId]
+
+IRs:
+REF_143(PandaBase.Panda) -> pandas[_matronId]
+matron(PandaBase.Panda) := REF_143(PandaBase.Panda)"];
+3->4;
+4[label="Node Type: NEW VARIABLE 4
+
+EXPRESSION:
+sire = pandas[_sireId]
+
+IRs:
+REF_144(PandaBase.Panda) -> pandas[_sireId]
+sire(PandaBase.Panda) := REF_144(PandaBase.Panda)"];
+4->5;
+5[label="Node Type: RETURN 5
+
+EXPRESSION:
+_isValidMatingPair(matron,_matronId,sire,_sireId) && _isSiringPermitted(_sireId,_matronId)
+
+IRs:
+TMP_556(bool) = INTERNAL_CALL, PandaBreeding._isValidMatingPair(PandaBase.Panda,uint256,PandaBase.Panda,uint256)(matron,_matronId,sire,_sireId)
+TMP_557(bool) = INTERNAL_CALL, PandaBreeding._isSiringPermitted(uint256,uint256)(_sireId,_matronId)
+TMP_558(bool) = TMP_556 && TMP_557
+RETURN TMP_558"];
+}

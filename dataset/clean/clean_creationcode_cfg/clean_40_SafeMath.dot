@@ -1,0 +1,9 @@
+digraph G {
+bgcolor=transparent rankdir=UD;
+node [shape=box style=filled color=black fillcolor=white fontname=arial fontcolor=black];
+5 [label="5: JUMPDEST\l6: INVALID\l" shape=Msquare color=crimson ];
+7 [label="7: EXIT BLOCK\l" fillcolor=crimson ];
+0 [label="0: PUSH1 0x60\l2: PUSH1 0x40\l4: MSTORE\l" fillcolor=lemonchiffon shape=Msquare fillcolor=gold ];
+5 -> 7;
+0 -> 5;
+}

@@ -1,0 +1,33 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+sourceLen = source.length
+
+IRs:
+REF_23 -> LENGTH source
+sourceLen(uint256) := REF_23(uint256)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool,string)(dest.length >= sourceLen,GREATER_OR_EQUAL_TO_SOURCE_BYTES_LENGTH_REQUIRED)
+
+IRs:
+REF_24 -> LENGTH dest
+TMP_62(bool) = REF_24 >= sourceLen
+TMP_63(None) = SOLIDITY_CALL require(bool,string)(TMP_62,GREATER_OR_EQUAL_TO_SOURCE_BYTES_LENGTH_REQUIRED)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+memCopy(dest.contentAddress(),source.contentAddress(),sourceLen)
+
+IRs:
+TMP_64(uint256) = LIBRARY_CALL, dest:LibBytes, function:LibBytes.contentAddress(bytes), arguments:['dest'] 
+TMP_65(uint256) = LIBRARY_CALL, dest:LibBytes, function:LibBytes.contentAddress(bytes), arguments:['source'] 
+INTERNAL_CALL, LibBytes.memCopy(uint256,uint256,uint256)(TMP_64,TMP_65,sourceLen)"];
+}

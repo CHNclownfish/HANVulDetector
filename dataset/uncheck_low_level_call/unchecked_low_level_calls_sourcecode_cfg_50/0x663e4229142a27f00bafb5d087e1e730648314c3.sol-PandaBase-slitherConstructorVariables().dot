@@ -1,0 +1,34 @@
+digraph{
+0[label="Node Type: OTHER_ENTRYPOINT 0
+
+EXPRESSION:
+paused = false
+
+IRs:
+paused(bool) := False(bool)"];
+0->1;
+1[label="Node Type: OTHER_ENTRYPOINT 1
+
+EXPRESSION:
+cooldowns = (uint32(300),uint32(1800),uint32(7200),uint32(14400),uint32(28800),uint32(86400),uint32(172800),uint32(259200),uint32(604800))
+
+IRs:
+TMP_123 = CONVERT 300 to uint32
+TMP_124 = CONVERT 1800 to uint32
+TMP_125 = CONVERT 7200 to uint32
+TMP_126 = CONVERT 14400 to uint32
+TMP_127 = CONVERT 28800 to uint32
+TMP_128 = CONVERT 86400 to uint32
+TMP_129 = CONVERT 172800 to uint32
+TMP_130 = CONVERT 259200 to uint32
+TMP_131 = CONVERT 604800 to uint32
+cooldowns(uint32[9]) =  ['TMP_123', 'TMP_124', 'TMP_125', 'TMP_126', 'TMP_127', 'TMP_128', 'TMP_129', 'TMP_130', 'TMP_131']"];
+1->2;
+2[label="Node Type: OTHER_ENTRYPOINT 2
+
+EXPRESSION:
+secondsPerBlock = 15
+
+IRs:
+secondsPerBlock(uint256) := 15(uint256)"];
+}

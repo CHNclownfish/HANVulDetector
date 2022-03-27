@@ -1,0 +1,98 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(contractactive == true)
+
+IRs:
+TMP_115(bool) = contractactive == True
+TMP_116(None) = SOLIDITY_CALL require(bool)(TMP_115)"];
+1->2;
+2[label="Node Type: NEW VARIABLE 2
+
+EXPRESSION:
+owncount = getHashOwnersCount(hash)
+
+IRs:
+TMP_117(uint256) = INTERNAL_CALL, digitalNotary.getHashOwnersCount(bytes32)(hash)
+owncount(uint256) := TMP_117(uint256)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+require(bool)(owncount > 0)
+
+IRs:
+TMP_118(bool) = owncount > 0
+TMP_119(None) = SOLIDITY_CALL require(bool)(TMP_118)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+require(bool)(msg.sender == HashList[hash][owncount - 1].owner)
+
+IRs:
+REF_85(digitalNotary.HashRegistration[]) -> HashList[hash]
+TMP_120(uint256) = owncount - 1
+REF_86(digitalNotary.HashRegistration) -> REF_85[TMP_120]
+REF_87(address) -> REF_86.owner
+TMP_121(bool) = msg.sender == REF_87
+TMP_122(None) = SOLIDITY_CALL require(bool)(TMP_121)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+require(bool)(msg.value == changehashownerfee)
+
+IRs:
+TMP_123(bool) = msg.value == changehashownerfee
+TMP_124(None) = SOLIDITY_CALL require(bool)(TMP_123)"];
+5->6;
+6[label="Node Type: NEW VARIABLE 6
+"];
+6->7;
+7[label="Node Type: EXPRESSION 7
+
+EXPRESSION:
+thisregistration.owner = newowner
+
+IRs:
+REF_88(address) -> thisregistration.owner
+REF_88 (->thisregistration) := newowner(address)"];
+7->8;
+8[label="Node Type: EXPRESSION 8
+
+EXPRESSION:
+thisregistration.registrationtime = now
+
+IRs:
+REF_89(uint256) -> thisregistration.registrationtime
+REF_89 (->thisregistration) := now(uint256)"];
+8->9;
+9[label="Node Type: EXPRESSION 9
+
+EXPRESSION:
+HashList[hash].push(thisregistration)
+
+IRs:
+REF_90(digitalNotary.HashRegistration[]) -> HashList[hash]
+REF_92 -> LENGTH REF_90
+TMP_126(uint256) := REF_92(uint256)
+TMP_127(uint256) = TMP_126 + 1
+REF_92 (->HashList) := TMP_127(uint256)
+REF_93(digitalNotary.HashRegistration) -> REF_90[TMP_126]
+REF_93 (->HashList) := thisregistration(digitalNotary.HashRegistration)"];
+9->10;
+10[label="Node Type: EXPRESSION 10
+
+EXPRESSION:
+ChangeHashOwnershipEvent(msg.sender,thisregistration.owner,hash,thisregistration.registrationtime)
+
+IRs:
+REF_94(address) -> thisregistration.owner
+REF_95(uint256) -> thisregistration.registrationtime
+Emit ChangeHashOwnershipEvent(msg.sender.REF_94.hash.REF_95)"];
+}

@@ -1,0 +1,86 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(value <= _balances[from])
+
+IRs:
+REF_12(uint256) -> _balances[from]
+TMP_29(bool) = value <= REF_12
+TMP_30(None) = SOLIDITY_CALL require(bool)(TMP_29)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(value <= _allowed[from][msg.sender])
+
+IRs:
+REF_13(mapping(address => uint256)) -> _allowed[from]
+REF_14(uint256) -> REF_13[msg.sender]
+TMP_31(bool) = value <= REF_14
+TMP_32(None) = SOLIDITY_CALL require(bool)(TMP_31)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+require(bool)(to != address(0))
+
+IRs:
+TMP_33 = CONVERT 0 to address
+TMP_34(bool) = to != TMP_33
+TMP_35(None) = SOLIDITY_CALL require(bool)(TMP_34)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+_balances[from] = _balances[from].sub(value)
+
+IRs:
+REF_15(uint256) -> _balances[from]
+REF_16(uint256) -> _balances[from]
+TMP_36(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_16', 'value'] 
+REF_15 (->_balances) := TMP_36(uint256)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+_balances[to] = _balances[to].add(value)
+
+IRs:
+REF_18(uint256) -> _balances[to]
+REF_19(uint256) -> _balances[to]
+TMP_37(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_19', 'value'] 
+REF_18 (->_balances) := TMP_37(uint256)"];
+5->6;
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+_allowed[from][msg.sender] = _allowed[from][msg.sender].sub(value)
+
+IRs:
+REF_21(mapping(address => uint256)) -> _allowed[from]
+REF_22(uint256) -> REF_21[msg.sender]
+REF_23(mapping(address => uint256)) -> _allowed[from]
+REF_24(uint256) -> REF_23[msg.sender]
+TMP_38(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_24', 'value'] 
+REF_22 (->_allowed) := TMP_38(uint256)"];
+6->7;
+7[label="Node Type: EXPRESSION 7
+
+EXPRESSION:
+Transfer(from,to,value)
+
+IRs:
+Emit Transfer(from.to.value)"];
+7->8;
+8[label="Node Type: RETURN 8
+
+EXPRESSION:
+true
+
+IRs:
+RETURN True"];
+}

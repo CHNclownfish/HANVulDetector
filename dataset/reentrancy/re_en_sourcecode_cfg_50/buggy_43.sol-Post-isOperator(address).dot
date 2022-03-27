@@ -1,0 +1,14 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: RETURN 1
+
+EXPRESSION:
+(caller == getOperator())
+
+IRs:
+TMP_231(address) = INTERNAL_CALL, Operated.getOperator()()
+TMP_232(bool) = caller == TMP_231
+RETURN TMP_232"];
+}

@@ -1,0 +1,40 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+myAddress = this
+
+IRs:
+myAddress(address) := this(address)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(myAddress.balance >= amount * sellPrice)
+
+IRs:
+REF_59 -> BALANCE myAddress
+TMP_87(uint256) = amount * sellPrice
+TMP_88(bool) = REF_59 >= TMP_87
+TMP_89(None) = SOLIDITY_CALL require(bool)(TMP_88)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+_transfer(msg.sender,this,amount)
+
+IRs:
+INTERNAL_CALL, MyAdvancedToken._transfer(address,address,uint256)(msg.sender,this,amount)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+msg.sender.transfer(amount * sellPrice)
+
+IRs:
+TMP_91(uint256) = amount * sellPrice
+Transfer dest:msg.sender value:TMP_91"];
+}

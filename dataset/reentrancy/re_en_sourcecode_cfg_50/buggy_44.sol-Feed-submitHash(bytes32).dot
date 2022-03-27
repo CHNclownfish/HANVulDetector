@@ -1,0 +1,23 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool,string)(Template.isCreator(msg.sender) || Operated.isActiveOperator(msg.sender),only active operator or creator)
+
+IRs:
+TMP_286(bool) = INTERNAL_CALL, Template.isCreator(address)(msg.sender)
+TMP_287(bool) = INTERNAL_CALL, Operated.isActiveOperator(address)(msg.sender)
+TMP_288(bool) = TMP_286 || TMP_287
+TMP_289(None) = SOLIDITY_CALL require(bool,string)(TMP_288,only active operator or creator)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+ProofHashes._submitHash(multihash)
+
+IRs:
+INTERNAL_CALL, ProofHashes._submitHash(bytes32)(multihash)"];
+}

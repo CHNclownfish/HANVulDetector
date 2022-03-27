@@ -1,0 +1,12 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+eventsHistory.emitError(_message)
+
+IRs:
+HIGH_LEVEL_CALL, dest:eventsHistory(Emitter), function:emitError, arguments:['_message']  "];
+}

@@ -1,0 +1,63 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+_allowance = allowed[_from][msg.sender]
+
+IRs:
+REF_4(mapping(address => uint256)) -> allowed[_from]
+REF_5(uint256) -> REF_4[msg.sender]
+_allowance(uint256) := REF_5(uint256)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+balances[_to] = safeAdd(balances[_to],_value)
+
+IRs:
+REF_6(uint256) -> balances[_to]
+REF_7(uint256) -> balances[_to]
+TMP_57(uint256) = INTERNAL_CALL, SafeMath.safeAdd(uint256,uint256)(REF_7,_value)
+REF_6 (->balances) := TMP_57(uint256)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+balances[_from] = safeSub(balances[_from],_value)
+
+IRs:
+REF_8(uint256) -> balances[_from]
+REF_9(uint256) -> balances[_from]
+TMP_58(uint256) = INTERNAL_CALL, SafeMath.safeSub(uint256,uint256)(REF_9,_value)
+REF_8 (->balances) := TMP_58(uint256)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+allowed[_from][msg.sender] = safeSub(_allowance,_value)
+
+IRs:
+REF_10(mapping(address => uint256)) -> allowed[_from]
+REF_11(uint256) -> REF_10[msg.sender]
+TMP_59(uint256) = INTERNAL_CALL, SafeMath.safeSub(uint256,uint256)(_allowance,_value)
+REF_11 (->allowed) := TMP_59(uint256)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+Transfer(_from,_to,_value)
+
+IRs:
+Emit Transfer(_from._to._value)"];
+5->6;
+6[label="Node Type: RETURN 6
+
+EXPRESSION:
+true
+
+IRs:
+RETURN True"];
+}

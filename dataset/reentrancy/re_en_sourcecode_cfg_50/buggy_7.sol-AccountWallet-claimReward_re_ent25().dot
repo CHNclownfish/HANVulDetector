@@ -1,0 +1,40 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(redeemableEther_re_ent25[msg.sender] > 0)
+
+IRs:
+REF_102(uint256) -> redeemableEther_re_ent25[msg.sender]
+TMP_159(bool) = REF_102 > 0
+TMP_160(None) = SOLIDITY_CALL require(bool)(TMP_159)"];
+1->2;
+2[label="Node Type: NEW VARIABLE 2
+
+EXPRESSION:
+transferValue_re_ent25 = redeemableEther_re_ent25[msg.sender]
+
+IRs:
+REF_103(uint256) -> redeemableEther_re_ent25[msg.sender]
+transferValue_re_ent25(uint256) := REF_103(uint256)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+msg.sender.transfer(transferValue_re_ent25)
+
+IRs:
+Transfer dest:msg.sender value:transferValue_re_ent25"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+redeemableEther_re_ent25[msg.sender] = 0
+
+IRs:
+REF_105(uint256) -> redeemableEther_re_ent25[msg.sender]
+REF_105 (->redeemableEther_re_ent25) := 0(uint256)"];
+}

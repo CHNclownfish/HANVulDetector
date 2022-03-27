@@ -1,0 +1,32 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->3;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+allowed[overdraftAllocation][msg.sender] = allowance(overdraftAllocation,msg.sender)
+
+IRs:
+REF_88(mapping(address => uint256)) -> allowed[overdraftAllocation]
+REF_89(uint256) -> REF_88[msg.sender]
+TMP_165(uint256) = INTERNAL_CALL, NexoToken.allowance(address,address)(overdraftAllocation,msg.sender)
+REF_89 (->allowed) := TMP_165(uint256)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(transferFrom(overdraftAllocation,_to,_amountWithDecimals))
+
+IRs:
+TMP_166(bool) = INTERNAL_CALL, StandardToken.transferFrom(address,address,uint256)(overdraftAllocation,_to,_amountWithDecimals)
+TMP_167(None) = SOLIDITY_CALL require(bool)(TMP_166)"];
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+onlyOwner()
+
+IRs:
+MODIFIER_CALL, Owned.onlyOwner()()"];
+3->1;
+}

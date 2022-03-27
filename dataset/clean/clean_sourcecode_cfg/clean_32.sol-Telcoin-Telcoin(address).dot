@@ -1,0 +1,21 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+balances[_distributor] = totalSupply
+
+IRs:
+REF_0(uint256) -> balances[_distributor]
+REF_0 (->balances) := totalSupply(uint256)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+Transfer(0x0,_distributor,totalSupply)
+
+IRs:
+Emit Transfer(0._distributor.totalSupply)"];
+}

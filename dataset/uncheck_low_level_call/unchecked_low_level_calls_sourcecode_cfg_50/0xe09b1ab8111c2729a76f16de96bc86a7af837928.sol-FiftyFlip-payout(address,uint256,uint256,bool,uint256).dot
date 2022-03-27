@@ -1,0 +1,20 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+winner.transfer(ethToTransfer)
+
+IRs:
+Transfer dest:winner value:ethToTransfer"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+Win(winner,ethToTransfer,ticketID,maskRes,jackpotRes)
+
+IRs:
+Emit Win(winner.ethToTransfer.ticketID.maskRes.jackpotRes)"];
+}

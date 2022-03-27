@@ -1,0 +1,175 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(msg.sender != to)
+
+IRs:
+TMP_66(bool) = msg.sender != to
+TMP_67(None) = SOLIDITY_CALL require(bool)(TMP_66)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(value > 0)
+
+IRs:
+TMP_68(bool) = value > 0
+TMP_69(None) = SOLIDITY_CALL require(bool)(TMP_68)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+require(bool)(balances[msg.sender] >= value)
+
+IRs:
+REF_46(uint256) -> balances[msg.sender]
+TMP_70(bool) = REF_46 >= value
+TMP_71(None) = SOLIDITY_CALL require(bool)(TMP_70)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+require(bool)(balances[to] + value >= balances[to])
+
+IRs:
+REF_47(uint256) -> balances[to]
+TMP_72(uint256) = REF_47 + value
+REF_48(uint256) -> balances[to]
+TMP_73(bool) = TMP_72 >= REF_48
+TMP_74(None) = SOLIDITY_CALL require(bool)(TMP_73)"];
+4->5;
+5[label="Node Type: IF 5
+
+EXPRESSION:
+msg.sender == team
+
+IRs:
+TMP_75(bool) = msg.sender == team
+CONDITION TMP_75"];
+5->6[label="True"];
+5->16[label="False"];
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+require(bool)(now >= 1589036400)
+
+IRs:
+TMP_76(bool) = now >= 1589036400
+TMP_77(None) = SOLIDITY_CALL require(bool)(TMP_76)"];
+6->7;
+7[label="Node Type: IF 7
+
+EXPRESSION:
+balances[msg.sender] - value < toWei(600000000)
+
+IRs:
+REF_49(uint256) -> balances[msg.sender]
+TMP_78(uint256) = REF_49 - value
+TMP_79(uint256) = INTERNAL_CALL, PHO.toWei(uint256)(600000000)
+TMP_80(bool) = TMP_78 < TMP_79
+CONDITION TMP_80"];
+7->8[label="True"];
+7->9[label="False"];
+8[label="Node Type: EXPRESSION 8
+
+EXPRESSION:
+require(bool)(now >= 1620572400)
+
+IRs:
+TMP_81(bool) = now >= 1620572400
+TMP_82(None) = SOLIDITY_CALL require(bool)(TMP_81)"];
+8->9;
+9[label="Node Type: END_IF 9
+"];
+9->10;
+10[label="Node Type: IF 10
+
+EXPRESSION:
+balances[msg.sender] - value < toWei(400000000)
+
+IRs:
+REF_50(uint256) -> balances[msg.sender]
+TMP_83(uint256) = REF_50 - value
+TMP_84(uint256) = INTERNAL_CALL, PHO.toWei(uint256)(400000000)
+TMP_85(bool) = TMP_83 < TMP_84
+CONDITION TMP_85"];
+10->11[label="True"];
+10->12[label="False"];
+11[label="Node Type: EXPRESSION 11
+
+EXPRESSION:
+require(bool)(now >= 1652108400)
+
+IRs:
+TMP_86(bool) = now >= 1652108400
+TMP_87(None) = SOLIDITY_CALL require(bool)(TMP_86)"];
+11->12;
+12[label="Node Type: END_IF 12
+"];
+12->13;
+13[label="Node Type: IF 13
+
+EXPRESSION:
+balances[msg.sender] - value < toWei(200000000)
+
+IRs:
+REF_51(uint256) -> balances[msg.sender]
+TMP_88(uint256) = REF_51 - value
+TMP_89(uint256) = INTERNAL_CALL, PHO.toWei(uint256)(200000000)
+TMP_90(bool) = TMP_88 < TMP_89
+CONDITION TMP_90"];
+13->14[label="True"];
+13->15[label="False"];
+14[label="Node Type: EXPRESSION 14
+
+EXPRESSION:
+require(bool)(now >= 1683644400)
+
+IRs:
+TMP_91(bool) = now >= 1683644400
+TMP_92(None) = SOLIDITY_CALL require(bool)(TMP_91)"];
+14->15;
+15[label="Node Type: END_IF 15
+"];
+15->16;
+16[label="Node Type: END_IF 16
+"];
+16->17;
+17[label="Node Type: EXPRESSION 17
+
+EXPRESSION:
+balances[msg.sender] -= value
+
+IRs:
+REF_52(uint256) -> balances[msg.sender]
+REF_52(-> balances) = REF_52 - value"];
+17->18;
+18[label="Node Type: EXPRESSION 18
+
+EXPRESSION:
+balances[to] += value
+
+IRs:
+REF_53(uint256) -> balances[to]
+REF_53(-> balances) = REF_53 + value"];
+18->19;
+19[label="Node Type: EXPRESSION 19
+
+EXPRESSION:
+Transfer(msg.sender,to,value)
+
+IRs:
+Emit Transfer(msg.sender.to.value)"];
+19->20;
+20[label="Node Type: RETURN 20
+
+EXPRESSION:
+true
+
+IRs:
+RETURN True"];
+}

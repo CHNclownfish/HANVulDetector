@@ -1,0 +1,55 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+zrxAssetData = ZRX_ASSET_DATA
+
+IRs:
+zrxAssetData(bytes) := ZRX_ASSET_DATA(bytes)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+dispatchTransferFrom(order.makerAssetData,order.makerAddress,takerAddress,fillResults.makerAssetFilledAmount)
+
+IRs:
+REF_146(bytes) -> order.makerAssetData
+REF_147(address) -> order.makerAddress
+REF_148(uint256) -> fillResults.makerAssetFilledAmount
+INTERNAL_CALL, MAssetProxyDispatcher.dispatchTransferFrom(bytes,address,address,uint256)(REF_146,REF_147,takerAddress,REF_148)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+dispatchTransferFrom(order.takerAssetData,takerAddress,order.makerAddress,fillResults.takerAssetFilledAmount)
+
+IRs:
+REF_149(bytes) -> order.takerAssetData
+REF_150(address) -> order.makerAddress
+REF_151(uint256) -> fillResults.takerAssetFilledAmount
+INTERNAL_CALL, MAssetProxyDispatcher.dispatchTransferFrom(bytes,address,address,uint256)(REF_149,takerAddress,REF_150,REF_151)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+dispatchTransferFrom(zrxAssetData,order.makerAddress,order.feeRecipientAddress,fillResults.makerFeePaid)
+
+IRs:
+REF_152(address) -> order.makerAddress
+REF_153(address) -> order.feeRecipientAddress
+REF_154(uint256) -> fillResults.makerFeePaid
+INTERNAL_CALL, MAssetProxyDispatcher.dispatchTransferFrom(bytes,address,address,uint256)(zrxAssetData,REF_152,REF_153,REF_154)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+dispatchTransferFrom(zrxAssetData,takerAddress,order.feeRecipientAddress,fillResults.takerFeePaid)
+
+IRs:
+REF_155(address) -> order.feeRecipientAddress
+REF_156(uint256) -> fillResults.takerFeePaid
+INTERNAL_CALL, MAssetProxyDispatcher.dispatchTransferFrom(bytes,address,address,uint256)(zrxAssetData,takerAddress,REF_155,REF_156)"];
+}

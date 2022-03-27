@@ -1,0 +1,235 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+leftTakerAssetAmountRemaining = safeSub(leftOrder.takerAssetAmount,leftOrderTakerAssetFilledAmount)
+
+IRs:
+REF_310(uint256) -> leftOrder.takerAssetAmount
+TMP_675(uint256) = INTERNAL_CALL, SafeMath.safeSub(uint256,uint256)(REF_310,leftOrderTakerAssetFilledAmount)
+leftTakerAssetAmountRemaining(uint256) := TMP_675(uint256)"];
+1->2;
+2[label="Node Type: NEW VARIABLE 2
+
+EXPRESSION:
+leftMakerAssetAmountRemaining = safeGetPartialAmountFloor(leftOrder.makerAssetAmount,leftOrder.takerAssetAmount,leftTakerAssetAmountRemaining)
+
+IRs:
+REF_311(uint256) -> leftOrder.makerAssetAmount
+REF_312(uint256) -> leftOrder.takerAssetAmount
+TMP_676(uint256) = INTERNAL_CALL, LibMath.safeGetPartialAmountFloor(uint256,uint256,uint256)(REF_311,REF_312,leftTakerAssetAmountRemaining)
+leftMakerAssetAmountRemaining(uint256) := TMP_676(uint256)"];
+2->3;
+3[label="Node Type: NEW VARIABLE 3
+
+EXPRESSION:
+rightTakerAssetAmountRemaining = safeSub(rightOrder.takerAssetAmount,rightOrderTakerAssetFilledAmount)
+
+IRs:
+REF_313(uint256) -> rightOrder.takerAssetAmount
+TMP_677(uint256) = INTERNAL_CALL, SafeMath.safeSub(uint256,uint256)(REF_313,rightOrderTakerAssetFilledAmount)
+rightTakerAssetAmountRemaining(uint256) := TMP_677(uint256)"];
+3->4;
+4[label="Node Type: NEW VARIABLE 4
+
+EXPRESSION:
+rightMakerAssetAmountRemaining = safeGetPartialAmountFloor(rightOrder.makerAssetAmount,rightOrder.takerAssetAmount,rightTakerAssetAmountRemaining)
+
+IRs:
+REF_314(uint256) -> rightOrder.makerAssetAmount
+REF_315(uint256) -> rightOrder.takerAssetAmount
+TMP_678(uint256) = INTERNAL_CALL, LibMath.safeGetPartialAmountFloor(uint256,uint256,uint256)(REF_314,REF_315,rightTakerAssetAmountRemaining)
+rightMakerAssetAmountRemaining(uint256) := TMP_678(uint256)"];
+4->5;
+5[label="Node Type: IF 5
+
+EXPRESSION:
+leftTakerAssetAmountRemaining >= rightMakerAssetAmountRemaining
+
+IRs:
+TMP_679(bool) = leftTakerAssetAmountRemaining >= rightMakerAssetAmountRemaining
+CONDITION TMP_679"];
+5->6[label="True"];
+5->10[label="False"];
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+matchedFillResults.right.makerAssetFilledAmount = rightMakerAssetAmountRemaining
+
+IRs:
+REF_316(LibFillResults.FillResults) -> matchedFillResults.right
+REF_317(uint256) -> REF_316.makerAssetFilledAmount
+REF_317 (->matchedFillResults) := rightMakerAssetAmountRemaining(uint256)"];
+6->7;
+7[label="Node Type: EXPRESSION 7
+
+EXPRESSION:
+matchedFillResults.right.takerAssetFilledAmount = rightTakerAssetAmountRemaining
+
+IRs:
+REF_318(LibFillResults.FillResults) -> matchedFillResults.right
+REF_319(uint256) -> REF_318.takerAssetFilledAmount
+REF_319 (->matchedFillResults) := rightTakerAssetAmountRemaining(uint256)"];
+7->8;
+8[label="Node Type: EXPRESSION 8
+
+EXPRESSION:
+matchedFillResults.left.takerAssetFilledAmount = matchedFillResults.right.makerAssetFilledAmount
+
+IRs:
+REF_320(LibFillResults.FillResults) -> matchedFillResults.left
+REF_321(uint256) -> REF_320.takerAssetFilledAmount
+REF_322(LibFillResults.FillResults) -> matchedFillResults.right
+REF_323(uint256) -> REF_322.makerAssetFilledAmount
+REF_321 (->matchedFillResults) := REF_323(uint256)"];
+8->9;
+9[label="Node Type: EXPRESSION 9
+
+EXPRESSION:
+matchedFillResults.left.makerAssetFilledAmount = safeGetPartialAmountFloor(leftOrder.makerAssetAmount,leftOrder.takerAssetAmount,matchedFillResults.left.takerAssetFilledAmount)
+
+IRs:
+REF_324(LibFillResults.FillResults) -> matchedFillResults.left
+REF_325(uint256) -> REF_324.makerAssetFilledAmount
+REF_326(uint256) -> leftOrder.makerAssetAmount
+REF_327(uint256) -> leftOrder.takerAssetAmount
+REF_328(LibFillResults.FillResults) -> matchedFillResults.left
+REF_329(uint256) -> REF_328.takerAssetFilledAmount
+TMP_680(uint256) = INTERNAL_CALL, LibMath.safeGetPartialAmountFloor(uint256,uint256,uint256)(REF_326,REF_327,REF_329)
+REF_325 (->matchedFillResults) := TMP_680(uint256)"];
+9->14;
+10[label="Node Type: EXPRESSION 10
+
+EXPRESSION:
+matchedFillResults.left.makerAssetFilledAmount = leftMakerAssetAmountRemaining
+
+IRs:
+REF_330(LibFillResults.FillResults) -> matchedFillResults.left
+REF_331(uint256) -> REF_330.makerAssetFilledAmount
+REF_331 (->matchedFillResults) := leftMakerAssetAmountRemaining(uint256)"];
+10->11;
+11[label="Node Type: EXPRESSION 11
+
+EXPRESSION:
+matchedFillResults.left.takerAssetFilledAmount = leftTakerAssetAmountRemaining
+
+IRs:
+REF_332(LibFillResults.FillResults) -> matchedFillResults.left
+REF_333(uint256) -> REF_332.takerAssetFilledAmount
+REF_333 (->matchedFillResults) := leftTakerAssetAmountRemaining(uint256)"];
+11->12;
+12[label="Node Type: EXPRESSION 12
+
+EXPRESSION:
+matchedFillResults.right.makerAssetFilledAmount = matchedFillResults.left.takerAssetFilledAmount
+
+IRs:
+REF_334(LibFillResults.FillResults) -> matchedFillResults.right
+REF_335(uint256) -> REF_334.makerAssetFilledAmount
+REF_336(LibFillResults.FillResults) -> matchedFillResults.left
+REF_337(uint256) -> REF_336.takerAssetFilledAmount
+REF_335 (->matchedFillResults) := REF_337(uint256)"];
+12->13;
+13[label="Node Type: EXPRESSION 13
+
+EXPRESSION:
+matchedFillResults.right.takerAssetFilledAmount = safeGetPartialAmountCeil(rightOrder.takerAssetAmount,rightOrder.makerAssetAmount,matchedFillResults.right.makerAssetFilledAmount)
+
+IRs:
+REF_338(LibFillResults.FillResults) -> matchedFillResults.right
+REF_339(uint256) -> REF_338.takerAssetFilledAmount
+REF_340(uint256) -> rightOrder.takerAssetAmount
+REF_341(uint256) -> rightOrder.makerAssetAmount
+REF_342(LibFillResults.FillResults) -> matchedFillResults.right
+REF_343(uint256) -> REF_342.makerAssetFilledAmount
+TMP_681(uint256) = INTERNAL_CALL, LibMath.safeGetPartialAmountCeil(uint256,uint256,uint256)(REF_340,REF_341,REF_343)
+REF_339 (->matchedFillResults) := TMP_681(uint256)"];
+13->14;
+14[label="Node Type: END_IF 14
+"];
+14->15;
+15[label="Node Type: EXPRESSION 15
+
+EXPRESSION:
+matchedFillResults.leftMakerAssetSpreadAmount = safeSub(matchedFillResults.left.makerAssetFilledAmount,matchedFillResults.right.takerAssetFilledAmount)
+
+IRs:
+REF_344(uint256) -> matchedFillResults.leftMakerAssetSpreadAmount
+REF_345(LibFillResults.FillResults) -> matchedFillResults.left
+REF_346(uint256) -> REF_345.makerAssetFilledAmount
+REF_347(LibFillResults.FillResults) -> matchedFillResults.right
+REF_348(uint256) -> REF_347.takerAssetFilledAmount
+TMP_682(uint256) = INTERNAL_CALL, SafeMath.safeSub(uint256,uint256)(REF_346,REF_348)
+REF_344 (->matchedFillResults) := TMP_682(uint256)"];
+15->16;
+16[label="Node Type: EXPRESSION 16
+
+EXPRESSION:
+matchedFillResults.left.makerFeePaid = safeGetPartialAmountFloor(matchedFillResults.left.makerAssetFilledAmount,leftOrder.makerAssetAmount,leftOrder.makerFee)
+
+IRs:
+REF_349(LibFillResults.FillResults) -> matchedFillResults.left
+REF_350(uint256) -> REF_349.makerFeePaid
+REF_351(LibFillResults.FillResults) -> matchedFillResults.left
+REF_352(uint256) -> REF_351.makerAssetFilledAmount
+REF_353(uint256) -> leftOrder.makerAssetAmount
+REF_354(uint256) -> leftOrder.makerFee
+TMP_683(uint256) = INTERNAL_CALL, LibMath.safeGetPartialAmountFloor(uint256,uint256,uint256)(REF_352,REF_353,REF_354)
+REF_350 (->matchedFillResults) := TMP_683(uint256)"];
+16->17;
+17[label="Node Type: EXPRESSION 17
+
+EXPRESSION:
+matchedFillResults.left.takerFeePaid = safeGetPartialAmountFloor(matchedFillResults.left.takerAssetFilledAmount,leftOrder.takerAssetAmount,leftOrder.takerFee)
+
+IRs:
+REF_355(LibFillResults.FillResults) -> matchedFillResults.left
+REF_356(uint256) -> REF_355.takerFeePaid
+REF_357(LibFillResults.FillResults) -> matchedFillResults.left
+REF_358(uint256) -> REF_357.takerAssetFilledAmount
+REF_359(uint256) -> leftOrder.takerAssetAmount
+REF_360(uint256) -> leftOrder.takerFee
+TMP_684(uint256) = INTERNAL_CALL, LibMath.safeGetPartialAmountFloor(uint256,uint256,uint256)(REF_358,REF_359,REF_360)
+REF_356 (->matchedFillResults) := TMP_684(uint256)"];
+17->18;
+18[label="Node Type: EXPRESSION 18
+
+EXPRESSION:
+matchedFillResults.right.makerFeePaid = safeGetPartialAmountFloor(matchedFillResults.right.makerAssetFilledAmount,rightOrder.makerAssetAmount,rightOrder.makerFee)
+
+IRs:
+REF_361(LibFillResults.FillResults) -> matchedFillResults.right
+REF_362(uint256) -> REF_361.makerFeePaid
+REF_363(LibFillResults.FillResults) -> matchedFillResults.right
+REF_364(uint256) -> REF_363.makerAssetFilledAmount
+REF_365(uint256) -> rightOrder.makerAssetAmount
+REF_366(uint256) -> rightOrder.makerFee
+TMP_685(uint256) = INTERNAL_CALL, LibMath.safeGetPartialAmountFloor(uint256,uint256,uint256)(REF_364,REF_365,REF_366)
+REF_362 (->matchedFillResults) := TMP_685(uint256)"];
+18->19;
+19[label="Node Type: EXPRESSION 19
+
+EXPRESSION:
+matchedFillResults.right.takerFeePaid = safeGetPartialAmountFloor(matchedFillResults.right.takerAssetFilledAmount,rightOrder.takerAssetAmount,rightOrder.takerFee)
+
+IRs:
+REF_367(LibFillResults.FillResults) -> matchedFillResults.right
+REF_368(uint256) -> REF_367.takerFeePaid
+REF_369(LibFillResults.FillResults) -> matchedFillResults.right
+REF_370(uint256) -> REF_369.takerAssetFilledAmount
+REF_371(uint256) -> rightOrder.takerAssetAmount
+REF_372(uint256) -> rightOrder.takerFee
+TMP_686(uint256) = INTERNAL_CALL, LibMath.safeGetPartialAmountFloor(uint256,uint256,uint256)(REF_370,REF_371,REF_372)
+REF_368 (->matchedFillResults) := TMP_686(uint256)"];
+19->20;
+20[label="Node Type: RETURN 20
+
+EXPRESSION:
+matchedFillResults
+
+IRs:
+RETURN matchedFillResults"];
+}

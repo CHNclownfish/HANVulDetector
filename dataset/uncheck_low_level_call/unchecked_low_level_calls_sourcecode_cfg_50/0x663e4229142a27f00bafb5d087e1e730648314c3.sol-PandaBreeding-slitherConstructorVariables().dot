@@ -1,0 +1,42 @@
+digraph{
+0[label="Node Type: OTHER_ENTRYPOINT 0
+
+EXPRESSION:
+paused = false
+
+IRs:
+paused(bool) := False(bool)"];
+0->1;
+1[label="Node Type: OTHER_ENTRYPOINT 1
+
+EXPRESSION:
+cooldowns = (uint32(300),uint32(1800),uint32(7200),uint32(14400),uint32(28800),uint32(86400),uint32(172800),uint32(259200),uint32(604800))
+
+IRs:
+TMP_612 = CONVERT 300 to uint32
+TMP_613 = CONVERT 1800 to uint32
+TMP_614 = CONVERT 7200 to uint32
+TMP_615 = CONVERT 14400 to uint32
+TMP_616 = CONVERT 28800 to uint32
+TMP_617 = CONVERT 86400 to uint32
+TMP_618 = CONVERT 172800 to uint32
+TMP_619 = CONVERT 259200 to uint32
+TMP_620 = CONVERT 604800 to uint32
+cooldowns(uint32[9]) =  ['TMP_612', 'TMP_613', 'TMP_614', 'TMP_615', 'TMP_616', 'TMP_617', 'TMP_618', 'TMP_619', 'TMP_620']"];
+1->2;
+2[label="Node Type: OTHER_ENTRYPOINT 2
+
+EXPRESSION:
+secondsPerBlock = 15
+
+IRs:
+secondsPerBlock(uint256) := 15(uint256)"];
+2->3;
+3[label="Node Type: OTHER_ENTRYPOINT 3
+
+EXPRESSION:
+autoBirthFee = 2000000000000000
+
+IRs:
+autoBirthFee(uint256) := 2000000000000000(uint256)"];
+}

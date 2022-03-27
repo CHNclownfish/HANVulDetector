@@ -1,0 +1,84 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->9;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(majorEvents.length == 0)
+
+IRs:
+REF_6 -> LENGTH majorEvents
+TMP_12(bool) = REF_6 == 0
+TMP_13(None) = SOLIDITY_CALL require(bool)(TMP_12)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+partner1 = _partner1
+
+IRs:
+partner1(string) := _partner1(string)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+partner2 = _partner2
+
+IRs:
+partner2(string) := _partner2(string)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+marriageDate = now
+
+IRs:
+marriageDate(uint256) := now(uint256)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+vows = _vows
+
+IRs:
+vows(string) := _vows(string)"];
+5->6;
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+marriageStatus = Married
+
+IRs:
+marriageStatus(string) := Married(string)"];
+6->7;
+7[label="Node Type: EXPRESSION 7
+
+EXPRESSION:
+majorEvents.push(Event(now,Marriage,vows,url))
+
+IRs:
+TMP_14 = new Event(now,Marriage,vows,url)
+REF_8 -> LENGTH majorEvents
+TMP_16(uint256) := REF_8(uint256)
+TMP_17(uint256) = TMP_16 + 1
+REF_8 (->majorEvents) := TMP_17(uint256)
+REF_9(Marriage.Event) -> majorEvents[TMP_16]
+REF_9 (->majorEvents) := TMP_14(Marriage.Event)"];
+7->8;
+8[label="Node Type: EXPRESSION 8
+
+EXPRESSION:
+MajorEvent(Marrigage,vows,url)
+
+IRs:
+Emit MajorEvent(Marrigage.vows.url)"];
+9[label="Node Type: EXPRESSION 9
+
+EXPRESSION:
+onlyOwner()
+
+IRs:
+MODIFIER_CALL, Owned.onlyOwner()()"];
+9->1;
+}

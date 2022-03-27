@@ -1,0 +1,451 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->57;
+1[label="Node Type: BEGIN_LOOP 1
+"];
+1->4;
+2[label="Node Type: END_LOOP 2
+"];
+2->10;
+3[label="Node Type: NEW VARIABLE 3
+
+EXPRESSION:
+i = 0
+
+IRs:
+i(uint256) := 0(uint256)"];
+3->1;
+4[label="Node Type: IF_LOOP 4
+
+EXPRESSION:
+i < totalUserCount
+
+IRs:
+TMP_304(bool) = i < totalUserCount
+CONDITION TMP_304"];
+4->5[label="True"];
+4->2[label="False"];
+5[label="Node Type: NEW VARIABLE 5
+
+EXPRESSION:
+user = userMapping[addressMapping[i]]
+
+IRs:
+REF_392(address) -> addressMapping[i]
+REF_393(FomoFeast.User) -> userMapping[REF_392]
+user(FomoFeast.User) := REF_393(FomoFeast.User)"];
+5->6;
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+user.calcDynamicCommissionAmount = 0
+
+IRs:
+REF_394(uint256) -> user.calcDynamicCommissionAmount
+REF_394 (->user) := 0(uint256)"];
+6->7;
+7[label="Node Type: EXPRESSION 7
+
+EXPRESSION:
+++ i
+
+IRs:
+i(uint256) = i + 1"];
+7->4;
+8[label="Node Type: BEGIN_LOOP 8
+"];
+8->11;
+9[label="Node Type: END_LOOP 9
+"];
+9->48;
+10[label="Node Type: NEW VARIABLE 10
+
+EXPRESSION:
+i_scope_0 = 0
+
+IRs:
+i_scope_0(uint256) := 0(uint256)"];
+10->8;
+11[label="Node Type: IF_LOOP 11
+
+EXPRESSION:
+i_scope_0 < totalUserCount
+
+IRs:
+TMP_305(bool) = i_scope_0 < totalUserCount
+CONDITION TMP_305"];
+11->12[label="True"];
+11->9[label="False"];
+12[label="Node Type: NEW VARIABLE 12
+
+EXPRESSION:
+user_scope_1 = userMapping[addressMapping[i_scope_0]]
+
+IRs:
+REF_395(address) -> addressMapping[i_scope_0]
+REF_396(FomoFeast.User) -> userMapping[REF_395]
+user_scope_1(FomoFeast.User) := REF_396(FomoFeast.User)"];
+12->13;
+13[label="Node Type: IF 13
+
+EXPRESSION:
+user_scope_1.currentInvestAmount > 0
+
+IRs:
+REF_397(uint256) -> user_scope_1.currentInvestAmount
+TMP_306(bool) = REF_397 > 0
+CONDITION TMP_306"];
+13->14[label="True"];
+13->44[label="False"];
+14[label="Node Type: NEW VARIABLE 14
+
+EXPRESSION:
+commissionDays = now.sub(user_scope_1.currentInvestTime).div(ONE_DAY)
+
+IRs:
+REF_399(uint256) -> user_scope_1.currentInvestTime
+TMP_307(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['now', 'REF_399'] 
+TMP_308(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_307', 'ONE_DAY'] 
+commissionDays(uint256) := TMP_308(uint256)"];
+14->15;
+15[label="Node Type: IF 15
+
+EXPRESSION:
+commissionDays >= 1 && commissionDays <= user_scope_1.currentInvestCycle
+
+IRs:
+TMP_309(bool) = commissionDays >= 1
+REF_401(uint256) -> user_scope_1.currentInvestCycle
+TMP_310(bool) = commissionDays <= REF_401
+TMP_311(bool) = TMP_309 && TMP_310
+CONDITION TMP_311"];
+15->16[label="True"];
+15->43[label="False"];
+16[label="Node Type: NEW VARIABLE 16
+
+EXPRESSION:
+depth = 1
+
+IRs:
+depth(uint256) := 1(uint256)"];
+16->17;
+17[label="Node Type: NEW VARIABLE 17
+
+EXPRESSION:
+addressWalker = user_scope_1.sponsorAddress
+
+IRs:
+REF_402(address) -> user_scope_1.sponsorAddress
+addressWalker(address) := REF_402(address)"];
+17->18;
+18[label="Node Type: BEGIN_LOOP 18
+"];
+18->19;
+19[label="Node Type: IF_LOOP 19
+
+EXPRESSION:
+addressWalker != GENESIS_USER_ADDRESS
+
+IRs:
+TMP_312(bool) = addressWalker != GENESIS_USER_ADDRESS
+CONDITION TMP_312"];
+19->20[label="True"];
+19->42[label="False"];
+20[label="Node Type: NEW VARIABLE 20
+
+EXPRESSION:
+sponsor = userMapping[addressWalker]
+
+IRs:
+REF_403(FomoFeast.User) -> userMapping[addressWalker]
+sponsor(FomoFeast.User) := REF_403(FomoFeast.User)"];
+20->21;
+21[label="Node Type: IF 21
+
+EXPRESSION:
+sponsor.currentInvestAmount > 0
+
+IRs:
+REF_404(uint256) -> sponsor.currentInvestAmount
+TMP_313(bool) = REF_404 > 0
+CONDITION TMP_313"];
+21->22[label="True"];
+21->39[label="False"];
+22[label="Node Type: NEW VARIABLE 22
+
+EXPRESSION:
+dynamicCommissionRatio = getDynamicCommissionRatio(sponsor,depth)
+
+IRs:
+TMP_314(uint256) = INTERNAL_CALL, FomoFeast.getDynamicCommissionRatio(FomoFeast.User,uint256)(sponsor,depth)
+dynamicCommissionRatio(uint256) := TMP_314(uint256)"];
+22->23;
+23[label="Node Type: IF 23
+
+EXPRESSION:
+dynamicCommissionRatio > 0
+
+IRs:
+TMP_315(bool) = dynamicCommissionRatio > 0
+CONDITION TMP_315"];
+23->24[label="True"];
+23->38[label="False"];
+24[label="Node Type: NEW VARIABLE 24
+
+EXPRESSION:
+dynamicCA = sponsor.currentInvestAmount
+
+IRs:
+REF_405(uint256) -> sponsor.currentInvestAmount
+dynamicCA(uint256) := REF_405(uint256)"];
+24->25;
+25[label="Node Type: IF 25
+
+EXPRESSION:
+dynamicCA > user_scope_1.currentInvestAmount
+
+IRs:
+REF_406(uint256) -> user_scope_1.currentInvestAmount
+TMP_316(bool) = dynamicCA > REF_406
+CONDITION TMP_316"];
+25->26[label="True"];
+25->27[label="False"];
+26[label="Node Type: EXPRESSION 26
+
+EXPRESSION:
+dynamicCA = user_scope_1.currentInvestAmount
+
+IRs:
+REF_407(uint256) -> user_scope_1.currentInvestAmount
+dynamicCA(uint256) := REF_407(uint256)"];
+26->27;
+27[label="Node Type: END_IF 27
+"];
+27->28;
+28[label="Node Type: EXPRESSION 28
+
+EXPRESSION:
+dynamicCA = dynamicCA.mul(user_scope_1.currentStaticCommissionRatio)
+
+IRs:
+REF_409(uint256) -> user_scope_1.currentStaticCommissionRatio
+TMP_317(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['dynamicCA', 'REF_409'] 
+dynamicCA(uint256) := TMP_317(uint256)"];
+28->29;
+29[label="Node Type: EXPRESSION 29
+
+EXPRESSION:
+dynamicCA = dynamicCA.mul(dynamicCommissionRatio)
+
+IRs:
+TMP_318(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['dynamicCA', 'dynamicCommissionRatio'] 
+dynamicCA(uint256) := TMP_318(uint256)"];
+29->30;
+30[label="Node Type: IF 30
+
+EXPRESSION:
+sponsor.currentlevel == 1
+
+IRs:
+REF_411(uint256) -> sponsor.currentlevel
+TMP_319(bool) = REF_411 == 1
+CONDITION TMP_319"];
+30->31[label="True"];
+30->32[label="False"];
+31[label="Node Type: EXPRESSION 31
+
+EXPRESSION:
+dynamicCA = dynamicCA.mul(3).div(1000 * 100 * 10)
+
+IRs:
+TMP_320(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['dynamicCA', '3'] 
+TMP_321(uint256) = 1000 * 100
+TMP_322(uint256) = TMP_321 * 10
+TMP_323(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_320', 'TMP_322'] 
+dynamicCA(uint256) := TMP_323(uint256)"];
+31->36;
+32[label="Node Type: IF 32
+
+EXPRESSION:
+sponsor.currentlevel == 2
+
+IRs:
+REF_414(uint256) -> sponsor.currentlevel
+TMP_324(bool) = REF_414 == 2
+CONDITION TMP_324"];
+32->33[label="True"];
+32->34[label="False"];
+33[label="Node Type: EXPRESSION 33
+
+EXPRESSION:
+dynamicCA = dynamicCA.mul(6).div(1000 * 100 * 10)
+
+IRs:
+TMP_325(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['dynamicCA', '6'] 
+TMP_326(uint256) = 1000 * 100
+TMP_327(uint256) = TMP_326 * 10
+TMP_328(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['TMP_325', 'TMP_327'] 
+dynamicCA(uint256) := TMP_328(uint256)"];
+33->35;
+34[label="Node Type: EXPRESSION 34
+
+EXPRESSION:
+dynamicCA = dynamicCA.div(1000 * 100)
+
+IRs:
+TMP_329(uint256) = 1000 * 100
+TMP_330(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.div(uint256,uint256), arguments:['dynamicCA', 'TMP_329'] 
+dynamicCA(uint256) := TMP_330(uint256)"];
+34->35;
+35[label="Node Type: END_IF 35
+"];
+35->36;
+36[label="Node Type: END_IF 36
+"];
+36->37;
+37[label="Node Type: EXPRESSION 37
+
+EXPRESSION:
+sponsor.calcDynamicCommissionAmount = sponsor.calcDynamicCommissionAmount.add(dynamicCA)
+
+IRs:
+REF_418(uint256) -> sponsor.calcDynamicCommissionAmount
+REF_419(uint256) -> sponsor.calcDynamicCommissionAmount
+TMP_331(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_419', 'dynamicCA'] 
+REF_418 (->sponsor) := TMP_331(uint256)"];
+37->38;
+38[label="Node Type: END_IF 38
+"];
+38->39;
+39[label="Node Type: END_IF 39
+"];
+39->40;
+40[label="Node Type: EXPRESSION 40
+
+EXPRESSION:
+addressWalker = sponsor.sponsorAddress
+
+IRs:
+REF_421(address) -> sponsor.sponsorAddress
+addressWalker(address) := REF_421(address)"];
+40->41;
+41[label="Node Type: EXPRESSION 41
+
+EXPRESSION:
+depth = depth.add(1)
+
+IRs:
+TMP_332(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['depth', '1'] 
+depth(uint256) := TMP_332(uint256)"];
+41->19;
+42[label="Node Type: END_LOOP 42
+"];
+42->43;
+43[label="Node Type: END_IF 43
+"];
+43->44;
+44[label="Node Type: END_IF 44
+"];
+44->45;
+45[label="Node Type: EXPRESSION 45
+
+EXPRESSION:
+++ i_scope_0
+
+IRs:
+i_scope_0(uint256) = i_scope_0 + 1"];
+45->11;
+46[label="Node Type: BEGIN_LOOP 46
+"];
+46->49;
+47[label="Node Type: END_LOOP 47
+"];
+48[label="Node Type: NEW VARIABLE 48
+
+EXPRESSION:
+i_scope_2 = 0
+
+IRs:
+i_scope_2(uint256) := 0(uint256)"];
+48->46;
+49[label="Node Type: IF_LOOP 49
+
+EXPRESSION:
+i_scope_2 < totalUserCount
+
+IRs:
+TMP_333(bool) = i_scope_2 < totalUserCount
+CONDITION TMP_333"];
+49->50[label="True"];
+49->47[label="False"];
+50[label="Node Type: NEW VARIABLE 50
+
+EXPRESSION:
+userAddress = addressMapping[i_scope_2]
+
+IRs:
+REF_423(address) -> addressMapping[i_scope_2]
+userAddress(address) := REF_423(address)"];
+50->51;
+51[label="Node Type: NEW VARIABLE 51
+
+EXPRESSION:
+user_scope_3 = userMapping[userAddress]
+
+IRs:
+REF_424(FomoFeast.User) -> userMapping[userAddress]
+user_scope_3(FomoFeast.User) := REF_424(FomoFeast.User)"];
+51->52;
+52[label="Node Type: IF 52
+
+EXPRESSION:
+user_scope_3.calcDynamicCommissionAmount > 0
+
+IRs:
+REF_425(uint256) -> user_scope_3.calcDynamicCommissionAmount
+TMP_334(bool) = REF_425 > 0
+CONDITION TMP_334"];
+52->53[label="True"];
+52->55[label="False"];
+53[label="Node Type: EXPRESSION 53
+
+EXPRESSION:
+user_scope_3.dynamicCommissionBalance = user_scope_3.dynamicCommissionBalance.add(user_scope_3.calcDynamicCommissionAmount)
+
+IRs:
+REF_426(uint256) -> user_scope_3.dynamicCommissionBalance
+REF_427(uint256) -> user_scope_3.dynamicCommissionBalance
+REF_429(uint256) -> user_scope_3.calcDynamicCommissionAmount
+TMP_335(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_427', 'REF_429'] 
+REF_426 (->user_scope_3) := TMP_335(uint256)"];
+53->54;
+54[label="Node Type: EXPRESSION 54
+
+EXPRESSION:
+addDynamicCommissionRecord(userAddress,now,user_scope_3.calcDynamicCommissionAmount)
+
+IRs:
+REF_430(uint256) -> user_scope_3.calcDynamicCommissionAmount
+INTERNAL_CALL, FomoFeast.addDynamicCommissionRecord(address,uint256,uint256)(userAddress,now,REF_430)"];
+54->55;
+55[label="Node Type: END_IF 55
+"];
+55->56;
+56[label="Node Type: EXPRESSION 56
+
+EXPRESSION:
+++ i_scope_2
+
+IRs:
+i_scope_2(uint256) = i_scope_2 + 1"];
+56->49;
+57[label="Node Type: EXPRESSION 57
+
+EXPRESSION:
+onlyOwner()
+
+IRs:
+MODIFIER_CALL, FomoFeast.onlyOwner()()"];
+57->3;
+}

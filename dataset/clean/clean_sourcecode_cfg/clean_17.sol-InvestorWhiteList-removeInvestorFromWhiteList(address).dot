@@ -1,0 +1,32 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->3;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(investor != 0x0 && investorWhiteList[investor])
+
+IRs:
+TMP_198(bool) = investor != 0
+REF_147(bool) -> investorWhiteList[investor]
+TMP_199(bool) = TMP_198 && REF_147
+TMP_200(None) = SOLIDITY_CALL require(bool)(TMP_199)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+investorWhiteList[investor] = false
+
+IRs:
+REF_148(bool) -> investorWhiteList[investor]
+REF_148 (->investorWhiteList) := False(bool)"];
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+onlyOwner()
+
+IRs:
+MODIFIER_CALL, Ownable.onlyOwner()()"];
+3->1;
+}

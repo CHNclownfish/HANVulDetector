@@ -1,0 +1,108 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->12;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+assetOwner = nonFungibleRegistry.ownerOf(assetId)
+
+IRs:
+TMP_69(address) = HIGH_LEVEL_CALL, dest:nonFungibleRegistry(ERC721Interface), function:ownerOf, arguments:['assetId']  
+assetOwner(address) := TMP_69(address)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(msg.sender == assetOwner)
+
+IRs:
+TMP_70(bool) = msg.sender == assetOwner
+TMP_71(None) = SOLIDITY_CALL require(bool)(TMP_70)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+require(bool)(nonFungibleRegistry.isAuthorized(address(this),assetId))
+
+IRs:
+TMP_72 = CONVERT this to address
+TMP_73(bool) = HIGH_LEVEL_CALL, dest:nonFungibleRegistry(ERC721Interface), function:isAuthorized, arguments:['TMP_72', 'assetId']  
+TMP_74(None) = SOLIDITY_CALL require(bool)(TMP_73)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+require(bool)(priceInWei > 0)
+
+IRs:
+TMP_75(bool) = priceInWei > 0
+TMP_76(None) = SOLIDITY_CALL require(bool)(TMP_75)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+require(bool)(expiresAt > now.add(60))
+
+IRs:
+TMP_77(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['now', '60'] 
+TMP_78(bool) = expiresAt > TMP_77
+TMP_79(None) = SOLIDITY_CALL require(bool)(TMP_78)"];
+5->6;
+6[label="Node Type: NEW VARIABLE 6
+
+EXPRESSION:
+auctionId = keccak256()(block.timestamp,assetOwner,assetId,priceInWei)
+
+IRs:
+TMP_80(bytes32) = SOLIDITY_CALL keccak256()(block.timestamp,assetOwner,assetId,priceInWei)
+auctionId(bytes32) := TMP_80(bytes32)"];
+6->7;
+7[label="Node Type: EXPRESSION 7
+
+EXPRESSION:
+auctionByAssetId[assetId] = Auction(auctionId,assetOwner,priceInWei,expiresAt)
+
+IRs:
+REF_3(Marketplace.Auction) -> auctionByAssetId[assetId]
+TMP_81 = new Auction(auctionId,assetOwner,priceInWei,expiresAt)
+REF_3 (->auctionByAssetId) := TMP_81(Marketplace.Auction)"];
+7->8;
+8[label="Node Type: IF 8
+
+EXPRESSION:
+publicationFeeInWei > 0
+
+IRs:
+TMP_82(bool) = publicationFeeInWei > 0
+CONDITION TMP_82"];
+8->9[label="True"];
+8->10[label="False"];
+9[label="Node Type: EXPRESSION 9
+
+EXPRESSION:
+require(bool)(acceptedToken.transferFrom(msg.sender,owner,publicationFeeInWei))
+
+IRs:
+TMP_83(bool) = HIGH_LEVEL_CALL, dest:acceptedToken(ERC20Interface), function:transferFrom, arguments:['msg.sender', 'owner', 'publicationFeeInWei']  
+TMP_84(None) = SOLIDITY_CALL require(bool)(TMP_83)"];
+9->10;
+10[label="Node Type: END_IF 10
+"];
+10->11;
+11[label="Node Type: EXPRESSION 11
+
+EXPRESSION:
+AuctionCreated(auctionId,assetId,assetOwner,priceInWei,expiresAt)
+
+IRs:
+Emit AuctionCreated(auctionId.assetId.assetOwner.priceInWei.expiresAt)"];
+12[label="Node Type: EXPRESSION 12
+
+EXPRESSION:
+whenNotPaused()
+
+IRs:
+MODIFIER_CALL, Pausable.whenNotPaused()()"];
+12->1;
+}

@@ -1,0 +1,43 @@
+digraph{
+0[label="Node Type: OTHER_ENTRYPOINT 0
+
+EXPRESSION:
+name = StarCoin
+
+IRs:
+name(string) := StarCoin(string)"];
+0->1;
+1[label="Node Type: OTHER_ENTRYPOINT 1
+
+EXPRESSION:
+symbol = STAR
+
+IRs:
+symbol(string) := STAR(string)"];
+1->2;
+2[label="Node Type: OTHER_ENTRYPOINT 2
+
+EXPRESSION:
+decimals = 18
+
+IRs:
+decimals(uint8) := 18(uint256)"];
+2->3;
+3[label="Node Type: OTHER_ENTRYPOINT 3
+
+EXPRESSION:
+INITIAL_SUPPLY = 40000000 * 1000000000000000000
+
+IRs:
+TMP_173(uint256) = 40000000 * 1000000000000000000
+INITIAL_SUPPLY(uint256) := TMP_173(uint256)"];
+3->4;
+4[label="Node Type: OTHER_ENTRYPOINT 4
+
+EXPRESSION:
+MAXIMUM_SUPPLY = 100000000 * 1000000000000000000
+
+IRs:
+TMP_174(uint256) = 100000000 * 1000000000000000000
+MAXIMUM_SUPPLY(uint256) := TMP_174(uint256)"];
+}

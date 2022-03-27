@@ -1,0 +1,33 @@
+digraph{
+0[label="Node Type: OTHER_ENTRYPOINT 0
+
+EXPRESSION:
+name = Substratum
+
+IRs:
+name(string) := Substratum(string)"];
+0->1;
+1[label="Node Type: OTHER_ENTRYPOINT 1
+
+EXPRESSION:
+symbol = SUB
+
+IRs:
+symbol(string) := SUB(string)"];
+1->2;
+2[label="Node Type: OTHER_ENTRYPOINT 2
+
+EXPRESSION:
+decimals = 18
+
+IRs:
+decimals(uint8) := 18(uint256)"];
+2->3;
+3[label="Node Type: OTHER_ENTRYPOINT 3
+
+EXPRESSION:
+INITIAL_SUPPLY = 472000000000000000000000000
+
+IRs:
+INITIAL_SUPPLY(uint256) := 472000000000000000000000000(uint256)"];
+}

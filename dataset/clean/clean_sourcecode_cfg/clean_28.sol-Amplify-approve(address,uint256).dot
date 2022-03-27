@@ -1,0 +1,26 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool,string)(_value == 0 || allowed[msg.sender][_spender] == 0,Use increaseApproval or decreaseApproval to prevent double-spend.)
+
+IRs:
+TMP_160(bool) = _value == 0
+REF_173(mapping(address => uint256)) -> allowed[msg.sender]
+REF_174(uint256) -> REF_173[_spender]
+TMP_161(bool) = REF_174 == 0
+TMP_162(bool) = TMP_160 || TMP_161
+TMP_163(None) = SOLIDITY_CALL require(bool,string)(TMP_162,Use increaseApproval or decreaseApproval to prevent double-spend.)"];
+1->2;
+2[label="Node Type: RETURN 2
+
+EXPRESSION:
+StandardToken.approve(_spender,_value)
+
+IRs:
+TMP_164(bool) = INTERNAL_CALL, StandardToken.approve(address,uint256)(_spender,_value)
+RETURN TMP_164"];
+}

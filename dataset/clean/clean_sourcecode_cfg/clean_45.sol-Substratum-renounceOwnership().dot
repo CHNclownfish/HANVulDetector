@@ -1,0 +1,30 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->3;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+OwnershipTransferred(_owner,address(0))
+
+IRs:
+TMP_127 = CONVERT 0 to address
+Emit OwnershipTransferred(_owner.TMP_127)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+_owner = address(0)
+
+IRs:
+TMP_129 = CONVERT 0 to address
+_owner(address) := TMP_129(address)"];
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+onlyOwner()
+
+IRs:
+MODIFIER_CALL, Ownable.onlyOwner()()"];
+3->1;
+}

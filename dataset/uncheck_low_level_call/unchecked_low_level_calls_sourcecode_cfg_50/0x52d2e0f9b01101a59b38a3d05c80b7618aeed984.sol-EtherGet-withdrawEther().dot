@@ -1,0 +1,13 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+owner.transfer(this.balance)
+
+IRs:
+REF_3 -> BALANCE this
+Transfer dest:owner value:REF_3"];
+}

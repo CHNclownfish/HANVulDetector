@@ -1,0 +1,21 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+donateAmount[msg.sender] += msg.value
+
+IRs:
+REF_26(uint256) -> donateAmount[msg.sender]
+REF_26(-> donateAmount) = REF_26 + msg.value"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+Donate(msg.value,msg.sender)
+
+IRs:
+Emit Donate(msg.value.msg.sender)"];
+}

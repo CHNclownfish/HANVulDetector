@@ -1,0 +1,46 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->5;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(_date > 0)
+
+IRs:
+TMP_99(bool) = _date > 0
+TMP_100(None) = SOLIDITY_CALL require(bool)(TMP_99)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(_date != RELEASE_DATE)
+
+IRs:
+TMP_101(bool) = _date != RELEASE_DATE
+TMP_102(None) = SOLIDITY_CALL require(bool)(TMP_101)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+RELEASE_DATE = _date
+
+IRs:
+RELEASE_DATE(uint256) := _date(uint256)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+ReleaseDateChanged(msg.sender,_date)
+
+IRs:
+Emit ReleaseDateChanged(msg.sender._date)"];
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+onlyOwner()
+
+IRs:
+MODIFIER_CALL, Ownable.onlyOwner()()"];
+5->1;
+}

@@ -1,0 +1,11 @@
+digraph{
+0[label="Node Type: OTHER_ENTRYPOINT 0
+
+EXPRESSION:
+EIP712_ZEROEX_TRANSACTION_SCHEMA_HASH = keccak256()(abi.encodePacked(ZeroExTransaction(,uint256 salt,,address signerAddress,,bytes data,)))
+
+IRs:
+TMP_417(bytes) = SOLIDITY_CALL abi.encodePacked()(ZeroExTransaction(,uint256 salt,,address signerAddress,,bytes data,))
+TMP_418(bytes32) = SOLIDITY_CALL keccak256()(TMP_417)
+EIP712_ZEROEX_TRANSACTION_SCHEMA_HASH(bytes32) := TMP_418(bytes32)"];
+}

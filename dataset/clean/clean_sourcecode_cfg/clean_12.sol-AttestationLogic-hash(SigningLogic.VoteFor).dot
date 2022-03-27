@@ -1,0 +1,18 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: RETURN 1
+
+EXPRESSION:
+keccak256()(abi.encode(VOTE_FOR_TYPEHASH,request.choice,request.voter,request.nonce,request.poll))
+
+IRs:
+REF_168(uint16) -> request.choice
+REF_169(address) -> request.voter
+REF_170(bytes32) -> request.nonce
+REF_171(address) -> request.poll
+TMP_271(bytes) = SOLIDITY_CALL abi.encode()(VOTE_FOR_TYPEHASH,REF_168,REF_169,REF_170,REF_171)
+TMP_272(bytes32) = SOLIDITY_CALL keccak256()(TMP_271)
+RETURN TMP_272"];
+}

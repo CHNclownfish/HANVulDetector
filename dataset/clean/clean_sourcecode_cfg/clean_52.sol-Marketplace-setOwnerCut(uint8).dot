@@ -1,0 +1,37 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->4;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(ownerCut < 100)
+
+IRs:
+TMP_65(bool) = ownerCut < 100
+TMP_66(None) = SOLIDITY_CALL require(bool)(TMP_65)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+ownerCutPercentage = ownerCut
+
+IRs:
+ownerCutPercentage(uint256) := ownerCut(uint8)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+ChangedOwnerCut(ownerCutPercentage)
+
+IRs:
+Emit ChangedOwnerCut(ownerCutPercentage)"];
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+onlyOwner()
+
+IRs:
+MODIFIER_CALL, Ownable.onlyOwner()()"];
+4->1;
+}

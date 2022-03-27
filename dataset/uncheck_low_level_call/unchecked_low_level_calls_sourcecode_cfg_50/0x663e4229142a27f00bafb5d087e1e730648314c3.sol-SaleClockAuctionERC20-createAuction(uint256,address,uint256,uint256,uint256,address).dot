@@ -1,0 +1,95 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(_startingPrice == uint256(uint128(_startingPrice)))
+
+IRs:
+TMP_1275 = CONVERT _startingPrice to uint128
+TMP_1276 = CONVERT TMP_1275 to uint256
+TMP_1277(bool) = _startingPrice == TMP_1276
+TMP_1278(None) = SOLIDITY_CALL require(bool)(TMP_1277)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(_endingPrice == uint256(uint128(_endingPrice)))
+
+IRs:
+TMP_1279 = CONVERT _endingPrice to uint128
+TMP_1280 = CONVERT TMP_1279 to uint256
+TMP_1281(bool) = _endingPrice == TMP_1280
+TMP_1282(None) = SOLIDITY_CALL require(bool)(TMP_1281)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+require(bool)(_duration == uint256(uint64(_duration)))
+
+IRs:
+TMP_1283 = CONVERT _duration to uint64
+TMP_1284 = CONVERT TMP_1283 to uint256
+TMP_1285(bool) = _duration == TMP_1284
+TMP_1286(None) = SOLIDITY_CALL require(bool)(TMP_1285)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+require(bool)(msg.sender == address(nonFungibleContract))
+
+IRs:
+TMP_1287 = CONVERT nonFungibleContract to address
+TMP_1288(bool) = msg.sender == TMP_1287
+TMP_1289(None) = SOLIDITY_CALL require(bool)(TMP_1288)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+require(bool)(erc20ContractsSwitcher[_erc20Address] > 0)
+
+IRs:
+REF_348(uint256) -> erc20ContractsSwitcher[_erc20Address]
+TMP_1290(bool) = REF_348 > 0
+TMP_1291(None) = SOLIDITY_CALL require(bool)(TMP_1290)"];
+5->6;
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+_escrow(_seller,_tokenId)
+
+IRs:
+INTERNAL_CALL, ClockAuctionBase._escrow(address,uint256)(_seller,_tokenId)"];
+6->7;
+7[label="Node Type: NEW VARIABLE 7
+
+EXPRESSION:
+auction = Auction(_seller,uint128(_startingPrice),uint128(_endingPrice),uint64(_duration),uint64(now),0)
+
+IRs:
+TMP_1293 = CONVERT _startingPrice to uint128
+TMP_1294 = CONVERT _endingPrice to uint128
+TMP_1295 = CONVERT _duration to uint64
+TMP_1296 = CONVERT now to uint64
+TMP_1297 = new Auction(_seller,TMP_1293,TMP_1294,TMP_1295,TMP_1296,0)
+auction(ClockAuctionBase.Auction) := TMP_1297(ClockAuctionBase.Auction)"];
+7->8;
+8[label="Node Type: EXPRESSION 8
+
+EXPRESSION:
+_addAuctionERC20(_tokenId,auction,_erc20Address)
+
+IRs:
+INTERNAL_CALL, SaleClockAuctionERC20._addAuctionERC20(uint256,ClockAuctionBase.Auction,address)(_tokenId,auction,_erc20Address)"];
+8->9;
+9[label="Node Type: EXPRESSION 9
+
+EXPRESSION:
+tokenIdToErc20Address[_tokenId] = _erc20Address
+
+IRs:
+REF_349(address) -> tokenIdToErc20Address[_tokenId]
+REF_349 (->tokenIdToErc20Address) := _erc20Address(address)"];
+}

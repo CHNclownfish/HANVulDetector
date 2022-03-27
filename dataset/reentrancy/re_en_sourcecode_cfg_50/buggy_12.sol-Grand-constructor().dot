@@ -1,0 +1,13 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+balances[0x96F7F180C6B53e9313Dc26589739FDC8200a699f] = totalSupply
+
+IRs:
+REF_140(uint256) -> balances[861877937568793730709385886341970439577705015711]
+REF_140 (->balances) := totalSupply(uint256)"];
+}

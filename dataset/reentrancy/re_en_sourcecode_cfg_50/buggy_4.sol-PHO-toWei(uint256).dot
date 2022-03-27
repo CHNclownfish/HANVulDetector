@@ -1,0 +1,15 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: RETURN 1
+
+EXPRESSION:
+value * (10 ** uint256(decimals))
+
+IRs:
+TMP_108 = CONVERT decimals to uint256
+TMP_109(uint256) = 10 ** TMP_108
+TMP_110(uint256) = value * TMP_109
+RETURN TMP_110"];
+}

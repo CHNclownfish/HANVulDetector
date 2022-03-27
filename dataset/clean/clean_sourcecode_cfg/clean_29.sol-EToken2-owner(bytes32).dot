@@ -1,0 +1,16 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: RETURN 1
+
+EXPRESSION:
+holders[assets[_symbol].owner].addr
+
+IRs:
+REF_21(EToken2.Asset) -> assets[_symbol]
+REF_22(uint256) -> REF_21.owner
+REF_23(EToken2.Holder) -> holders[REF_22]
+REF_24(address) -> REF_23.addr
+RETURN REF_24"];
+}

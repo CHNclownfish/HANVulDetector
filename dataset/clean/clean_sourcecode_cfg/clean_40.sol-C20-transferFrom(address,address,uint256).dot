@@ -1,0 +1,21 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->2;
+1[label="Node Type: RETURN 1
+
+EXPRESSION:
+super.transferFrom(_from,_to,_value)
+
+IRs:
+TMP_284(bool) = INTERNAL_CALL, StandardToken.transferFrom(address,address,uint256)(_from,_to,_value)
+RETURN TMP_284"];
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+isTradeable()
+
+IRs:
+MODIFIER_CALL, C20.isTradeable()()"];
+2->1;
+}

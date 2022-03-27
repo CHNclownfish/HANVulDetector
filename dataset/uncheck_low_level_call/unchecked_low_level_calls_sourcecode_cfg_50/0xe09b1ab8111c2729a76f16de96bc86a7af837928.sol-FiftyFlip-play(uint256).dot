@@ -1,0 +1,268 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->31;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+ticketID = uint256(keccak256()(abi.encodePacked(ticketReveal)))
+
+IRs:
+TMP_35(bytes) = SOLIDITY_CALL abi.encodePacked()(ticketReveal)
+TMP_36(bytes32) = SOLIDITY_CALL keccak256()(TMP_35)
+TMP_37 = CONVERT TMP_36 to uint256
+ticketID(uint256) := TMP_37(uint256)"];
+1->2;
+2[label="Node Type: NEW VARIABLE 2
+
+EXPRESSION:
+bet = bets[ticketID]
+
+IRs:
+REF_14(FiftyFlip.Bet) -> bets[ticketID]
+bet(FiftyFlip.Bet) := REF_14(FiftyFlip.Bet)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+require(bool,string)(bet.player != address(0),TicketID is not correct!)
+
+IRs:
+REF_15(address) -> bet.player
+TMP_38 = CONVERT 0 to address
+TMP_39(bool) = REF_15 != TMP_38
+TMP_40(None) = SOLIDITY_CALL require(bool,string)(TMP_39,TicketID is not correct!)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+require(bool,string)(bet.amount != 0,Ticket is already used one!)
+
+IRs:
+REF_16(uint256) -> bet.amount
+TMP_41(bool) = REF_16 != 0
+TMP_42(None) = SOLIDITY_CALL require(bool,string)(TMP_41,Ticket is already used one!)"];
+4->5;
+5[label="Node Type: NEW VARIABLE 5
+
+EXPRESSION:
+blockNumber = bet.blockNumber
+
+IRs:
+REF_17(uint256) -> bet.blockNumber
+blockNumber(uint256) := REF_17(uint256)"];
+5->6;
+6[label="Node Type: IF 6
+
+EXPRESSION:
+blockNumber < block.number && blockNumber >= block.number - BET_EXPIRATION_BLOCKS
+
+IRs:
+TMP_43(bool) = blockNumber < block.number
+TMP_44(uint256) = block.number - BET_EXPIRATION_BLOCKS
+TMP_45(bool) = blockNumber >= TMP_44
+TMP_46(bool) = TMP_43 && TMP_45
+CONDITION TMP_46"];
+6->7[label="True"];
+6->29[label="False"];
+7[label="Node Type: NEW VARIABLE 7
+
+EXPRESSION:
+random = uint256(keccak256()(abi.encodePacked(blockhash(uint256)(blockNumber),ticketReveal)))
+
+IRs:
+TMP_47(uint256) = SOLIDITY_CALL blockhash(uint256)(blockNumber)
+TMP_48(bytes) = SOLIDITY_CALL abi.encodePacked()(TMP_47,ticketReveal)
+TMP_49(bytes32) = SOLIDITY_CALL keccak256()(TMP_48)
+TMP_50 = CONVERT TMP_49 to uint256
+random(uint256) := TMP_50(uint256)"];
+7->8;
+8[label="Node Type: NEW VARIABLE 8
+
+EXPRESSION:
+maskRes = (random % 2) != 0
+
+IRs:
+TMP_51(uint256) = random % 2
+TMP_52(bool) = TMP_51 != 0
+maskRes(bool) := TMP_52(bool)"];
+8->9;
+9[label="Node Type: NEW VARIABLE 9
+
+EXPRESSION:
+jackpotRes = random % JACKPOT_MODULO
+
+IRs:
+TMP_53(uint256) = random % JACKPOT_MODULO
+jackpotRes(uint256) := TMP_53(uint256)"];
+9->10;
+10[label="Node Type: NEW VARIABLE 10
+
+EXPRESSION:
+tossWinAmount = bet.amount * WIN_X / 1000
+
+IRs:
+REF_19(uint256) -> bet.amount
+TMP_54(uint256) = REF_19 * WIN_X
+TMP_55(uint256) = TMP_54 / 1000
+tossWinAmount(uint256) := TMP_55(uint256)"];
+10->11;
+11[label="Node Type: NEW VARIABLE 11
+
+EXPRESSION:
+tossWin = 0
+
+IRs:
+tossWin(uint256) := 0(uint256)"];
+11->12;
+12[label="Node Type: NEW VARIABLE 12
+
+EXPRESSION:
+jackpotWin = 0
+
+IRs:
+jackpotWin(uint256) := 0(uint256)"];
+12->13;
+13[label="Node Type: IF 13
+
+EXPRESSION:
+bet.betMask == maskRes
+
+IRs:
+REF_20(bool) -> bet.betMask
+TMP_56(bool) = REF_20 == maskRes
+CONDITION TMP_56"];
+13->14[label="True"];
+13->15[label="False"];
+14[label="Node Type: EXPRESSION 14
+
+EXPRESSION:
+tossWin = tossWinAmount
+
+IRs:
+tossWin(uint256) := tossWinAmount(uint256)"];
+14->15;
+15[label="Node Type: END_IF 15
+"];
+15->16;
+16[label="Node Type: IF 16
+
+EXPRESSION:
+jackpotRes == 0
+
+IRs:
+TMP_57(bool) = jackpotRes == 0
+CONDITION TMP_57"];
+16->17[label="True"];
+16->19[label="False"];
+17[label="Node Type: EXPRESSION 17
+
+EXPRESSION:
+jackpotWin = jackpotSize
+
+IRs:
+jackpotWin(uint256) := jackpotSize(uint256)"];
+17->18;
+18[label="Node Type: EXPRESSION 18
+
+EXPRESSION:
+jackpotSize = 0
+
+IRs:
+jackpotSize(uint256) := 0(uint256)"];
+18->19;
+19[label="Node Type: END_IF 19
+"];
+19->20;
+20[label="Node Type: IF 20
+
+EXPRESSION:
+jackpotWin > 0
+
+IRs:
+TMP_58(bool) = jackpotWin > 0
+CONDITION TMP_58"];
+20->21[label="True"];
+20->22[label="False"];
+21[label="Node Type: EXPRESSION 21
+
+EXPRESSION:
+JackpotPayment(bet.player,ticketID,jackpotWin)
+
+IRs:
+REF_21(address) -> bet.player
+Emit JackpotPayment(REF_21.ticketID.jackpotWin)"];
+21->22;
+22[label="Node Type: END_IF 22
+"];
+22->23;
+23[label="Node Type: IF 23
+
+EXPRESSION:
+tossWin + jackpotWin > 0
+
+IRs:
+TMP_60(uint256) = tossWin + jackpotWin
+TMP_61(bool) = TMP_60 > 0
+CONDITION TMP_61"];
+23->24[label="True"];
+23->25[label="False"];
+24[label="Node Type: EXPRESSION 24
+
+EXPRESSION:
+payout(bet.player,tossWin + jackpotWin,ticketID,maskRes,jackpotRes)
+
+IRs:
+REF_22(address) -> bet.player
+TMP_62(uint256) = tossWin + jackpotWin
+INTERNAL_CALL, FiftyFlip.payout(address,uint256,uint256,bool,uint256)(REF_22,TMP_62,ticketID,maskRes,jackpotRes)"];
+24->26;
+25[label="Node Type: EXPRESSION 25
+
+EXPRESSION:
+loseWager(bet.player,bet.amount,ticketID,maskRes,jackpotRes)
+
+IRs:
+REF_23(address) -> bet.player
+REF_24(uint256) -> bet.amount
+INTERNAL_CALL, FiftyFlip.loseWager(address,uint256,uint256,bool,uint256)(REF_23,REF_24,ticketID,maskRes,jackpotRes)"];
+25->26;
+26[label="Node Type: END_IF 26
+"];
+26->27;
+27[label="Node Type: EXPRESSION 27
+
+EXPRESSION:
+lockedInBets -= tossWinAmount
+
+IRs:
+lockedInBets(uint256) = lockedInBets - tossWinAmount"];
+27->28;
+28[label="Node Type: EXPRESSION 28
+
+EXPRESSION:
+bet.amount = 0
+
+IRs:
+REF_25(uint256) -> bet.amount
+REF_25 (->bet) := 0(uint256)"];
+28->30;
+29[label="Node Type: EXPRESSION 29
+
+EXPRESSION:
+revert()()
+
+IRs:
+TMP_65(None) = SOLIDITY_CALL revert()()"];
+29->30;
+30[label="Node Type: END_IF 30
+"];
+31[label="Node Type: EXPRESSION 31
+
+EXPRESSION:
+checkContractHealth()
+
+IRs:
+MODIFIER_CALL, FiftyFlip.checkContractHealth()()"];
+31->1;
+}

@@ -1,0 +1,58 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->6;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(_to != address(0))
+
+IRs:
+TMP_263 = CONVERT 0 to address
+TMP_264(bool) = _to != TMP_263
+TMP_265(None) = SOLIDITY_CALL require(bool)(TMP_264)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(_to != address(this))
+
+IRs:
+TMP_266 = CONVERT this to address
+TMP_267(bool) = _to != TMP_266
+TMP_268(None) = SOLIDITY_CALL require(bool)(TMP_267)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+require(bool)(_approvedFor(msg.sender,_tokenId))
+
+IRs:
+TMP_269(bool) = INTERNAL_CALL, PandaOwnership._approvedFor(address,uint256)(msg.sender,_tokenId)
+TMP_270(None) = SOLIDITY_CALL require(bool)(TMP_269)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+require(bool)(_owns(_from,_tokenId))
+
+IRs:
+TMP_271(bool) = INTERNAL_CALL, PandaOwnership._owns(address,uint256)(_from,_tokenId)
+TMP_272(None) = SOLIDITY_CALL require(bool)(TMP_271)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+_transfer(_from,_to,_tokenId)
+
+IRs:
+INTERNAL_CALL, PandaBase._transfer(address,address,uint256)(_from,_to,_tokenId)"];
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+whenNotPaused()
+
+IRs:
+MODIFIER_CALL, PandaAccessControl.whenNotPaused()()"];
+6->1;
+}

@@ -1,0 +1,44 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->4;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+oldSwapsContract = swapsContract
+
+IRs:
+oldSwapsContract(address) := swapsContract(address)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+swapsContract = _swapsContract
+
+IRs:
+swapsContract(address) := _swapsContract(address)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+SwapsContractChanged(oldSwapsContract,_swapsContract)
+
+IRs:
+Emit SwapsContractChanged(oldSwapsContract._swapsContract)"];
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+onlyOwner()
+
+IRs:
+MODIFIER_CALL, Ownable.onlyOwner()()"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+validateSwapsContract(_swapsContract,ASSET_TYPE)
+
+IRs:
+MODIFIER_CALL, RampInstantPool.validateSwapsContract(address,uint16)(_swapsContract,ASSET_TYPE)"];
+5->1;
+}

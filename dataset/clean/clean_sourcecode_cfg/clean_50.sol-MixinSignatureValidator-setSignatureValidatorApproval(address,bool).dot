@@ -1,0 +1,39 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->4;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+signerAddress = getCurrentContextAddress()
+
+IRs:
+TMP_371(address) = INTERNAL_CALL, MTransactions.getCurrentContextAddress()()
+signerAddress(address) := TMP_371(address)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+allowedValidators[signerAddress][validatorAddress] = approval
+
+IRs:
+REF_162(mapping(address => bool)) -> allowedValidators[signerAddress]
+REF_163(bool) -> REF_162[validatorAddress]
+REF_163 (->allowedValidators) := approval(bool)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+SignatureValidatorApproval(signerAddress,validatorAddress,approval)
+
+IRs:
+Emit SignatureValidatorApproval(signerAddress.validatorAddress.approval)"];
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+nonReentrant()
+
+IRs:
+MODIFIER_CALL, ReentrancyGuard.nonReentrant()()"];
+4->1;
+}

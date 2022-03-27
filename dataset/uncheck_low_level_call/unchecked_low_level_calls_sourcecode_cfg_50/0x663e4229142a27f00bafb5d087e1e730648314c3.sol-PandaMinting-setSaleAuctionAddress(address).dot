@@ -1,0 +1,38 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->4;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+candidateContract = SaleClockAuction(_address)
+
+IRs:
+TMP_1729 = CONVERT _address to SaleClockAuction
+candidateContract(SaleClockAuction) := TMP_1729(SaleClockAuction)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(candidateContract.isSaleClockAuction())
+
+IRs:
+TMP_1730(bool) = HIGH_LEVEL_CALL, dest:candidateContract(SaleClockAuction), function:isSaleClockAuction, arguments:[]  
+TMP_1731(None) = SOLIDITY_CALL require(bool)(TMP_1730)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+saleAuction = candidateContract
+
+IRs:
+saleAuction(SaleClockAuction) := candidateContract(SaleClockAuction)"];
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+onlyCEO()
+
+IRs:
+MODIFIER_CALL, PandaAccessControl.onlyCEO()()"];
+4->1;
+}

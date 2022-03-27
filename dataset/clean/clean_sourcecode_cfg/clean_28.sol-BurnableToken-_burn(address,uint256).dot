@@ -1,0 +1,51 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(_value <= balances[_who])
+
+IRs:
+REF_58(uint256) -> balances[_who]
+TMP_65(bool) = _value <= REF_58
+TMP_66(None) = SOLIDITY_CALL require(bool)(TMP_65)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+balances[_who] = balances[_who].sub(_value)
+
+IRs:
+REF_59(uint256) -> balances[_who]
+REF_60(uint256) -> balances[_who]
+TMP_67(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_60', '_value'] 
+REF_59 (->balances) := TMP_67(uint256)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+totalSupply_ = totalSupply_.sub(_value)
+
+IRs:
+TMP_68(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['totalSupply_', '_value'] 
+totalSupply_(uint256) := TMP_68(uint256)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+Burn(_who,_value)
+
+IRs:
+Emit Burn(_who._value)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+Transfer(_who,address(0),_value)
+
+IRs:
+TMP_70 = CONVERT 0 to address
+Emit Transfer(_who.TMP_70._value)"];
+}

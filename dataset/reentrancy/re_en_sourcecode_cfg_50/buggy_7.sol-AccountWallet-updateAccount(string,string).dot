@@ -1,0 +1,89 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->8;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(bytes(from).length > 0)
+
+IRs:
+TMP_237 = CONVERT from to bytes
+REF_147 -> LENGTH TMP_237
+TMP_238(bool) = REF_147 > 0
+TMP_239(None) = SOLIDITY_CALL require(bool)(TMP_238)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(bytes(to).length > 0)
+
+IRs:
+TMP_240 = CONVERT to to bytes
+REF_148 -> LENGTH TMP_240
+TMP_241(bool) = REF_148 > 0
+TMP_242(None) = SOLIDITY_CALL require(bool)(TMP_241)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+btc[to] = btc[from]
+
+IRs:
+REF_149(string) -> btc[to]
+REF_150(string) -> btc[from]
+REF_149 (->btc) := REF_150(string)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+eth[to] = eth[from]
+
+IRs:
+REF_151(address) -> eth[to]
+REF_152(address) -> eth[from]
+REF_151 (->eth) := REF_152(address)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+btc[from] = 
+
+IRs:
+REF_153(string) -> btc[from]
+REF_153 (->btc) := (string)"];
+5->6;
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+eth[from] = address(0)
+
+IRs:
+REF_154(address) -> eth[from]
+TMP_243 = CONVERT 0 to address
+REF_154 (->eth) := TMP_243(address)"];
+6->7;
+7[label="Node Type: EXPRESSION 7
+
+EXPRESSION:
+UpdateAddress(from,to)
+
+IRs:
+Emit UpdateAddress(from.to)"];
+8[label="Node Type: EXPRESSION 8
+
+EXPRESSION:
+onlyMaster()
+
+IRs:
+MODIFIER_CALL, Ownable.onlyMaster()()"];
+8->9;
+9[label="Node Type: EXPRESSION 9
+
+EXPRESSION:
+onlyWhenNotStopped()
+
+IRs:
+MODIFIER_CALL, Ownable.onlyWhenNotStopped()()"];
+9->1;
+}

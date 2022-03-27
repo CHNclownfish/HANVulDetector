@@ -1,0 +1,49 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool,string)(source.length == 34,length of source must be 34)
+
+IRs:
+REF_54 -> LENGTH source
+TMP_84(bool) = REF_54 == 34
+TMP_85(None) = SOLIDITY_CALL require(bool,string)(TMP_84,length of source must be 34)"];
+1->2;
+2[label="Node Type: NEW VARIABLE 2
+
+EXPRESSION:
+hashFunction = uint8(source[0])
+
+IRs:
+REF_55(None) -> source[0]
+TMP_86 = CONVERT REF_55 to uint8
+hashFunction(uint8) := TMP_86(uint8)"];
+2->3;
+3[label="Node Type: NEW VARIABLE 3
+
+EXPRESSION:
+digestSize = uint8(source[1])
+
+IRs:
+REF_56(None) -> source[1]
+TMP_87 = CONVERT REF_56 to uint8
+digestSize(uint8) := TMP_87(uint8)"];
+3->4;
+4[label="Node Type: NEW VARIABLE 4
+"];
+4->5;
+5[label="Node Type: INLINE ASM 5
+"];
+5->6;
+6[label="Node Type: RETURN 6
+
+EXPRESSION:
+(MultiHash(hashFunction,digestSize,hash))
+
+IRs:
+TMP_88 = new MultiHash(hashFunction,digestSize,hash)
+RETURN TMP_88"];
+}

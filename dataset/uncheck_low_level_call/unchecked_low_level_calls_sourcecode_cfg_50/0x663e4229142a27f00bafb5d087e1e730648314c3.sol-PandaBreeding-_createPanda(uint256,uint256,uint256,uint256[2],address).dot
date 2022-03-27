@@ -1,0 +1,351 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(_matronId == uint256(uint32(_matronId)))
+
+IRs:
+TMP_425 = CONVERT _matronId to uint32
+TMP_426 = CONVERT TMP_425 to uint256
+TMP_427(bool) = _matronId == TMP_426
+TMP_428(None) = SOLIDITY_CALL require(bool)(TMP_427)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(_sireId == uint256(uint32(_sireId)))
+
+IRs:
+TMP_429 = CONVERT _sireId to uint32
+TMP_430 = CONVERT TMP_429 to uint256
+TMP_431(bool) = _sireId == TMP_430
+TMP_432(None) = SOLIDITY_CALL require(bool)(TMP_431)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+require(bool)(_generation == uint256(uint16(_generation)))
+
+IRs:
+TMP_433 = CONVERT _generation to uint16
+TMP_434 = CONVERT TMP_433 to uint256
+TMP_435(bool) = _generation == TMP_434
+TMP_436(None) = SOLIDITY_CALL require(bool)(TMP_435)"];
+3->4;
+4[label="Node Type: NEW VARIABLE 4
+
+EXPRESSION:
+cooldownIndex = 0
+
+IRs:
+cooldownIndex(uint16) := 0(uint256)"];
+4->5;
+5[label="Node Type: IF 5
+
+EXPRESSION:
+pandas.length > 0
+
+IRs:
+REF_89 -> LENGTH pandas
+TMP_437(bool) = REF_89 > 0
+CONDITION TMP_437"];
+5->6[label="True"];
+5->34[label="False"];
+6[label="Node Type: NEW VARIABLE 6
+
+EXPRESSION:
+pureDegree = uint16(geneScience.getPureFromGene(_genes))
+
+IRs:
+TMP_438(uint256) = HIGH_LEVEL_CALL, dest:geneScience(GeneScienceInterface), function:getPureFromGene, arguments:['_genes']  
+TMP_439 = CONVERT TMP_438 to uint16
+pureDegree(uint16) := TMP_439(uint16)"];
+6->7;
+7[label="Node Type: IF 7
+
+EXPRESSION:
+pureDegree == 0
+
+IRs:
+TMP_440(bool) = pureDegree == 0
+CONDITION TMP_440"];
+7->8[label="True"];
+7->9[label="False"];
+8[label="Node Type: EXPRESSION 8
+
+EXPRESSION:
+pureDegree = 1
+
+IRs:
+pureDegree(uint16) := 1(uint256)"];
+8->9;
+9[label="Node Type: END_IF 9
+"];
+9->10;
+10[label="Node Type: EXPRESSION 10
+
+EXPRESSION:
+cooldownIndex = 1000 / pureDegree
+
+IRs:
+TMP_441(uint256) = 1000 / pureDegree
+cooldownIndex(uint16) := TMP_441(uint256)"];
+10->11;
+11[label="Node Type: IF 11
+
+EXPRESSION:
+cooldownIndex % 10 < 5
+
+IRs:
+TMP_442(uint16) = cooldownIndex % 10
+TMP_443(bool) = TMP_442 < 5
+CONDITION TMP_443"];
+11->12[label="True"];
+11->13[label="False"];
+12[label="Node Type: EXPRESSION 12
+
+EXPRESSION:
+cooldownIndex = cooldownIndex / 10
+
+IRs:
+TMP_444(uint16) = cooldownIndex / 10
+cooldownIndex(uint16) := TMP_444(uint16)"];
+12->14;
+13[label="Node Type: EXPRESSION 13
+
+EXPRESSION:
+cooldownIndex = cooldownIndex / 10 + 1
+
+IRs:
+TMP_445(uint16) = cooldownIndex / 10
+TMP_446(uint16) = TMP_445 + 1
+cooldownIndex(uint16) := TMP_446(uint16)"];
+13->14;
+14[label="Node Type: END_IF 14
+"];
+14->15;
+15[label="Node Type: EXPRESSION 15
+
+EXPRESSION:
+cooldownIndex = cooldownIndex - 1
+
+IRs:
+TMP_447(uint16) = cooldownIndex - 1
+cooldownIndex(uint16) := TMP_447(uint16)"];
+15->16;
+16[label="Node Type: IF 16
+
+EXPRESSION:
+cooldownIndex > 8
+
+IRs:
+TMP_448(bool) = cooldownIndex > 8
+CONDITION TMP_448"];
+16->17[label="True"];
+16->18[label="False"];
+17[label="Node Type: EXPRESSION 17
+
+EXPRESSION:
+cooldownIndex = 8
+
+IRs:
+cooldownIndex(uint16) := 8(uint256)"];
+17->18;
+18[label="Node Type: END_IF 18
+"];
+18->19;
+19[label="Node Type: NEW VARIABLE 19
+
+EXPRESSION:
+_tp = geneScience.getWizzType(_genes)
+
+IRs:
+TMP_449(uint256) = HIGH_LEVEL_CALL, dest:geneScience(GeneScienceInterface), function:getWizzType, arguments:['_genes']  
+_tp(uint256) := TMP_449(uint256)"];
+19->20;
+20[label="Node Type: IF 20
+
+EXPRESSION:
+_tp > 0 && wizzPandaQuota[_tp] <= wizzPandaCount[_tp]
+
+IRs:
+TMP_450(bool) = _tp > 0
+REF_92(uint256) -> wizzPandaQuota[_tp]
+REF_93(uint256) -> wizzPandaCount[_tp]
+TMP_451(bool) = REF_92 <= REF_93
+TMP_452(bool) = TMP_450 && TMP_451
+CONDITION TMP_452"];
+20->21[label="True"];
+20->23[label="False"];
+21[label="Node Type: EXPRESSION 21
+
+EXPRESSION:
+_genes = geneScience.clearWizzType(_genes)
+
+IRs:
+TMP_453(uint256[2]) = HIGH_LEVEL_CALL, dest:geneScience(GeneScienceInterface), function:clearWizzType, arguments:['_genes']  
+_genes(uint256[2]) := TMP_453(uint256[2])"];
+21->22;
+22[label="Node Type: EXPRESSION 22
+
+EXPRESSION:
+_tp = 0
+
+IRs:
+_tp(uint256) := 0(uint256)"];
+22->23;
+23[label="Node Type: END_IF 23
+"];
+23->24;
+24[label="Node Type: IF 24
+
+EXPRESSION:
+_tp == 1
+
+IRs:
+TMP_454(bool) = _tp == 1
+CONDITION TMP_454"];
+24->25[label="True"];
+24->26[label="False"];
+25[label="Node Type: EXPRESSION 25
+
+EXPRESSION:
+cooldownIndex = 5
+
+IRs:
+cooldownIndex(uint16) := 5(uint256)"];
+25->26;
+26[label="Node Type: END_IF 26
+"];
+26->27;
+27[label="Node Type: IF 27
+
+EXPRESSION:
+_tp > 0
+
+IRs:
+TMP_455(bool) = _tp > 0
+CONDITION TMP_455"];
+27->28[label="True"];
+27->29[label="False"];
+28[label="Node Type: EXPRESSION 28
+
+EXPRESSION:
+wizzPandaCount[_tp] = wizzPandaCount[_tp] + 1
+
+IRs:
+REF_95(uint256) -> wizzPandaCount[_tp]
+REF_96(uint256) -> wizzPandaCount[_tp]
+TMP_456(uint256) = REF_96 + 1
+REF_95 (->wizzPandaCount) := TMP_456(uint256)"];
+28->29;
+29[label="Node Type: END_IF 29
+"];
+29->30;
+30[label="Node Type: IF 30
+
+EXPRESSION:
+_generation <= 1 && _tp != 1
+
+IRs:
+TMP_457(bool) = _generation <= 1
+TMP_458(bool) = _tp != 1
+TMP_459(bool) = TMP_457 && TMP_458
+CONDITION TMP_459"];
+30->31[label="True"];
+30->33[label="False"];
+31[label="Node Type: EXPRESSION 31
+
+EXPRESSION:
+require(bool)(gen0CreatedCount < GEN0_TOTAL_COUNT)
+
+IRs:
+TMP_460(bool) = gen0CreatedCount < GEN0_TOTAL_COUNT
+TMP_461(None) = SOLIDITY_CALL require(bool)(TMP_460)"];
+31->32;
+32[label="Node Type: EXPRESSION 32
+
+EXPRESSION:
+gen0CreatedCount ++
+
+IRs:
+TMP_462(uint256) := gen0CreatedCount(uint256)
+gen0CreatedCount(uint256) = gen0CreatedCount + 1"];
+32->33;
+33[label="Node Type: END_IF 33
+"];
+33->34;
+34[label="Node Type: END_IF 34
+"];
+34->35;
+35[label="Node Type: NEW VARIABLE 35
+
+EXPRESSION:
+_panda = Panda(_genes,uint64(now),0,uint32(_matronId),uint32(_sireId),0,cooldownIndex,uint16(_generation))
+
+IRs:
+TMP_463 = CONVERT now to uint64
+TMP_464 = CONVERT _matronId to uint32
+TMP_465 = CONVERT _sireId to uint32
+TMP_466 = CONVERT _generation to uint16
+TMP_467 = new Panda(_genes,TMP_463,0,TMP_464,TMP_465,0,cooldownIndex,TMP_466)
+_panda(PandaBase.Panda) := TMP_467(PandaBase.Panda)"];
+35->36;
+36[label="Node Type: NEW VARIABLE 36
+
+EXPRESSION:
+newKittenId = pandas.push(_panda) - 1
+
+IRs:
+REF_98 -> LENGTH pandas
+TMP_470(uint256) := REF_98(uint256)
+TMP_471(uint256) = TMP_470 + 1
+REF_98 (->pandas) := TMP_471(uint256)
+REF_99(PandaBase.Panda) -> pandas[TMP_470]
+REF_99 (->pandas) := _panda(PandaBase.Panda)
+TMP_469(None) = TMP_468 - 1
+newKittenId(uint256) := TMP_469(None)"];
+36->37;
+37[label="Node Type: EXPRESSION 37
+
+EXPRESSION:
+require(bool)(newKittenId == uint256(uint32(newKittenId)))
+
+IRs:
+TMP_472 = CONVERT newKittenId to uint32
+TMP_473 = CONVERT TMP_472 to uint256
+TMP_474(bool) = newKittenId == TMP_473
+TMP_475(None) = SOLIDITY_CALL require(bool)(TMP_474)"];
+37->38;
+38[label="Node Type: EXPRESSION 38
+
+EXPRESSION:
+Birth(_owner,newKittenId,uint256(_panda.matronId),uint256(_panda.sireId),_panda.genes)
+
+IRs:
+REF_100(uint32) -> _panda.matronId
+TMP_476 = CONVERT REF_100 to uint256
+REF_101(uint32) -> _panda.sireId
+TMP_477 = CONVERT REF_101 to uint256
+REF_102(uint256[2]) -> _panda.genes
+Emit Birth(_owner.newKittenId.TMP_476.TMP_477.REF_102)"];
+38->39;
+39[label="Node Type: EXPRESSION 39
+
+EXPRESSION:
+_transfer(0,_owner,newKittenId)
+
+IRs:
+INTERNAL_CALL, PandaBase._transfer(address,address,uint256)(0,_owner,newKittenId)"];
+39->40;
+40[label="Node Type: RETURN 40
+
+EXPRESSION:
+newKittenId
+
+IRs:
+RETURN newKittenId"];
+}

@@ -1,0 +1,43 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(counter_re_ent7 <= 5)
+
+IRs:
+TMP_248(bool) = counter_re_ent7 <= 5
+TMP_249(None) = SOLIDITY_CALL require(bool)(TMP_248)"];
+1->2;
+2[label="Node Type: IF 2
+
+EXPRESSION:
+! (msg.sender.send(10000000000000000000))
+
+IRs:
+TMP_250 = SEND dest:msg.sender value:10000000000000000000
+TMP_251 = ! TMP_250 
+CONDITION TMP_251"];
+2->3[label="True"];
+2->4[label="False"];
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+revert()()
+
+IRs:
+TMP_252(None) = SOLIDITY_CALL revert()()"];
+3->4;
+4[label="Node Type: END_IF 4
+"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+counter_re_ent7 += 1
+
+IRs:
+counter_re_ent7(uint256) = counter_re_ent7 + 1"];
+}

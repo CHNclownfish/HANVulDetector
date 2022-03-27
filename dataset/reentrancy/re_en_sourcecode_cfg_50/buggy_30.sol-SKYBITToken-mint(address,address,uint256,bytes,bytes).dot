@@ -1,0 +1,28 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->3;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+_mint(operator,account,amount,userData,operatorData)
+
+IRs:
+INTERNAL_CALL, ERC777._mint(address,address,uint256,bytes,bytes)(operator,account,amount,userData,operatorData)"];
+1->2;
+2[label="Node Type: RETURN 2
+
+EXPRESSION:
+true
+
+IRs:
+RETURN True"];
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+onlyMinter()
+
+IRs:
+MODIFIER_CALL, MinterRole.onlyMinter()()"];
+3->1;
+}

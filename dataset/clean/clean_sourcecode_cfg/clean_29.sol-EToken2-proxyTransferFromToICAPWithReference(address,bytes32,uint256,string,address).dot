@@ -1,0 +1,15 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: RETURN 1
+
+EXPRESSION:
+_transferToICAP(getHolderId(_from),_icap,_value,_reference,getHolderId(_sender))
+
+IRs:
+TMP_94(uint256) = INTERNAL_CALL, EToken2.getHolderId(address)(_from)
+TMP_95(uint256) = INTERNAL_CALL, EToken2.getHolderId(address)(_sender)
+TMP_96(bool) = INTERNAL_CALL, EToken2._transferToICAP(uint256,bytes32,uint256,string,uint256)(TMP_94,_icap,_value,_reference,TMP_95)
+RETURN TMP_96"];
+}

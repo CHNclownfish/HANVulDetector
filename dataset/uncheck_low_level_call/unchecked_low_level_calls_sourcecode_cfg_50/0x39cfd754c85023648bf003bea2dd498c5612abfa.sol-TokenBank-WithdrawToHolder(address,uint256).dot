@@ -1,0 +1,58 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->7;
+1[label="Node Type: IF 1
+
+EXPRESSION:
+Holders[msg.sender] > 0
+
+IRs:
+REF_5(uint256) -> Holders[msg.sender]
+TMP_21(bool) = REF_5 > 0
+CONDITION TMP_21"];
+1->2[label="True"];
+1->6[label="False"];
+2[label="Node Type: IF 2
+
+EXPRESSION:
+Holders[_addr] >= _wei
+
+IRs:
+REF_6(uint256) -> Holders[_addr]
+TMP_22(bool) = REF_6 >= _wei
+CONDITION TMP_22"];
+2->3[label="True"];
+2->5[label="False"];
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+_addr.call.value(_wei)
+
+IRs:
+REF_7(None) -> _addr.call
+REF_8(None) -> REF_7.value"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+Holders[_addr] -= _wei
+
+IRs:
+REF_9(uint256) -> Holders[_addr]
+REF_9(-> Holders) = REF_9 - _wei"];
+4->5;
+5[label="Node Type: END_IF 5
+"];
+5->6;
+6[label="Node Type: END_IF 6
+"];
+7[label="Node Type: EXPRESSION 7
+
+EXPRESSION:
+onlyOwner()
+
+IRs:
+MODIFIER_CALL, Ownable.onlyOwner()()"];
+7->1;
+}

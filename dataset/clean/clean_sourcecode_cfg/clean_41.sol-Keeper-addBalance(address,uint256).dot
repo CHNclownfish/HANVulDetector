@@ -1,0 +1,63 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->6;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(_to != address(0))
+
+IRs:
+TMP_33 = CONVERT 0 to address
+TMP_34(bool) = _to != TMP_33
+TMP_35(None) = SOLIDITY_CALL require(bool)(TMP_34)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(_value > 0)
+
+IRs:
+TMP_36(bool) = _value > 0
+TMP_37(None) = SOLIDITY_CALL require(bool)(TMP_36)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+require(bool,string)(totalBalance.add(_value) <= token.balanceOf(address(this)),not enough tokens)
+
+IRs:
+TMP_38(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalBalance', '_value'] 
+TMP_39 = CONVERT this to address
+TMP_40(uint256) = HIGH_LEVEL_CALL, dest:token(IERC20), function:balanceOf, arguments:['TMP_39']  
+TMP_41(bool) = TMP_38 <= TMP_40
+TMP_42(None) = SOLIDITY_CALL require(bool,string)(TMP_41,not enough tokens)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+balances[_to] = balances[_to].add(_value)
+
+IRs:
+REF_2(uint256) -> balances[_to]
+REF_3(uint256) -> balances[_to]
+TMP_43(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_3', '_value'] 
+REF_2 (->balances) := TMP_43(uint256)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+totalBalance = totalBalance.add(_value)
+
+IRs:
+TMP_44(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalBalance', '_value'] 
+totalBalance(uint256) := TMP_44(uint256)"];
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+onlyOwner()
+
+IRs:
+MODIFIER_CALL, Claimable.onlyOwner()()"];
+6->1;
+}

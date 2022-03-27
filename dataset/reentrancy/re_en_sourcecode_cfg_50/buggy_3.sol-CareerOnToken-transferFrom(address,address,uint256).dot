@@ -1,0 +1,94 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+assert(bool)(_to != address(this) && ! isTransPaused && balances[msg.sender] >= _value && balances[_to] + _value > balances[_to] && allowed[_from][msg.sender] >= _value)
+
+IRs:
+TMP_64 = CONVERT this to address
+TMP_65(bool) = _to != TMP_64
+TMP_66 = ! isTransPaused 
+TMP_67(bool) = TMP_65 && TMP_66
+REF_42(uint256) -> balances[msg.sender]
+TMP_68(bool) = REF_42 >= _value
+TMP_69(bool) = TMP_67 && TMP_68
+REF_43(uint256) -> balances[_to]
+TMP_70(uint256) = REF_43 + _value
+REF_44(uint256) -> balances[_to]
+TMP_71(bool) = TMP_70 > REF_44
+TMP_72(bool) = TMP_69 && TMP_71
+REF_45(mapping(address => uint256)) -> allowed[_from]
+REF_46(uint256) -> REF_45[msg.sender]
+TMP_73(bool) = REF_46 >= _value
+TMP_74(bool) = TMP_72 && TMP_73
+TMP_75(None) = SOLIDITY_CALL assert(bool)(TMP_74)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+balances[_to] += _value
+
+IRs:
+REF_47(uint256) -> balances[_to]
+REF_47(-> balances) = REF_47 + _value"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+balances[_from] -= _value
+
+IRs:
+REF_48(uint256) -> balances[_from]
+REF_48(-> balances) = REF_48 - _value"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+allowed[_from][msg.sender] -= _value
+
+IRs:
+REF_49(mapping(address => uint256)) -> allowed[_from]
+REF_50(uint256) -> REF_49[msg.sender]
+REF_50(-> allowed) = REF_50 - _value"];
+4->5;
+5[label="Node Type: IF 5
+
+EXPRESSION:
+_from == owner
+
+IRs:
+TMP_76(bool) = _from == owner
+CONDITION TMP_76"];
+5->6[label="True"];
+5->7[label="False"];
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+Transfer(address(this),_to,_value)
+
+IRs:
+TMP_77 = CONVERT this to address
+Emit Transfer(TMP_77._to._value)"];
+6->8;
+7[label="Node Type: EXPRESSION 7
+
+EXPRESSION:
+Transfer(_from,_to,_value)
+
+IRs:
+Emit Transfer(_from._to._value)"];
+7->8;
+8[label="Node Type: END_IF 8
+"];
+8->9;
+9[label="Node Type: RETURN 9
+
+EXPRESSION:
+true
+
+IRs:
+RETURN True"];
+}

@@ -1,0 +1,17 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(safeSub(now,waitTime) >= previousUpdateTime)
+
+IRs:
+TMP_305(uint256) = INTERNAL_CALL, SafeMath.safeSub(uint256,uint256)(now,waitTime)
+TMP_306(bool) = TMP_305 >= previousUpdateTime
+TMP_307(None) = SOLIDITY_CALL require(bool)(TMP_306)"];
+1->2;
+2[label="Node Type: _ 2
+"];
+}

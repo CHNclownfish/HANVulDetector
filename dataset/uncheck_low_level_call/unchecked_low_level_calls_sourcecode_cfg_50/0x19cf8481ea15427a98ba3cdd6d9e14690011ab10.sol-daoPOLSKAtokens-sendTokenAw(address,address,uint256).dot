@@ -1,0 +1,74 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: IF 1
+
+EXPRESSION:
+msg.sender != owner
+
+IRs:
+TMP_106(bool) = msg.sender != owner
+CONDITION TMP_106"];
+1->2[label="True"];
+1->3[label="False"];
+2[label="Node Type: THROW 2
+"];
+3[label="Node Type: END_IF 3
+"];
+3->4;
+4[label="Node Type: NEW VARIABLE 4
+
+EXPRESSION:
+t = transfers[numTransfers]
+
+IRs:
+REF_49(daoPOLSKAtokens.sendTokenAway) -> transfers[numTransfers]
+t(daoPOLSKAtokens.sendTokenAway) := REF_49(daoPOLSKAtokens.sendTokenAway)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+t.coinContract = StandardToken(StandardTokenAddress)
+
+IRs:
+REF_50(StandardToken) -> t.coinContract
+TMP_107 = CONVERT StandardTokenAddress to StandardToken
+REF_50 (->t) := TMP_107(StandardToken)"];
+5->6;
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+t.amount = amount
+
+IRs:
+REF_51(uint256) -> t.amount
+REF_51 (->t) := amount(uint256)"];
+6->7;
+7[label="Node Type: EXPRESSION 7
+
+EXPRESSION:
+t.recipient = receiver
+
+IRs:
+REF_52(address) -> t.recipient
+REF_52 (->t) := receiver(address)"];
+7->8;
+8[label="Node Type: EXPRESSION 8
+
+EXPRESSION:
+t.coinContract.transfer(receiver,amount)
+
+IRs:
+REF_53(StandardToken) -> t.coinContract
+TMP_108(bool) = HIGH_LEVEL_CALL, dest:REF_53(StandardToken), function:transfer, arguments:['receiver', 'amount']  "];
+8->9;
+9[label="Node Type: EXPRESSION 9
+
+EXPRESSION:
+numTransfers ++
+
+IRs:
+TMP_109(uint256) := numTransfers(uint256)
+numTransfers(uint256) = numTransfers + 1"];
+}

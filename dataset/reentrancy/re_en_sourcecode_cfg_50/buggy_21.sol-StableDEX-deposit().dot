@@ -1,0 +1,53 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->5;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(msg.value > 0)
+
+IRs:
+TMP_88(bool) = msg.value > 0
+TMP_89(None) = SOLIDITY_CALL require(bool)(TMP_88)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+userDetails[msg.sender][address(0)] = userDetails[msg.sender][address(0)].add(msg.value)
+
+IRs:
+REF_54(mapping(address => uint256)) -> userDetails[msg.sender]
+TMP_90 = CONVERT 0 to address
+REF_55(uint256) -> REF_54[TMP_90]
+REF_56(mapping(address => uint256)) -> userDetails[msg.sender]
+TMP_91 = CONVERT 0 to address
+REF_57(uint256) -> REF_56[TMP_91]
+TMP_92(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_57', 'msg.value'] 
+REF_55 (->userDetails) := TMP_92(uint256)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+DepositandWithdraw(msg.sender,address(0),msg.value,0)
+
+IRs:
+TMP_93 = CONVERT 0 to address
+Emit DepositandWithdraw(msg.sender.TMP_93.msg.value.0)"];
+3->4;
+4[label="Node Type: RETURN 4
+
+EXPRESSION:
+true
+
+IRs:
+RETURN True"];
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+dexstatuscheck()
+
+IRs:
+MODIFIER_CALL, StableDEX.dexstatuscheck()()"];
+5->1;
+}

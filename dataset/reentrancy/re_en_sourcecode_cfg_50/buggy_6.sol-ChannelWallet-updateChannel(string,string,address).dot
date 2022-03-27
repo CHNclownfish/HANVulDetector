@@ -1,0 +1,80 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->7;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(bytes(from).length > 0)
+
+IRs:
+TMP_236 = CONVERT from to bytes
+REF_141 -> LENGTH TMP_236
+TMP_237(bool) = REF_141 > 0
+TMP_238(None) = SOLIDITY_CALL require(bool)(TMP_237)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(bytes(to).length > 0)
+
+IRs:
+TMP_239 = CONVERT to to bytes
+REF_142 -> LENGTH TMP_239
+TMP_240(bool) = REF_142 > 0
+TMP_241(None) = SOLIDITY_CALL require(bool)(TMP_240)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+require(bool)(addressMap[to] == address(0))
+
+IRs:
+REF_143(address) -> addressMap[to]
+TMP_242 = CONVERT 0 to address
+TMP_243(bool) = REF_143 == TMP_242
+TMP_244(None) = SOLIDITY_CALL require(bool)(TMP_243)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+addressMap[to] = _address
+
+IRs:
+REF_144(address) -> addressMap[to]
+REF_144 (->addressMap) := _address(address)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+addressMap[from] = address(0)
+
+IRs:
+REF_145(address) -> addressMap[from]
+TMP_245 = CONVERT 0 to address
+REF_145 (->addressMap) := TMP_245(address)"];
+5->6;
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+UpdateAddress(from,to)
+
+IRs:
+Emit UpdateAddress(from.to)"];
+7[label="Node Type: EXPRESSION 7
+
+EXPRESSION:
+onlyMaster()
+
+IRs:
+MODIFIER_CALL, Ownable.onlyMaster()()"];
+7->8;
+8[label="Node Type: EXPRESSION 8
+
+EXPRESSION:
+onlyWhenNotStopped()
+
+IRs:
+MODIFIER_CALL, Ownable.onlyWhenNotStopped()()"];
+8->1;
+}

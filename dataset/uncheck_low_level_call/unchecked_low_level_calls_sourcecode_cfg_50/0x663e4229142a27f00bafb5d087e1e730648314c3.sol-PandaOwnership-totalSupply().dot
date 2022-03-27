@@ -1,0 +1,14 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: RETURN 1
+
+EXPRESSION:
+pandas.length - 1
+
+IRs:
+REF_65 -> LENGTH pandas
+TMP_275(uint256) = REF_65 - 1
+RETURN TMP_275"];
+}

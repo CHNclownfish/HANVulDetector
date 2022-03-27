@@ -1,0 +1,60 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool,string)(orderInfo.orderStatus == uint8(OrderStatus.FILLABLE),ORDER_UNFILLABLE)
+
+IRs:
+REF_130(uint8) -> orderInfo.orderStatus
+REF_131(LibOrder.OrderStatus) -> OrderStatus.FILLABLE
+TMP_343 = CONVERT REF_131 to uint8
+TMP_344(bool) = REF_130 == TMP_343
+TMP_345(None) = SOLIDITY_CALL require(bool,string)(TMP_344,ORDER_UNFILLABLE)"];
+1->2;
+2[label="Node Type: IF 2
+
+EXPRESSION:
+order.senderAddress != address(0)
+
+IRs:
+REF_132(address) -> order.senderAddress
+TMP_346 = CONVERT 0 to address
+TMP_347(bool) = REF_132 != TMP_346
+CONDITION TMP_347"];
+2->3[label="True"];
+2->4[label="False"];
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+require(bool,string)(order.senderAddress == msg.sender,INVALID_SENDER)
+
+IRs:
+REF_133(address) -> order.senderAddress
+TMP_348(bool) = REF_133 == msg.sender
+TMP_349(None) = SOLIDITY_CALL require(bool,string)(TMP_348,INVALID_SENDER)"];
+3->4;
+4[label="Node Type: END_IF 4
+"];
+4->5;
+5[label="Node Type: NEW VARIABLE 5
+
+EXPRESSION:
+makerAddress = getCurrentContextAddress()
+
+IRs:
+TMP_350(address) = INTERNAL_CALL, MTransactions.getCurrentContextAddress()()
+makerAddress(address) := TMP_350(address)"];
+5->6;
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+require(bool,string)(order.makerAddress == makerAddress,INVALID_MAKER)
+
+IRs:
+REF_134(address) -> order.makerAddress
+TMP_351(bool) = REF_134 == makerAddress
+TMP_352(None) = SOLIDITY_CALL require(bool,string)(TMP_351,INVALID_MAKER)"];
+}

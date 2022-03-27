@@ -1,0 +1,145 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: IF 1
+
+EXPRESSION:
+! funding
+
+IRs:
+TMP_110 = ! funding 
+CONDITION TMP_110"];
+1->2[label="True"];
+1->3[label="False"];
+2[label="Node Type: THROW 2
+"];
+3[label="Node Type: END_IF 3
+"];
+3->4;
+4[label="Node Type: IF 4
+
+EXPRESSION:
+msg.value == 0
+
+IRs:
+TMP_111(bool) = msg.value == 0
+CONDITION TMP_111"];
+4->5[label="True"];
+4->6[label="False"];
+5[label="Node Type: THROW 5
+"];
+6[label="Node Type: END_IF 6
+"];
+6->7;
+7[label="Node Type: IF 7
+
+EXPRESSION:
+msg.value > (supplylimit - totalSupply) / CreationRate
+
+IRs:
+TMP_112(uint256) = supplylimit - totalSupply
+TMP_113(uint256) = TMP_112 / CreationRate
+TMP_114(bool) = msg.value > TMP_113
+CONDITION TMP_114"];
+7->8[label="True"];
+7->9[label="False"];
+8[label="Node Type: THROW 8
+"];
+9[label="Node Type: END_IF 9
+"];
+9->10;
+10[label="Node Type: NEW VARIABLE 10
+
+EXPRESSION:
+numTokensRAW = msg.value
+
+IRs:
+numTokensRAW(uint256) := msg.value(uint256)"];
+10->11;
+11[label="Node Type: NEW VARIABLE 11
+
+EXPRESSION:
+numTokens = msg.value * CreationRate
+
+IRs:
+TMP_115(uint256) = msg.value * CreationRate
+numTokens(uint256) := TMP_115(uint256)"];
+11->12;
+12[label="Node Type: EXPRESSION 12
+
+EXPRESSION:
+totalSupply += numTokens
+
+IRs:
+totalSupply(uint256) = totalSupply + numTokens"];
+12->13;
+13[label="Node Type: EXPRESSION 13
+
+EXPRESSION:
+balances[holder] += numTokens
+
+IRs:
+REF_55(uint256) -> balances[holder]
+REF_55(-> balances) = REF_55 + numTokens"];
+13->14;
+14[label="Node Type: EXPRESSION 14
+
+EXPRESSION:
+balancesRAW[holder] += numTokensRAW
+
+IRs:
+REF_56(uint256) -> balancesRAW[holder]
+REF_56(-> balancesRAW) = REF_56 + numTokensRAW"];
+14->15;
+15[label="Node Type: EXPRESSION 15
+
+EXPRESSION:
+Transfer(0,holder,numTokens)
+
+IRs:
+Emit Transfer(0.holder.numTokens)"];
+15->16;
+16[label="Node Type: NEW VARIABLE 16
+
+EXPRESSION:
+percentOfTotal = 12
+
+IRs:
+percentOfTotal(uint256) := 12(uint256)"];
+16->17;
+17[label="Node Type: NEW VARIABLE 17
+
+EXPRESSION:
+additionalTokens = numTokens * percentOfTotal / (100)
+
+IRs:
+TMP_117(uint256) = numTokens * percentOfTotal
+TMP_118(uint256) = TMP_117 / 100
+additionalTokens(uint256) := TMP_118(uint256)"];
+17->18;
+18[label="Node Type: EXPRESSION 18
+
+EXPRESSION:
+totalSupply += additionalTokens
+
+IRs:
+totalSupply(uint256) = totalSupply + additionalTokens"];
+18->19;
+19[label="Node Type: EXPRESSION 19
+
+EXPRESSION:
+balances[migrationMaster] += additionalTokens
+
+IRs:
+REF_57(uint256) -> balances[migrationMaster]
+REF_57(-> balances) = REF_57 + additionalTokens"];
+19->20;
+20[label="Node Type: EXPRESSION 20
+
+EXPRESSION:
+Transfer(0,migrationMaster,additionalTokens)
+
+IRs:
+Emit Transfer(0.migrationMaster.additionalTokens)"];
+}

@@ -1,0 +1,20 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(msg.sender == ico || msg.sender == admin || ! tokensAreFrozen)
+
+IRs:
+TMP_70(bool) = msg.sender == ico
+TMP_71(bool) = msg.sender == admin
+TMP_72(bool) = TMP_70 || TMP_71
+TMP_73 = ! tokensAreFrozen 
+TMP_74(bool) = TMP_72 || TMP_73
+TMP_75(None) = SOLIDITY_CALL require(bool)(TMP_74)"];
+1->2;
+2[label="Node Type: _ 2
+"];
+}

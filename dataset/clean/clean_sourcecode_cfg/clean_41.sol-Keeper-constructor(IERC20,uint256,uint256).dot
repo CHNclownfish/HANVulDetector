@@ -1,0 +1,46 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(_unFreezeStartDate >= block.timestamp)
+
+IRs:
+TMP_29(bool) = _unFreezeStartDate >= block.timestamp
+TMP_30(None) = SOLIDITY_CALL require(bool)(TMP_29)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(_totalUnFreezeDate > _unFreezeStartDate)
+
+IRs:
+TMP_31(bool) = _totalUnFreezeDate > _unFreezeStartDate
+TMP_32(None) = SOLIDITY_CALL require(bool)(TMP_31)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+token = _token
+
+IRs:
+token(IERC20) := _token(IERC20)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+unFreezeStartDate = _unFreezeStartDate
+
+IRs:
+unFreezeStartDate(uint256) := _unFreezeStartDate(uint256)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+totalUnFreezeDate = _totalUnFreezeDate
+
+IRs:
+totalUnFreezeDate(uint256) := _totalUnFreezeDate(uint256)"];
+}

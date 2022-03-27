@@ -1,0 +1,62 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->6;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(auctionByAssetId[assetId].seller == msg.sender || msg.sender == owner)
+
+IRs:
+REF_5(Marketplace.Auction) -> auctionByAssetId[assetId]
+REF_6(address) -> REF_5.seller
+TMP_87(bool) = REF_6 == msg.sender
+TMP_88(bool) = msg.sender == owner
+TMP_89(bool) = TMP_87 || TMP_88
+TMP_90(None) = SOLIDITY_CALL require(bool)(TMP_89)"];
+1->2;
+2[label="Node Type: NEW VARIABLE 2
+
+EXPRESSION:
+auctionId = auctionByAssetId[assetId].id
+
+IRs:
+REF_7(Marketplace.Auction) -> auctionByAssetId[assetId]
+REF_8(bytes32) -> REF_7.id
+auctionId(bytes32) := REF_8(bytes32)"];
+2->3;
+3[label="Node Type: NEW VARIABLE 3
+
+EXPRESSION:
+auctionSeller = auctionByAssetId[assetId].seller
+
+IRs:
+REF_9(Marketplace.Auction) -> auctionByAssetId[assetId]
+REF_10(address) -> REF_9.seller
+auctionSeller(address) := REF_10(address)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+delete auctionByAssetId[assetId]
+
+IRs:
+REF_11(Marketplace.Auction) -> auctionByAssetId[assetId]
+auctionByAssetId = delete REF_11 "];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+AuctionCancelled(auctionId,assetId,auctionSeller)
+
+IRs:
+Emit AuctionCancelled(auctionId.assetId.auctionSeller)"];
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+whenNotPaused()
+
+IRs:
+MODIFIER_CALL, Pausable.whenNotPaused()()"];
+6->1;
+}

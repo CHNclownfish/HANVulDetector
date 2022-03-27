@@ -1,0 +1,13 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+claimThrone(string(msg.data))
+
+IRs:
+TMP_1 = CONVERT msg.data to string
+INTERNAL_CALL, KingOfTheEtherThrone.claimThrone(string)(TMP_1)"];
+}

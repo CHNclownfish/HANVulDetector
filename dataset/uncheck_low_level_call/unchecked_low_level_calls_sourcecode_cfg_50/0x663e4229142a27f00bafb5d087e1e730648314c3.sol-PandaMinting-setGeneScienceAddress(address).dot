@@ -1,0 +1,38 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->4;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+candidateContract = GeneScienceInterface(_address)
+
+IRs:
+TMP_1791 = CONVERT _address to GeneScienceInterface
+candidateContract(GeneScienceInterface) := TMP_1791(GeneScienceInterface)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(candidateContract.isGeneScience())
+
+IRs:
+TMP_1792(bool) = HIGH_LEVEL_CALL, dest:candidateContract(GeneScienceInterface), function:isGeneScience, arguments:[]  
+TMP_1793(None) = SOLIDITY_CALL require(bool)(TMP_1792)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+geneScience = candidateContract
+
+IRs:
+geneScience(GeneScienceInterface) := candidateContract(GeneScienceInterface)"];
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+onlyCEO()
+
+IRs:
+MODIFIER_CALL, PandaAccessControl.onlyCEO()()"];
+4->1;
+}

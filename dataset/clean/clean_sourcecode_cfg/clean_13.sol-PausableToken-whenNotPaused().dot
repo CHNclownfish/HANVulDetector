@@ -1,0 +1,51 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: IF 1
+
+EXPRESSION:
+pausedPublic
+
+IRs:
+CONDITION pausedPublic"];
+1->2[label="True"];
+1->6[label="False"];
+2[label="Node Type: IF 2
+
+EXPRESSION:
+! pausedOwnerAdmin
+
+IRs:
+TMP_113 = ! pausedOwnerAdmin 
+CONDITION TMP_113"];
+2->3[label="True"];
+2->4[label="False"];
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+require(bool)(msg.sender == admin || msg.sender == owner)
+
+IRs:
+TMP_114(bool) = msg.sender == admin
+TMP_115(bool) = msg.sender == owner
+TMP_116(bool) = TMP_114 || TMP_115
+TMP_117(None) = SOLIDITY_CALL require(bool)(TMP_116)"];
+3->5;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+revert()()
+
+IRs:
+TMP_118(None) = SOLIDITY_CALL revert()()"];
+4->5;
+5[label="Node Type: END_IF 5
+"];
+5->6;
+6[label="Node Type: END_IF 6
+"];
+6->7;
+7[label="Node Type: _ 7
+"];
+}

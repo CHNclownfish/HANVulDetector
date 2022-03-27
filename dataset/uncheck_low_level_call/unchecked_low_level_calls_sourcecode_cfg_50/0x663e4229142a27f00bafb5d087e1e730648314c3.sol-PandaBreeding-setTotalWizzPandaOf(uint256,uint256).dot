@@ -1,0 +1,42 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->4;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(wizzPandaQuota[_tp] == 0)
+
+IRs:
+REF_79(uint256) -> wizzPandaQuota[_tp]
+TMP_412(bool) = REF_79 == 0
+TMP_413(None) = SOLIDITY_CALL require(bool)(TMP_412)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(_total == uint256(uint32(_total)))
+
+IRs:
+TMP_414 = CONVERT _total to uint32
+TMP_415 = CONVERT TMP_414 to uint256
+TMP_416(bool) = _total == TMP_415
+TMP_417(None) = SOLIDITY_CALL require(bool)(TMP_416)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+wizzPandaQuota[_tp] = _total
+
+IRs:
+REF_80(uint256) -> wizzPandaQuota[_tp]
+REF_80 (->wizzPandaQuota) := _total(uint256)"];
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+onlyCLevel()
+
+IRs:
+MODIFIER_CALL, PandaAccessControl.onlyCLevel()()"];
+4->1;
+}

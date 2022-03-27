@@ -1,0 +1,57 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: IF 1
+
+EXPRESSION:
+amount > 0 && from != to
+
+IRs:
+TMP_586(bool) = amount > 0
+TMP_587(bool) = from != to
+TMP_588(bool) = TMP_586 && TMP_587
+CONDITION TMP_588"];
+1->2[label="True"];
+1->8[label="False"];
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool,string)(assetData.length > 3,LENGTH_GREATER_THAN_3_REQUIRED)
+
+IRs:
+REF_280 -> LENGTH assetData
+TMP_589(bool) = REF_280 > 3
+TMP_590(None) = SOLIDITY_CALL require(bool,string)(TMP_589,LENGTH_GREATER_THAN_3_REQUIRED)"];
+2->3;
+3[label="Node Type: NEW VARIABLE 3
+"];
+3->4;
+4[label="Node Type: INLINE ASM 4
+"];
+4->5;
+5[label="Node Type: NEW VARIABLE 5
+
+EXPRESSION:
+assetProxy = assetProxies[assetProxyId]
+
+IRs:
+REF_281(IAssetProxy) -> assetProxies[assetProxyId]
+assetProxy(address) := REF_281(IAssetProxy)"];
+5->6;
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+require(bool,string)(assetProxy != address(0),ASSET_PROXY_DOES_NOT_EXIST)
+
+IRs:
+TMP_591 = CONVERT 0 to address
+TMP_592(bool) = assetProxy != TMP_591
+TMP_593(None) = SOLIDITY_CALL require(bool,string)(TMP_592,ASSET_PROXY_DOES_NOT_EXIST)"];
+6->7;
+7[label="Node Type: INLINE ASM 7
+"];
+7->8;
+8[label="Node Type: END_IF 8
+"];
+}

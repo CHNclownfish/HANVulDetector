@@ -1,0 +1,33 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(msg.sender == address(nonFungibleContract))
+
+IRs:
+TMP_1269 = CONVERT nonFungibleContract to address
+TMP_1270(bool) = msg.sender == TMP_1269
+TMP_1271(None) = SOLIDITY_CALL require(bool)(TMP_1270)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(_erc20address != address(0))
+
+IRs:
+TMP_1272 = CONVERT 0 to address
+TMP_1273(bool) = _erc20address != TMP_1272
+TMP_1274(None) = SOLIDITY_CALL require(bool)(TMP_1273)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+erc20ContractsSwitcher[_erc20address] = _onoff
+
+IRs:
+REF_347(uint256) -> erc20ContractsSwitcher[_erc20address]
+REF_347 (->erc20ContractsSwitcher) := _onoff(uint256)"];
+}

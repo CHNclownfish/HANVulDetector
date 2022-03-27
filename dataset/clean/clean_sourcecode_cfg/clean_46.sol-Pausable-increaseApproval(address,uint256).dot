@@ -1,0 +1,35 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+allowed[msg.sender][_spender] = allowed[msg.sender][_spender].add(_addedValue)
+
+IRs:
+REF_78(mapping(address => uint256)) -> allowed[msg.sender]
+REF_79(uint256) -> REF_78[_spender]
+REF_80(mapping(address => uint256)) -> allowed[msg.sender]
+REF_81(uint256) -> REF_80[_spender]
+TMP_92(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_81', '_addedValue'] 
+REF_79 (->allowed) := TMP_92(uint256)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+Approval(msg.sender,_spender,allowed[msg.sender][_spender])
+
+IRs:
+REF_83(mapping(address => uint256)) -> allowed[msg.sender]
+REF_84(uint256) -> REF_83[_spender]
+Emit Approval(msg.sender._spender.REF_84)"];
+2->3;
+3[label="Node Type: RETURN 3
+
+EXPRESSION:
+true
+
+IRs:
+RETURN True"];
+}

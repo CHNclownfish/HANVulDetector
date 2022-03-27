@@ -1,0 +1,92 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(_sender != address(0))
+
+IRs:
+TMP_131 = CONVERT 0 to address
+TMP_132(bool) = _sender != TMP_131
+TMP_133(None) = SOLIDITY_CALL require(bool)(TMP_132)"];
+1->2;
+2[label="Node Type: NEW VARIABLE 2
+
+EXPRESSION:
+remaining = balances[_sender].sub(_value)
+
+IRs:
+REF_71(uint256) -> balances[_sender]
+TMP_134(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_71', '_value'] 
+remaining(uint256) := TMP_134(uint256)"];
+2->3;
+3[label="Node Type: NEW VARIABLE 3
+
+EXPRESSION:
+totalLockAmt = 0
+
+IRs:
+totalLockAmt(uint256) := 0(uint256)"];
+3->4;
+4[label="Node Type: IF 4
+
+EXPRESSION:
+contributors_locked[_sender] > 0
+
+IRs:
+REF_73(uint256) -> contributors_locked[_sender]
+TMP_135(bool) = REF_73 > 0
+CONDITION TMP_135"];
+4->5[label="True"];
+4->6[label="False"];
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+totalLockAmt = totalLockAmt.add(getLockedAmount_contributors(_sender))
+
+IRs:
+TMP_136(uint256) = INTERNAL_CALL, BOXToken.getLockedAmount_contributors(address)(_sender)
+TMP_137(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalLockAmt', 'TMP_136'] 
+totalLockAmt(uint256) := TMP_137(uint256)"];
+5->6;
+6[label="Node Type: END_IF 6
+"];
+6->7;
+7[label="Node Type: IF 7
+
+EXPRESSION:
+investors_locked[_sender] > 0
+
+IRs:
+REF_75(uint256) -> investors_locked[_sender]
+TMP_138(bool) = REF_75 > 0
+CONDITION TMP_138"];
+7->8[label="True"];
+7->9[label="False"];
+8[label="Node Type: EXPRESSION 8
+
+EXPRESSION:
+totalLockAmt = totalLockAmt.add(getLockedAmount_investors(_sender))
+
+IRs:
+TMP_139(uint256) = INTERNAL_CALL, BOXToken.getLockedAmount_investors(address)(_sender)
+TMP_140(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalLockAmt', 'TMP_139'] 
+totalLockAmt(uint256) := TMP_140(uint256)"];
+8->9;
+9[label="Node Type: END_IF 9
+"];
+9->10;
+10[label="Node Type: EXPRESSION 10
+
+EXPRESSION:
+require(bool)(remaining >= totalLockAmt)
+
+IRs:
+TMP_141(bool) = remaining >= totalLockAmt
+TMP_142(None) = SOLIDITY_CALL require(bool)(TMP_141)"];
+10->11;
+11[label="Node Type: _ 11
+"];
+}

@@ -1,0 +1,17 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: RETURN 1
+
+EXPRESSION:
+assets[_symbol].wallets[_fromId].allowance[_toId]
+
+IRs:
+REF_140(EToken2.Asset) -> assets[_symbol]
+REF_141(mapping(uint256 => EToken2.Wallet)) -> REF_140.wallets
+REF_142(EToken2.Wallet) -> REF_141[_fromId]
+REF_143(mapping(uint256 => uint256)) -> REF_142.allowance
+REF_144(uint256) -> REF_143[_toId]
+RETURN REF_144"];
+}

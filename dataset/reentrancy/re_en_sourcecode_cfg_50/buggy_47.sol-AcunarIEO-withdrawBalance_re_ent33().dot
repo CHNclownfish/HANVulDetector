@@ -1,0 +1,47 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: NEW VARIABLE 1
+"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+(success) = msg.sender.call.value(userBalance_re_ent33[msg.sender])()
+
+IRs:
+REF_220(uint256) -> userBalance_re_ent33[msg.sender]
+TUPLE_16(bool,bytes) = LOW_LEVEL_CALL, dest:msg.sender, function:call, arguments:[''] value:REF_220 
+success(bool)= UNPACK TUPLE_16 index: 0 "];
+2->3;
+3[label="Node Type: IF 3
+
+EXPRESSION:
+! success
+
+IRs:
+TMP_278 = ! success 
+CONDITION TMP_278"];
+3->4[label="True"];
+3->5[label="False"];
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+revert()()
+
+IRs:
+TMP_279(None) = SOLIDITY_CALL revert()()"];
+4->5;
+5[label="Node Type: END_IF 5
+"];
+5->6;
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+userBalance_re_ent33[msg.sender] = 0
+
+IRs:
+REF_221(uint256) -> userBalance_re_ent33[msg.sender]
+REF_221 (->userBalance_re_ent33) := 0(uint256)"];
+}

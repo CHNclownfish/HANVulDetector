@@ -1,0 +1,129 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+auction = tokenIdToAuction[_tokenId]
+
+IRs:
+REF_253(ClockAuctionBase.Auction) -> tokenIdToAuction[_tokenId]
+auction(ClockAuctionBase.Auction) := REF_253(ClockAuctionBase.Auction)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(_isOnAuction(auction))
+
+IRs:
+TMP_900(bool) = INTERNAL_CALL, ClockAuctionBase._isOnAuction(ClockAuctionBase.Auction)(auction)
+TMP_901(None) = SOLIDITY_CALL require(bool)(TMP_900)"];
+2->3;
+3[label="Node Type: NEW VARIABLE 3
+
+EXPRESSION:
+price = _currentPrice(auction)
+
+IRs:
+TMP_902(uint256) = INTERNAL_CALL, ClockAuctionBase._currentPrice(ClockAuctionBase.Auction)(auction)
+price(uint256) := TMP_902(uint256)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+require(bool)(_bidAmount >= price)
+
+IRs:
+TMP_903(bool) = _bidAmount >= price
+TMP_904(None) = SOLIDITY_CALL require(bool)(TMP_903)"];
+4->5;
+5[label="Node Type: NEW VARIABLE 5
+
+EXPRESSION:
+seller = auction.seller
+
+IRs:
+REF_254(address) -> auction.seller
+seller(address) := REF_254(address)"];
+5->6;
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+_removeAuction(_tokenId)
+
+IRs:
+INTERNAL_CALL, ClockAuctionBase._removeAuction(uint256)(_tokenId)"];
+6->7;
+7[label="Node Type: IF 7
+
+EXPRESSION:
+price > 0
+
+IRs:
+TMP_906(bool) = price > 0
+CONDITION TMP_906"];
+7->8[label="True"];
+7->11[label="False"];
+8[label="Node Type: NEW VARIABLE 8
+
+EXPRESSION:
+auctioneerCut = _computeCut(price)
+
+IRs:
+TMP_907(uint256) = INTERNAL_CALL, ClockAuctionBase._computeCut(uint256)(price)
+auctioneerCut(uint256) := TMP_907(uint256)"];
+8->9;
+9[label="Node Type: NEW VARIABLE 9
+
+EXPRESSION:
+sellerProceeds = price - auctioneerCut
+
+IRs:
+TMP_908(uint256) = price - auctioneerCut
+sellerProceeds(uint256) := TMP_908(uint256)"];
+9->10;
+10[label="Node Type: EXPRESSION 10
+
+EXPRESSION:
+seller.transfer(sellerProceeds)
+
+IRs:
+Transfer dest:seller value:sellerProceeds"];
+10->11;
+11[label="Node Type: END_IF 11
+"];
+11->12;
+12[label="Node Type: NEW VARIABLE 12
+
+EXPRESSION:
+bidExcess = _bidAmount - price
+
+IRs:
+TMP_910(uint256) = _bidAmount - price
+bidExcess(uint256) := TMP_910(uint256)"];
+12->13;
+13[label="Node Type: EXPRESSION 13
+
+EXPRESSION:
+msg.sender.transfer(bidExcess)
+
+IRs:
+Transfer dest:msg.sender value:bidExcess"];
+13->14;
+14[label="Node Type: EXPRESSION 14
+
+EXPRESSION:
+AuctionSuccessful(_tokenId,price,msg.sender)
+
+IRs:
+Emit AuctionSuccessful(_tokenId.price.msg.sender)"];
+14->15;
+15[label="Node Type: RETURN 15
+
+EXPRESSION:
+price
+
+IRs:
+RETURN price"];
+}

@@ -1,0 +1,49 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->6;
+1[label="Node Type: IF 1
+
+EXPRESSION:
+address(registryICAP) != 0
+
+IRs:
+TMP_33 = CONVERT registryICAP to address
+TMP_34(bool) = TMP_33 != 0
+CONDITION TMP_34"];
+1->2[label="True"];
+1->3[label="False"];
+2[label="Node Type: RETURN 2
+
+EXPRESSION:
+false
+
+IRs:
+RETURN False"];
+3[label="Node Type: END_IF 3
+"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+registryICAP = _registryICAP
+
+IRs:
+registryICAP(RegistryICAPInterface) := _registryICAP(RegistryICAPInterface)"];
+4->5;
+5[label="Node Type: RETURN 5
+
+EXPRESSION:
+true
+
+IRs:
+RETURN True"];
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+onlyRole(setup)
+
+IRs:
+MODIFIER_CALL, Ambi2Enabled.onlyRole(bytes32)(setup)"];
+6->1;
+}

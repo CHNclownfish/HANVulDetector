@@ -1,0 +1,26 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+common = CommonPanda.length + 1 - CommonPandaIndex
+
+IRs:
+REF_311 -> LENGTH CommonPanda
+TMP_1151(uint256) = REF_311 + 1
+TMP_1152(uint256) = TMP_1151 - CommonPandaIndex
+common(uint256) := TMP_1152(uint256)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+surprise = RarePanda.length + 1 - RarePandaIndex
+
+IRs:
+REF_312 -> LENGTH RarePanda
+TMP_1153(uint256) = REF_312 + 1
+TMP_1154(uint256) = TMP_1153 - RarePandaIndex
+surprise(uint256) := TMP_1154(uint256)"];
+}

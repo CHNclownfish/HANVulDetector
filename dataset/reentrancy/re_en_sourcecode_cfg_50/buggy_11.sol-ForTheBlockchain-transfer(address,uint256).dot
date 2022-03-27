@@ -1,0 +1,42 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+balances[msg.sender] = balances[msg.sender].sub(tokens)
+
+IRs:
+REF_109(uint256) -> balances[msg.sender]
+REF_110(uint256) -> balances[msg.sender]
+TMP_167(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_110', 'tokens'] 
+REF_109 (->balances) := TMP_167(uint256)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+balances[to] = balances[to].add(tokens)
+
+IRs:
+REF_112(uint256) -> balances[to]
+REF_113(uint256) -> balances[to]
+TMP_168(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_113', 'tokens'] 
+REF_112 (->balances) := TMP_168(uint256)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+Transfer(msg.sender,to,tokens)
+
+IRs:
+Emit Transfer(msg.sender.to.tokens)"];
+3->4;
+4[label="Node Type: RETURN 4
+
+EXPRESSION:
+true
+
+IRs:
+RETURN True"];
+}

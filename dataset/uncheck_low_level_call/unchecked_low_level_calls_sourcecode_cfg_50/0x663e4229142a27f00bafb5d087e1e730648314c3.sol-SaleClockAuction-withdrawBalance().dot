@@ -1,0 +1,34 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+nftAddress = address(nonFungibleContract)
+
+IRs:
+TMP_978 = CONVERT nonFungibleContract to address
+nftAddress(address) := TMP_978(address)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(msg.sender == owner || msg.sender == nftAddress)
+
+IRs:
+TMP_979(bool) = msg.sender == owner
+TMP_980(bool) = msg.sender == nftAddress
+TMP_981(bool) = TMP_979 || TMP_980
+TMP_982(None) = SOLIDITY_CALL require(bool)(TMP_981)"];
+2->3;
+3[label="Node Type: NEW VARIABLE 3
+
+EXPRESSION:
+res = nftAddress.send(this.balance)
+
+IRs:
+REF_268 -> BALANCE this
+TMP_983 = SEND dest:nftAddress value:REF_268
+res(bool) := TMP_983(bool)"];
+}

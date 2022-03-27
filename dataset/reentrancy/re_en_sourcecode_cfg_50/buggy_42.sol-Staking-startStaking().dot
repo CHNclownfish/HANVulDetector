@@ -1,0 +1,63 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(token.balanceOf(msg.sender) >= stakeTokens + findOnePercent(stakeTokens))
+
+IRs:
+TMP_115(uint256) = HIGH_LEVEL_CALL, dest:token(Token), function:balanceOf, arguments:['msg.sender']  
+TMP_116(uint256) = INTERNAL_CALL, Staking.findOnePercent(uint256)(stakeTokens)
+TMP_117(uint256) = stakeTokens + TMP_116
+TMP_118(bool) = TMP_115 >= TMP_117
+TMP_119(None) = SOLIDITY_CALL require(bool)(TMP_118)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(token.transferFrom(msg.sender,address(this),stakeTokens + findOnePercent(stakeTokens)))
+
+IRs:
+TMP_120 = CONVERT this to address
+TMP_121(uint256) = INTERNAL_CALL, Staking.findOnePercent(uint256)(stakeTokens)
+TMP_122(uint256) = stakeTokens + TMP_121
+TMP_123(bool) = HIGH_LEVEL_CALL, dest:token(Token), function:transferFrom, arguments:['msg.sender', 'TMP_120', 'TMP_122']  
+TMP_124(None) = SOLIDITY_CALL require(bool)(TMP_123)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+staker[msg.sender].time = now
+
+IRs:
+REF_64(Staking.stake) -> staker[msg.sender]
+REF_65(uint256) -> REF_64.time
+REF_65 (->staker) := now(uint256)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+staker[msg.sender].tokens = staker[msg.sender].tokens + stakeTokens
+
+IRs:
+REF_66(Staking.stake) -> staker[msg.sender]
+REF_67(uint256) -> REF_66.tokens
+REF_68(Staking.stake) -> staker[msg.sender]
+REF_69(uint256) -> REF_68.tokens
+TMP_125(uint256) = REF_69 + stakeTokens
+REF_67 (->staker) := TMP_125(uint256)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+stakingstarted(msg.sender,staker[msg.sender].tokens,staker[msg.sender].time)
+
+IRs:
+REF_70(Staking.stake) -> staker[msg.sender]
+REF_71(uint256) -> REF_70.tokens
+REF_72(Staking.stake) -> staker[msg.sender]
+REF_73(uint256) -> REF_72.time
+Emit stakingstarted(msg.sender.REF_71.REF_73)"];
+}

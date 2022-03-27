@@ -1,0 +1,81 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->8;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+allowed[investorsAllocation][owner] = 0
+
+IRs:
+REF_100(mapping(address => uint256)) -> allowed[investorsAllocation]
+REF_101(uint256) -> REF_100[owner]
+REF_101 (->allowed) := 0(uint256)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+allowed[investorsAllocation][msg.sender] = balanceOf(investorsAllocation)
+
+IRs:
+REF_102(mapping(address => uint256)) -> allowed[investorsAllocation]
+REF_103(uint256) -> REF_102[msg.sender]
+TMP_199(uint256) = INTERNAL_CALL, StandardToken.balanceOf(address)(investorsAllocation)
+REF_103 (->allowed) := TMP_199(uint256)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+allowed[overdraftAllocation][owner] = 0
+
+IRs:
+REF_104(mapping(address => uint256)) -> allowed[overdraftAllocation]
+REF_105(uint256) -> REF_104[owner]
+REF_105 (->allowed) := 0(uint256)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+allowed[teamAllocation][owner] = 0
+
+IRs:
+REF_106(mapping(address => uint256)) -> allowed[teamAllocation]
+REF_107(uint256) -> REF_106[owner]
+REF_107 (->allowed) := 0(uint256)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+allowed[communityAllocation][owner] = 0
+
+IRs:
+REF_108(mapping(address => uint256)) -> allowed[communityAllocation]
+REF_109(uint256) -> REF_108[owner]
+REF_109 (->allowed) := 0(uint256)"];
+5->6;
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+allowed[advisersAllocation][owner] = 0
+
+IRs:
+REF_110(mapping(address => uint256)) -> allowed[advisersAllocation]
+REF_111(uint256) -> REF_110[owner]
+REF_111 (->allowed) := 0(uint256)"];
+6->7;
+7[label="Node Type: EXPRESSION 7
+
+EXPRESSION:
+super.confirmOwnership()
+
+IRs:
+INTERNAL_CALL, Owned.confirmOwnership()()"];
+8[label="Node Type: EXPRESSION 8
+
+EXPRESSION:
+onlyPotentialOwner()
+
+IRs:
+MODIFIER_CALL, Owned.onlyPotentialOwner()()"];
+8->1;
+}

@@ -1,0 +1,94 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+_name = name
+
+IRs:
+_name(string) := name(string)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+_symbol = symbol
+
+IRs:
+_symbol(string) := symbol(string)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+_defaultOperatorsArray = defaultOperators
+
+IRs:
+_defaultOperatorsArray(address[]) := defaultOperators(address[])"];
+3->6;
+4[label="Node Type: BEGIN_LOOP 4
+"];
+4->7;
+5[label="Node Type: END_LOOP 5
+"];
+5->10;
+6[label="Node Type: NEW VARIABLE 6
+
+EXPRESSION:
+i = 0
+
+IRs:
+i(uint256) := 0(uint256)"];
+6->4;
+7[label="Node Type: IF_LOOP 7
+
+EXPRESSION:
+i < _defaultOperatorsArray.length
+
+IRs:
+REF_0 -> LENGTH _defaultOperatorsArray
+TMP_18(bool) = i < REF_0
+CONDITION TMP_18"];
+7->8[label="True"];
+7->5[label="False"];
+8[label="Node Type: EXPRESSION 8
+
+EXPRESSION:
+_defaultOperators[_defaultOperatorsArray[i]] = true
+
+IRs:
+REF_1(address) -> _defaultOperatorsArray[i]
+REF_2(bool) -> _defaultOperators[REF_1]
+REF_2 (->_defaultOperators) := True(bool)"];
+8->9;
+9[label="Node Type: EXPRESSION 9
+
+EXPRESSION:
+i ++
+
+IRs:
+TMP_19(uint256) := i(uint256)
+i(uint256) = i + 1"];
+9->7;
+10[label="Node Type: EXPRESSION 10
+
+EXPRESSION:
+_erc1820.setInterfaceImplementer(address(this),keccak256(bytes)(ERC777Token),address(this))
+
+IRs:
+TMP_20 = CONVERT this to address
+TMP_21(bytes32) = SOLIDITY_CALL keccak256(bytes)(ERC777Token)
+TMP_22 = CONVERT this to address
+HIGH_LEVEL_CALL, dest:_erc1820(IERC1820Registry), function:setInterfaceImplementer, arguments:['TMP_20', 'TMP_21', 'TMP_22']  "];
+10->11;
+11[label="Node Type: EXPRESSION 11
+
+EXPRESSION:
+_erc1820.setInterfaceImplementer(address(this),keccak256(bytes)(ERC20Token),address(this))
+
+IRs:
+TMP_24 = CONVERT this to address
+TMP_25(bytes32) = SOLIDITY_CALL keccak256(bytes)(ERC20Token)
+TMP_26 = CONVERT this to address
+HIGH_LEVEL_CALL, dest:_erc1820(IERC1820Registry), function:setInterfaceImplementer, arguments:['TMP_24', 'TMP_25', 'TMP_26']  "];
+}

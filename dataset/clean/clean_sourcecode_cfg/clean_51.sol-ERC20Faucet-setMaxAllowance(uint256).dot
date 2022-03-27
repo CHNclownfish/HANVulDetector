@@ -1,0 +1,36 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->3;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+SetMaxAllowance(msg.sender,_maxAllowanceInclusive,maxAllowanceInclusive)
+
+IRs:
+Emit SetMaxAllowance(msg.sender._maxAllowanceInclusive.maxAllowanceInclusive)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+maxAllowanceInclusive = _maxAllowanceInclusive
+
+IRs:
+maxAllowanceInclusive(uint256) := _maxAllowanceInclusive(uint256)"];
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+onlyOwner()
+
+IRs:
+MODIFIER_CALL, ERC20Faucet.onlyOwner()()"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+nonReentrant()
+
+IRs:
+MODIFIER_CALL, ERC20Faucet.nonReentrant()()"];
+4->1;
+}

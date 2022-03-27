@@ -1,0 +1,73 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool,string)(denominator > 0,DIVISION_BY_ZERO)
+
+IRs:
+TMP_631(bool) = denominator > 0
+TMP_632(None) = SOLIDITY_CALL require(bool,string)(TMP_631,DIVISION_BY_ZERO)"];
+1->2;
+2[label="Node Type: IF 2
+
+EXPRESSION:
+target == 0 || numerator == 0
+
+IRs:
+TMP_633(bool) = target == 0
+TMP_634(bool) = numerator == 0
+TMP_635(bool) = TMP_633 || TMP_634
+CONDITION TMP_635"];
+2->3[label="True"];
+2->4[label="False"];
+3[label="Node Type: RETURN 3
+
+EXPRESSION:
+false
+
+IRs:
+RETURN False"];
+4[label="Node Type: END_IF 4
+"];
+4->5;
+5[label="Node Type: NEW VARIABLE 5
+
+EXPRESSION:
+remainder = mulmod(uint256,uint256,uint256)(target,numerator,denominator)
+
+IRs:
+TMP_636(uint256) = SOLIDITY_CALL mulmod(uint256,uint256,uint256)(target,numerator,denominator)
+remainder(uint256) := TMP_636(uint256)"];
+5->6;
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+remainder = safeSub(denominator,remainder) % denominator
+
+IRs:
+TMP_637(uint256) = INTERNAL_CALL, SafeMath.safeSub(uint256,uint256)(denominator,remainder)
+TMP_638(uint256) = TMP_637 % denominator
+remainder(uint256) := TMP_638(uint256)"];
+6->7;
+7[label="Node Type: EXPRESSION 7
+
+EXPRESSION:
+isError = safeMul(1000,remainder) >= safeMul(numerator,target)
+
+IRs:
+TMP_639(uint256) = INTERNAL_CALL, SafeMath.safeMul(uint256,uint256)(1000,remainder)
+TMP_640(uint256) = INTERNAL_CALL, SafeMath.safeMul(uint256,uint256)(numerator,target)
+TMP_641(bool) = TMP_639 >= TMP_640
+isError(bool) := TMP_641(bool)"];
+7->8;
+8[label="Node Type: RETURN 8
+
+EXPRESSION:
+isError
+
+IRs:
+RETURN isError"];
+}

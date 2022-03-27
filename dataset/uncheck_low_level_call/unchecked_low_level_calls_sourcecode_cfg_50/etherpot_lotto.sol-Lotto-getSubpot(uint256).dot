@@ -1,0 +1,16 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: RETURN 1
+
+EXPRESSION:
+rounds[roundIndex].pot / getSubpotsCount(roundIndex)
+
+IRs:
+REF_18(Lotto.Round) -> rounds[roundIndex]
+REF_19(uint256) -> REF_18.pot
+TMP_16(uint256) = INTERNAL_CALL, Lotto.getSubpotsCount(uint256)(roundIndex)
+TMP_17(uint256) = REF_19 / TMP_16
+RETURN TMP_17"];
+}

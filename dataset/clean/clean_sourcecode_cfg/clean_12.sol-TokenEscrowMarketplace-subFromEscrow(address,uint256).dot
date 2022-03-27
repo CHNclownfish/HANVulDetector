@@ -1,0 +1,25 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(tokenEscrow[_from] >= _amount)
+
+IRs:
+REF_128(uint256) -> tokenEscrow[_from]
+TMP_224(bool) = REF_128 >= _amount
+TMP_225(None) = SOLIDITY_CALL require(bool)(TMP_224)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+tokenEscrow[_from] = tokenEscrow[_from].sub(_amount)
+
+IRs:
+REF_129(uint256) -> tokenEscrow[_from]
+REF_130(uint256) -> tokenEscrow[_from]
+TMP_226(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_130', '_amount'] 
+REF_129 (->tokenEscrow) := TMP_226(uint256)"];
+}

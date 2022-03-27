@@ -1,0 +1,28 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->2;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+paused = true
+
+IRs:
+paused(bool) := True(bool)"];
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+onlyCLevel()
+
+IRs:
+MODIFIER_CALL, PandaAccessControl.onlyCLevel()()"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+whenNotPaused()
+
+IRs:
+MODIFIER_CALL, PandaAccessControl.whenNotPaused()()"];
+3->1;
+}

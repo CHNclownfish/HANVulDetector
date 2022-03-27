@@ -1,0 +1,66 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->7;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+tokenBalance = erc20Contract.balanceOf(this)
+
+IRs:
+TMP_28(uint256) = HIGH_LEVEL_CALL, dest:erc20Contract(ERC20TokenInterface), function:balanceOf, arguments:['this']  
+tokenBalance(uint256) := TMP_28(uint256)"];
+1->2;
+2[label="Node Type: IF 2
+
+EXPRESSION:
+! erc20Contract.transfer(msg.sender,tokenBalance)
+
+IRs:
+TMP_29(bool) = HIGH_LEVEL_CALL, dest:erc20Contract(ERC20TokenInterface), function:transfer, arguments:['msg.sender', 'tokenBalance']  
+TMP_30 = ! TMP_29 
+CONDITION TMP_30"];
+2->3[label="True"];
+2->4[label="False"];
+3[label="Node Type: RETURN 3
+
+EXPRESSION:
+false
+
+IRs:
+RETURN False"];
+4[label="Node Type: END_IF 4
+"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+ReclaimTokens(msg.sender,tokenBalance)
+
+IRs:
+Emit ReclaimTokens(msg.sender.tokenBalance)"];
+5->6;
+6[label="Node Type: RETURN 6
+
+EXPRESSION:
+true
+
+IRs:
+RETURN True"];
+7[label="Node Type: EXPRESSION 7
+
+EXPRESSION:
+onlyOwner()
+
+IRs:
+MODIFIER_CALL, ERC20Faucet.onlyOwner()()"];
+7->8;
+8[label="Node Type: EXPRESSION 8
+
+EXPRESSION:
+nonReentrant()
+
+IRs:
+MODIFIER_CALL, ERC20Faucet.nonReentrant()()"];
+8->1;
+}

@@ -1,0 +1,38 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->4;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(_owns(msg.sender,_pandaId))
+
+IRs:
+TMP_2061(bool) = INTERNAL_CALL, PandaOwnership._owns(address,uint256)(msg.sender,_pandaId)
+TMP_2062(None) = SOLIDITY_CALL require(bool)(TMP_2061)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+_approve(_pandaId,saleAuction)
+
+IRs:
+INTERNAL_CALL, PandaOwnership._approve(uint256,address)(_pandaId,saleAuction)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+saleAuction.createGen0Auction(_pandaId,_computeNextGen0Price(),0,GEN0_AUCTION_DURATION,msg.sender)
+
+IRs:
+TMP_2064(uint256) = INTERNAL_CALL, PandaMinting._computeNextGen0Price()()
+HIGH_LEVEL_CALL, dest:saleAuction(SaleClockAuction), function:createGen0Auction, arguments:['_pandaId', 'TMP_2064', '0', 'GEN0_AUCTION_DURATION', 'msg.sender']  "];
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+onlyCOO()
+
+IRs:
+MODIFIER_CALL, PandaAccessControl.onlyCOO()()"];
+4->1;
+}

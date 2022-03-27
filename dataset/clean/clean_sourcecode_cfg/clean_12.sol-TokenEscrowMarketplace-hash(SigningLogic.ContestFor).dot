@@ -1,0 +1,17 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: RETURN 1
+
+EXPRESSION:
+keccak256()(abi.encode(CONTEST_FOR_TYPEHASH,request.requester,request.reward,request.requestNonce))
+
+IRs:
+REF_92(address) -> request.requester
+REF_93(uint256) -> request.reward
+REF_94(bytes32) -> request.requestNonce
+TMP_135(bytes) = SOLIDITY_CALL abi.encode()(CONTEST_FOR_TYPEHASH,REF_92,REF_93,REF_94)
+TMP_136(bytes32) = SOLIDITY_CALL keccak256()(TMP_135)
+RETURN TMP_136"];
+}

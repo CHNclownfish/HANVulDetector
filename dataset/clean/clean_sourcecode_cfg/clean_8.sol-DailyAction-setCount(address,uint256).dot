@@ -1,0 +1,14 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+counter[validater][_sender] = _count
+
+IRs:
+REF_27(mapping(address => uint256)) -> counter[validater]
+REF_28(uint256) -> REF_27[_sender]
+REF_28 (->counter) := _count(uint256)"];
+}

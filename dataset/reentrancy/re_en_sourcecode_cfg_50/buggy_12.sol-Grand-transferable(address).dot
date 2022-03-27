@@ -1,0 +1,26 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(! pause)
+
+IRs:
+TMP_295 = ! pause 
+TMP_296(None) = SOLIDITY_CALL require(bool)(TMP_295)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(! lockAddresses[_addr])
+
+IRs:
+REF_183(bool) -> lockAddresses[_addr]
+TMP_297 = ! REF_183 
+TMP_298(None) = SOLIDITY_CALL require(bool)(TMP_297)"];
+2->3;
+3[label="Node Type: _ 3
+"];
+}

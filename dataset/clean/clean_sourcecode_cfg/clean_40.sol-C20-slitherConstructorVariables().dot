@@ -1,0 +1,91 @@
+digraph{
+0[label="Node Type: OTHER_ENTRYPOINT 0
+
+EXPRESSION:
+name = Crypto20
+
+IRs:
+name(string) := Crypto20(string)"];
+0->1;
+1[label="Node Type: OTHER_ENTRYPOINT 1
+
+EXPRESSION:
+symbol = C20
+
+IRs:
+symbol(string) := C20(string)"];
+1->2;
+2[label="Node Type: OTHER_ENTRYPOINT 2
+
+EXPRESSION:
+decimals = 18
+
+IRs:
+decimals(uint256) := 18(uint256)"];
+2->3;
+3[label="Node Type: OTHER_ENTRYPOINT 3
+
+EXPRESSION:
+version = 9.0
+
+IRs:
+version(string) := 9.0(string)"];
+3->4;
+4[label="Node Type: OTHER_ENTRYPOINT 4
+
+EXPRESSION:
+tokenCap = 86206896 * 10 ** 18
+
+IRs:
+TMP_286(uint256) = 10 ** 18
+TMP_287(uint256) = 86206896 * TMP_286
+tokenCap(uint256) := TMP_287(uint256)"];
+4->5;
+5[label="Node Type: OTHER_ENTRYPOINT 5
+
+EXPRESSION:
+vestingSet = false
+
+IRs:
+vestingSet(bool) := False(bool)"];
+5->6;
+6[label="Node Type: OTHER_ENTRYPOINT 6
+
+EXPRESSION:
+waitTime = 18000
+
+IRs:
+waitTime(uint256) := 18000(uint256)"];
+6->7;
+7[label="Node Type: OTHER_ENTRYPOINT 7
+
+EXPRESSION:
+halted = false
+
+IRs:
+halted(bool) := False(bool)"];
+7->8;
+8[label="Node Type: OTHER_ENTRYPOINT 8
+
+EXPRESSION:
+tradeable = false
+
+IRs:
+tradeable(bool) := False(bool)"];
+8->9;
+9[label="Node Type: OTHER_ENTRYPOINT 9
+
+EXPRESSION:
+previousUpdateTime = 0
+
+IRs:
+previousUpdateTime(uint256) := 0(uint256)"];
+9->10;
+10[label="Node Type: OTHER_ENTRYPOINT 10
+
+EXPRESSION:
+minAmount = 40000000000000000
+
+IRs:
+minAmount(uint256) := 40000000000000000(uint256)"];
+}

@@ -1,0 +1,43 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool,string)(denominator > 0,DIVISION_BY_ZERO)
+
+IRs:
+TMP_603(bool) = denominator > 0
+TMP_604(None) = SOLIDITY_CALL require(bool,string)(TMP_603,DIVISION_BY_ZERO)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool,string)(! isRoundingErrorCeil(numerator,denominator,target),ROUNDING_ERROR)
+
+IRs:
+TMP_605(bool) = INTERNAL_CALL, LibMath.isRoundingErrorCeil(uint256,uint256,uint256)(numerator,denominator,target)
+TMP_606 = ! TMP_605 
+TMP_607(None) = SOLIDITY_CALL require(bool,string)(TMP_606,ROUNDING_ERROR)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+partialAmount = safeDiv(safeAdd(safeMul(numerator,target),safeSub(denominator,1)),denominator)
+
+IRs:
+TMP_608(uint256) = INTERNAL_CALL, SafeMath.safeMul(uint256,uint256)(numerator,target)
+TMP_609(uint256) = INTERNAL_CALL, SafeMath.safeSub(uint256,uint256)(denominator,1)
+TMP_610(uint256) = INTERNAL_CALL, SafeMath.safeAdd(uint256,uint256)(TMP_608,TMP_609)
+TMP_611(uint256) = INTERNAL_CALL, SafeMath.safeDiv(uint256,uint256)(TMP_610,denominator)
+partialAmount(uint256) := TMP_611(uint256)"];
+3->4;
+4[label="Node Type: RETURN 4
+
+EXPRESSION:
+partialAmount
+
+IRs:
+RETURN partialAmount"];
+}

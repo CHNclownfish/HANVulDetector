@@ -1,0 +1,29 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->2;
+1[label="Node Type: RETURN 1
+
+EXPRESSION:
+super.transfer(_to,_value)
+
+IRs:
+TMP_95(bool) = INTERNAL_CALL, BasicToken.transfer(address,uint256)(_to,_value)
+RETURN TMP_95"];
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+rejectTokensToContract(_to)
+
+IRs:
+MODIFIER_CALL, ElementToken.rejectTokensToContract(address)(_to)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+whenNotPaused()
+
+IRs:
+MODIFIER_CALL, Pausable.whenNotPaused()()"];
+3->1;
+}

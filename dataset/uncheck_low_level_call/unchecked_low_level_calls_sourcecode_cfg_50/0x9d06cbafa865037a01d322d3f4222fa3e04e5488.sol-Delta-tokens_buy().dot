@@ -1,0 +1,91 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(active > 0)
+
+IRs:
+TMP_1(bool) = active > 0
+TMP_2(None) = SOLIDITY_CALL require(bool)(TMP_1)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(msg.value >= token_price)
+
+IRs:
+TMP_3(bool) = msg.value >= token_price
+TMP_4(None) = SOLIDITY_CALL require(bool)(TMP_3)"];
+2->3;
+3[label="Node Type: NEW VARIABLE 3
+
+EXPRESSION:
+tokens_buy = msg.value * 10 ** 18 / token_price
+
+IRs:
+TMP_5(uint256) = 10 ** 18
+TMP_6(uint256) = msg.value * TMP_5
+TMP_7(uint256) = TMP_6 / token_price
+tokens_buy(uint256) := TMP_7(uint256)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+require(bool)(tokens_buy > 0)
+
+IRs:
+TMP_8(bool) = tokens_buy > 0
+TMP_9(None) = SOLIDITY_CALL require(bool)(TMP_8)"];
+4->5;
+5[label="Node Type: IF 5
+
+EXPRESSION:
+! c.call(bytes4(sha3()(transferFrom(address,address,uint256))),owner,msg.sender,tokens_buy)
+
+IRs:
+TMP_10(bytes32) = SOLIDITY_CALL sha3()(transferFrom(address,address,uint256))
+TMP_11 = CONVERT TMP_10 to bytes4
+TMP_12(bool) = LOW_LEVEL_CALL, dest:c, function:call, arguments:['TMP_11', 'owner', 'msg.sender', 'tokens_buy']  
+TMP_13 = ! TMP_12 
+CONDITION TMP_13"];
+5->6[label="True"];
+5->7[label="False"];
+6[label="Node Type: RETURN 6
+
+EXPRESSION:
+false
+
+IRs:
+RETURN False"];
+7[label="Node Type: END_IF 7
+"];
+7->8;
+8[label="Node Type: NEW VARIABLE 8
+
+EXPRESSION:
+sum2 = msg.value * 3 / 10
+
+IRs:
+TMP_14(uint256) = msg.value * 3
+TMP_15(uint256) = TMP_14 / 10
+sum2(uint256) := TMP_15(uint256)"];
+8->9;
+9[label="Node Type: EXPRESSION 9
+
+EXPRESSION:
+owner2.send(sum2)
+
+IRs:
+TMP_16 = SEND dest:owner2 value:sum2"];
+9->10;
+10[label="Node Type: RETURN 10
+
+EXPRESSION:
+true
+
+IRs:
+RETURN True"];
+}

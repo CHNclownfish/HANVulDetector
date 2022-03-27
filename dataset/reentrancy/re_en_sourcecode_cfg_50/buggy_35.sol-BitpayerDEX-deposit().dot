@@ -1,0 +1,31 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+tokens[address(0)][msg.sender] = tokens[address(0)][msg.sender].add(msg.value)
+
+IRs:
+TMP_155 = CONVERT 0 to address
+REF_86(mapping(address => uint256)) -> tokens[TMP_155]
+REF_87(uint256) -> REF_86[msg.sender]
+TMP_156 = CONVERT 0 to address
+REF_88(mapping(address => uint256)) -> tokens[TMP_156]
+REF_89(uint256) -> REF_88[msg.sender]
+TMP_157(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_89', 'msg.value'] 
+REF_87 (->tokens) := TMP_157(uint256)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+Deposit(now,address(0),msg.sender,msg.value,tokens[address(0)][msg.sender])
+
+IRs:
+TMP_158 = CONVERT 0 to address
+TMP_159 = CONVERT 0 to address
+REF_91(mapping(address => uint256)) -> tokens[TMP_159]
+REF_92(uint256) -> REF_91[msg.sender]
+Emit Deposit(now.TMP_158.msg.sender.msg.value.REF_92)"];
+}
