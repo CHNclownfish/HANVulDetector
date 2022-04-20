@@ -60,7 +60,7 @@ class graphGenerator_ethersolve:
                 if node_info[v][startwith] == 'JUMPDEST':
                     edgeLabel[(u,v)] = 'True'
                 else:
-                    edgeLabel[(u,v)] = 'Else'
+                    edgeLabel[(u,v)] = 'False'
             else:
                 edgeLabel[(u,v)] = 'CF'
 
@@ -152,7 +152,7 @@ class graphGenerator_slither:
         edgedata = self.g.edges.data()
         for u,v,fe in edgedata:
             if 'label' in fe:
-                edgeLabel[(u,v)] = fe['label']
+                edgeLabel[(u,v)] = fe['label'][1:-1]
             else:
                 edgeLabel[(u,v)] = 'CF'
 

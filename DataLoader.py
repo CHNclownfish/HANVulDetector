@@ -5,7 +5,7 @@ import numpy as np
 
 
 class dataloader:
-    def __init__(self,name_list,graphinfo):
+    def __init__(self,name_list, graphinfo):
         self.name_list = name_list
         self.graphinfo = graphinfo
         self.data = []

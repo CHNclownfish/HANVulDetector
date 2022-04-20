@@ -1,9 +1,0 @@
-digraph{
-0[label="Node Type: OTHER_ENTRYPOINT 0
-
-EXPRESSION:
-Owner = msg.sender
-
-IRs:
-Owner(address) := msg.sender(address)"];
-}

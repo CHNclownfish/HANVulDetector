@@ -1,9 +1,0 @@
-digraph{
-0[label="Node Type: OTHER_ENTRYPOINT 0
-
-EXPRESSION:
-tradingFee = 50
-
-IRs:
-tradingFee(uint256) := 50(uint256)"];
-}

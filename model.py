@@ -122,7 +122,7 @@ class HAN(nn.Module):
         self.predict = nn.Linear(hidden_size * num_heads[-1], out_size)
 
     def forward(self, g, h):
-        h = g.ndata['f']
+        # h = g.ndata['f']
 
         for gnn in self.layers:
             h = gnn(g, h)

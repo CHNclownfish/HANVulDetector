@@ -1,9 +1,0 @@
-digraph{
-0[label="Node Type: OTHER_ENTRYPOINT 0
-
-EXPRESSION:
-minEligibility = 999001000000000000
-
-IRs:
-minEligibility(uint256) := 999001000000000000(uint256)"];
-}

@@ -13,8 +13,10 @@ from pathfinder import JsonPathFinder
 #     if len(a) == 1 and 'reentrancy' in a:
 #         count += 1
 #         print(count,contract)
-file = '/Users/xiechunyao/crytic-export/clean_50.sol.json'
-
+a = []
+# base = '/Users/xiechunyao/uncheck_low_level_call/'
+# file = base +  '0x610495793564aed0f9c7fc48dc4c7c9151d34fd6.sol.json'
+file = '/Users/xiechunyao/clean_from_minh_json/clean_106.sol.json'
 x = file.split('/')[4]
 t = x[:x.find('.')]
 with open(file) as f:
