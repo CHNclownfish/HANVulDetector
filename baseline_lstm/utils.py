@@ -5,7 +5,7 @@ import random
 import torch
 from sklearn import metrics
 from sklearn.metrics import classification_report
-def contract2runtimbin(path_base,labels_path,labels_path_clean):
+def contract2runtimbin(path_base, labels_path, labels_path_clean):
     info = []
     with open(labels_path_clean) as flc:
         labels_clean = json.load(flc)
@@ -60,5 +60,7 @@ def evaluate(data,m):
     report = classification_report(y_true, y_pred, target_names=target_names, output_dict=True)
     f1_buggy = report['class 0']['f1-score']
     f1_macro = metrics.f1_score(y_true, y_pred, average='macro')
+    f1_buggy_score = "%.{}f".format(2) % (100*(f1_buggy))
+    f1_macro_score = "%.{}f".format(2) % (100*(f1_macro))
 
-    return [f1_buggy,f1_macro]
+    return {'f1_buggy': str(f1_buggy_score)+'%', 'f1_macro': str(f1_macro_score)+'%'}
