@@ -1,0 +1,27 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: IF 1
+
+EXPRESSION:
+startTime + (5 * 86400) == block.timestamp
+
+IRs:
+TMP_58(uint256) = 5 * 86400
+TMP_59(uint256) = startTime + TMP_58
+TMP_60(bool) = TMP_59 == block.timestamp
+CONDITION TMP_60"];
+1->2[label="True"];
+1->3[label="False"];
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+winner_tmstmp10 = msg.sender
+
+IRs:
+winner_tmstmp10(address) := msg.sender(address)"];
+2->3;
+3[label="Node Type: END_IF 3
+"];
+}

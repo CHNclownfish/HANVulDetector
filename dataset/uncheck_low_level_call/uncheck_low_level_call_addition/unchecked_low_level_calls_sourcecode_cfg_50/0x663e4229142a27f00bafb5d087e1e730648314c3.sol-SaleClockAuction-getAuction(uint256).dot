@@ -1,0 +1,35 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+auction = tokenIdToAuction[_tokenId]
+
+IRs:
+REF_273(ClockAuctionBase.Auction) -> tokenIdToAuction[_tokenId]
+auction(ClockAuctionBase.Auction) := REF_273(ClockAuctionBase.Auction)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(_isOnAuction(auction))
+
+IRs:
+TMP_1019(bool) = INTERNAL_CALL, ClockAuctionBase._isOnAuction(ClockAuctionBase.Auction)(auction)
+TMP_1020(None) = SOLIDITY_CALL require(bool)(TMP_1019)"];
+2->3;
+3[label="Node Type: RETURN 3
+
+EXPRESSION:
+(auction.seller,auction.startingPrice,auction.endingPrice,auction.duration,auction.startedAt)
+
+IRs:
+REF_274(address) -> auction.seller
+REF_275(uint128) -> auction.startingPrice
+REF_276(uint128) -> auction.endingPrice
+REF_277(uint64) -> auction.duration
+REF_278(uint64) -> auction.startedAt
+RETURN REF_274,REF_275,REF_276,REF_277,REF_278"];
+}

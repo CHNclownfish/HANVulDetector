@@ -1,0 +1,108 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->11;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool,string)(raffleContract.balanceOf(msg.sender) >= initialAmount,Amount to sell is higher than balance!)
+
+IRs:
+TMP_54(uint256) = HIGH_LEVEL_CALL, dest:raffleContract(RaffleToken), function:balanceOf, arguments:['msg.sender']  
+TMP_55(bool) = TMP_54 >= initialAmount
+TMP_56(None) = SOLIDITY_CALL require(bool,string)(TMP_55,Amount to sell is higher than balance!)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool,string)(raffleContract.allowance(msg.sender,address(this)) >= initialAmount,Allowance is to small (increase allowance)!)
+
+IRs:
+TMP_57 = CONVERT this to address
+TMP_58(uint256) = HIGH_LEVEL_CALL, dest:raffleContract(RaffleToken), function:allowance, arguments:['msg.sender', 'TMP_57']  
+TMP_59(bool) = TMP_58 >= initialAmount
+TMP_60(None) = SOLIDITY_CALL require(bool,string)(TMP_59,Allowance is to small (increase allowance)!)"];
+2->3;
+3[label="Node Type: NEW VARIABLE 3
+
+EXPRESSION:
+id = nextListingId ++
+
+IRs:
+TMP_61(uint256) := nextListingId(uint256)
+nextListingId(uint256) = nextListingId + 1
+id(uint256) := TMP_61(uint256)"];
+3->4;
+4[label="Node Type: NEW VARIABLE 4
+
+EXPRESSION:
+listing = listingsById[id]
+
+IRs:
+REF_43(RaffleTokenExchange.Listing) -> listingsById[id]
+listing(RaffleTokenExchange.Listing) := REF_43(RaffleTokenExchange.Listing)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+listing.initialAmount = initialAmount
+
+IRs:
+REF_44(uint256) -> listing.initialAmount
+REF_44 (->listing) := initialAmount(uint256)"];
+5->6;
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+listing.amountLeft = initialAmount
+
+IRs:
+REF_45(uint256) -> listing.amountLeft
+REF_45 (->listing) := initialAmount(uint256)"];
+6->7;
+7[label="Node Type: EXPRESSION 7
+
+EXPRESSION:
+listing.pricePerToken = pricePerToken
+
+IRs:
+REF_46(uint256) -> listing.pricePerToken
+REF_46 (->listing) := pricePerToken(uint256)"];
+7->8;
+8[label="Node Type: EXPRESSION 8
+
+EXPRESSION:
+listing.seller = msg.sender
+
+IRs:
+REF_47(address) -> listing.seller
+REF_47 (->listing) := msg.sender(address)"];
+8->9;
+9[label="Node Type: EXPRESSION 9
+
+EXPRESSION:
+listing.active = true
+
+IRs:
+REF_48(bool) -> listing.active
+REF_48 (->listing) := True(bool)"];
+9->10;
+10[label="Node Type: EXPRESSION 10
+
+EXPRESSION:
+Listed(id,listing.pricePerToken,listing.initialAmount,listing.seller)
+
+IRs:
+REF_49(uint256) -> listing.pricePerToken
+REF_50(uint256) -> listing.initialAmount
+REF_51(address) -> listing.seller
+Emit Listed(id.REF_49.REF_50.REF_51)"];
+11[label="Node Type: EXPRESSION 11
+
+EXPRESSION:
+onlyUnpaused()
+
+IRs:
+MODIFIER_CALL, RaffleTokenExchange.onlyUnpaused()()"];
+11->1;
+}

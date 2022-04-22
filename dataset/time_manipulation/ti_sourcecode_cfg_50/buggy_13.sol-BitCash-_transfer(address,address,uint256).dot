@@ -1,0 +1,85 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(_to != address(0x0))
+
+IRs:
+TMP_34 = CONVERT 0 to address
+TMP_35(bool) = _to != TMP_34
+TMP_36(None) = SOLIDITY_CALL require(bool)(TMP_35)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(balanceOf[_from] >= _value)
+
+IRs:
+REF_5(uint256) -> balanceOf[_from]
+TMP_37(bool) = REF_5 >= _value
+TMP_38(None) = SOLIDITY_CALL require(bool)(TMP_37)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+require(bool)(balanceOf[_to] + _value >= balanceOf[_to])
+
+IRs:
+REF_6(uint256) -> balanceOf[_to]
+TMP_39(uint256) = REF_6 + _value
+REF_7(uint256) -> balanceOf[_to]
+TMP_40(bool) = TMP_39 >= REF_7
+TMP_41(None) = SOLIDITY_CALL require(bool)(TMP_40)"];
+3->4;
+4[label="Node Type: NEW VARIABLE 4
+
+EXPRESSION:
+previousBalances = balanceOf[_from] + balanceOf[_to]
+
+IRs:
+REF_8(uint256) -> balanceOf[_from]
+REF_9(uint256) -> balanceOf[_to]
+TMP_42(uint256) = REF_8 + REF_9
+previousBalances(uint256) := TMP_42(uint256)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+balanceOf[_from] -= _value
+
+IRs:
+REF_10(uint256) -> balanceOf[_from]
+REF_10(-> balanceOf) = REF_10 - _value"];
+5->6;
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+balanceOf[_to] += _value
+
+IRs:
+REF_11(uint256) -> balanceOf[_to]
+REF_11(-> balanceOf) = REF_11 + _value"];
+6->7;
+7[label="Node Type: EXPRESSION 7
+
+EXPRESSION:
+Transfer(_from,_to,_value)
+
+IRs:
+Emit Transfer(_from._to._value)"];
+7->8;
+8[label="Node Type: EXPRESSION 8
+
+EXPRESSION:
+assert(bool)(balanceOf[_from] + balanceOf[_to] == previousBalances)
+
+IRs:
+REF_12(uint256) -> balanceOf[_from]
+REF_13(uint256) -> balanceOf[_to]
+TMP_44(uint256) = REF_12 + REF_13
+TMP_45(bool) = TMP_44 == previousBalances
+TMP_46(None) = SOLIDITY_CALL assert(bool)(TMP_45)"];
+}

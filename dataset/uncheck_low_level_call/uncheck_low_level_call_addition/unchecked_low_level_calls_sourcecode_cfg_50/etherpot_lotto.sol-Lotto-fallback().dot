@@ -1,0 +1,150 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+roundIndex = getRoundIndex()
+
+IRs:
+TMP_27(uint256) = INTERNAL_CALL, Lotto.getRoundIndex()()
+roundIndex(uint256) := TMP_27(uint256)"];
+1->2;
+2[label="Node Type: NEW VARIABLE 2
+
+EXPRESSION:
+value = msg.value - (msg.value % ticketPrice)
+
+IRs:
+TMP_28(uint256) = msg.value % ticketPrice
+TMP_29(uint256) = msg.value - TMP_28
+value(uint256) := TMP_29(uint256)"];
+2->3;
+3[label="Node Type: IF 3
+
+EXPRESSION:
+value == 0
+
+IRs:
+TMP_30(bool) = value == 0
+CONDITION TMP_30"];
+3->4[label="True"];
+3->5[label="False"];
+4[label="Node Type: RETURN 4
+"];
+5[label="Node Type: END_IF 5
+"];
+5->6;
+6[label="Node Type: IF 6
+
+EXPRESSION:
+value < msg.value
+
+IRs:
+TMP_31(bool) = value < msg.value
+CONDITION TMP_31"];
+6->7[label="True"];
+6->8[label="False"];
+7[label="Node Type: EXPRESSION 7
+
+EXPRESSION:
+msg.sender.send(msg.value - value)
+
+IRs:
+TMP_32(uint256) = msg.value - value
+TMP_33 = SEND dest:msg.sender value:TMP_32"];
+7->8;
+8[label="Node Type: END_IF 8
+"];
+8->9;
+9[label="Node Type: NEW VARIABLE 9
+
+EXPRESSION:
+ticketsCount = value / ticketPrice
+
+IRs:
+TMP_34(uint256) = value / ticketPrice
+ticketsCount(uint256) := TMP_34(uint256)"];
+9->10;
+10[label="Node Type: EXPRESSION 10
+
+EXPRESSION:
+rounds[roundIndex].ticketsCount += ticketsCount
+
+IRs:
+REF_35(Lotto.Round) -> rounds[roundIndex]
+REF_36(uint256) -> REF_35.ticketsCount
+REF_36(-> rounds) = REF_36 + ticketsCount"];
+10->11;
+11[label="Node Type: IF 11
+
+EXPRESSION:
+rounds[roundIndex].ticketsCountByBuyer[msg.sender] == 0
+
+IRs:
+REF_37(Lotto.Round) -> rounds[roundIndex]
+REF_38(mapping(address => uint256)) -> REF_37.ticketsCountByBuyer
+REF_39(uint256) -> REF_38[msg.sender]
+TMP_35(bool) = REF_39 == 0
+CONDITION TMP_35"];
+11->12[label="True"];
+11->14[label="False"];
+12[label="Node Type: NEW VARIABLE 12
+
+EXPRESSION:
+buyersLength = rounds[roundIndex].buyers.length ++
+
+IRs:
+REF_40(Lotto.Round) -> rounds[roundIndex]
+REF_41(address[]) -> REF_40.buyers
+REF_42 -> LENGTH REF_41
+TMP_36(uint256) := REF_42(uint256)
+REF_42(-> rounds) = REF_42 + 1
+buyersLength(uint256) := TMP_36(uint256)"];
+12->13;
+13[label="Node Type: EXPRESSION 13
+
+EXPRESSION:
+rounds[roundIndex].buyers[buyersLength] = msg.sender
+
+IRs:
+REF_43(Lotto.Round) -> rounds[roundIndex]
+REF_44(address[]) -> REF_43.buyers
+REF_45(address) -> REF_44[buyersLength]
+REF_45 (->rounds) := msg.sender(address)"];
+13->14;
+14[label="Node Type: END_IF 14
+"];
+14->15;
+15[label="Node Type: EXPRESSION 15
+
+EXPRESSION:
+rounds[roundIndex].ticketsCountByBuyer[msg.sender] += ticketsCount
+
+IRs:
+REF_46(Lotto.Round) -> rounds[roundIndex]
+REF_47(mapping(address => uint256)) -> REF_46.ticketsCountByBuyer
+REF_48(uint256) -> REF_47[msg.sender]
+REF_48(-> rounds) = REF_48 + ticketsCount"];
+15->16;
+16[label="Node Type: EXPRESSION 16
+
+EXPRESSION:
+rounds[roundIndex].ticketsCount += ticketsCount
+
+IRs:
+REF_49(Lotto.Round) -> rounds[roundIndex]
+REF_50(uint256) -> REF_49.ticketsCount
+REF_50(-> rounds) = REF_50 + ticketsCount"];
+16->17;
+17[label="Node Type: EXPRESSION 17
+
+EXPRESSION:
+rounds[roundIndex].pot += value
+
+IRs:
+REF_51(Lotto.Round) -> rounds[roundIndex]
+REF_52(uint256) -> REF_51.pot
+REF_52(-> rounds) = REF_52 + value"];
+}

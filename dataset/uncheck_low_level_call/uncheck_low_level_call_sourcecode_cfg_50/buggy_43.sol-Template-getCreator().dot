@@ -1,0 +1,15 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+creator = iFactory(_factory).getInstanceCreator(address(this))
+
+IRs:
+TMP_76 = CONVERT _factory to iFactory
+TMP_77 = CONVERT this to address
+TMP_78(address) = HIGH_LEVEL_CALL, dest:TMP_76(iFactory), function:getInstanceCreator, arguments:['TMP_77']  
+creator(address) := TMP_78(address)"];
+}

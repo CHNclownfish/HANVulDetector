@@ -1,0 +1,21 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+_proofHash = MultiHashWrapper._splitMultiHash(proofHash)
+
+IRs:
+TMP_108(MultiHashWrapper.MultiHash) = INTERNAL_CALL, MultiHashWrapper._splitMultiHash(bytes)(proofHash)
+_proofHash(MultiHashWrapper.MultiHash) := TMP_108(MultiHashWrapper.MultiHash)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+ProofHashSet(msg.sender,proofHash)
+
+IRs:
+Emit ProofHashSet(msg.sender.proofHash)"];
+}

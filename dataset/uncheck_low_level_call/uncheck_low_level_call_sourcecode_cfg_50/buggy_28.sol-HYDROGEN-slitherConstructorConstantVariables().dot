@@ -1,0 +1,25 @@
+digraph{
+0[label="Node Type: OTHER_ENTRYPOINT 0
+
+EXPRESSION:
+tokenName = HYDROGEN
+
+IRs:
+tokenName(string) := HYDROGEN(string)"];
+0->1;
+1[label="Node Type: OTHER_ENTRYPOINT 1
+
+EXPRESSION:
+tokenSymbol = HGN
+
+IRs:
+tokenSymbol(string) := HGN(string)"];
+1->2;
+2[label="Node Type: OTHER_ENTRYPOINT 2
+
+EXPRESSION:
+tokenDecimals = 4
+
+IRs:
+tokenDecimals(uint8) := 4(uint256)"];
+}

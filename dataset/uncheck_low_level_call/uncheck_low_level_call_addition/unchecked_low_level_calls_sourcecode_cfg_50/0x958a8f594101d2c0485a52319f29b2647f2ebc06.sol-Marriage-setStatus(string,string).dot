@@ -1,0 +1,28 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->3;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+marriageStatus = status
+
+IRs:
+marriageStatus(string) := status(string)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+setMajorEvent(Changed Status,status,url)
+
+IRs:
+INTERNAL_CALL, Marriage.setMajorEvent(string,string,string)(Changed Status,status,url)"];
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+onlyOwner()
+
+IRs:
+MODIFIER_CALL, Owned.onlyOwner()()"];
+3->1;
+}

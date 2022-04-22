@@ -1,0 +1,57 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+auction = tokenIdToAuction[_tokenId]
+
+IRs:
+REF_359(ClockAuctionBase.Auction) -> tokenIdToAuction[_tokenId]
+auction(ClockAuctionBase.Auction) := REF_359(ClockAuctionBase.Auction)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(_isOnAuction(auction))
+
+IRs:
+TMP_1311(bool) = INTERNAL_CALL, ClockAuctionBase._isOnAuction(ClockAuctionBase.Auction)(auction)
+TMP_1312(None) = SOLIDITY_CALL require(bool)(TMP_1311)"];
+2->3;
+3[label="Node Type: NEW VARIABLE 3
+
+EXPRESSION:
+seller = auction.seller
+
+IRs:
+REF_360(address) -> auction.seller
+seller(address) := REF_360(address)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+require(bool)(msg.sender == seller)
+
+IRs:
+TMP_1313(bool) = msg.sender == seller
+TMP_1314(None) = SOLIDITY_CALL require(bool)(TMP_1313)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+_cancelAuction(_tokenId,seller)
+
+IRs:
+INTERNAL_CALL, ClockAuctionBase._cancelAuction(uint256,address)(_tokenId,seller)"];
+5->6;
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+delete tokenIdToErc20Address[_tokenId]
+
+IRs:
+REF_361(address) -> tokenIdToErc20Address[_tokenId]
+tokenIdToErc20Address = delete REF_361 "];
+}

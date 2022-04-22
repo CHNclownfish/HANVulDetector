@@ -1,0 +1,15 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: RETURN 1
+
+EXPRESSION:
+_totalSupply.sub(balances[address(0)])
+
+IRs:
+TMP_65 = CONVERT 0 to address
+REF_38(uint256) -> balances[TMP_65]
+TMP_66(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_totalSupply', 'REF_38'] 
+RETURN TMP_66"];
+}

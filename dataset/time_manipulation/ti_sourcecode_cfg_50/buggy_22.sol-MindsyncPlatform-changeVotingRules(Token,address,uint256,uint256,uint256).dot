@@ -1,0 +1,123 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->15;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(_chairmanAddress != address(0))
+
+IRs:
+TMP_134 = CONVERT 0 to address
+TMP_135(bool) = _chairmanAddress != TMP_134
+TMP_136(None) = SOLIDITY_CALL require(bool)(TMP_135)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(_minimumPercentToPassAVote <= 51)
+
+IRs:
+TMP_137(bool) = _minimumPercentToPassAVote <= 51
+TMP_138(None) = SOLIDITY_CALL require(bool)(TMP_137)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+tokenAddress = Token(_tokenAddress)
+
+IRs:
+TMP_139 = CONVERT _tokenAddress to Token
+tokenAddress(Token) := TMP_139(Token)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+chairmanAddress = _chairmanAddress
+
+IRs:
+chairmanAddress(address) := _chairmanAddress(address)"];
+4->5;
+5[label="Node Type: IF 5
+
+EXPRESSION:
+_minimumTokensToVote == 0
+
+IRs:
+TMP_140(bool) = _minimumTokensToVote == 0
+CONDITION TMP_140"];
+5->6[label="True"];
+5->7[label="False"];
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+_minimumTokensToVote = 1
+
+IRs:
+_minimumTokensToVote(uint256) := 1(uint256)"];
+6->7;
+7[label="Node Type: END_IF 7
+"];
+7->8;
+8[label="Node Type: EXPRESSION 8
+
+EXPRESSION:
+minimumTokensToVote = _minimumTokensToVote
+
+IRs:
+minimumTokensToVote(uint256) := _minimumTokensToVote(uint256)"];
+8->9;
+9[label="Node Type: IF 9
+
+EXPRESSION:
+_minimumPercentToPassAVote == 0
+
+IRs:
+TMP_141(bool) = _minimumPercentToPassAVote == 0
+CONDITION TMP_141"];
+9->10[label="True"];
+9->11[label="False"];
+10[label="Node Type: EXPRESSION 10
+
+EXPRESSION:
+_minimumPercentToPassAVote = 51
+
+IRs:
+_minimumPercentToPassAVote(uint256) := 51(uint256)"];
+10->11;
+11[label="Node Type: END_IF 11
+"];
+11->12;
+12[label="Node Type: EXPRESSION 12
+
+EXPRESSION:
+minimumQuorum = _minimumPercentToPassAVote
+
+IRs:
+minimumQuorum(uint256) := _minimumPercentToPassAVote(uint256)"];
+12->13;
+13[label="Node Type: EXPRESSION 13
+
+EXPRESSION:
+debatingPeriodInMinutes = _minutesForDebate
+
+IRs:
+debatingPeriodInMinutes(uint256) := _minutesForDebate(uint256)"];
+13->14;
+14[label="Node Type: EXPRESSION 14
+
+EXPRESSION:
+ChangeOfRules(_minimumTokensToVote,minimumQuorum,debatingPeriodInMinutes,address(tokenAddress),chairmanAddress)
+
+IRs:
+TMP_142 = CONVERT tokenAddress to address
+Emit ChangeOfRules(_minimumTokensToVote.minimumQuorum.debatingPeriodInMinutes.TMP_142.chairmanAddress)"];
+15[label="Node Type: EXPRESSION 15
+
+EXPRESSION:
+onlyOwner()
+
+IRs:
+MODIFIER_CALL, owned.onlyOwner()()"];
+15->1;
+}

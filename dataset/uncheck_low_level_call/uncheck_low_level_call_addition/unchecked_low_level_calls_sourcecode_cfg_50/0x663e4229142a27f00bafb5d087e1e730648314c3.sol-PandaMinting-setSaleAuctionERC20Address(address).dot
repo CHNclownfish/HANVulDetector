@@ -1,0 +1,38 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->4;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+candidateContract = SaleClockAuctionERC20(_address)
+
+IRs:
+TMP_1733 = CONVERT _address to SaleClockAuctionERC20
+candidateContract(SaleClockAuctionERC20) := TMP_1733(SaleClockAuctionERC20)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(candidateContract.isSaleClockAuctionERC20())
+
+IRs:
+TMP_1734(bool) = HIGH_LEVEL_CALL, dest:candidateContract(SaleClockAuctionERC20), function:isSaleClockAuctionERC20, arguments:[]  
+TMP_1735(None) = SOLIDITY_CALL require(bool)(TMP_1734)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+saleAuctionERC20 = candidateContract
+
+IRs:
+saleAuctionERC20(SaleClockAuctionERC20) := candidateContract(SaleClockAuctionERC20)"];
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+onlyCEO()
+
+IRs:
+MODIFIER_CALL, PandaAccessControl.onlyCEO()()"];
+4->1;
+}

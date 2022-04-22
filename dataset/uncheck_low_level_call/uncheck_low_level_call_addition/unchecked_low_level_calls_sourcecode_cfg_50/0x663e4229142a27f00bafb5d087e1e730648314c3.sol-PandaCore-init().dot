@@ -1,0 +1,60 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->5;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(pandas.length == 0)
+
+IRs:
+REF_746 -> LENGTH pandas
+TMP_2476(bool) = REF_746 == 0
+TMP_2477(None) = SOLIDITY_CALL require(bool)(TMP_2476)"];
+1->2;
+2[label="Node Type: NEW VARIABLE 2
+
+EXPRESSION:
+_genes = (uint256(- 1),uint256(- 1))
+
+IRs:
+TMP_2478(uint256) = 0 - 1
+TMP_2479 = CONVERT TMP_2478 to uint256
+TMP_2480(uint256) = 0 - 1
+TMP_2481 = CONVERT TMP_2480 to uint256
+_genes(uint256[2]) =  ['TMP_2479', 'TMP_2481']"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+wizzPandaQuota[1] = 100
+
+IRs:
+REF_747(uint256) -> wizzPandaQuota[1]
+REF_747 (->wizzPandaQuota) := 100(uint256)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+_createPanda(0,0,0,_genes,address(0))
+
+IRs:
+TMP_2482 = CONVERT 0 to address
+TMP_2483(uint256) = INTERNAL_CALL, PandaBase._createPanda(uint256,uint256,uint256,uint256[2],address)(0,0,0,_genes,TMP_2482)"];
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+onlyCEO()
+
+IRs:
+MODIFIER_CALL, PandaAccessControl.onlyCEO()()"];
+5->6;
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+whenPaused()
+
+IRs:
+MODIFIER_CALL, PandaAccessControl.whenPaused()()"];
+6->1;
+}

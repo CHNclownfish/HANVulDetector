@@ -1,0 +1,37 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->4;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(_owns(msg.sender,_tokenId))
+
+IRs:
+TMP_258(bool) = INTERNAL_CALL, PandaOwnership._owns(address,uint256)(msg.sender,_tokenId)
+TMP_259(None) = SOLIDITY_CALL require(bool)(TMP_258)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+_approve(_tokenId,_to)
+
+IRs:
+INTERNAL_CALL, PandaOwnership._approve(uint256,address)(_tokenId,_to)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+Approval(msg.sender,_to,_tokenId)
+
+IRs:
+Emit Approval(msg.sender._to._tokenId)"];
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+whenNotPaused()
+
+IRs:
+MODIFIER_CALL, PandaAccessControl.whenNotPaused()()"];
+4->1;
+}

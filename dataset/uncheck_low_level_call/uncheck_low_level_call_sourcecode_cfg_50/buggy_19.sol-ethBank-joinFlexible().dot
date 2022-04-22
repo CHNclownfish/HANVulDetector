@@ -1,0 +1,31 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->3;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool,string)(msg.sender == owner,only owner can use this method)
+
+IRs:
+TMP_50(bool) = msg.sender == owner
+TMP_51(None) = SOLIDITY_CALL require(bool,string)(TMP_50,only owner can use this method)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+msg.sender.transfer(address(this).balance)
+
+IRs:
+TMP_52 = CONVERT this to address
+REF_16 -> BALANCE TMP_52
+Transfer dest:msg.sender value:REF_16"];
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+onlyOwner()
+
+IRs:
+MODIFIER_CALL, owned.onlyOwner()()"];
+3->1;
+}

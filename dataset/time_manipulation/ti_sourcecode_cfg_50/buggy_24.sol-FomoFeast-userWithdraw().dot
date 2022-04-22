@@ -1,0 +1,161 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+user = userMapping[msg.sender]
+
+IRs:
+REF_109(FomoFeast.User) -> userMapping[msg.sender]
+user(FomoFeast.User) := REF_109(FomoFeast.User)"];
+1->2;
+2[label="Node Type: IF 2
+
+EXPRESSION:
+user.currentInvestAmount > 0
+
+IRs:
+REF_110(uint256) -> user.currentInvestAmount
+TMP_245(bool) = REF_110 > 0
+CONDITION TMP_245"];
+2->3[label="True"];
+2->18[label="False"];
+3[label="Node Type: NEW VARIABLE 3
+
+EXPRESSION:
+avaliableIA = user.currentInvestAmount
+
+IRs:
+REF_111(uint256) -> user.currentInvestAmount
+avaliableIA(uint256) := REF_111(uint256)"];
+3->4;
+4[label="Node Type: IF 4
+
+EXPRESSION:
+! isInvestExpired(user)
+
+IRs:
+TMP_246(bool) = INTERNAL_CALL, FomoFeast.isInvestExpired(FomoFeast.User)(user)
+TMP_247 = ! TMP_246 
+CONDITION TMP_247"];
+4->5[label="True"];
+4->6[label="False"];
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+avaliableIA = getAbortInvestAmount(user)
+
+IRs:
+TMP_248(uint256) = INTERNAL_CALL, FomoFeast.getAbortInvestAmount(FomoFeast.User)(user)
+avaliableIA(uint256) := TMP_248(uint256)"];
+5->6;
+6[label="Node Type: END_IF 6
+"];
+6->7;
+7[label="Node Type: NEW VARIABLE 7
+
+EXPRESSION:
+avaliableSCA = getAvaliableStaticCommissionAmount(user)
+
+IRs:
+TMP_249(uint256) = INTERNAL_CALL, FomoFeast.getAvaliableStaticCommissionAmount(FomoFeast.User)(user)
+avaliableSCA(uint256) := TMP_249(uint256)"];
+7->8;
+8[label="Node Type: EXPRESSION 8
+
+EXPRESSION:
+user.staticCommissionBalance = user.staticCommissionBalance.add(avaliableSCA)
+
+IRs:
+REF_112(uint256) -> user.staticCommissionBalance
+REF_113(uint256) -> user.staticCommissionBalance
+TMP_250(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_113', 'avaliableSCA'] 
+REF_112 (->user) := TMP_250(uint256)"];
+8->9;
+9[label="Node Type: EXPRESSION 9
+
+EXPRESSION:
+user.currentInvestTime = 0
+
+IRs:
+REF_115(uint256) -> user.currentInvestTime
+REF_115 (->user) := 0(uint256)"];
+9->10;
+10[label="Node Type: EXPRESSION 10
+
+EXPRESSION:
+user.currentInvestAmount = 0
+
+IRs:
+REF_116(uint256) -> user.currentInvestAmount
+REF_116 (->user) := 0(uint256)"];
+10->11;
+11[label="Node Type: EXPRESSION 11
+
+EXPRESSION:
+user.currentInvestCycle = 0
+
+IRs:
+REF_117(uint256) -> user.currentInvestCycle
+REF_117 (->user) := 0(uint256)"];
+11->12;
+12[label="Node Type: EXPRESSION 12
+
+EXPRESSION:
+user.currentlevel = 0
+
+IRs:
+REF_118(uint256) -> user.currentlevel
+REF_118 (->user) := 0(uint256)"];
+12->13;
+13[label="Node Type: EXPRESSION 13
+
+EXPRESSION:
+user.currentStaticCommissionRatio = 0
+
+IRs:
+REF_119(uint256) -> user.currentStaticCommissionRatio
+REF_119 (->user) := 0(uint256)"];
+13->14;
+14[label="Node Type: EXPRESSION 14
+
+EXPRESSION:
+user.currentStaticCommissionWithdrawAmount = 0
+
+IRs:
+REF_120(uint256) -> user.currentStaticCommissionWithdrawAmount
+REF_120 (->user) := 0(uint256)"];
+14->15;
+15[label="Node Type: EXPRESSION 15
+
+EXPRESSION:
+user.totalWithdrawAmount = user.totalWithdrawAmount.add(avaliableIA)
+
+IRs:
+REF_121(uint256) -> user.totalWithdrawAmount
+REF_122(uint256) -> user.totalWithdrawAmount
+TMP_251(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_122', 'avaliableIA'] 
+REF_121 (->user) := TMP_251(uint256)"];
+15->16;
+16[label="Node Type: EXPRESSION 16
+
+EXPRESSION:
+totalWithdrawAmount = totalWithdrawAmount.add(avaliableIA)
+
+IRs:
+TMP_252(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['totalWithdrawAmount', 'avaliableIA'] 
+totalWithdrawAmount(uint256) := TMP_252(uint256)"];
+16->17;
+17[label="Node Type: EXPRESSION 17
+
+EXPRESSION:
+msg.sender.transfer(avaliableIA)
+
+IRs:
+Transfer dest:msg.sender value:avaliableIA"];
+17->18;
+18[label="Node Type: END_IF 18
+"];
+}

@@ -1,0 +1,54 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool,string)(sender != address(0),ERC20: transfer from the zero address)
+
+IRs:
+TMP_37 = CONVERT 0 to address
+TMP_38(bool) = sender != TMP_37
+TMP_39(None) = SOLIDITY_CALL require(bool,string)(TMP_38,ERC20: transfer from the zero address)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool,string)(recipient != address(0),ERC20: transfer to the zero address)
+
+IRs:
+TMP_40 = CONVERT 0 to address
+TMP_41(bool) = recipient != TMP_40
+TMP_42(None) = SOLIDITY_CALL require(bool,string)(TMP_41,ERC20: transfer to the zero address)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+_balances[sender] = _balances[sender].sub(amount)
+
+IRs:
+REF_23(uint256) -> _balances[sender]
+REF_24(uint256) -> _balances[sender]
+TMP_43(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_24', 'amount'] 
+REF_23 (->_balances) := TMP_43(uint256)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+_balances[recipient] = _balances[recipient].add(amount)
+
+IRs:
+REF_26(uint256) -> _balances[recipient]
+REF_27(uint256) -> _balances[recipient]
+TMP_44(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_27', 'amount'] 
+REF_26 (->_balances) := TMP_44(uint256)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+Transfer(sender,recipient,amount)
+
+IRs:
+Emit Transfer(sender.recipient.amount)"];
+}

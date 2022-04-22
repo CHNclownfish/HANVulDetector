@@ -1,0 +1,15 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: RETURN 1
+
+EXPRESSION:
+_totalSupply - balances[address(0)]
+
+IRs:
+TMP_236 = CONVERT 0 to address
+REF_45(uint256) -> balances[TMP_236]
+TMP_237(uint256) = _totalSupply - REF_45
+RETURN TMP_237"];
+}

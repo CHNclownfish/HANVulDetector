@@ -1,0 +1,9 @@
+digraph{
+0[label="Node Type: OTHER_ENTRYPOINT 0
+
+EXPRESSION:
+bugv_tmstmp3 = block.timestamp
+
+IRs:
+bugv_tmstmp3(uint256) := block.timestamp(uint256)"];
+}

@@ -1,0 +1,13 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: RETURN 1
+
+EXPRESSION:
+msg.sender == _master
+
+IRs:
+TMP_22(bool) = msg.sender == _master
+RETURN TMP_22"];
+}

@@ -1,0 +1,30 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+_totalSupply = 10000000000e8
+
+IRs:
+_totalSupply(uint256) := 1000000000000000000(uint256)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+balances[owner] = _totalSupply
+
+IRs:
+REF_12(uint256) -> balances[owner]
+REF_12 (->balances) := _totalSupply(uint256)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+Transfer(address(0),owner,_totalSupply)
+
+IRs:
+TMP_117 = CONVERT 0 to address
+Emit Transfer(TMP_117.owner._totalSupply)"];
+}

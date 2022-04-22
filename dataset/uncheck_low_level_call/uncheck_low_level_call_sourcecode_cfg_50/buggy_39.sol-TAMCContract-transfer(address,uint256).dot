@@ -1,0 +1,48 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(balanceOf[msg.sender] >= value)
+
+IRs:
+REF_7(uint256) -> balanceOf[msg.sender]
+TMP_8(bool) = REF_7 >= value
+TMP_9(None) = SOLIDITY_CALL require(bool)(TMP_8)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+balanceOf[msg.sender] -= value
+
+IRs:
+REF_8(uint256) -> balanceOf[msg.sender]
+REF_8(-> balanceOf) = REF_8 - value"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+balanceOf[to] += value
+
+IRs:
+REF_9(uint256) -> balanceOf[to]
+REF_9(-> balanceOf) = REF_9 + value"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+Transfer(msg.sender,to,value)
+
+IRs:
+Emit Transfer(msg.sender.to.value)"];
+4->5;
+5[label="Node Type: RETURN 5
+
+EXPRESSION:
+true
+
+IRs:
+RETURN True"];
+}

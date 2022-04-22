@@ -1,0 +1,24 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(_pandaId > 0)
+
+IRs:
+TMP_1820(bool) = _pandaId > 0
+TMP_1821(None) = SOLIDITY_CALL require(bool)(TMP_1820)"];
+1->2;
+2[label="Node Type: RETURN 2
+
+EXPRESSION:
+pandas[_pandaId].siringWithId != 0
+
+IRs:
+REF_524(PandaBase.Panda) -> pandas[_pandaId]
+REF_525(uint32) -> REF_524.siringWithId
+TMP_1822(bool) = REF_525 != 0
+RETURN TMP_1822"];
+}

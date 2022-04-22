@@ -1,0 +1,29 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->3;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool,string)(lockedInBets == 0,All bets should be processed (settled or refunded) before self-destruct.)
+
+IRs:
+TMP_109(bool) = lockedInBets == 0
+TMP_110(None) = SOLIDITY_CALL require(bool,string)(TMP_109,All bets should be processed (settled or refunded) before self-destruct.)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+selfdestruct(address)(owner)
+
+IRs:
+TMP_111(None) = SOLIDITY_CALL selfdestruct(address)(owner)"];
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+onlyOwner()
+
+IRs:
+MODIFIER_CALL, FiftyFlip.onlyOwner()()"];
+3->1;
+}

@@ -1,0 +1,59 @@
+digraph{
+0[label="Node Type: OTHER_ENTRYPOINT 0
+
+EXPRESSION:
+bugv_tmstmp4 = block.timestamp
+
+IRs:
+bugv_tmstmp4(uint256) := block.timestamp(uint256)"];
+0->1;
+1[label="Node Type: OTHER_ENTRYPOINT 1
+
+EXPRESSION:
+bugv_tmstmp5 = block.timestamp
+
+IRs:
+bugv_tmstmp5(uint256) := block.timestamp(uint256)"];
+1->2;
+2[label="Node Type: OTHER_ENTRYPOINT 2
+
+EXPRESSION:
+tokenRemained = 2 * (10 ** 9) * (10 ** uint256(decimals))
+
+IRs:
+TMP_284(uint256) = 10 ** 9
+TMP_285(uint256) = 2 * TMP_284
+TMP_286 = CONVERT decimals to uint256
+TMP_287(uint256) = 10 ** TMP_286
+TMP_288(uint256) = TMP_285 * TMP_287
+tokenRemained(uint256) := TMP_288(uint256)"];
+2->3;
+3[label="Node Type: OTHER_ENTRYPOINT 3
+
+EXPRESSION:
+totalSupply = 2 * (10 ** 9) * (10 ** uint256(decimals))
+
+IRs:
+TMP_289(uint256) = 10 ** 9
+TMP_290(uint256) = 2 * TMP_289
+TMP_291 = CONVERT decimals to uint256
+TMP_292(uint256) = 10 ** TMP_291
+TMP_293(uint256) = TMP_290 * TMP_292
+totalSupply(uint256) := TMP_293(uint256)"];
+3->4;
+4[label="Node Type: OTHER_ENTRYPOINT 4
+
+EXPRESSION:
+pause = false
+
+IRs:
+pause(bool) := False(bool)"];
+4->5;
+5[label="Node Type: OTHER_ENTRYPOINT 5
+
+EXPRESSION:
+bugv_tmstmp1 = block.timestamp
+
+IRs:
+bugv_tmstmp1(uint256) := block.timestamp(uint256)"];
+}

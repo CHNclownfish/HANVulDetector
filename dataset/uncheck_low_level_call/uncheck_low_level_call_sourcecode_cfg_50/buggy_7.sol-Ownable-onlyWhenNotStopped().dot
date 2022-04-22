@@ -1,0 +1,17 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(! isStopped())
+
+IRs:
+TMP_51(bool) = INTERNAL_CALL, Ownable.isStopped()()
+TMP_52 = ! TMP_51 
+TMP_53(None) = SOLIDITY_CALL require(bool)(TMP_52)"];
+1->2;
+2[label="Node Type: _ 2
+"];
+}

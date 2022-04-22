@@ -1,0 +1,53 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(_to != address(0x0))
+
+IRs:
+TMP_201 = CONVERT 0 to address
+TMP_202(bool) = _to != TMP_201
+TMP_203(None) = SOLIDITY_CALL require(bool)(TMP_202)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(checkFrozenWallet(_from,_value))
+
+IRs:
+TMP_204(bool) = INTERNAL_CALL, AZT.checkFrozenWallet(address,uint256)(_from,_value)
+TMP_205(None) = SOLIDITY_CALL require(bool)(TMP_204)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+balanceOf[_from] = balanceOf[_from].sub(_value)
+
+IRs:
+REF_59(uint256) -> balanceOf[_from]
+REF_60(uint256) -> balanceOf[_from]
+TMP_206(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_60', '_value'] 
+REF_59 (->balanceOf) := TMP_206(uint256)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+balanceOf[_to] = balanceOf[_to].add(_value)
+
+IRs:
+REF_62(uint256) -> balanceOf[_to]
+REF_63(uint256) -> balanceOf[_to]
+TMP_207(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_63', '_value'] 
+REF_62 (->balanceOf) := TMP_207(uint256)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+Transfer(_from,_to,_value)
+
+IRs:
+Emit Transfer(_from._to._value)"];
+}

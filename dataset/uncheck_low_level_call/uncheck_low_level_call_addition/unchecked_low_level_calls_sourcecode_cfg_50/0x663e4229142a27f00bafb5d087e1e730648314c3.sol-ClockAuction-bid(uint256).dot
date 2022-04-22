@@ -1,0 +1,28 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->3;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+_bid(_tokenId,msg.value)
+
+IRs:
+TMP_811(uint256) = INTERNAL_CALL, ClockAuctionBase._bid(uint256,uint256)(_tokenId,msg.value)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+_transfer(msg.sender,_tokenId)
+
+IRs:
+INTERNAL_CALL, ClockAuctionBase._transfer(address,uint256)(msg.sender,_tokenId)"];
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+whenNotPaused()
+
+IRs:
+MODIFIER_CALL, Pausable.whenNotPaused()()"];
+3->1;
+}

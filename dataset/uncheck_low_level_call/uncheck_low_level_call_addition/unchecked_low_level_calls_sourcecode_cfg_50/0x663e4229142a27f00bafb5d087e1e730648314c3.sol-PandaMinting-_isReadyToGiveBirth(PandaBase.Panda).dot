@@ -1,0 +1,18 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: RETURN 1
+
+EXPRESSION:
+(_matron.siringWithId != 0) && (_matron.cooldownEndBlock <= uint64(block.number))
+
+IRs:
+REF_521(uint32) -> _matron.siringWithId
+TMP_1813(bool) = REF_521 != 0
+REF_522(uint64) -> _matron.cooldownEndBlock
+TMP_1814 = CONVERT block.number to uint64
+TMP_1815(bool) = REF_522 <= TMP_1814
+TMP_1816(bool) = TMP_1813 && TMP_1815
+RETURN TMP_1816"];
+}

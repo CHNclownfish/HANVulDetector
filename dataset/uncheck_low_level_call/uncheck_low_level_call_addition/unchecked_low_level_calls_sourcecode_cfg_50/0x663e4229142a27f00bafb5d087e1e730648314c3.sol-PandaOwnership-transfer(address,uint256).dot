@@ -1,0 +1,69 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->7;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(_to != address(0))
+
+IRs:
+TMP_242 = CONVERT 0 to address
+TMP_243(bool) = _to != TMP_242
+TMP_244(None) = SOLIDITY_CALL require(bool)(TMP_243)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(_to != address(this))
+
+IRs:
+TMP_245 = CONVERT this to address
+TMP_246(bool) = _to != TMP_245
+TMP_247(None) = SOLIDITY_CALL require(bool)(TMP_246)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+require(bool)(_to != address(saleAuction))
+
+IRs:
+TMP_248 = CONVERT saleAuction to address
+TMP_249(bool) = _to != TMP_248
+TMP_250(None) = SOLIDITY_CALL require(bool)(TMP_249)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+require(bool)(_to != address(siringAuction))
+
+IRs:
+TMP_251 = CONVERT siringAuction to address
+TMP_252(bool) = _to != TMP_251
+TMP_253(None) = SOLIDITY_CALL require(bool)(TMP_252)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+require(bool)(_owns(msg.sender,_tokenId))
+
+IRs:
+TMP_254(bool) = INTERNAL_CALL, PandaOwnership._owns(address,uint256)(msg.sender,_tokenId)
+TMP_255(None) = SOLIDITY_CALL require(bool)(TMP_254)"];
+5->6;
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+_transfer(msg.sender,_to,_tokenId)
+
+IRs:
+INTERNAL_CALL, PandaBase._transfer(address,address,uint256)(msg.sender,_to,_tokenId)"];
+7[label="Node Type: EXPRESSION 7
+
+EXPRESSION:
+whenNotPaused()
+
+IRs:
+MODIFIER_CALL, PandaAccessControl.whenNotPaused()()"];
+7->1;
+}

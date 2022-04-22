@@ -1,0 +1,22 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->2;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+gameList[_fixtureId].open_status = _open_status
+
+IRs:
+REF_4(WhiteBetting.GameInfo) -> gameList[_fixtureId]
+REF_5(uint8) -> REF_4.open_status
+REF_5 (->gameList) := _open_status(uint8)"];
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+onlyOwner()
+
+IRs:
+MODIFIER_CALL, WhiteBetting.onlyOwner()()"];
+2->1;
+}

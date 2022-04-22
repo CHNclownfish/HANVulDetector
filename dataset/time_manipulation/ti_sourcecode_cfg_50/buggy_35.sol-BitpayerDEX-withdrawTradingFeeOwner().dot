@@ -1,0 +1,57 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->6;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+amount = availableTradingFeeOwner()
+
+IRs:
+TMP_122(uint256) = INTERNAL_CALL, BitpayerDEX.availableTradingFeeOwner()()
+amount(uint256) := TMP_122(uint256)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool,string)(amount > 0,Nothing to withdraw)
+
+IRs:
+TMP_123(bool) = amount > 0
+TMP_124(None) = SOLIDITY_CALL require(bool,string)(TMP_123,Nothing to withdraw)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+tokens[address(0)][feeAccount] = 0
+
+IRs:
+TMP_125 = CONVERT 0 to address
+REF_14(mapping(address => uint256)) -> tokens[TMP_125]
+REF_15(uint256) -> REF_14[feeAccount]
+REF_15 (->tokens) := 0(uint256)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+msg.sender.transfer(amount)
+
+IRs:
+Transfer dest:msg.sender value:amount"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+OwnerWithdrawTradingFee(owner,amount)
+
+IRs:
+Emit OwnerWithdrawTradingFee(owner.amount)"];
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+onlyOwner()
+
+IRs:
+MODIFIER_CALL, owned.onlyOwner()()"];
+6->1;
+}

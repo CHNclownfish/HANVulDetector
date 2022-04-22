@@ -1,0 +1,22 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->2;
+1[label="Node Type: RETURN 1
+
+EXPRESSION:
+ERC20Interface(tokenAddress).transfer(tokenOwner,tokens)
+
+IRs:
+TMP_131 = CONVERT tokenAddress to ERC20Interface
+TMP_132(bool) = HIGH_LEVEL_CALL, dest:TMP_131(ERC20Interface), function:transfer, arguments:['tokenOwner', 'tokens']  
+RETURN TMP_132"];
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+onlyOwner()
+
+IRs:
+MODIFIER_CALL, FiftyFlip.onlyOwner()()"];
+2->1;
+}

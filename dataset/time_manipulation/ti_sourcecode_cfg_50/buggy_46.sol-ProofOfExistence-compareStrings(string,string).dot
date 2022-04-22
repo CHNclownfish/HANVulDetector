@@ -1,0 +1,38 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: IF 1
+
+EXPRESSION:
+bytes(a).length != bytes(b).length
+
+IRs:
+TMP_14 = CONVERT a to bytes
+REF_34 -> LENGTH TMP_14
+TMP_15 = CONVERT b to bytes
+REF_35 -> LENGTH TMP_15
+TMP_16(bool) = REF_34 != REF_35
+CONDITION TMP_16"];
+1->2[label="True"];
+1->3[label="False"];
+2[label="Node Type: RETURN 2
+
+EXPRESSION:
+false
+
+IRs:
+RETURN False"];
+3[label="Node Type: RETURN 3
+
+EXPRESSION:
+keccak256(bytes)(abi.encode(a)) == keccak256(bytes)(abi.encode(b))
+
+IRs:
+TMP_17(bytes) = SOLIDITY_CALL abi.encode()(a)
+TMP_18(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_17)
+TMP_19(bytes) = SOLIDITY_CALL abi.encode()(b)
+TMP_20(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_19)
+TMP_21(bool) = TMP_18 == TMP_20
+RETURN TMP_21"];
+}

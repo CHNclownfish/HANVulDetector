@@ -1,0 +1,62 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->5;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(msg.value == (bet * 1000000000000000))
+
+IRs:
+TMP_42(uint256) = bet * 1000000000000000
+TMP_43(bool) = msg.value == TMP_42
+TMP_44(None) = SOLIDITY_CALL require(bool)(TMP_43)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+guesses[DOWN].guesses_number ++
+
+IRs:
+REF_36(StockBet.Guess) -> guesses[DOWN]
+REF_37(uint256) -> REF_36.guesses_number
+TMP_45(uint256) := REF_37(uint256)
+REF_37(-> guesses) = REF_37 + 1"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+guesses[DOWN].players[msg.sender] = PaidStatus.NOT_PAID
+
+IRs:
+REF_38(StockBet.Guess) -> guesses[DOWN]
+REF_39(mapping(address => StockBet.PaidStatus)) -> REF_38.players
+REF_40(StockBet.PaidStatus) -> REF_39[msg.sender]
+REF_41(StockBet.PaidStatus) -> PaidStatus.NOT_PAID
+REF_40 (->guesses) := REF_41(StockBet.PaidStatus)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+PlayerBet(msg.sender,DOWN)
+
+IRs:
+Emit PlayerBet(msg.sender.DOWN)"];
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+byPlayer()
+
+IRs:
+MODIFIER_CALL, StockBet.byPlayer()()"];
+5->6;
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+inState(State.OPEN)
+
+IRs:
+REF_42(StockBet.State) -> State.OPEN
+MODIFIER_CALL, StockBet.inState(StockBet.State)(REF_42)"];
+6->1;
+}

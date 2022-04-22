@@ -1,0 +1,38 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->4;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+candidateContract = SiringClockAuction(_address)
+
+IRs:
+TMP_1620 = CONVERT _address to SiringClockAuction
+candidateContract(SiringClockAuction) := TMP_1620(SiringClockAuction)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(candidateContract.isSiringClockAuction())
+
+IRs:
+TMP_1621(bool) = HIGH_LEVEL_CALL, dest:candidateContract(SiringClockAuction), function:isSiringClockAuction, arguments:[]  
+TMP_1622(None) = SOLIDITY_CALL require(bool)(TMP_1621)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+siringAuction = candidateContract
+
+IRs:
+siringAuction(SiringClockAuction) := candidateContract(SiringClockAuction)"];
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+onlyCEO()
+
+IRs:
+MODIFIER_CALL, PandaAccessControl.onlyCEO()()"];
+4->1;
+}

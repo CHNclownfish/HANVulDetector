@@ -1,0 +1,84 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->11;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+_signers = signers[_docHash]
+
+IRs:
+REF_8(address[]) -> signers[_docHash]
+_signers(address[]) := REF_8(address[])"];
+1->4;
+2[label="Node Type: BEGIN_LOOP 2
+"];
+2->5;
+3[label="Node Type: END_LOOP 3
+"];
+3->10;
+4[label="Node Type: NEW VARIABLE 4
+
+EXPRESSION:
+i = 0
+
+IRs:
+i(uint256) := 0(uint256)"];
+4->2;
+5[label="Node Type: IF_LOOP 5
+
+EXPRESSION:
+i < _signers.length
+
+IRs:
+REF_9 -> LENGTH _signers
+TMP_9(bool) = i < REF_9
+CONDITION TMP_9"];
+5->6[label="True"];
+5->3[label="False"];
+6[label="Node Type: IF 6
+
+EXPRESSION:
+_signers[i] == msg.sender
+
+IRs:
+REF_10(address) -> _signers[i]
+TMP_10(bool) = REF_10 == msg.sender
+CONDITION TMP_10"];
+6->7[label="True"];
+6->8[label="False"];
+7[label="Node Type: RETURN 7
+"];
+8[label="Node Type: END_IF 8
+"];
+8->9;
+9[label="Node Type: EXPRESSION 9
+
+EXPRESSION:
+i ++
+
+IRs:
+TMP_11(uint256) := i(uint256)
+i(uint256) = i + 1"];
+9->5;
+10[label="Node Type: EXPRESSION 10
+
+EXPRESSION:
+_signers.push(msg.sender)
+
+IRs:
+REF_12 -> LENGTH _signers
+TMP_13(uint256) := REF_12(uint256)
+TMP_14(uint256) = TMP_13 + 1
+REF_12 (->_signers) := TMP_14(uint256)
+REF_13(address) -> _signers[TMP_13]
+REF_13 (->_signers) := msg.sender(address)"];
+11[label="Node Type: EXPRESSION 11
+
+EXPRESSION:
+validDoc(_docHash)
+
+IRs:
+MODIFIER_CALL, DocumentSigner.validDoc(bytes32)(_docHash)"];
+11->1;
+}

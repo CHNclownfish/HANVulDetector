@@ -1,0 +1,15 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: RETURN 1
+
+EXPRESSION:
+(isOperator(caller) && hasActiveOperator())
+
+IRs:
+TMP_116(bool) = INTERNAL_CALL, Operated.isOperator(address)(caller)
+TMP_117(bool) = INTERNAL_CALL, Operated.hasActiveOperator()()
+TMP_118(bool) = TMP_116 && TMP_117
+RETURN TMP_118"];
+}

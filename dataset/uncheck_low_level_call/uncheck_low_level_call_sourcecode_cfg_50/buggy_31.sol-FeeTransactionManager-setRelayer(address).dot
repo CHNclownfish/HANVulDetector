@@ -1,0 +1,38 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->4;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(_newRelayer != address(0))
+
+IRs:
+TMP_70 = CONVERT 0 to address
+TMP_71(bool) = _newRelayer != TMP_70
+TMP_72(None) = SOLIDITY_CALL require(bool)(TMP_71)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+NewRelayer(relayer,_newRelayer)
+
+IRs:
+Emit NewRelayer(relayer._newRelayer)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+relayer = _newRelayer
+
+IRs:
+relayer(address) := _newRelayer(address)"];
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+onlyOwner()
+
+IRs:
+MODIFIER_CALL, Ownable.onlyOwner()()"];
+4->1;
+}

@@ -1,0 +1,47 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(_cut <= 10000)
+
+IRs:
+TMP_1164(bool) = _cut <= 10000
+TMP_1165(None) = SOLIDITY_CALL require(bool)(TMP_1164)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+ownerCut = _cut
+
+IRs:
+ownerCut(uint256) := _cut(uint256)"];
+2->3;
+3[label="Node Type: NEW VARIABLE 3
+
+EXPRESSION:
+candidateContract = ERC721(_nftAddress)
+
+IRs:
+TMP_1166 = CONVERT _nftAddress to ERC721
+candidateContract(ERC721) := TMP_1166(ERC721)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+require(bool)(candidateContract.supportsInterface(InterfaceSignature_ERC721))
+
+IRs:
+TMP_1167(bool) = HIGH_LEVEL_CALL, dest:candidateContract(ERC721), function:supportsInterface, arguments:['InterfaceSignature_ERC721']  
+TMP_1168(None) = SOLIDITY_CALL require(bool)(TMP_1167)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+nonFungibleContract = candidateContract
+
+IRs:
+nonFungibleContract(ERC721) := candidateContract(ERC721)"];
+}

@@ -1,0 +1,30 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->3;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(_owns(msg.sender,_sireId))
+
+IRs:
+TMP_2234(bool) = INTERNAL_CALL, PandaOwnership._owns(address,uint256)(msg.sender,_sireId)
+TMP_2235(None) = SOLIDITY_CALL require(bool)(TMP_2234)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+sireAllowedToAddress[_sireId] = _addr
+
+IRs:
+REF_649(address) -> sireAllowedToAddress[_sireId]
+REF_649 (->sireAllowedToAddress) := _addr(address)"];
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+whenNotPaused()
+
+IRs:
+MODIFIER_CALL, PandaAccessControl.whenNotPaused()()"];
+3->1;
+}

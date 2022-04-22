@@ -1,0 +1,76 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(_startingPrice == uint256(uint128(_startingPrice)))
+
+IRs:
+TMP_1100 = CONVERT _startingPrice to uint128
+TMP_1101 = CONVERT TMP_1100 to uint256
+TMP_1102(bool) = _startingPrice == TMP_1101
+TMP_1103(None) = SOLIDITY_CALL require(bool)(TMP_1102)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(_endingPrice == uint256(uint128(_endingPrice)))
+
+IRs:
+TMP_1104 = CONVERT _endingPrice to uint128
+TMP_1105 = CONVERT TMP_1104 to uint256
+TMP_1106(bool) = _endingPrice == TMP_1105
+TMP_1107(None) = SOLIDITY_CALL require(bool)(TMP_1106)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+require(bool)(_duration == uint256(uint64(_duration)))
+
+IRs:
+TMP_1108 = CONVERT _duration to uint64
+TMP_1109 = CONVERT TMP_1108 to uint256
+TMP_1110(bool) = _duration == TMP_1109
+TMP_1111(None) = SOLIDITY_CALL require(bool)(TMP_1110)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+require(bool)(msg.sender == address(nonFungibleContract))
+
+IRs:
+TMP_1112 = CONVERT nonFungibleContract to address
+TMP_1113(bool) = msg.sender == TMP_1112
+TMP_1114(None) = SOLIDITY_CALL require(bool)(TMP_1113)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+_escrow(_seller,_tokenId)
+
+IRs:
+INTERNAL_CALL, ClockAuctionBase._escrow(address,uint256)(_seller,_tokenId)"];
+5->6;
+6[label="Node Type: NEW VARIABLE 6
+
+EXPRESSION:
+auction = Auction(_seller,uint128(_startingPrice),uint128(_endingPrice),uint64(_duration),uint64(now),1)
+
+IRs:
+TMP_1116 = CONVERT _startingPrice to uint128
+TMP_1117 = CONVERT _endingPrice to uint128
+TMP_1118 = CONVERT _duration to uint64
+TMP_1119 = CONVERT now to uint64
+TMP_1120 = new Auction(_seller,TMP_1116,TMP_1117,TMP_1118,TMP_1119,1)
+auction(ClockAuctionBase.Auction) := TMP_1120(ClockAuctionBase.Auction)"];
+6->7;
+7[label="Node Type: EXPRESSION 7
+
+EXPRESSION:
+_addAuction(_tokenId,auction)
+
+IRs:
+INTERNAL_CALL, ClockAuctionBase._addAuction(uint256,ClockAuctionBase.Auction)(_tokenId,auction)"];
+}

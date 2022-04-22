@@ -1,0 +1,91 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->9;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+p = proposals[proposalNumber]
+
+IRs:
+REF_55(MindsyncPlatform.Proposal) -> proposals[proposalNumber]
+p(MindsyncPlatform.Proposal) := REF_55(MindsyncPlatform.Proposal)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(p.voted[msg.sender] != true)
+
+IRs:
+REF_56(mapping(address => bool)) -> p.voted
+REF_57(bool) -> REF_56[msg.sender]
+TMP_103(bool) = REF_57 != True
+TMP_104(None) = SOLIDITY_CALL require(bool)(TMP_103)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+voteID = p.votes.length ++
+
+IRs:
+REF_58(MindsyncPlatform.Vote[]) -> p.votes
+REF_59 -> LENGTH REF_58
+TMP_105(uint256) := REF_59(uint256)
+REF_59(-> p) = REF_59 + 1
+voteID(uint256) := TMP_105(uint256)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+p.votes[voteID] = Vote(supportsProposal,msg.sender)
+
+IRs:
+REF_60(MindsyncPlatform.Vote[]) -> p.votes
+REF_61(MindsyncPlatform.Vote) -> REF_60[voteID]
+TMP_106 = new Vote(supportsProposal,msg.sender)
+REF_61 (->p) := TMP_106(MindsyncPlatform.Vote)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+p.voted[msg.sender] = true
+
+IRs:
+REF_62(mapping(address => bool)) -> p.voted
+REF_63(bool) -> REF_62[msg.sender]
+REF_63 (->p) := True(bool)"];
+5->6;
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+p.numberOfVotes = voteID + 1
+
+IRs:
+REF_64(uint256) -> p.numberOfVotes
+TMP_107(uint256) = voteID + 1
+REF_64 (->p) := TMP_107(uint256)"];
+6->7;
+7[label="Node Type: EXPRESSION 7
+
+EXPRESSION:
+Voted(proposalNumber,supportsProposal,msg.sender)
+
+IRs:
+Emit Voted(proposalNumber.supportsProposal.msg.sender)"];
+7->8;
+8[label="Node Type: RETURN 8
+
+EXPRESSION:
+voteID
+
+IRs:
+RETURN voteID"];
+9[label="Node Type: EXPRESSION 9
+
+EXPRESSION:
+onlyTokenholders()
+
+IRs:
+MODIFIER_CALL, MindsyncPlatform.onlyTokenholders()()"];
+9->1;
+}

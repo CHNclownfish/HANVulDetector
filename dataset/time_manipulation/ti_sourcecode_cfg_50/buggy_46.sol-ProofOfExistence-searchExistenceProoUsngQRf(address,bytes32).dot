@@ -1,0 +1,85 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+len = fileExistenceProofs[dappBoxOrigin].length
+
+IRs:
+REF_50(ProofOfExistence.FileExistenceStruct[]) -> fileExistenceProofs[dappBoxOrigin]
+REF_51 -> LENGTH REF_50
+len(uint256) := REF_51(uint256)"];
+1->4;
+2[label="Node Type: BEGIN_LOOP 2
+"];
+2->5;
+3[label="Node Type: END_LOOP 3
+"];
+4[label="Node Type: NEW VARIABLE 4
+
+EXPRESSION:
+i = 0
+
+IRs:
+i(uint256) := 0(uint256)"];
+4->2;
+5[label="Node Type: IF_LOOP 5
+
+EXPRESSION:
+i < len
+
+IRs:
+TMP_30(bool) = i < len
+CONDITION TMP_30"];
+5->6[label="True"];
+5->3[label="False"];
+6[label="Node Type: IF 6
+
+EXPRESSION:
+QRCodeHash == fileExistenceProofs[dappBoxOrigin][i].QRCodeHash
+
+IRs:
+REF_52(ProofOfExistence.FileExistenceStruct[]) -> fileExistenceProofs[dappBoxOrigin]
+REF_53(ProofOfExistence.FileExistenceStruct) -> REF_52[i]
+REF_54(bytes32) -> REF_53.QRCodeHash
+TMP_31(bool) = QRCodeHash == REF_54
+CONDITION TMP_31"];
+6->7[label="True"];
+6->8[label="False"];
+7[label="Node Type: RETURN 7
+
+EXPRESSION:
+(fileExistenceProofs[dappBoxOrigin][i].date,fileExistenceProofs[dappBoxOrigin][i].filesender,fileExistenceProofs[dappBoxOrigin][i].contractAddress,fileExistenceProofs[dappBoxOrigin][i].identifier,fileExistenceProofs[dappBoxOrigin][i].QRCodeHash)
+
+IRs:
+REF_55(ProofOfExistence.FileExistenceStruct[]) -> fileExistenceProofs[dappBoxOrigin]
+REF_56(ProofOfExistence.FileExistenceStruct) -> REF_55[i]
+REF_57(uint256) -> REF_56.date
+REF_58(ProofOfExistence.FileExistenceStruct[]) -> fileExistenceProofs[dappBoxOrigin]
+REF_59(ProofOfExistence.FileExistenceStruct) -> REF_58[i]
+REF_60(address) -> REF_59.filesender
+REF_61(ProofOfExistence.FileExistenceStruct[]) -> fileExistenceProofs[dappBoxOrigin]
+REF_62(ProofOfExistence.FileExistenceStruct) -> REF_61[i]
+REF_63(address) -> REF_62.contractAddress
+REF_64(ProofOfExistence.FileExistenceStruct[]) -> fileExistenceProofs[dappBoxOrigin]
+REF_65(ProofOfExistence.FileExistenceStruct) -> REF_64[i]
+REF_66(ProofOfExistence.BlockchainIdentification) -> REF_65.identifier
+REF_67(ProofOfExistence.FileExistenceStruct[]) -> fileExistenceProofs[dappBoxOrigin]
+REF_68(ProofOfExistence.FileExistenceStruct) -> REF_67[i]
+REF_69(bytes32) -> REF_68.QRCodeHash
+RETURN REF_57,REF_60,REF_63,REF_66,REF_69"];
+8[label="Node Type: END_IF 8
+"];
+8->9;
+9[label="Node Type: EXPRESSION 9
+
+EXPRESSION:
+i ++
+
+IRs:
+TMP_32(uint256) := i(uint256)
+i(uint256) = i + 1"];
+9->5;
+}

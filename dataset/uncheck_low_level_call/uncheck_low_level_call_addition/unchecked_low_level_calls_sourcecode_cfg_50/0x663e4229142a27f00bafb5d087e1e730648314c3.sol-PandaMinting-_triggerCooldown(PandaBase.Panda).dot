@@ -1,0 +1,45 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+_kitten.cooldownEndBlock = uint64((cooldowns[_kitten.cooldownIndex] / secondsPerBlock) + block.number)
+
+IRs:
+REF_513(uint64) -> _kitten.cooldownEndBlock
+REF_514(uint16) -> _kitten.cooldownIndex
+REF_515(uint32) -> cooldowns[REF_514]
+TMP_1802(uint32) = REF_515 / secondsPerBlock
+TMP_1803(uint32) = TMP_1802 + block.number
+TMP_1804 = CONVERT TMP_1803 to uint64
+REF_513 (->_kitten) := TMP_1804(uint64)"];
+1->2;
+2[label="Node Type: IF 2
+
+EXPRESSION:
+_kitten.cooldownIndex < 8 && geneScience.getWizzType(_kitten.genes) != 1
+
+IRs:
+REF_516(uint16) -> _kitten.cooldownIndex
+TMP_1805(bool) = REF_516 < 8
+REF_518(uint256[2]) -> _kitten.genes
+TMP_1806(uint256) = HIGH_LEVEL_CALL, dest:geneScience(GeneScienceInterface), function:getWizzType, arguments:['REF_518']  
+TMP_1807(bool) = TMP_1806 != 1
+TMP_1808(bool) = TMP_1805 && TMP_1807
+CONDITION TMP_1808"];
+2->3[label="True"];
+2->4[label="False"];
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+_kitten.cooldownIndex += 1
+
+IRs:
+REF_519(uint16) -> _kitten.cooldownIndex
+REF_519(-> _kitten) = REF_519 + 1"];
+3->4;
+4[label="Node Type: END_IF 4
+"];
+}

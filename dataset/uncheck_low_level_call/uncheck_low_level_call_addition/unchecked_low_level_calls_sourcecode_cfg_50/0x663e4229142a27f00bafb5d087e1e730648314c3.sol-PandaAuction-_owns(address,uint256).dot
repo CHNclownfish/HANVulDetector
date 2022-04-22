@@ -1,0 +1,14 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: RETURN 1
+
+EXPRESSION:
+pandaIndexToOwner[_tokenId] == _claimant
+
+IRs:
+REF_446(address) -> pandaIndexToOwner[_tokenId]
+TMP_1468(bool) = REF_446 == _claimant
+RETURN TMP_1468"];
+}

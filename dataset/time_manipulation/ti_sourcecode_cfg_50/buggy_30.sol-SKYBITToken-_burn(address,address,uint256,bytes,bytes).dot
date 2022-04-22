@@ -1,0 +1,60 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool,string)(from != address(0),ERC777: burn from the zero address)
+
+IRs:
+TMP_560 = CONVERT 0 to address
+TMP_561(bool) = from != TMP_560
+TMP_562(None) = SOLIDITY_CALL require(bool,string)(TMP_561,ERC777: burn from the zero address)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+_callTokensToSend(operator,from,address(0),amount,data,operatorData)
+
+IRs:
+TMP_563 = CONVERT 0 to address
+INTERNAL_CALL, ERC777._callTokensToSend(address,address,address,uint256,bytes,bytes)(operator,from,TMP_563,amount,data,operatorData)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+_totalSupply = _totalSupply.sub(amount)
+
+IRs:
+TMP_565(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_totalSupply', 'amount'] 
+_totalSupply(uint256) := TMP_565(uint256)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+_balances[from] = _balances[from].sub(amount)
+
+IRs:
+REF_141(uint256) -> _balances[from]
+REF_142(uint256) -> _balances[from]
+TMP_566(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_142', 'amount'] 
+REF_141 (->_balances) := TMP_566(uint256)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+Burned(operator,from,amount,data,operatorData)
+
+IRs:
+Emit Burned(operator.from.amount.data.operatorData)"];
+5->6;
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+Transfer(from,address(0),amount)
+
+IRs:
+TMP_568 = CONVERT 0 to address
+Emit Transfer(from.TMP_568.amount)"];
+}

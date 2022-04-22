@@ -1,0 +1,31 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+ethToTransfer = address(this).balance / 2
+
+IRs:
+TMP_31 = CONVERT this to address
+REF_7 -> BALANCE TMP_31
+TMP_32(uint256) = REF_7 / 2
+ethToTransfer(uint256) := TMP_32(uint256)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+winner.transfer(ethToTransfer)
+
+IRs:
+Transfer dest:winner value:ethToTransfer"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+Win(ethToTransfer,winner)
+
+IRs:
+Emit Win(ethToTransfer.winner)"];
+}

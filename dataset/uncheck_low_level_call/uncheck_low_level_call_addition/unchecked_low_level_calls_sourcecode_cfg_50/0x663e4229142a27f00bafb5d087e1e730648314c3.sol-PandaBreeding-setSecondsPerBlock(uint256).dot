@@ -1,0 +1,30 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->3;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(secs < cooldowns[0])
+
+IRs:
+REF_103(uint32) -> cooldowns[0]
+TMP_480(bool) = secs < REF_103
+TMP_481(None) = SOLIDITY_CALL require(bool)(TMP_480)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+secondsPerBlock = secs
+
+IRs:
+secondsPerBlock(uint256) := secs(uint256)"];
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+onlyCLevel()
+
+IRs:
+MODIFIER_CALL, PandaAccessControl.onlyCLevel()()"];
+3->1;
+}

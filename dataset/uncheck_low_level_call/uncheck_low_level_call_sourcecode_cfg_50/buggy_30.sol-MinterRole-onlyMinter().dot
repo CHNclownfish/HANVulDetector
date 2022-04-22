@@ -1,0 +1,16 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool,string)(isMinter(msg.sender),MinterRole: caller does not have the Minter role)
+
+IRs:
+TMP_149(bool) = INTERNAL_CALL, MinterRole.isMinter(address)(msg.sender)
+TMP_150(None) = SOLIDITY_CALL require(bool,string)(TMP_149,MinterRole: caller does not have the Minter role)"];
+1->2;
+2[label="Node Type: _ 2
+"];
+}

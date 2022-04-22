@@ -1,0 +1,133 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+tokenCount = balanceOf(_owner)
+
+IRs:
+TMP_2371(uint256) = INTERNAL_CALL, PandaOwnership.balanceOf(address)(_owner)
+tokenCount(uint256) := TMP_2371(uint256)"];
+1->2;
+2[label="Node Type: IF 2
+
+EXPRESSION:
+tokenCount == 0
+
+IRs:
+TMP_2372(bool) = tokenCount == 0
+CONDITION TMP_2372"];
+2->3[label="True"];
+2->4[label="False"];
+3[label="Node Type: RETURN 3
+
+EXPRESSION:
+new uint256[](0)
+
+IRs:
+TMP_2374 = new uint256[](0)
+RETURN TMP_2374"];
+4[label="Node Type: NEW VARIABLE 4
+
+EXPRESSION:
+result = new uint256[](tokenCount)
+
+IRs:
+TMP_2376 = new uint256[](tokenCount)
+result(uint256[]) := TMP_2376(uint256)"];
+4->5;
+5[label="Node Type: NEW VARIABLE 5
+
+EXPRESSION:
+totalCats = totalSupply()
+
+IRs:
+TMP_2377(uint256) = INTERNAL_CALL, PandaOwnership.totalSupply()()
+totalCats(uint256) := TMP_2377(uint256)"];
+5->6;
+6[label="Node Type: NEW VARIABLE 6
+
+EXPRESSION:
+resultIndex = 0
+
+IRs:
+resultIndex(uint256) := 0(uint256)"];
+6->7;
+7[label="Node Type: NEW VARIABLE 7
+"];
+7->10;
+8[label="Node Type: BEGIN_LOOP 8
+"];
+8->11;
+9[label="Node Type: END_LOOP 9
+"];
+9->17;
+10[label="Node Type: EXPRESSION 10
+
+EXPRESSION:
+catId = 1
+
+IRs:
+catId(uint256) := 1(uint256)"];
+10->8;
+11[label="Node Type: IF_LOOP 11
+
+EXPRESSION:
+catId <= totalCats
+
+IRs:
+TMP_2378(bool) = catId <= totalCats
+CONDITION TMP_2378"];
+11->12[label="True"];
+11->9[label="False"];
+12[label="Node Type: IF 12
+
+EXPRESSION:
+pandaIndexToOwner[catId] == _owner
+
+IRs:
+REF_717(address) -> pandaIndexToOwner[catId]
+TMP_2379(bool) = REF_717 == _owner
+CONDITION TMP_2379"];
+12->13[label="True"];
+12->15[label="False"];
+13[label="Node Type: EXPRESSION 13
+
+EXPRESSION:
+result[resultIndex] = catId
+
+IRs:
+REF_718(uint256) -> result[resultIndex]
+REF_718 (->result) := catId(uint256)"];
+13->14;
+14[label="Node Type: EXPRESSION 14
+
+EXPRESSION:
+resultIndex ++
+
+IRs:
+TMP_2380(uint256) := resultIndex(uint256)
+resultIndex(uint256) = resultIndex + 1"];
+14->15;
+15[label="Node Type: END_IF 15
+"];
+15->16;
+16[label="Node Type: EXPRESSION 16
+
+EXPRESSION:
+catId ++
+
+IRs:
+TMP_2381(uint256) := catId(uint256)
+catId(uint256) = catId + 1"];
+16->11;
+17[label="Node Type: RETURN 17
+
+EXPRESSION:
+result
+
+IRs:
+RETURN result"];
+}

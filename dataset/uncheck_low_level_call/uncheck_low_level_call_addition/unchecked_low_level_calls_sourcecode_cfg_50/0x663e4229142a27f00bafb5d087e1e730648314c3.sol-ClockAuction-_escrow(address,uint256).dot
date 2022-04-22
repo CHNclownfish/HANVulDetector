@@ -1,0 +1,12 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+nonFungibleContract.transferFrom(_owner,this,_tokenId)
+
+IRs:
+HIGH_LEVEL_CALL, dest:nonFungibleContract(ERC721), function:transferFrom, arguments:['_owner', 'this', '_tokenId']  "];
+}

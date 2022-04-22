@@ -1,0 +1,14 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: RETURN 1
+
+EXPRESSION:
+_price * ownerCut / 10000
+
+IRs:
+TMP_928(uint256) = _price * ownerCut
+TMP_929(uint256) = TMP_928 / 10000
+RETURN TMP_929"];
+}

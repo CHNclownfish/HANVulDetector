@@ -1,0 +1,12 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+RampInstantPool(_swapsContract,_minSwapAmount,_maxSwapAmount,_paymentDetailsHash,ETH_TYPE_ID)
+
+IRs:
+INTERNAL_CALL, RampInstantPool.constructor(address,uint256,uint256,bytes32,uint16)(_swapsContract,_minSwapAmount,_maxSwapAmount,_paymentDetailsHash,ETH_TYPE_ID)"];
+}

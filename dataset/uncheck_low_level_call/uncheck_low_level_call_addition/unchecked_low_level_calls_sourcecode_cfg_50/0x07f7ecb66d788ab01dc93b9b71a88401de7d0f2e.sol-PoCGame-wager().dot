@@ -1,0 +1,65 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->6;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(msg.value == betLimit)
+
+IRs:
+TMP_6(bool) = msg.value == betLimit
+TMP_7(None) = SOLIDITY_CALL require(bool)(TMP_6)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(wagers[msg.sender] == 0)
+
+IRs:
+REF_0(uint256) -> wagers[msg.sender]
+TMP_8(bool) = REF_0 == 0
+TMP_9(None) = SOLIDITY_CALL require(bool)(TMP_8)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+timestamps[msg.sender] = block.number
+
+IRs:
+REF_1(uint256) -> timestamps[msg.sender]
+REF_1 (->timestamps) := block.number(uint256)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+wagers[msg.sender] = msg.value
+
+IRs:
+REF_2(uint256) -> wagers[msg.sender]
+REF_2 (->wagers) := msg.value(uint256)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+Wager(msg.value,msg.sender)
+
+IRs:
+Emit Wager(msg.value.msg.sender)"];
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+isOpenToPublic()
+
+IRs:
+MODIFIER_CALL, PoCGame.isOpenToPublic()()"];
+6->7;
+7[label="Node Type: EXPRESSION 7
+
+EXPRESSION:
+onlyRealPeople()
+
+IRs:
+MODIFIER_CALL, PoCGame.onlyRealPeople()()"];
+7->1;
+}

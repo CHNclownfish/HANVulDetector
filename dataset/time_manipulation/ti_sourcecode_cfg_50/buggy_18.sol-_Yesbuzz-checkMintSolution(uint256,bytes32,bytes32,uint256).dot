@@ -1,0 +1,45 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+digest = keccak256(bytes)(abi.encodePacked(challenge_number,msg.sender,nonce))
+
+IRs:
+TMP_227(bytes) = SOLIDITY_CALL abi.encodePacked()(challenge_number,msg.sender,nonce)
+TMP_228(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_227)
+digest(bytes32) := TMP_228(bytes32)"];
+1->2;
+2[label="Node Type: IF 2
+
+EXPRESSION:
+uint256(digest) > testTarget
+
+IRs:
+TMP_229 = CONVERT digest to uint256
+TMP_230(bool) = TMP_229 > testTarget
+CONDITION TMP_230"];
+2->3[label="True"];
+2->4[label="False"];
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+revert()()
+
+IRs:
+TMP_231(None) = SOLIDITY_CALL revert()()"];
+3->4;
+4[label="Node Type: END_IF 4
+"];
+4->5;
+5[label="Node Type: RETURN 5
+
+EXPRESSION:
+(digest == challenge_digest)
+
+IRs:
+TMP_232(bool) = digest == challenge_digest
+RETURN TMP_232"];
+}

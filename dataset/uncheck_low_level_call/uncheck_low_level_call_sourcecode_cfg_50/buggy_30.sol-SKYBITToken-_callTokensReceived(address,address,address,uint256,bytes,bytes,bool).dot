@@ -1,0 +1,58 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+implementer = _erc1820.getInterfaceImplementer(to,TOKENS_RECIPIENT_INTERFACE_HASH)
+
+IRs:
+TMP_346(address) = HIGH_LEVEL_CALL, dest:_erc1820(IERC1820Registry), function:getInterfaceImplementer, arguments:['to', 'TOKENS_RECIPIENT_INTERFACE_HASH']  
+implementer(address) := TMP_346(address)"];
+1->2;
+2[label="Node Type: IF 2
+
+EXPRESSION:
+implementer != address(0)
+
+IRs:
+TMP_347 = CONVERT 0 to address
+TMP_348(bool) = implementer != TMP_347
+CONDITION TMP_348"];
+2->3[label="True"];
+2->4[label="False"];
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+IERC777Recipient(implementer).tokensReceived(operator,from,to,amount,userData,operatorData)
+
+IRs:
+TMP_349 = CONVERT implementer to IERC777Recipient
+HIGH_LEVEL_CALL, dest:TMP_349(IERC777Recipient), function:tokensReceived, arguments:['operator', 'from', 'to', 'amount', 'userData', 'operatorData']  "];
+3->7;
+4[label="Node Type: IF 4
+
+EXPRESSION:
+requireReceptionAck
+
+IRs:
+CONDITION requireReceptionAck"];
+4->5[label="True"];
+4->6[label="False"];
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+require(bool,string)(! to.isContract(),ERC777: token recipient contract has no implementer for ERC777TokensRecipient)
+
+IRs:
+TMP_351(bool) = LIBRARY_CALL, dest:Address, function:Address.isContract(address), arguments:['to'] 
+TMP_352 = ! TMP_351 
+TMP_353(None) = SOLIDITY_CALL require(bool,string)(TMP_352,ERC777: token recipient contract has no implementer for ERC777TokensRecipient)"];
+5->6;
+6[label="Node Type: END_IF 6
+"];
+6->7;
+7[label="Node Type: END_IF 7
+"];
+}

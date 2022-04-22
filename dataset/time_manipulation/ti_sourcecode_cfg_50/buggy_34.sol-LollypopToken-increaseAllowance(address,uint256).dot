@@ -1,0 +1,23 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+_approve(msg.sender,spender,_allowances[msg.sender][spender].add(addedValue))
+
+IRs:
+REF_60(mapping(address => uint256)) -> _allowances[msg.sender]
+REF_61(uint256) -> REF_60[spender]
+TMP_190(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_61', 'addedValue'] 
+INTERNAL_CALL, LollypopToken._approve(address,address,uint256)(msg.sender,spender,TMP_190)"];
+1->2;
+2[label="Node Type: RETURN 2
+
+EXPRESSION:
+true
+
+IRs:
+RETURN True"];
+}

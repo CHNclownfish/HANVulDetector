@@ -1,0 +1,105 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->12;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(tos.length > 0)
+
+IRs:
+REF_0 -> LENGTH tos
+TMP_0(bool) = REF_0 > 0
+TMP_1(None) = SOLIDITY_CALL require(bool)(TMP_0)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(vs.length > 0)
+
+IRs:
+REF_1 -> LENGTH vs
+TMP_2(bool) = REF_1 > 0
+TMP_3(None) = SOLIDITY_CALL require(bool)(TMP_2)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+require(bool)(tos.length == vs.length)
+
+IRs:
+REF_2 -> LENGTH tos
+REF_3 -> LENGTH vs
+TMP_4(bool) = REF_2 == REF_3
+TMP_5(None) = SOLIDITY_CALL require(bool)(TMP_4)"];
+3->4;
+4[label="Node Type: NEW VARIABLE 4
+
+EXPRESSION:
+id = bytes4(keccak256()(transferFrom(address,address,uint256)))
+
+IRs:
+TMP_6(bytes32) = SOLIDITY_CALL keccak256()(transferFrom(address,address,uint256))
+TMP_7 = CONVERT TMP_6 to bytes4
+id(bytes4) := TMP_7(bytes4)"];
+4->7;
+5[label="Node Type: BEGIN_LOOP 5
+"];
+5->8;
+6[label="Node Type: END_LOOP 6
+"];
+6->11;
+7[label="Node Type: NEW VARIABLE 7
+
+EXPRESSION:
+i = 0
+
+IRs:
+i(uint256) := 0(uint256)"];
+7->5;
+8[label="Node Type: IF_LOOP 8
+
+EXPRESSION:
+i < tos.length
+
+IRs:
+REF_4 -> LENGTH tos
+TMP_8(bool) = i < REF_4
+CONDITION TMP_8"];
+8->9[label="True"];
+8->6[label="False"];
+9[label="Node Type: EXPRESSION 9
+
+EXPRESSION:
+contract_address.call(id,msg.sender,tos[i],vs[i])
+
+IRs:
+REF_6(address) -> tos[i]
+REF_7(uint256) -> vs[i]
+TMP_9(bool) = LOW_LEVEL_CALL, dest:contract_address, function:call, arguments:['id', 'msg.sender', 'REF_6', 'REF_7']  "];
+9->10;
+10[label="Node Type: EXPRESSION 10
+
+EXPRESSION:
+i ++
+
+IRs:
+TMP_10(uint256) := i(uint256)
+i(uint256) = i + 1"];
+10->8;
+11[label="Node Type: RETURN 11
+
+EXPRESSION:
+true
+
+IRs:
+RETURN True"];
+12[label="Node Type: EXPRESSION 12
+
+EXPRESSION:
+validAddress(contract_address)
+
+IRs:
+MODIFIER_CALL, AirDropContract.validAddress(address)(contract_address)"];
+12->1;
+}

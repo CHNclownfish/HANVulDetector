@@ -1,0 +1,280 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->30;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+matron = pandas[_matronId]
+
+IRs:
+REF_158(PandaBase.Panda) -> pandas[_matronId]
+matron(PandaBase.Panda) := REF_158(PandaBase.Panda)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(matron.birthTime != 0)
+
+IRs:
+REF_159(uint64) -> matron.birthTime
+TMP_580(bool) = REF_159 != 0
+TMP_581(None) = SOLIDITY_CALL require(bool)(TMP_580)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+require(bool)(_isReadyToGiveBirth(matron))
+
+IRs:
+TMP_582(bool) = INTERNAL_CALL, PandaBreeding._isReadyToGiveBirth(PandaBase.Panda)(matron)
+TMP_583(None) = SOLIDITY_CALL require(bool)(TMP_582)"];
+3->4;
+4[label="Node Type: NEW VARIABLE 4
+
+EXPRESSION:
+sireId = matron.siringWithId
+
+IRs:
+REF_160(uint32) -> matron.siringWithId
+sireId(uint256) := REF_160(uint32)"];
+4->5;
+5[label="Node Type: NEW VARIABLE 5
+
+EXPRESSION:
+sire = pandas[sireId]
+
+IRs:
+REF_161(PandaBase.Panda) -> pandas[sireId]
+sire(PandaBase.Panda) := REF_161(PandaBase.Panda)"];
+5->6;
+6[label="Node Type: NEW VARIABLE 6
+
+EXPRESSION:
+parentGen = matron.generation
+
+IRs:
+REF_162(uint16) -> matron.generation
+parentGen(uint16) := REF_162(uint16)"];
+6->7;
+7[label="Node Type: IF 7
+
+EXPRESSION:
+sire.generation > matron.generation
+
+IRs:
+REF_163(uint16) -> sire.generation
+REF_164(uint16) -> matron.generation
+TMP_584(bool) = REF_163 > REF_164
+CONDITION TMP_584"];
+7->8[label="True"];
+7->9[label="False"];
+8[label="Node Type: EXPRESSION 8
+
+EXPRESSION:
+parentGen = sire.generation
+
+IRs:
+REF_165(uint16) -> sire.generation
+parentGen(uint16) := REF_165(uint16)"];
+8->9;
+9[label="Node Type: END_IF 9
+"];
+9->10;
+10[label="Node Type: NEW VARIABLE 10
+
+EXPRESSION:
+childGenes = _childGenes
+
+IRs:
+childGenes(uint256[2]) := _childGenes(uint256[2])"];
+10->11;
+11[label="Node Type: NEW VARIABLE 11
+
+EXPRESSION:
+kittenId = 0
+
+IRs:
+kittenId(uint256) := 0(uint256)"];
+11->12;
+12[label="Node Type: NEW VARIABLE 12
+
+EXPRESSION:
+probability = (geneScience.getPureFromGene(matron.genes) + geneScience.getPureFromGene(sire.genes)) / 2 + _factors[0]
+
+IRs:
+REF_167(uint256[2]) -> matron.genes
+TMP_585(uint256) = HIGH_LEVEL_CALL, dest:geneScience(GeneScienceInterface), function:getPureFromGene, arguments:['REF_167']  
+REF_169(uint256[2]) -> sire.genes
+TMP_586(uint256) = HIGH_LEVEL_CALL, dest:geneScience(GeneScienceInterface), function:getPureFromGene, arguments:['REF_169']  
+TMP_587(uint256) = TMP_585 + TMP_586
+TMP_588(uint256) = TMP_587 / 2
+REF_170(uint256) -> _factors[0]
+TMP_589(uint256) = TMP_588 + REF_170
+probability(uint256) := TMP_589(uint256)"];
+12->13;
+13[label="Node Type: IF 13
+
+EXPRESSION:
+probability >= (parentGen + 1) * _factors[1]
+
+IRs:
+TMP_590(uint16) = parentGen + 1
+REF_171(uint256) -> _factors[1]
+TMP_591(uint16) = TMP_590 * REF_171
+TMP_592(bool) = probability >= TMP_591
+CONDITION TMP_592"];
+13->14[label="True"];
+13->15[label="False"];
+14[label="Node Type: EXPRESSION 14
+
+EXPRESSION:
+probability = probability - (parentGen + 1) * _factors[1]
+
+IRs:
+TMP_593(uint16) = parentGen + 1
+REF_172(uint256) -> _factors[1]
+TMP_594(uint16) = TMP_593 * REF_172
+TMP_595(uint256) = probability - TMP_594
+probability(uint256) := TMP_595(uint256)"];
+14->16;
+15[label="Node Type: EXPRESSION 15
+
+EXPRESSION:
+probability = 0
+
+IRs:
+probability(uint256) := 0(uint256)"];
+15->16;
+16[label="Node Type: END_IF 16
+"];
+16->17;
+17[label="Node Type: IF 17
+
+EXPRESSION:
+parentGen == 0 && gen0CreatedCount == GEN0_TOTAL_COUNT
+
+IRs:
+TMP_596(bool) = parentGen == 0
+TMP_597(bool) = gen0CreatedCount == GEN0_TOTAL_COUNT
+TMP_598(bool) = TMP_596 && TMP_597
+CONDITION TMP_598"];
+17->18[label="True"];
+17->19[label="False"];
+18[label="Node Type: EXPRESSION 18
+
+EXPRESSION:
+probability = 0
+
+IRs:
+probability(uint256) := 0(uint256)"];
+18->19;
+19[label="Node Type: END_IF 19
+"];
+19->20;
+20[label="Node Type: IF 20
+
+EXPRESSION:
+uint256(keccak256()(block.blockhash(block.number - 2),now)) % 100 < probability
+
+IRs:
+TMP_599(uint256) = block.number - 2
+TMP_600(uint256) = SOLIDITY_CALL blockhash(uint256)(TMP_599)
+TMP_601(bytes32) = SOLIDITY_CALL keccak256()(TMP_600,now)
+TMP_602 = CONVERT TMP_601 to uint256
+TMP_603(uint256) = TMP_602 % 100
+TMP_604(bool) = TMP_603 < probability
+CONDITION TMP_604"];
+20->21[label="True"];
+20->23[label="False"];
+21[label="Node Type: NEW VARIABLE 21
+
+EXPRESSION:
+owner = childOwner[_matronId]
+
+IRs:
+REF_173(address) -> childOwner[_matronId]
+owner(address) := REF_173(address)"];
+21->22;
+22[label="Node Type: EXPRESSION 22
+
+EXPRESSION:
+kittenId = _createPanda(_matronId,matron.siringWithId,parentGen + 1,childGenes,owner)
+
+IRs:
+REF_174(uint32) -> matron.siringWithId
+TMP_605(uint16) = parentGen + 1
+TMP_606(uint256) = INTERNAL_CALL, PandaBase._createPanda(uint256,uint256,uint256,uint256[2],address)(_matronId,REF_174,TMP_605,childGenes,owner)
+kittenId(uint256) := TMP_606(uint256)"];
+22->24;
+23[label="Node Type: EXPRESSION 23
+
+EXPRESSION:
+Abortion(pandaIndexToOwner[_matronId],_matronId,sireId)
+
+IRs:
+REF_175(address) -> pandaIndexToOwner[_matronId]
+Emit Abortion(REF_175._matronId.sireId)"];
+23->24;
+24[label="Node Type: END_IF 24
+"];
+24->25;
+25[label="Node Type: EXPRESSION 25
+
+EXPRESSION:
+delete matron.siringWithId
+
+IRs:
+REF_176(uint32) -> matron.siringWithId
+matron = delete REF_176 "];
+25->26;
+26[label="Node Type: EXPRESSION 26
+
+EXPRESSION:
+pregnantPandas --
+
+IRs:
+TMP_608(uint256) := pregnantPandas(uint256)
+pregnantPandas(uint256) = pregnantPandas - 1"];
+26->27;
+27[label="Node Type: EXPRESSION 27
+
+EXPRESSION:
+msg.sender.send(autoBirthFee)
+
+IRs:
+TMP_609 = SEND dest:msg.sender value:autoBirthFee"];
+27->28;
+28[label="Node Type: EXPRESSION 28
+
+EXPRESSION:
+delete childOwner[_matronId]
+
+IRs:
+REF_178(address) -> childOwner[_matronId]
+childOwner = delete REF_178 "];
+28->29;
+29[label="Node Type: RETURN 29
+
+EXPRESSION:
+kittenId
+
+IRs:
+RETURN kittenId"];
+30[label="Node Type: EXPRESSION 30
+
+EXPRESSION:
+whenNotPaused()
+
+IRs:
+MODIFIER_CALL, PandaAccessControl.whenNotPaused()()"];
+30->31;
+31[label="Node Type: EXPRESSION 31
+
+EXPRESSION:
+onlyCLevel()
+
+IRs:
+MODIFIER_CALL, PandaAccessControl.onlyCLevel()()"];
+31->1;
+}

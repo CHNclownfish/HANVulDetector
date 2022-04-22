@@ -1,0 +1,122 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(value <= _balances[from])
+
+IRs:
+REF_49(uint256) -> _balances[from]
+TMP_70(bool) = value <= REF_49
+TMP_71(None) = SOLIDITY_CALL require(bool)(TMP_70)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(value <= _allowed[from][msg.sender])
+
+IRs:
+REF_50(mapping(address => uint256)) -> _allowed[from]
+REF_51(uint256) -> REF_50[msg.sender]
+TMP_72(bool) = value <= REF_51
+TMP_73(None) = SOLIDITY_CALL require(bool)(TMP_72)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+require(bool)(to != address(0))
+
+IRs:
+TMP_74 = CONVERT 0 to address
+TMP_75(bool) = to != TMP_74
+TMP_76(None) = SOLIDITY_CALL require(bool)(TMP_75)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+_balances[from] = _balances[from].sub(value)
+
+IRs:
+REF_52(uint256) -> _balances[from]
+REF_53(uint256) -> _balances[from]
+TMP_77(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_53', 'value'] 
+REF_52 (->_balances) := TMP_77(uint256)"];
+4->5;
+5[label="Node Type: NEW VARIABLE 5
+
+EXPRESSION:
+tokensToBurn = findtwoPercent(value)
+
+IRs:
+TMP_78(uint256) = INTERNAL_CALL, HYDROGEN.findtwoPercent(uint256)(value)
+tokensToBurn(uint256) := TMP_78(uint256)"];
+5->6;
+6[label="Node Type: NEW VARIABLE 6
+
+EXPRESSION:
+tokensToTransfer = value.sub(tokensToBurn)
+
+IRs:
+TMP_79(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['value', 'tokensToBurn'] 
+tokensToTransfer(uint256) := TMP_79(uint256)"];
+6->7;
+7[label="Node Type: EXPRESSION 7
+
+EXPRESSION:
+_balances[to] = _balances[to].add(tokensToTransfer)
+
+IRs:
+REF_56(uint256) -> _balances[to]
+REF_57(uint256) -> _balances[to]
+TMP_80(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_57', 'tokensToTransfer'] 
+REF_56 (->_balances) := TMP_80(uint256)"];
+7->8;
+8[label="Node Type: EXPRESSION 8
+
+EXPRESSION:
+_totalSupply = _totalSupply.sub(tokensToBurn)
+
+IRs:
+TMP_81(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['_totalSupply', 'tokensToBurn'] 
+_totalSupply(uint256) := TMP_81(uint256)"];
+8->9;
+9[label="Node Type: EXPRESSION 9
+
+EXPRESSION:
+_allowed[from][msg.sender] = _allowed[from][msg.sender].sub(value)
+
+IRs:
+REF_60(mapping(address => uint256)) -> _allowed[from]
+REF_61(uint256) -> REF_60[msg.sender]
+REF_62(mapping(address => uint256)) -> _allowed[from]
+REF_63(uint256) -> REF_62[msg.sender]
+TMP_82(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_63', 'value'] 
+REF_61 (->_allowed) := TMP_82(uint256)"];
+9->10;
+10[label="Node Type: EXPRESSION 10
+
+EXPRESSION:
+Transfer(from,to,tokensToTransfer)
+
+IRs:
+Emit Transfer(from.to.tokensToTransfer)"];
+10->11;
+11[label="Node Type: EXPRESSION 11
+
+EXPRESSION:
+Transfer(from,address(0),tokensToBurn)
+
+IRs:
+TMP_84 = CONVERT 0 to address
+Emit Transfer(from.TMP_84.tokensToBurn)"];
+11->12;
+12[label="Node Type: RETURN 12
+
+EXPRESSION:
+true
+
+IRs:
+RETURN True"];
+}

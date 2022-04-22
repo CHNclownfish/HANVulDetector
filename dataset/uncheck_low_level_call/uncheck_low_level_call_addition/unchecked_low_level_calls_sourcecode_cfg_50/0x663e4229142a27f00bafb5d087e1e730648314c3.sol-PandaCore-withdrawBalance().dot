@@ -1,0 +1,53 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->6;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+balance = this.balance
+
+IRs:
+REF_759 -> BALANCE this
+balance(uint256) := REF_759(uint256)"];
+1->2;
+2[label="Node Type: NEW VARIABLE 2
+
+EXPRESSION:
+subtractFees = (pregnantPandas + 1) * autoBirthFee
+
+IRs:
+TMP_2519(uint256) = pregnantPandas + 1
+TMP_2520(uint256) = TMP_2519 * autoBirthFee
+subtractFees(uint256) := TMP_2520(uint256)"];
+2->3;
+3[label="Node Type: IF 3
+
+EXPRESSION:
+balance > subtractFees
+
+IRs:
+TMP_2521(bool) = balance > subtractFees
+CONDITION TMP_2521"];
+3->4[label="True"];
+3->5[label="False"];
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+cfoAddress.send(balance - subtractFees)
+
+IRs:
+TMP_2522(uint256) = balance - subtractFees
+TMP_2523 = SEND dest:cfoAddress value:TMP_2522"];
+4->5;
+5[label="Node Type: END_IF 5
+"];
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+onlyCFO()
+
+IRs:
+MODIFIER_CALL, PandaAccessControl.onlyCFO()()"];
+6->1;
+}

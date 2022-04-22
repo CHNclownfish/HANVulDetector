@@ -1,0 +1,42 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->3;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+majorEvents.push(Event(now,name,description,url))
+
+IRs:
+TMP_22 = new Event(now,name,description,url)
+REF_11 -> LENGTH majorEvents
+TMP_24(uint256) := REF_11(uint256)
+TMP_25(uint256) = TMP_24 + 1
+REF_11 (->majorEvents) := TMP_25(uint256)
+REF_12(Marriage.Event) -> majorEvents[TMP_24]
+REF_12 (->majorEvents) := TMP_22(Marriage.Event)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+MajorEvent(name,description,url)
+
+IRs:
+Emit MajorEvent(name.description.url)"];
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+onlyOwner()
+
+IRs:
+MODIFIER_CALL, Owned.onlyOwner()()"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+areMarried()
+
+IRs:
+MODIFIER_CALL, Marriage.areMarried()()"];
+4->1;
+}

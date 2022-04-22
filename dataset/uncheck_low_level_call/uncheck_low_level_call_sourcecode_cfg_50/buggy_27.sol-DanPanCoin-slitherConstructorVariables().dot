@@ -1,0 +1,33 @@
+digraph{
+0[label="Node Type: OTHER_ENTRYPOINT 0
+
+EXPRESSION:
+_totalSupply = 10000000000
+
+IRs:
+_totalSupply(uint256) := 10000000000(uint256)"];
+0->1;
+1[label="Node Type: OTHER_ENTRYPOINT 1
+
+EXPRESSION:
+basePercent = 100
+
+IRs:
+basePercent(uint256) := 100(uint256)"];
+1->2;
+2[label="Node Type: OTHER_ENTRYPOINT 2
+
+EXPRESSION:
+dpPercent = 5
+
+IRs:
+dpPercent(uint256) := 5(uint256)"];
+2->3;
+3[label="Node Type: OTHER_ENTRYPOINT 3
+
+EXPRESSION:
+DanPanAddress = msg.sender
+
+IRs:
+DanPanAddress(address) := msg.sender(address)"];
+}

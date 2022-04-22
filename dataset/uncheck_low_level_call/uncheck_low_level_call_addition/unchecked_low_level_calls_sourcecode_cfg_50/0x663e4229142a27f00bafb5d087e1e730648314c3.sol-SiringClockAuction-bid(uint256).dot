@@ -1,0 +1,40 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(msg.sender == address(nonFungibleContract))
+
+IRs:
+TMP_962 = CONVERT nonFungibleContract to address
+TMP_963(bool) = msg.sender == TMP_962
+TMP_964(None) = SOLIDITY_CALL require(bool)(TMP_963)"];
+1->2;
+2[label="Node Type: NEW VARIABLE 2
+
+EXPRESSION:
+seller = tokenIdToAuction[_tokenId].seller
+
+IRs:
+REF_264(ClockAuctionBase.Auction) -> tokenIdToAuction[_tokenId]
+REF_265(address) -> REF_264.seller
+seller(address) := REF_265(address)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+_bid(_tokenId,msg.value)
+
+IRs:
+TMP_965(uint256) = INTERNAL_CALL, ClockAuctionBase._bid(uint256,uint256)(_tokenId,msg.value)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+_transfer(seller,_tokenId)
+
+IRs:
+INTERNAL_CALL, ClockAuctionBase._transfer(address,uint256)(seller,_tokenId)"];
+}

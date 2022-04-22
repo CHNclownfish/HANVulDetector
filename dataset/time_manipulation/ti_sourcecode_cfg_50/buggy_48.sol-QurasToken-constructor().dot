@@ -1,0 +1,54 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+symbol = XQC
+
+IRs:
+symbol(string) := XQC(string)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+name = Quras Token
+
+IRs:
+name(string) := Quras Token(string)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+decimals = 8
+
+IRs:
+decimals(uint8) := 8(uint256)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+_totalSupply = 88888888800000000
+
+IRs:
+_totalSupply(uint256) := 88888888800000000(uint256)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+balances[owner] = _totalSupply
+
+IRs:
+REF_14(uint256) -> balances[owner]
+REF_14 (->balances) := _totalSupply(uint256)"];
+5->6;
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+Transfer(address(0),owner,_totalSupply)
+
+IRs:
+TMP_137 = CONVERT 0 to address
+Emit Transfer(TMP_137.owner._totalSupply)"];
+}

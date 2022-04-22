@@ -1,0 +1,104 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+(_matronId,_sireId) = _exchangeMatronSireId(_matronId,_sireId)
+
+IRs:
+TUPLE_1(uint256,uint256) = INTERNAL_CALL, PandaBreeding._exchangeMatronSireId(uint256,uint256)(_matronId,_sireId)
+_matronId(uint256)= UNPACK TUPLE_1 index: 0 
+_sireId(uint256)= UNPACK TUPLE_1 index: 1 "];
+1->2;
+2[label="Node Type: NEW VARIABLE 2
+
+EXPRESSION:
+sire = pandas[_sireId]
+
+IRs:
+REF_415(PandaBase.Panda) -> pandas[_sireId]
+sire(PandaBase.Panda) := REF_415(PandaBase.Panda)"];
+2->3;
+3[label="Node Type: NEW VARIABLE 3
+
+EXPRESSION:
+matron = pandas[_matronId]
+
+IRs:
+REF_416(PandaBase.Panda) -> pandas[_matronId]
+matron(PandaBase.Panda) := REF_416(PandaBase.Panda)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+matron.siringWithId = uint32(_sireId)
+
+IRs:
+REF_417(uint32) -> matron.siringWithId
+TMP_1414 = CONVERT _sireId to uint32
+REF_417 (->matron) := TMP_1414(uint32)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+_triggerCooldown(sire)
+
+IRs:
+INTERNAL_CALL, PandaBreeding._triggerCooldown(PandaBase.Panda)(sire)"];
+5->6;
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+_triggerCooldown(matron)
+
+IRs:
+INTERNAL_CALL, PandaBreeding._triggerCooldown(PandaBase.Panda)(matron)"];
+6->7;
+7[label="Node Type: EXPRESSION 7
+
+EXPRESSION:
+delete sireAllowedToAddress[_matronId]
+
+IRs:
+REF_418(address) -> sireAllowedToAddress[_matronId]
+sireAllowedToAddress = delete REF_418 "];
+7->8;
+8[label="Node Type: EXPRESSION 8
+
+EXPRESSION:
+delete sireAllowedToAddress[_sireId]
+
+IRs:
+REF_419(address) -> sireAllowedToAddress[_sireId]
+sireAllowedToAddress = delete REF_419 "];
+8->9;
+9[label="Node Type: EXPRESSION 9
+
+EXPRESSION:
+pregnantPandas ++
+
+IRs:
+TMP_1417(uint256) := pregnantPandas(uint256)
+pregnantPandas(uint256) = pregnantPandas + 1"];
+9->10;
+10[label="Node Type: EXPRESSION 10
+
+EXPRESSION:
+childOwner[_matronId] = _owner
+
+IRs:
+REF_420(address) -> childOwner[_matronId]
+REF_420 (->childOwner) := _owner(address)"];
+10->11;
+11[label="Node Type: EXPRESSION 11
+
+EXPRESSION:
+Pregnant(pandaIndexToOwner[_matronId],_matronId,_sireId,matron.cooldownEndBlock)
+
+IRs:
+REF_421(address) -> pandaIndexToOwner[_matronId]
+REF_422(uint64) -> matron.cooldownEndBlock
+Emit Pregnant(REF_421._matronId._sireId.REF_422)"];
+}

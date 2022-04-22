@@ -1,0 +1,29 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->3;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+doTransfer(msg.sender,_to,_amount)
+
+IRs:
+INTERNAL_CALL, ExclusivePlatform.doTransfer(address,address,uint256)(msg.sender,_to,_amount)"];
+1->2;
+2[label="Node Type: RETURN 2
+
+EXPRESSION:
+true
+
+IRs:
+RETURN True"];
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+onlyPayloadSize(2 * 32)
+
+IRs:
+TMP_199(uint256) = 2 * 32
+MODIFIER_CALL, ExclusivePlatform.onlyPayloadSize(uint256)(TMP_199)"];
+3->1;
+}

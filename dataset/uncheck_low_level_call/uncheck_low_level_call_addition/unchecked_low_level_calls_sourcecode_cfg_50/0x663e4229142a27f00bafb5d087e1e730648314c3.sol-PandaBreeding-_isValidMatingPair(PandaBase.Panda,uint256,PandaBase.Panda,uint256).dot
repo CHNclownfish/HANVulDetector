@@ -1,0 +1,181 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: IF 1
+
+EXPRESSION:
+_matronId == _sireId
+
+IRs:
+TMP_531(bool) = _matronId == _sireId
+CONDITION TMP_531"];
+1->2[label="True"];
+1->3[label="False"];
+2[label="Node Type: RETURN 2
+
+EXPRESSION:
+false
+
+IRs:
+RETURN False"];
+3[label="Node Type: END_IF 3
+"];
+3->4;
+4[label="Node Type: IF 4
+
+EXPRESSION:
+_matron.matronId == _sireId || _matron.sireId == _sireId
+
+IRs:
+REF_123(uint32) -> _matron.matronId
+TMP_532(bool) = REF_123 == _sireId
+REF_124(uint32) -> _matron.sireId
+TMP_533(bool) = REF_124 == _sireId
+TMP_534(bool) = TMP_532 || TMP_533
+CONDITION TMP_534"];
+4->5[label="True"];
+4->6[label="False"];
+5[label="Node Type: RETURN 5
+
+EXPRESSION:
+false
+
+IRs:
+RETURN False"];
+6[label="Node Type: END_IF 6
+"];
+6->7;
+7[label="Node Type: IF 7
+
+EXPRESSION:
+_sire.matronId == _matronId || _sire.sireId == _matronId
+
+IRs:
+REF_125(uint32) -> _sire.matronId
+TMP_535(bool) = REF_125 == _matronId
+REF_126(uint32) -> _sire.sireId
+TMP_536(bool) = REF_126 == _matronId
+TMP_537(bool) = TMP_535 || TMP_536
+CONDITION TMP_537"];
+7->8[label="True"];
+7->9[label="False"];
+8[label="Node Type: RETURN 8
+
+EXPRESSION:
+false
+
+IRs:
+RETURN False"];
+9[label="Node Type: END_IF 9
+"];
+9->10;
+10[label="Node Type: IF 10
+
+EXPRESSION:
+_sire.matronId == 0 || _matron.matronId == 0
+
+IRs:
+REF_127(uint32) -> _sire.matronId
+TMP_538(bool) = REF_127 == 0
+REF_128(uint32) -> _matron.matronId
+TMP_539(bool) = REF_128 == 0
+TMP_540(bool) = TMP_538 || TMP_539
+CONDITION TMP_540"];
+10->11[label="True"];
+10->12[label="False"];
+11[label="Node Type: RETURN 11
+
+EXPRESSION:
+true
+
+IRs:
+RETURN True"];
+12[label="Node Type: END_IF 12
+"];
+12->13;
+13[label="Node Type: IF 13
+
+EXPRESSION:
+_sire.matronId == _matron.matronId || _sire.matronId == _matron.sireId
+
+IRs:
+REF_129(uint32) -> _sire.matronId
+REF_130(uint32) -> _matron.matronId
+TMP_541(bool) = REF_129 == REF_130
+REF_131(uint32) -> _sire.matronId
+REF_132(uint32) -> _matron.sireId
+TMP_542(bool) = REF_131 == REF_132
+TMP_543(bool) = TMP_541 || TMP_542
+CONDITION TMP_543"];
+13->14[label="True"];
+13->15[label="False"];
+14[label="Node Type: RETURN 14
+
+EXPRESSION:
+false
+
+IRs:
+RETURN False"];
+15[label="Node Type: END_IF 15
+"];
+15->16;
+16[label="Node Type: IF 16
+
+EXPRESSION:
+_sire.sireId == _matron.matronId || _sire.sireId == _matron.sireId
+
+IRs:
+REF_133(uint32) -> _sire.sireId
+REF_134(uint32) -> _matron.matronId
+TMP_544(bool) = REF_133 == REF_134
+REF_135(uint32) -> _sire.sireId
+REF_136(uint32) -> _matron.sireId
+TMP_545(bool) = REF_135 == REF_136
+TMP_546(bool) = TMP_544 || TMP_545
+CONDITION TMP_546"];
+16->17[label="True"];
+16->18[label="False"];
+17[label="Node Type: RETURN 17
+
+EXPRESSION:
+false
+
+IRs:
+RETURN False"];
+18[label="Node Type: END_IF 18
+"];
+18->19;
+19[label="Node Type: IF 19
+
+EXPRESSION:
+geneScience.getSex(_matron.genes) + geneScience.getSex(_sire.genes) != 1
+
+IRs:
+REF_138(uint256[2]) -> _matron.genes
+TMP_547(uint256) = HIGH_LEVEL_CALL, dest:geneScience(GeneScienceInterface), function:getSex, arguments:['REF_138']  
+REF_140(uint256[2]) -> _sire.genes
+TMP_548(uint256) = HIGH_LEVEL_CALL, dest:geneScience(GeneScienceInterface), function:getSex, arguments:['REF_140']  
+TMP_549(uint256) = TMP_547 + TMP_548
+TMP_550(bool) = TMP_549 != 1
+CONDITION TMP_550"];
+19->20[label="True"];
+19->21[label="False"];
+20[label="Node Type: RETURN 20
+
+EXPRESSION:
+false
+
+IRs:
+RETURN False"];
+21[label="Node Type: END_IF 21
+"];
+21->22;
+22[label="Node Type: RETURN 22
+
+EXPRESSION:
+true
+
+IRs:
+RETURN True"];
+}

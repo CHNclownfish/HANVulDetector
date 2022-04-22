@@ -1,0 +1,48 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->3;
+1[label="Node Type: BEGIN_LOOP 1
+"];
+1->4;
+2[label="Node Type: END_LOOP 2
+"];
+3[label="Node Type: NEW VARIABLE 3
+
+EXPRESSION:
+i = 0
+
+IRs:
+i(uint256) := 0(uint256)"];
+3->1;
+4[label="Node Type: IF_LOOP 4
+
+EXPRESSION:
+i < receivers.length
+
+IRs:
+REF_50 -> LENGTH receivers
+TMP_87(bool) = i < REF_50
+CONDITION TMP_87"];
+4->5[label="True"];
+4->2[label="False"];
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+transfer(receivers[i],amounts[i])
+
+IRs:
+REF_51(address) -> receivers[i]
+REF_52(uint256) -> amounts[i]
+TMP_88(bool) = INTERNAL_CALL, DanPanCoin.transfer(address,uint256)(REF_51,REF_52)"];
+5->6;
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+i ++
+
+IRs:
+TMP_89(uint256) := i(uint256)
+i(uint256) = i + 1"];
+6->4;
+}

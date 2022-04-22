@@ -1,0 +1,43 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(msg.sender == owner)
+
+IRs:
+TMP_8(bool) = msg.sender == owner
+TMP_9(None) = SOLIDITY_CALL require(bool)(TMP_8)"];
+1->2;
+2[label="Node Type: NEW VARIABLE 2
+
+EXPRESSION:
+p = new Puppet()
+
+IRs:
+TMP_11 = new Puppet() 
+p(Puppet) := TMP_11(Puppet)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+puppets.push(p)
+
+IRs:
+REF_12 -> LENGTH puppets
+TMP_13(uint256) := REF_12(uint256)
+TMP_14(uint256) = TMP_13 + 1
+REF_12 (->puppets) := TMP_14(uint256)
+REF_13(address) -> puppets[TMP_13]
+REF_13 (->puppets) := p(Puppet)"];
+3->4;
+4[label="Node Type: RETURN 4
+
+EXPRESSION:
+p
+
+IRs:
+RETURN p"];
+}

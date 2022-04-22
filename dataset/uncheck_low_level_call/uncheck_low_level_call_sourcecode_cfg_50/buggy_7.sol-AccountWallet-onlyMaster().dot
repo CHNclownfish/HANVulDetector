@@ -1,0 +1,18 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(isMaster() || isOwner())
+
+IRs:
+TMP_134(bool) = INTERNAL_CALL, Ownable.isMaster()()
+TMP_135(bool) = INTERNAL_CALL, Ownable.isOwner()()
+TMP_136(bool) = TMP_134 || TMP_135
+TMP_137(None) = SOLIDITY_CALL require(bool)(TMP_136)"];
+1->2;
+2[label="Node Type: _ 2
+"];
+}

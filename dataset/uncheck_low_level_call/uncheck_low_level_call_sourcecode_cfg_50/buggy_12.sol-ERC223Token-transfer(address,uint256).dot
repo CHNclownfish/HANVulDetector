@@ -1,0 +1,127 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: NEW VARIABLE 1
+"];
+1->2;
+2[label="Node Type: NEW VARIABLE 2
+"];
+2->3;
+3[label="Node Type: INLINE ASM 3
+"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+require(bool)(_value > 0)
+
+IRs:
+TMP_44(bool) = _value > 0
+TMP_45(None) = SOLIDITY_CALL require(bool)(TMP_44)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+require(bool)(balances[msg.sender] >= _value)
+
+IRs:
+REF_17(uint256) -> balances[msg.sender]
+TMP_46(bool) = REF_17 >= _value
+TMP_47(None) = SOLIDITY_CALL require(bool)(TMP_46)"];
+5->6;
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+require(bool)(balances[_to] + _value > 0)
+
+IRs:
+REF_18(uint256) -> balances[_to]
+TMP_48(uint256) = REF_18 + _value
+TMP_49(bool) = TMP_48 > 0
+TMP_50(None) = SOLIDITY_CALL require(bool)(TMP_49)"];
+6->7;
+7[label="Node Type: EXPRESSION 7
+
+EXPRESSION:
+require(bool)(msg.sender != _to)
+
+IRs:
+TMP_51(bool) = msg.sender != _to
+TMP_52(None) = SOLIDITY_CALL require(bool)(TMP_51)"];
+7->8;
+8[label="Node Type: EXPRESSION 8
+
+EXPRESSION:
+balances[msg.sender] = balances[msg.sender].sub(_value)
+
+IRs:
+REF_19(uint256) -> balances[msg.sender]
+REF_20(uint256) -> balances[msg.sender]
+TMP_53(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.sub(uint256,uint256), arguments:['REF_20', '_value'] 
+REF_19 (->balances) := TMP_53(uint256)"];
+8->9;
+9[label="Node Type: EXPRESSION 9
+
+EXPRESSION:
+balances[_to] = balances[_to].add(_value)
+
+IRs:
+REF_22(uint256) -> balances[_to]
+REF_23(uint256) -> balances[_to]
+TMP_54(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_23', '_value'] 
+REF_22 (->balances) := TMP_54(uint256)"];
+9->10;
+10[label="Node Type: IF 10
+
+EXPRESSION:
+codeLength > 0
+
+IRs:
+TMP_55(bool) = codeLength > 0
+CONDITION TMP_55"];
+10->11[label="True"];
+10->14[label="False"];
+11[label="Node Type: NEW VARIABLE 11
+
+EXPRESSION:
+receiver = ERC223ReceivingContract(_to)
+
+IRs:
+TMP_56 = CONVERT _to to ERC223ReceivingContract
+receiver(ERC223ReceivingContract) := TMP_56(ERC223ReceivingContract)"];
+11->12;
+12[label="Node Type: EXPRESSION 12
+
+EXPRESSION:
+receiver.tokenFallback(msg.sender,_value,empty)
+
+IRs:
+HIGH_LEVEL_CALL, dest:receiver(ERC223ReceivingContract), function:tokenFallback, arguments:['msg.sender', '_value', 'empty']  "];
+12->13;
+13[label="Node Type: RETURN 13
+
+EXPRESSION:
+false
+
+IRs:
+RETURN False"];
+14[label="Node Type: END_IF 14
+"];
+14->15;
+15[label="Node Type: EXPRESSION 15
+
+EXPRESSION:
+Transfer(msg.sender,_to,_value)
+
+IRs:
+Emit Transfer(msg.sender._to._value)"];
+15->16;
+16[label="Node Type: RETURN 16
+
+EXPRESSION:
+true
+
+IRs:
+RETURN True"];
+}

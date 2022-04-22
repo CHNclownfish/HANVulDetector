@@ -1,0 +1,104 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+owner = msg.sender
+
+IRs:
+owner(address) := msg.sender(address)"];
+1->2;
+2[label="Node Type: IF 2
+
+EXPRESSION:
+_initialAmount <= 0
+
+IRs:
+TMP_39(bool) = _initialAmount <= 0
+CONDITION TMP_39"];
+2->3[label="True"];
+2->5[label="False"];
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+totalSupply = 100000000000000000
+
+IRs:
+totalSupply(uint256) := 100000000000000000(uint256)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+balances[owner] = totalSupply
+
+IRs:
+REF_6(uint256) -> balances[owner]
+REF_6 (->balances) := totalSupply(uint256)"];
+4->7;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+totalSupply = _initialAmount
+
+IRs:
+totalSupply(uint256) := _initialAmount(uint256)"];
+5->6;
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+balances[owner] = _initialAmount
+
+IRs:
+REF_7(uint256) -> balances[owner]
+REF_7 (->balances) := _initialAmount(uint256)"];
+6->7;
+7[label="Node Type: END_IF 7
+"];
+7->8;
+8[label="Node Type: IF 8
+
+EXPRESSION:
+_decimalUnits <= 0
+
+IRs:
+TMP_40(bool) = _decimalUnits <= 0
+CONDITION TMP_40"];
+8->9[label="True"];
+8->10[label="False"];
+9[label="Node Type: EXPRESSION 9
+
+EXPRESSION:
+decimals = 2
+
+IRs:
+decimals(uint8) := 2(uint256)"];
+9->11;
+10[label="Node Type: EXPRESSION 10
+
+EXPRESSION:
+decimals = _decimalUnits
+
+IRs:
+decimals(uint8) := _decimalUnits(uint8)"];
+10->11;
+11[label="Node Type: END_IF 11
+"];
+11->12;
+12[label="Node Type: EXPRESSION 12
+
+EXPRESSION:
+name = CareerOn Chain Token
+
+IRs:
+name(string) := CareerOn Chain Token(string)"];
+12->13;
+13[label="Node Type: EXPRESSION 13
+
+EXPRESSION:
+symbol = COT
+
+IRs:
+symbol(string) := COT(string)"];
+}

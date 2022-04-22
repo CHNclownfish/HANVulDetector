@@ -1,0 +1,142 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->15;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+proposalID = proposals.length ++
+
+IRs:
+REF_35 -> LENGTH proposals
+TMP_82(uint256) := REF_35(uint256)
+REF_35(-> proposals) = REF_35 + 1
+proposalID(uint256) := TMP_82(uint256)"];
+1->2;
+2[label="Node Type: NEW VARIABLE 2
+
+EXPRESSION:
+p = proposals[proposalID]
+
+IRs:
+REF_36(MindsyncPlatform.Proposal) -> proposals[proposalID]
+p(MindsyncPlatform.Proposal) := REF_36(MindsyncPlatform.Proposal)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+p.recipient = destination
+
+IRs:
+REF_37(address) -> p.recipient
+REF_37 (->p) := destination(address)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+p.signedByChairman = false
+
+IRs:
+REF_38(bool) -> p.signedByChairman
+REF_38 (->p) := False(bool)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+p.amount = weiAmount
+
+IRs:
+REF_39(uint256) -> p.amount
+REF_39 (->p) := weiAmount(uint256)"];
+5->6;
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+p.description = transactionDescription
+
+IRs:
+REF_40(string) -> p.description
+REF_40 (->p) := transactionDescription(string)"];
+6->7;
+7[label="Node Type: EXPRESSION 7
+
+EXPRESSION:
+p.proposalHash = keccak256(bytes)(abi.encodePacked(destination,weiAmount,transactionBytecode))
+
+IRs:
+REF_41(bytes32) -> p.proposalHash
+TMP_83(bytes) = SOLIDITY_CALL abi.encodePacked()(destination,weiAmount,transactionBytecode)
+TMP_84(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_83)
+REF_41 (->p) := TMP_84(bytes32)"];
+7->8;
+8[label="Node Type: EXPRESSION 8
+
+EXPRESSION:
+p.minExecutionDate = now + debatingPeriodInMinutes * 60
+
+IRs:
+REF_43(uint256) -> p.minExecutionDate
+TMP_85(uint256) = debatingPeriodInMinutes * 60
+TMP_86(uint256) = now + TMP_85
+REF_43 (->p) := TMP_86(uint256)"];
+8->9;
+9[label="Node Type: EXPRESSION 9
+
+EXPRESSION:
+p.executed = false
+
+IRs:
+REF_44(bool) -> p.executed
+REF_44 (->p) := False(bool)"];
+9->10;
+10[label="Node Type: EXPRESSION 10
+
+EXPRESSION:
+p.proposalPassed = false
+
+IRs:
+REF_45(bool) -> p.proposalPassed
+REF_45 (->p) := False(bool)"];
+10->11;
+11[label="Node Type: EXPRESSION 11
+
+EXPRESSION:
+p.numberOfVotes = 0
+
+IRs:
+REF_46(uint256) -> p.numberOfVotes
+REF_46 (->p) := 0(uint256)"];
+11->12;
+12[label="Node Type: EXPRESSION 12
+
+EXPRESSION:
+ProposalAdded(proposalID,destination,weiAmount,transactionDescription)
+
+IRs:
+Emit ProposalAdded(proposalID.destination.weiAmount.transactionDescription)"];
+12->13;
+13[label="Node Type: EXPRESSION 13
+
+EXPRESSION:
+numProposals = proposalID + 1
+
+IRs:
+TMP_88(uint256) = proposalID + 1
+numProposals(uint256) := TMP_88(uint256)"];
+13->14;
+14[label="Node Type: RETURN 14
+
+EXPRESSION:
+proposalID
+
+IRs:
+RETURN proposalID"];
+15[label="Node Type: EXPRESSION 15
+
+EXPRESSION:
+onlyTokenholders()
+
+IRs:
+MODIFIER_CALL, MindsyncPlatform.onlyTokenholders()()"];
+15->1;
+}

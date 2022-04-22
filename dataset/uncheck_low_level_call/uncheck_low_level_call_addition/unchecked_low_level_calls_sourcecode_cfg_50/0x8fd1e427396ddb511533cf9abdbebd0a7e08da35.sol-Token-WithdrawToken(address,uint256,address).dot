@@ -1,0 +1,22 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->2;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+token.call(bytes4(sha3()(transfer(address,uint256))),to,amount)
+
+IRs:
+TMP_5(bytes32) = SOLIDITY_CALL sha3()(transfer(address,uint256))
+TMP_6 = CONVERT TMP_5 to bytes4
+TMP_7(bool) = LOW_LEVEL_CALL, dest:token, function:call, arguments:['TMP_6', 'to', 'amount']  "];
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+onlyOwner()
+
+IRs:
+MODIFIER_CALL, Ownable.onlyOwner()()"];
+2->1;
+}

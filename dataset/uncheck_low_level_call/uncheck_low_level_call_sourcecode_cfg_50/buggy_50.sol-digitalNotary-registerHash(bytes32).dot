@@ -1,0 +1,86 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(contractactive == true)
+
+IRs:
+TMP_43(bool) = contractactive == True
+TMP_44(None) = SOLIDITY_CALL require(bool)(TMP_43)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(getHashOwnersCount(hash) == 0)
+
+IRs:
+TMP_45(uint256) = INTERNAL_CALL, digitalNotary.getHashOwnersCount(bytes32)(hash)
+TMP_46(bool) = TMP_45 == 0
+TMP_47(None) = SOLIDITY_CALL require(bool)(TMP_46)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+require(bool)(msg.value == hashfee)
+
+IRs:
+TMP_48(bool) = msg.value == hashfee
+TMP_49(None) = SOLIDITY_CALL require(bool)(TMP_48)"];
+3->4;
+4[label="Node Type: NEW VARIABLE 4
+"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+thisregistration.owner = msg.sender
+
+IRs:
+REF_34(address) -> thisregistration.owner
+REF_34 (->thisregistration) := msg.sender(address)"];
+5->6;
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+thisregistration.registrationtime = now
+
+IRs:
+REF_35(uint256) -> thisregistration.registrationtime
+REF_35 (->thisregistration) := now(uint256)"];
+6->7;
+7[label="Node Type: EXPRESSION 7
+
+EXPRESSION:
+HashList[hash].push(thisregistration)
+
+IRs:
+REF_36(digitalNotary.HashRegistration[]) -> HashList[hash]
+REF_38 -> LENGTH REF_36
+TMP_51(uint256) := REF_38(uint256)
+TMP_52(uint256) = TMP_51 + 1
+REF_38 (->HashList) := TMP_52(uint256)
+REF_39(digitalNotary.HashRegistration) -> REF_36[TMP_51]
+REF_39 (->HashList) := thisregistration(digitalNotary.HashRegistration)"];
+7->8;
+8[label="Node Type: EXPRESSION 8
+
+EXPRESSION:
+HashListLength ++
+
+IRs:
+TMP_53(uint256) := HashListLength(uint256)
+HashListLength(uint256) = HashListLength + 1"];
+8->9;
+9[label="Node Type: EXPRESSION 9
+
+EXPRESSION:
+RegisterHashEvent(thisregistration.owner,hash,thisregistration.registrationtime)
+
+IRs:
+REF_40(address) -> thisregistration.owner
+REF_41(uint256) -> thisregistration.registrationtime
+Emit RegisterHashEvent(REF_40.hash.REF_41)"];
+}

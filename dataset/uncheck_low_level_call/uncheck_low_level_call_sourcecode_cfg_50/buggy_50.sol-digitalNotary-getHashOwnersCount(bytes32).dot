@@ -1,0 +1,14 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: RETURN 1
+
+EXPRESSION:
+HashList[hash].length
+
+IRs:
+REF_23(digitalNotary.HashRegistration[]) -> HashList[hash]
+REF_24 -> LENGTH REF_23
+RETURN REF_24"];
+}

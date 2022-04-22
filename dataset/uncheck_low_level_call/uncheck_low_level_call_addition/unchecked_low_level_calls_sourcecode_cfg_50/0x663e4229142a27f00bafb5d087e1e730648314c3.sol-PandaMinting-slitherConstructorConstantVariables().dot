@@ -1,0 +1,112 @@
+digraph{
+0[label="Node Type: OTHER_ENTRYPOINT 0
+
+EXPRESSION:
+GEN0_TOTAL_COUNT = 16200
+
+IRs:
+GEN0_TOTAL_COUNT(uint256) := 16200(uint256)"];
+0->1;
+1[label="Node Type: OTHER_ENTRYPOINT 1
+
+EXPRESSION:
+name = PandaEarth
+
+IRs:
+name(string) := PandaEarth(string)"];
+1->2;
+2[label="Node Type: OTHER_ENTRYPOINT 2
+
+EXPRESSION:
+symbol = PE
+
+IRs:
+symbol(string) := PE(string)"];
+2->3;
+3[label="Node Type: OTHER_ENTRYPOINT 3
+
+EXPRESSION:
+InterfaceSignature_ERC165 = bytes4(keccak256()(supportsInterface(bytes4)))
+
+IRs:
+TMP_2084(bytes32) = SOLIDITY_CALL keccak256()(supportsInterface(bytes4))
+TMP_2085 = CONVERT TMP_2084 to bytes4
+InterfaceSignature_ERC165(bytes4) := TMP_2085(bytes4)"];
+3->4;
+4[label="Node Type: OTHER_ENTRYPOINT 4
+
+EXPRESSION:
+InterfaceSignature_ERC721 = bytes4(keccak256()(name())) ^ bytes4(keccak256()(symbol())) ^ bytes4(keccak256()(totalSupply())) ^ bytes4(keccak256()(balanceOf(address))) ^ bytes4(keccak256()(ownerOf(uint256))) ^ bytes4(keccak256()(approve(address,uint256))) ^ bytes4(keccak256()(transfer(address,uint256))) ^ bytes4(keccak256()(transferFrom(address,address,uint256))) ^ bytes4(keccak256()(tokensOfOwner(address))) ^ bytes4(keccak256()(tokenMetadata(uint256,string)))
+
+IRs:
+TMP_2086(bytes32) = SOLIDITY_CALL keccak256()(name())
+TMP_2087 = CONVERT TMP_2086 to bytes4
+TMP_2088(bytes32) = SOLIDITY_CALL keccak256()(symbol())
+TMP_2089 = CONVERT TMP_2088 to bytes4
+TMP_2090(bytes4) = TMP_2087 ^ TMP_2089
+TMP_2091(bytes32) = SOLIDITY_CALL keccak256()(totalSupply())
+TMP_2092 = CONVERT TMP_2091 to bytes4
+TMP_2093(bytes4) = TMP_2090 ^ TMP_2092
+TMP_2094(bytes32) = SOLIDITY_CALL keccak256()(balanceOf(address))
+TMP_2095 = CONVERT TMP_2094 to bytes4
+TMP_2096(bytes4) = TMP_2093 ^ TMP_2095
+TMP_2097(bytes32) = SOLIDITY_CALL keccak256()(ownerOf(uint256))
+TMP_2098 = CONVERT TMP_2097 to bytes4
+TMP_2099(bytes4) = TMP_2096 ^ TMP_2098
+TMP_2100(bytes32) = SOLIDITY_CALL keccak256()(approve(address,uint256))
+TMP_2101 = CONVERT TMP_2100 to bytes4
+TMP_2102(bytes4) = TMP_2099 ^ TMP_2101
+TMP_2103(bytes32) = SOLIDITY_CALL keccak256()(transfer(address,uint256))
+TMP_2104 = CONVERT TMP_2103 to bytes4
+TMP_2105(bytes4) = TMP_2102 ^ TMP_2104
+TMP_2106(bytes32) = SOLIDITY_CALL keccak256()(transferFrom(address,address,uint256))
+TMP_2107 = CONVERT TMP_2106 to bytes4
+TMP_2108(bytes4) = TMP_2105 ^ TMP_2107
+TMP_2109(bytes32) = SOLIDITY_CALL keccak256()(tokensOfOwner(address))
+TMP_2110 = CONVERT TMP_2109 to bytes4
+TMP_2111(bytes4) = TMP_2108 ^ TMP_2110
+TMP_2112(bytes32) = SOLIDITY_CALL keccak256()(tokenMetadata(uint256,string))
+TMP_2113 = CONVERT TMP_2112 to bytes4
+TMP_2114(bytes4) = TMP_2111 ^ TMP_2113
+InterfaceSignature_ERC721(bytes4) := TMP_2114(bytes4)"];
+4->5;
+5[label="Node Type: OTHER_ENTRYPOINT 5
+
+EXPRESSION:
+GENSIS_TOTAL_COUNT = 100
+
+IRs:
+GENSIS_TOTAL_COUNT(uint256) := 100(uint256)"];
+5->6;
+6[label="Node Type: OTHER_ENTRYPOINT 6
+
+EXPRESSION:
+GEN0_CREATION_LIMIT = 45000
+
+IRs:
+GEN0_CREATION_LIMIT(uint256) := 45000(uint256)"];
+6->7;
+7[label="Node Type: OTHER_ENTRYPOINT 7
+
+EXPRESSION:
+GEN0_STARTING_PRICE = 100000000000000000
+
+IRs:
+GEN0_STARTING_PRICE(uint256) := 100000000000000000(uint256)"];
+7->8;
+8[label="Node Type: OTHER_ENTRYPOINT 8
+
+EXPRESSION:
+GEN0_AUCTION_DURATION = 86400
+
+IRs:
+GEN0_AUCTION_DURATION(uint256) := 86400(uint256)"];
+8->9;
+9[label="Node Type: OTHER_ENTRYPOINT 9
+
+EXPRESSION:
+OPEN_PACKAGE_PRICE = 10000000000000000
+
+IRs:
+OPEN_PACKAGE_PRICE(uint256) := 10000000000000000(uint256)"];
+}

@@ -1,0 +1,73 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+ownershipTokenCount[_to] ++
+
+IRs:
+REF_41(uint256) -> ownershipTokenCount[_to]
+TMP_158(uint256) := REF_41(uint256)
+REF_41(-> ownershipTokenCount) = REF_41 + 1"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+pandaIndexToOwner[_tokenId] = _to
+
+IRs:
+REF_42(address) -> pandaIndexToOwner[_tokenId]
+REF_42 (->pandaIndexToOwner) := _to(address)"];
+2->3;
+3[label="Node Type: IF 3
+
+EXPRESSION:
+_from != address(0)
+
+IRs:
+TMP_159 = CONVERT 0 to address
+TMP_160(bool) = _from != TMP_159
+CONDITION TMP_160"];
+3->4[label="True"];
+3->7[label="False"];
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+ownershipTokenCount[_from] --
+
+IRs:
+REF_43(uint256) -> ownershipTokenCount[_from]
+TMP_161(uint256) := REF_43(uint256)
+REF_43(-> ownershipTokenCount) = REF_43 - 1"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+delete sireAllowedToAddress[_tokenId]
+
+IRs:
+REF_44(address) -> sireAllowedToAddress[_tokenId]
+sireAllowedToAddress = delete REF_44 "];
+5->6;
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+delete pandaIndexToApproved[_tokenId]
+
+IRs:
+REF_45(address) -> pandaIndexToApproved[_tokenId]
+pandaIndexToApproved = delete REF_45 "];
+6->7;
+7[label="Node Type: END_IF 7
+"];
+7->8;
+8[label="Node Type: EXPRESSION 8
+
+EXPRESSION:
+Transfer(_from,_to,_tokenId)
+
+IRs:
+Emit Transfer(_from._to._tokenId)"];
+}

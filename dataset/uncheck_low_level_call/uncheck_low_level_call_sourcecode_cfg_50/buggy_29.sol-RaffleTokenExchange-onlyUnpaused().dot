@@ -1,0 +1,16 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool,string)(paused == false,Exchange is paused.)
+
+IRs:
+TMP_83(bool) = paused == False
+TMP_84(None) = SOLIDITY_CALL require(bool,string)(TMP_83,Exchange is paused.)"];
+1->2;
+2[label="Node Type: _ 2
+"];
+}

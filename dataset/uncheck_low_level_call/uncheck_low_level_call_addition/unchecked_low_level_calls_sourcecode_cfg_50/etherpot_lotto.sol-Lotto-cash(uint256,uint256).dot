@@ -1,0 +1,106 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+subpotsCount = getSubpotsCount(roundIndex)
+
+IRs:
+TMP_18(uint256) = INTERNAL_CALL, Lotto.getSubpotsCount(uint256)(roundIndex)
+subpotsCount(uint256) := TMP_18(uint256)"];
+1->2;
+2[label="Node Type: IF 2
+
+EXPRESSION:
+subpotIndex >= subpotsCount
+
+IRs:
+TMP_19(bool) = subpotIndex >= subpotsCount
+CONDITION TMP_19"];
+2->3[label="True"];
+2->4[label="False"];
+3[label="Node Type: RETURN 3
+"];
+4[label="Node Type: END_IF 4
+"];
+4->5;
+5[label="Node Type: NEW VARIABLE 5
+
+EXPRESSION:
+decisionBlockNumber = getDecisionBlockNumber(roundIndex,subpotIndex)
+
+IRs:
+TMP_20(uint256) = INTERNAL_CALL, Lotto.getDecisionBlockNumber(uint256,uint256)(roundIndex,subpotIndex)
+decisionBlockNumber(uint256) := TMP_20(uint256)"];
+5->6;
+6[label="Node Type: IF 6
+
+EXPRESSION:
+decisionBlockNumber > block.number
+
+IRs:
+TMP_21(bool) = decisionBlockNumber > block.number
+CONDITION TMP_21"];
+6->7[label="True"];
+6->8[label="False"];
+7[label="Node Type: RETURN 7
+"];
+8[label="Node Type: END_IF 8
+"];
+8->9;
+9[label="Node Type: IF 9
+
+EXPRESSION:
+rounds[roundIndex].isCashed[subpotIndex]
+
+IRs:
+REF_20(Lotto.Round) -> rounds[roundIndex]
+REF_21(mapping(uint256 => bool)) -> REF_20.isCashed
+REF_22(bool) -> REF_21[subpotIndex]
+CONDITION REF_22"];
+9->10[label="True"];
+9->11[label="False"];
+10[label="Node Type: RETURN 10
+"];
+11[label="Node Type: END_IF 11
+"];
+11->12;
+12[label="Node Type: NEW VARIABLE 12
+
+EXPRESSION:
+winner = calculateWinner(roundIndex,subpotIndex)
+
+IRs:
+TMP_22(address) = INTERNAL_CALL, Lotto.calculateWinner(uint256,uint256)(roundIndex,subpotIndex)
+winner(address) := TMP_22(address)"];
+12->13;
+13[label="Node Type: NEW VARIABLE 13
+
+EXPRESSION:
+subpot = getSubpot(roundIndex)
+
+IRs:
+TMP_23(uint256) = INTERNAL_CALL, Lotto.getSubpot(uint256)(roundIndex)
+subpot(uint256) := TMP_23(uint256)"];
+13->14;
+14[label="Node Type: EXPRESSION 14
+
+EXPRESSION:
+winner.send(subpot)
+
+IRs:
+TMP_24 = SEND dest:winner value:subpot"];
+14->15;
+15[label="Node Type: EXPRESSION 15
+
+EXPRESSION:
+rounds[roundIndex].isCashed[subpotIndex] = true
+
+IRs:
+REF_24(Lotto.Round) -> rounds[roundIndex]
+REF_25(mapping(uint256 => bool)) -> REF_24.isCashed
+REF_26(bool) -> REF_25[subpotIndex]
+REF_26 (->rounds) := True(bool)"];
+}

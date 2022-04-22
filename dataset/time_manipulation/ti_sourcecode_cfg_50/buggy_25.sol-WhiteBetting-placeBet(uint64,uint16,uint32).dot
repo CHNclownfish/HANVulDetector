@@ -1,0 +1,276 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+stake = msg.value
+
+IRs:
+stake(uint256) := msg.value(uint256)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(stake >= 1000000000000000)
+
+IRs:
+TMP_40(bool) = stake >= 1000000000000000
+TMP_41(None) = SOLIDITY_CALL require(bool)(TMP_40)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+require(bool)(_odd != 0)
+
+IRs:
+TMP_42(bool) = _odd != 0
+TMP_43(None) = SOLIDITY_CALL require(bool)(TMP_42)"];
+3->4;
+4[label="Node Type: IF 4
+
+EXPRESSION:
+_selectedTeam == 1
+
+IRs:
+TMP_44(bool) = _selectedTeam == 1
+CONDITION TMP_44"];
+4->5[label="True"];
+4->6[label="False"];
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+require(bool)(gameList[_fixtureId].odd_homeTeam == _odd)
+
+IRs:
+REF_44(WhiteBetting.GameInfo) -> gameList[_fixtureId]
+REF_45(uint32) -> REF_44.odd_homeTeam
+TMP_45(bool) = REF_45 == _odd
+TMP_46(None) = SOLIDITY_CALL require(bool)(TMP_45)"];
+5->28;
+6[label="Node Type: IF 6
+
+EXPRESSION:
+_selectedTeam == 2
+
+IRs:
+TMP_47(bool) = _selectedTeam == 2
+CONDITION TMP_47"];
+6->7[label="True"];
+6->8[label="False"];
+7[label="Node Type: EXPRESSION 7
+
+EXPRESSION:
+require(bool)(gameList[_fixtureId].odd_drawTeam == _odd)
+
+IRs:
+REF_46(WhiteBetting.GameInfo) -> gameList[_fixtureId]
+REF_47(uint32) -> REF_46.odd_drawTeam
+TMP_48(bool) = REF_47 == _odd
+TMP_49(None) = SOLIDITY_CALL require(bool)(TMP_48)"];
+7->27;
+8[label="Node Type: IF 8
+
+EXPRESSION:
+_selectedTeam == 3
+
+IRs:
+TMP_50(bool) = _selectedTeam == 3
+CONDITION TMP_50"];
+8->9[label="True"];
+8->10[label="False"];
+9[label="Node Type: EXPRESSION 9
+
+EXPRESSION:
+require(bool)(gameList[_fixtureId].odd_awayTeam == _odd)
+
+IRs:
+REF_48(WhiteBetting.GameInfo) -> gameList[_fixtureId]
+REF_49(uint32) -> REF_48.odd_awayTeam
+TMP_51(bool) = REF_49 == _odd
+TMP_52(None) = SOLIDITY_CALL require(bool)(TMP_51)"];
+9->26;
+10[label="Node Type: IF 10
+
+EXPRESSION:
+_selectedTeam == 4
+
+IRs:
+TMP_53(bool) = _selectedTeam == 4
+CONDITION TMP_53"];
+10->11[label="True"];
+10->12[label="False"];
+11[label="Node Type: EXPRESSION 11
+
+EXPRESSION:
+require(bool)(gameList[_fixtureId].odd_over == _odd)
+
+IRs:
+REF_50(WhiteBetting.GameInfo) -> gameList[_fixtureId]
+REF_51(uint32) -> REF_50.odd_over
+TMP_54(bool) = REF_51 == _odd
+TMP_55(None) = SOLIDITY_CALL require(bool)(TMP_54)"];
+11->25;
+12[label="Node Type: IF 12
+
+EXPRESSION:
+_selectedTeam == 5
+
+IRs:
+TMP_56(bool) = _selectedTeam == 5
+CONDITION TMP_56"];
+12->13[label="True"];
+12->14[label="False"];
+13[label="Node Type: EXPRESSION 13
+
+EXPRESSION:
+require(bool)(gameList[_fixtureId].odd_under == _odd)
+
+IRs:
+REF_52(WhiteBetting.GameInfo) -> gameList[_fixtureId]
+REF_53(uint32) -> REF_52.odd_under
+TMP_57(bool) = REF_53 == _odd
+TMP_58(None) = SOLIDITY_CALL require(bool)(TMP_57)"];
+13->24;
+14[label="Node Type: IF 14
+
+EXPRESSION:
+_selectedTeam == 6
+
+IRs:
+TMP_59(bool) = _selectedTeam == 6
+CONDITION TMP_59"];
+14->15[label="True"];
+14->16[label="False"];
+15[label="Node Type: EXPRESSION 15
+
+EXPRESSION:
+require(bool)(gameList[_fixtureId].odd_homeTeamAndDraw == _odd)
+
+IRs:
+REF_54(WhiteBetting.GameInfo) -> gameList[_fixtureId]
+REF_55(uint32) -> REF_54.odd_homeTeamAndDraw
+TMP_60(bool) = REF_55 == _odd
+TMP_61(None) = SOLIDITY_CALL require(bool)(TMP_60)"];
+15->23;
+16[label="Node Type: IF 16
+
+EXPRESSION:
+_selectedTeam == 7
+
+IRs:
+TMP_62(bool) = _selectedTeam == 7
+CONDITION TMP_62"];
+16->17[label="True"];
+16->18[label="False"];
+17[label="Node Type: EXPRESSION 17
+
+EXPRESSION:
+require(bool)(gameList[_fixtureId].odd_homeAndAwayTeam == _odd)
+
+IRs:
+REF_56(WhiteBetting.GameInfo) -> gameList[_fixtureId]
+REF_57(uint32) -> REF_56.odd_homeAndAwayTeam
+TMP_63(bool) = REF_57 == _odd
+TMP_64(None) = SOLIDITY_CALL require(bool)(TMP_63)"];
+17->22;
+18[label="Node Type: IF 18
+
+EXPRESSION:
+_selectedTeam == 8
+
+IRs:
+TMP_65(bool) = _selectedTeam == 8
+CONDITION TMP_65"];
+18->19[label="True"];
+18->20[label="False"];
+19[label="Node Type: EXPRESSION 19
+
+EXPRESSION:
+require(bool)(gameList[_fixtureId].odd_awayTeamAndDraw == _odd)
+
+IRs:
+REF_58(WhiteBetting.GameInfo) -> gameList[_fixtureId]
+REF_59(uint32) -> REF_58.odd_awayTeamAndDraw
+TMP_66(bool) = REF_59 == _odd
+TMP_67(None) = SOLIDITY_CALL require(bool)(TMP_66)"];
+19->21;
+20[label="Node Type: EXPRESSION 20
+
+EXPRESSION:
+revert()()
+
+IRs:
+TMP_68(None) = SOLIDITY_CALL revert()()"];
+20->21;
+21[label="Node Type: END_IF 21
+"];
+21->22;
+22[label="Node Type: END_IF 22
+"];
+22->23;
+23[label="Node Type: END_IF 23
+"];
+23->24;
+24[label="Node Type: END_IF 24
+"];
+24->25;
+25[label="Node Type: END_IF 25
+"];
+25->26;
+26[label="Node Type: END_IF 26
+"];
+26->27;
+27[label="Node Type: END_IF 27
+"];
+27->28;
+28[label="Node Type: END_IF 28
+"];
+28->29;
+29[label="Node Type: EXPRESSION 29
+
+EXPRESSION:
+require(bool)(gameList[_fixtureId].open_status == 3)
+
+IRs:
+REF_60(WhiteBetting.GameInfo) -> gameList[_fixtureId]
+REF_61(uint8) -> REF_60.open_status
+TMP_69(bool) = REF_61 == 3
+TMP_70(None) = SOLIDITY_CALL require(bool)(TMP_69)"];
+29->30;
+30[label="Node Type: EXPRESSION 30
+
+EXPRESSION:
+require(bool)(now < (gameList[_fixtureId].timestamp - 600))
+
+IRs:
+REF_62(WhiteBetting.GameInfo) -> gameList[_fixtureId]
+REF_63(uint256) -> REF_62.timestamp
+TMP_71(uint256) = REF_63 - 600
+TMP_72(bool) = now < TMP_71
+TMP_73(None) = SOLIDITY_CALL require(bool)(TMP_72)"];
+30->31;
+31[label="Node Type: EXPRESSION 31
+
+EXPRESSION:
+betList[_fixtureId].push(BetFixture(msg.sender,stake,_odd,_selectedTeam))
+
+IRs:
+REF_64(WhiteBetting.BetFixture[]) -> betList[_fixtureId]
+TMP_74 = new BetFixture(msg.sender,stake,_odd,_selectedTeam)
+REF_66 -> LENGTH REF_64
+TMP_76(uint256) := REF_66(uint256)
+TMP_77(uint256) = TMP_76 + 1
+REF_66 (->betList) := TMP_77(uint256)
+REF_67(WhiteBetting.BetFixture) -> REF_64[TMP_76]
+REF_67 (->betList) := TMP_74(WhiteBetting.BetFixture)"];
+31->32;
+32[label="Node Type: EXPRESSION 32
+
+EXPRESSION:
+NewStake(msg.sender,_fixtureId,_selectedTeam,stake,_odd)
+
+IRs:
+Emit NewStake(msg.sender._fixtureId._selectedTeam.stake._odd)"];
+}

@@ -1,0 +1,43 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(account != address(0))
+
+IRs:
+TMP_79 = CONVERT 0 to address
+TMP_80(bool) = account != TMP_79
+TMP_81(None) = SOLIDITY_CALL require(bool)(TMP_80)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+_totalSupply = _totalSupply.add(value)
+
+IRs:
+TMP_82(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['_totalSupply', 'value'] 
+_totalSupply(uint256) := TMP_82(uint256)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+_balances[account] = _balances[account].add(value)
+
+IRs:
+REF_25(uint256) -> _balances[account]
+REF_26(uint256) -> _balances[account]
+TMP_83(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_26', 'value'] 
+REF_25 (->_balances) := TMP_83(uint256)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+Transfer(address(0),account,value)
+
+IRs:
+TMP_84 = CONVERT 0 to address
+Emit Transfer(TMP_84.account.value)"];
+}

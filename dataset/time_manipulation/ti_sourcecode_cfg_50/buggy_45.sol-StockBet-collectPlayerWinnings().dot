@@ -1,0 +1,66 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->6;
+1[label="Node Type: IF 1
+
+EXPRESSION:
+guesses[result].players[msg.sender] == PaidStatus.NOT_PAID
+
+IRs:
+REF_38(StockBet.Guess) -> guesses[result]
+REF_39(mapping(address => StockBet.PaidStatus)) -> REF_38.players
+REF_40(StockBet.PaidStatus) -> REF_39[msg.sender]
+REF_41(StockBet.PaidStatus) -> PaidStatus.NOT_PAID
+TMP_118(bool) = REF_40 == REF_41
+CONDITION TMP_118"];
+1->2[label="True"];
+1->4[label="False"];
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+guesses[result].players[msg.sender] = PaidStatus.PAID
+
+IRs:
+REF_42(StockBet.Guess) -> guesses[result]
+REF_43(mapping(address => StockBet.PaidStatus)) -> REF_42.players
+REF_44(StockBet.PaidStatus) -> REF_43[msg.sender]
+REF_45(StockBet.PaidStatus) -> PaidStatus.PAID
+REF_44 (->guesses) := REF_45(StockBet.PaidStatus)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+msg.sender.transfer(splitJackpot)
+
+IRs:
+Transfer dest:msg.sender value:splitJackpot"];
+3->5;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+revert()()
+
+IRs:
+TMP_120(None) = SOLIDITY_CALL revert()()"];
+4->5;
+5[label="Node Type: END_IF 5
+"];
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+byPlayer()
+
+IRs:
+MODIFIER_CALL, StockBet.byPlayer()()"];
+6->7;
+7[label="Node Type: EXPRESSION 7
+
+EXPRESSION:
+inState(State.PLAYERS_WIN)
+
+IRs:
+REF_47(StockBet.State) -> State.PLAYERS_WIN
+MODIFIER_CALL, StockBet.inState(StockBet.State)(REF_47)"];
+7->1;
+}

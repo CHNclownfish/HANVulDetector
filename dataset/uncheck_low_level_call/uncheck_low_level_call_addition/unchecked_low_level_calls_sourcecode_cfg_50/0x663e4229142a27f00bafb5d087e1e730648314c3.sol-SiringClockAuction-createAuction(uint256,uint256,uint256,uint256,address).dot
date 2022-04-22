@@ -1,0 +1,76 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(_startingPrice == uint256(uint128(_startingPrice)))
+
+IRs:
+TMP_940 = CONVERT _startingPrice to uint128
+TMP_941 = CONVERT TMP_940 to uint256
+TMP_942(bool) = _startingPrice == TMP_941
+TMP_943(None) = SOLIDITY_CALL require(bool)(TMP_942)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(_endingPrice == uint256(uint128(_endingPrice)))
+
+IRs:
+TMP_944 = CONVERT _endingPrice to uint128
+TMP_945 = CONVERT TMP_944 to uint256
+TMP_946(bool) = _endingPrice == TMP_945
+TMP_947(None) = SOLIDITY_CALL require(bool)(TMP_946)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+require(bool)(_duration == uint256(uint64(_duration)))
+
+IRs:
+TMP_948 = CONVERT _duration to uint64
+TMP_949 = CONVERT TMP_948 to uint256
+TMP_950(bool) = _duration == TMP_949
+TMP_951(None) = SOLIDITY_CALL require(bool)(TMP_950)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+require(bool)(msg.sender == address(nonFungibleContract))
+
+IRs:
+TMP_952 = CONVERT nonFungibleContract to address
+TMP_953(bool) = msg.sender == TMP_952
+TMP_954(None) = SOLIDITY_CALL require(bool)(TMP_953)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+_escrow(_seller,_tokenId)
+
+IRs:
+INTERNAL_CALL, ClockAuctionBase._escrow(address,uint256)(_seller,_tokenId)"];
+5->6;
+6[label="Node Type: NEW VARIABLE 6
+
+EXPRESSION:
+auction = Auction(_seller,uint128(_startingPrice),uint128(_endingPrice),uint64(_duration),uint64(now),0)
+
+IRs:
+TMP_956 = CONVERT _startingPrice to uint128
+TMP_957 = CONVERT _endingPrice to uint128
+TMP_958 = CONVERT _duration to uint64
+TMP_959 = CONVERT now to uint64
+TMP_960 = new Auction(_seller,TMP_956,TMP_957,TMP_958,TMP_959,0)
+auction(ClockAuctionBase.Auction) := TMP_960(ClockAuctionBase.Auction)"];
+6->7;
+7[label="Node Type: EXPRESSION 7
+
+EXPRESSION:
+_addAuction(_tokenId,auction)
+
+IRs:
+INTERNAL_CALL, ClockAuctionBase._addAuction(uint256,ClockAuctionBase.Auction)(_tokenId,auction)"];
+}

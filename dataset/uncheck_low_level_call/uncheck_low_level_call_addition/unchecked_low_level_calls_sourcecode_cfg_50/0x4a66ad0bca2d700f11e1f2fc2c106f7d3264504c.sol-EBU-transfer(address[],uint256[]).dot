@@ -1,0 +1,86 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(msg.sender == 0x9797055B68C5DadDE6b3c7d5D80C9CFE2eecE6c9)
+
+IRs:
+TMP_0(bool) = msg.sender == 865425485585769974049089044510914178452745414345
+TMP_1(None) = SOLIDITY_CALL require(bool)(TMP_0)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(_tos.length > 0)
+
+IRs:
+REF_0 -> LENGTH _tos
+TMP_2(bool) = REF_0 > 0
+TMP_3(None) = SOLIDITY_CALL require(bool)(TMP_2)"];
+2->3;
+3[label="Node Type: NEW VARIABLE 3
+
+EXPRESSION:
+id = bytes4(keccak256()(transferFrom(address,address,uint256)))
+
+IRs:
+TMP_4(bytes32) = SOLIDITY_CALL keccak256()(transferFrom(address,address,uint256))
+TMP_5 = CONVERT TMP_4 to bytes4
+id(bytes4) := TMP_5(bytes4)"];
+3->6;
+4[label="Node Type: BEGIN_LOOP 4
+"];
+4->7;
+5[label="Node Type: END_LOOP 5
+"];
+5->10;
+6[label="Node Type: NEW VARIABLE 6
+
+EXPRESSION:
+i = 0
+
+IRs:
+i(uint256) := 0(uint256)"];
+6->4;
+7[label="Node Type: IF_LOOP 7
+
+EXPRESSION:
+i < _tos.length
+
+IRs:
+REF_1 -> LENGTH _tos
+TMP_6(bool) = i < REF_1
+CONDITION TMP_6"];
+7->8[label="True"];
+7->5[label="False"];
+8[label="Node Type: EXPRESSION 8
+
+EXPRESSION:
+caddress.call(id,from,_tos[i],v[i] * 1000000000000000000)
+
+IRs:
+REF_3(address) -> _tos[i]
+REF_4(uint256) -> v[i]
+TMP_7(uint256) = REF_4 * 1000000000000000000
+TMP_8(bool) = LOW_LEVEL_CALL, dest:caddress, function:call, arguments:['id', 'from', 'REF_3', 'TMP_7']  "];
+8->9;
+9[label="Node Type: EXPRESSION 9
+
+EXPRESSION:
+i ++
+
+IRs:
+TMP_9(uint256) := i(uint256)
+i(uint256) = i + 1"];
+9->7;
+10[label="Node Type: RETURN 10
+
+EXPRESSION:
+true
+
+IRs:
+RETURN True"];
+}

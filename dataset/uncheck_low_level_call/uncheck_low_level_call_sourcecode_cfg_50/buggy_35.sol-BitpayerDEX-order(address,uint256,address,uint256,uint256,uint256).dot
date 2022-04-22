@@ -1,0 +1,32 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+hash = keccak256(bytes)(abi.encodePacked(this,tokenGet,amountGet,tokenGive,amountGive,expires,nonce))
+
+IRs:
+TMP_115(bytes) = SOLIDITY_CALL abi.encodePacked()(this,tokenGet,amountGet,tokenGive,amountGive,expires,nonce)
+TMP_116(bytes32) = SOLIDITY_CALL keccak256(bytes)(TMP_115)
+hash(bytes32) := TMP_116(bytes32)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+orders[msg.sender][hash] = true
+
+IRs:
+REF_77(mapping(bytes32 => bool)) -> orders[msg.sender]
+REF_78(bool) -> REF_77[hash]
+REF_78 (->orders) := True(bool)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+Order(now,tokenGet,amountGet,tokenGive,amountGive,expires,nonce,msg.sender)
+
+IRs:
+Emit Order(now.tokenGet.amountGet.tokenGive.amountGive.expires.nonce.msg.sender)"];
+}

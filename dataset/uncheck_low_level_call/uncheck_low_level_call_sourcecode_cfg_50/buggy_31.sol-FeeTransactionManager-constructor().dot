@@ -1,0 +1,21 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+_owner = msg.sender
+
+IRs:
+_owner(address) := msg.sender(address)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+OwnershipTransferred(address(0),_owner)
+
+IRs:
+TMP_36 = CONVERT 0 to address
+Emit OwnershipTransferred(TMP_36._owner)"];
+}

@@ -1,0 +1,29 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->3;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(msg.value >= 5000000000000000)
+
+IRs:
+TMP_20(bool) = msg.value >= 5000000000000000
+TMP_21(None) = SOLIDITY_CALL require(bool)(TMP_20)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+firstTarget.call.value(msg.value)()
+
+IRs:
+TMP_23(bool) = LOW_LEVEL_CALL, dest:firstTarget, function:call, arguments:[] value:msg.value "];
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+onlyPlayers()
+
+IRs:
+MODIFIER_CALL, DrainMe.onlyPlayers()()"];
+3->1;
+}

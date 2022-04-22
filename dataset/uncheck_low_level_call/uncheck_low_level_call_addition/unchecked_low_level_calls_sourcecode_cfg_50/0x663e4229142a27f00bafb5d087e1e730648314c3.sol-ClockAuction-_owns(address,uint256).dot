@@ -1,0 +1,14 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: RETURN 1
+
+EXPRESSION:
+(nonFungibleContract.ownerOf(_tokenId) == _claimant)
+
+IRs:
+TMP_725(address) = HIGH_LEVEL_CALL, dest:nonFungibleContract(ERC721), function:ownerOf, arguments:['_tokenId']  
+TMP_726(bool) = TMP_725 == _claimant
+RETURN TMP_726"];
+}

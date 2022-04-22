@@ -1,0 +1,112 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+kit = pandas[_id]
+
+IRs:
+REF_748(PandaBase.Panda) -> pandas[_id]
+kit(PandaBase.Panda) := REF_748(PandaBase.Panda)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+isGestating = (kit.siringWithId != 0)
+
+IRs:
+REF_749(uint32) -> kit.siringWithId
+TMP_2495(bool) = REF_749 != 0
+isGestating(bool) := TMP_2495(bool)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+isReady = (kit.cooldownEndBlock <= block.number)
+
+IRs:
+REF_750(uint64) -> kit.cooldownEndBlock
+TMP_2496(bool) = REF_750 <= block.number
+isReady(bool) := TMP_2496(bool)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+cooldownIndex = uint256(kit.cooldownIndex)
+
+IRs:
+REF_751(uint16) -> kit.cooldownIndex
+TMP_2497 = CONVERT REF_751 to uint256
+cooldownIndex(uint256) := TMP_2497(uint256)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+nextActionAt = uint256(kit.cooldownEndBlock)
+
+IRs:
+REF_752(uint64) -> kit.cooldownEndBlock
+TMP_2498 = CONVERT REF_752 to uint256
+nextActionAt(uint256) := TMP_2498(uint256)"];
+5->6;
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+siringWithId = uint256(kit.siringWithId)
+
+IRs:
+REF_753(uint32) -> kit.siringWithId
+TMP_2499 = CONVERT REF_753 to uint256
+siringWithId(uint256) := TMP_2499(uint256)"];
+6->7;
+7[label="Node Type: EXPRESSION 7
+
+EXPRESSION:
+birthTime = uint256(kit.birthTime)
+
+IRs:
+REF_754(uint64) -> kit.birthTime
+TMP_2500 = CONVERT REF_754 to uint256
+birthTime(uint256) := TMP_2500(uint256)"];
+7->8;
+8[label="Node Type: EXPRESSION 8
+
+EXPRESSION:
+matronId = uint256(kit.matronId)
+
+IRs:
+REF_755(uint32) -> kit.matronId
+TMP_2501 = CONVERT REF_755 to uint256
+matronId(uint256) := TMP_2501(uint256)"];
+8->9;
+9[label="Node Type: EXPRESSION 9
+
+EXPRESSION:
+sireId = uint256(kit.sireId)
+
+IRs:
+REF_756(uint32) -> kit.sireId
+TMP_2502 = CONVERT REF_756 to uint256
+sireId(uint256) := TMP_2502(uint256)"];
+9->10;
+10[label="Node Type: EXPRESSION 10
+
+EXPRESSION:
+generation = uint256(kit.generation)
+
+IRs:
+REF_757(uint16) -> kit.generation
+TMP_2503 = CONVERT REF_757 to uint256
+generation(uint256) := TMP_2503(uint256)"];
+10->11;
+11[label="Node Type: EXPRESSION 11
+
+EXPRESSION:
+genes = kit.genes
+
+IRs:
+REF_758(uint256[2]) -> kit.genes
+genes(uint256[2]) := REF_758(uint256[2])"];
+}

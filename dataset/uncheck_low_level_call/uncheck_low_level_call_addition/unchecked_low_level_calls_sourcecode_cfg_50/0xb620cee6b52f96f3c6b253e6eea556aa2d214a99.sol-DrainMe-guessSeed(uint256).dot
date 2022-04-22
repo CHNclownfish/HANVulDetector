@@ -1,0 +1,48 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->5;
+1[label="Node Type: RETURN 1
+
+EXPRESSION:
+(_seed / (seed[0] * seed[1]))
+
+IRs:
+REF_14(uint256) -> seed[0]
+REF_15(uint256) -> seed[1]
+TMP_32(uint256) = REF_14 * REF_15
+TMP_33(uint256) = _seed / TMP_32
+RETURN TMP_33"];
+2[label="Node Type: IF 2
+
+EXPRESSION:
+(_seed / (seed[0] * seed[1])) == secret
+
+IRs:
+REF_16(uint256) -> seed[0]
+REF_17(uint256) -> seed[1]
+TMP_34(uint256) = REF_16 * REF_17
+TMP_35(uint256) = _seed / TMP_34
+TMP_36(bool) = TMP_35 == secret
+CONDITION TMP_36"];
+2->3[label="True"];
+2->4[label="False"];
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+owner = winner
+
+IRs:
+owner(address) := winner(address)"];
+3->4;
+4[label="Node Type: END_IF 4
+"];
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+onlyPlayers()
+
+IRs:
+MODIFIER_CALL, DrainMe.onlyPlayers()()"];
+5->1;
+}

@@ -1,0 +1,18 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: RETURN 1
+
+EXPRESSION:
+(_kit.siringWithId == 0) && (_kit.cooldownEndBlock <= uint64(block.number))
+
+IRs:
+REF_372(uint32) -> _kit.siringWithId
+TMP_1356(bool) = REF_372 == 0
+REF_373(uint64) -> _kit.cooldownEndBlock
+TMP_1357 = CONVERT block.number to uint64
+TMP_1358(bool) = REF_373 <= TMP_1357
+TMP_1359(bool) = TMP_1356 && TMP_1358
+RETURN TMP_1359"];
+}

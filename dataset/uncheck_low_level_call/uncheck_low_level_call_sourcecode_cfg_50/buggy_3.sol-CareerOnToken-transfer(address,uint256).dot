@@ -1,0 +1,80 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+assert(bool)(_to != address(this) && ! isTransPaused && balances[msg.sender] >= _value && balances[_to] + _value > balances[_to])
+
+IRs:
+TMP_14 = CONVERT this to address
+TMP_15(bool) = _to != TMP_14
+TMP_16 = ! isTransPaused 
+TMP_17(bool) = TMP_15 && TMP_16
+REF_14(uint256) -> balances[msg.sender]
+TMP_18(bool) = REF_14 >= _value
+TMP_19(bool) = TMP_17 && TMP_18
+REF_15(uint256) -> balances[_to]
+TMP_20(uint256) = REF_15 + _value
+REF_16(uint256) -> balances[_to]
+TMP_21(bool) = TMP_20 > REF_16
+TMP_22(bool) = TMP_19 && TMP_21
+TMP_23(None) = SOLIDITY_CALL assert(bool)(TMP_22)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+balances[msg.sender] -= _value
+
+IRs:
+REF_17(uint256) -> balances[msg.sender]
+REF_17(-> balances) = REF_17 - _value"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+balances[_to] += _value
+
+IRs:
+REF_18(uint256) -> balances[_to]
+REF_18(-> balances) = REF_18 + _value"];
+3->4;
+4[label="Node Type: IF 4
+
+EXPRESSION:
+msg.sender == owner
+
+IRs:
+TMP_24(bool) = msg.sender == owner
+CONDITION TMP_24"];
+4->5[label="True"];
+4->6[label="False"];
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+Transfer(address(this),_to,_value)
+
+IRs:
+TMP_25 = CONVERT this to address
+Emit Transfer(TMP_25._to._value)"];
+5->7;
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+Transfer(msg.sender,_to,_value)
+
+IRs:
+Emit Transfer(msg.sender._to._value)"];
+6->7;
+7[label="Node Type: END_IF 7
+"];
+7->8;
+8[label="Node Type: RETURN 8
+
+EXPRESSION:
+true
+
+IRs:
+RETURN True"];
+}

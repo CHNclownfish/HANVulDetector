@@ -1,0 +1,30 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(newOwner != address(0))
+
+IRs:
+TMP_31 = CONVERT 0 to address
+TMP_32(bool) = newOwner != TMP_31
+TMP_33(None) = SOLIDITY_CALL require(bool)(TMP_32)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+OwnershipTransferred(_owner,newOwner)
+
+IRs:
+Emit OwnershipTransferred(_owner.newOwner)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+_owner = newOwner
+
+IRs:
+_owner(address) := newOwner(address)"];
+}

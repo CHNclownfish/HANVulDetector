@@ -1,0 +1,17 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+expired = (user.currentInvestTime.add(user.currentInvestCycle.mul(ONE_DAY)) < now)
+
+IRs:
+REF_11(uint256) -> user.currentInvestTime
+REF_13(uint256) -> user.currentInvestCycle
+TMP_99(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.mul(uint256,uint256), arguments:['REF_13', 'ONE_DAY'] 
+TMP_100(uint256) = LIBRARY_CALL, dest:SafeMath, function:SafeMath.add(uint256,uint256), arguments:['REF_11', 'TMP_99'] 
+TMP_101(bool) = TMP_100 < now
+expired(bool) := TMP_101(bool)"];
+}

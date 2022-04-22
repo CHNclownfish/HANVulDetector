@@ -1,0 +1,72 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(stakeTokens >= minstakeTokens)
+
+IRs:
+TMP_101(bool) = stakeTokens >= minstakeTokens
+TMP_102(None) = SOLIDITY_CALL require(bool)(TMP_101)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(token.balanceOf(msg.sender) >= stakeTokens + findOnePercent(stakeTokens))
+
+IRs:
+TMP_103(uint256) = HIGH_LEVEL_CALL, dest:token(Token), function:balanceOf, arguments:['msg.sender']  
+TMP_104(uint256) = INTERNAL_CALL, Staking.findOnePercent(uint256)(stakeTokens)
+TMP_105(uint256) = stakeTokens + TMP_104
+TMP_106(bool) = TMP_103 >= TMP_105
+TMP_107(None) = SOLIDITY_CALL require(bool)(TMP_106)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+require(bool)(token.transferFrom(msg.sender,address(this),stakeTokens + findOnePercent(stakeTokens)))
+
+IRs:
+TMP_108 = CONVERT this to address
+TMP_109(uint256) = INTERNAL_CALL, Staking.findOnePercent(uint256)(stakeTokens)
+TMP_110(uint256) = stakeTokens + TMP_109
+TMP_111(bool) = HIGH_LEVEL_CALL, dest:token(Token), function:transferFrom, arguments:['msg.sender', 'TMP_108', 'TMP_110']  
+TMP_112(None) = SOLIDITY_CALL require(bool)(TMP_111)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+staker[msg.sender].time = now
+
+IRs:
+REF_12(Staking.stake) -> staker[msg.sender]
+REF_13(uint256) -> REF_12.time
+REF_13 (->staker) := now(uint256)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+staker[msg.sender].tokens = staker[msg.sender].tokens + stakeTokens
+
+IRs:
+REF_14(Staking.stake) -> staker[msg.sender]
+REF_15(uint256) -> REF_14.tokens
+REF_16(Staking.stake) -> staker[msg.sender]
+REF_17(uint256) -> REF_16.tokens
+TMP_113(uint256) = REF_17 + stakeTokens
+REF_15 (->staker) := TMP_113(uint256)"];
+5->6;
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+stakingstarted(msg.sender,staker[msg.sender].tokens,staker[msg.sender].time)
+
+IRs:
+REF_18(Staking.stake) -> staker[msg.sender]
+REF_19(uint256) -> REF_18.tokens
+REF_20(Staking.stake) -> staker[msg.sender]
+REF_21(uint256) -> REF_20.time
+Emit stakingstarted(msg.sender.REF_19.REF_21)"];
+}

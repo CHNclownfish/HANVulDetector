@@ -1,0 +1,30 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+whale.call.value(amount)(bytes4(keccak256()(donate())))
+
+IRs:
+TMP_41(bytes32) = SOLIDITY_CALL keccak256()(donate())
+TMP_42 = CONVERT TMP_41 to bytes4
+TMP_43(bool) = LOW_LEVEL_CALL, dest:whale, function:call, arguments:['TMP_42'] value:amount "];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+totalDonated += amount
+
+IRs:
+totalDonated(uint256) = totalDonated + amount"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+Lose(amount,msg.sender)
+
+IRs:
+Emit Lose(amount.msg.sender)"];
+}

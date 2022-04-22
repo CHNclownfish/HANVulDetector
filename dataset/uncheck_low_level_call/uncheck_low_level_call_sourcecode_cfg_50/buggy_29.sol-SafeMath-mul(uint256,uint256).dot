@@ -1,0 +1,51 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: IF 1
+
+EXPRESSION:
+a == 0
+
+IRs:
+TMP_12(bool) = a == 0
+CONDITION TMP_12"];
+1->2[label="True"];
+1->3[label="False"];
+2[label="Node Type: RETURN 2
+
+EXPRESSION:
+0
+
+IRs:
+RETURN 0"];
+3[label="Node Type: END_IF 3
+"];
+3->4;
+4[label="Node Type: NEW VARIABLE 4
+
+EXPRESSION:
+c = a * b
+
+IRs:
+TMP_13(uint256) = a * b
+c(uint256) := TMP_13(uint256)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+require(bool,string)(c / a == b,SafeMath: multiplication overflow)
+
+IRs:
+TMP_14(uint256) = c / a
+TMP_15(bool) = TMP_14 == b
+TMP_16(None) = SOLIDITY_CALL require(bool,string)(TMP_15,SafeMath: multiplication overflow)"];
+5->6;
+6[label="Node Type: RETURN 6
+
+EXPRESSION:
+c
+
+IRs:
+RETURN c"];
+}

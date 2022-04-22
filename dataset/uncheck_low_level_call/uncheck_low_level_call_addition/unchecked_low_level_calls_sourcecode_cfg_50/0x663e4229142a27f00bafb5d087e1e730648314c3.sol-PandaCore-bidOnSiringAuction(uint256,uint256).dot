@@ -1,0 +1,77 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->8;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(_owns(msg.sender,_matronId))
+
+IRs:
+TMP_2191(bool) = INTERNAL_CALL, PandaOwnership._owns(address,uint256)(msg.sender,_matronId)
+TMP_2192(None) = SOLIDITY_CALL require(bool)(TMP_2191)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+require(bool)(isReadyToBreed(_matronId))
+
+IRs:
+TMP_2193(bool) = INTERNAL_CALL, PandaBreeding.isReadyToBreed(uint256)(_matronId)
+TMP_2194(None) = SOLIDITY_CALL require(bool)(TMP_2193)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+require(bool)(_canBreedWithViaAuction(_matronId,_sireId))
+
+IRs:
+TMP_2195(bool) = INTERNAL_CALL, PandaBreeding._canBreedWithViaAuction(uint256,uint256)(_matronId,_sireId)
+TMP_2196(None) = SOLIDITY_CALL require(bool)(TMP_2195)"];
+3->4;
+4[label="Node Type: NEW VARIABLE 4
+
+EXPRESSION:
+currentPrice = siringAuction.getCurrentPrice(_sireId)
+
+IRs:
+TMP_2197(uint256) = HIGH_LEVEL_CALL, dest:siringAuction(SiringClockAuction), function:getCurrentPrice, arguments:['_sireId']  
+currentPrice(uint256) := TMP_2197(uint256)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+require(bool)(msg.value >= currentPrice + autoBirthFee)
+
+IRs:
+TMP_2198(uint256) = currentPrice + autoBirthFee
+TMP_2199(bool) = msg.value >= TMP_2198
+TMP_2200(None) = SOLIDITY_CALL require(bool)(TMP_2199)"];
+5->6;
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+siringAuction.bid.value(msg.value - autoBirthFee)(_sireId)
+
+IRs:
+TMP_2201(uint256) = msg.value - autoBirthFee
+HIGH_LEVEL_CALL, dest:siringAuction(SiringClockAuction), function:bid, arguments:['_sireId'] value:TMP_2201 "];
+6->7;
+7[label="Node Type: EXPRESSION 7
+
+EXPRESSION:
+_breedWith(uint32(_matronId),uint32(_sireId),msg.sender)
+
+IRs:
+TMP_2204 = CONVERT _matronId to uint32
+TMP_2205 = CONVERT _sireId to uint32
+INTERNAL_CALL, PandaBreeding._breedWith(uint256,uint256,address)(TMP_2204,TMP_2205,msg.sender)"];
+8[label="Node Type: EXPRESSION 8
+
+EXPRESSION:
+whenNotPaused()
+
+IRs:
+MODIFIER_CALL, PandaAccessControl.whenNotPaused()()"];
+8->1;
+}

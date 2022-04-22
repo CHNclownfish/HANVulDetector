@@ -1,0 +1,103 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: IF 1
+
+EXPRESSION:
+msg.sender != owner
+
+IRs:
+TMP_101(bool) = msg.sender != owner
+CONDITION TMP_101"];
+1->2[label="True"];
+1->3[label="False"];
+2[label="Node Type: THROW 2
+"];
+3[label="Node Type: END_IF 3
+"];
+3->4;
+4[label="Node Type: IF 4
+
+EXPRESSION:
+chainnumber == 1
+
+IRs:
+TMP_102(bool) = chainnumber == 1
+CONDITION TMP_102"];
+4->5[label="True"];
+4->6[label="False"];
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+Chain1 = chainAd
+
+IRs:
+Chain1(address) := chainAd(address)"];
+5->6;
+6[label="Node Type: END_IF 6
+"];
+6->7;
+7[label="Node Type: IF 7
+
+EXPRESSION:
+chainnumber == 2
+
+IRs:
+TMP_103(bool) = chainnumber == 2
+CONDITION TMP_103"];
+7->8[label="True"];
+7->9[label="False"];
+8[label="Node Type: EXPRESSION 8
+
+EXPRESSION:
+Chain2 = chainAd
+
+IRs:
+Chain2(address) := chainAd(address)"];
+8->9;
+9[label="Node Type: END_IF 9
+"];
+9->10;
+10[label="Node Type: IF 10
+
+EXPRESSION:
+chainnumber == 3
+
+IRs:
+TMP_104(bool) = chainnumber == 3
+CONDITION TMP_104"];
+10->11[label="True"];
+10->12[label="False"];
+11[label="Node Type: EXPRESSION 11
+
+EXPRESSION:
+Chain3 = chainAd
+
+IRs:
+Chain3(address) := chainAd(address)"];
+11->12;
+12[label="Node Type: END_IF 12
+"];
+12->13;
+13[label="Node Type: IF 13
+
+EXPRESSION:
+chainnumber == 4
+
+IRs:
+TMP_105(bool) = chainnumber == 4
+CONDITION TMP_105"];
+13->14[label="True"];
+13->15[label="False"];
+14[label="Node Type: EXPRESSION 14
+
+EXPRESSION:
+Chain4 = chainAd
+
+IRs:
+Chain4(address) := chainAd(address)"];
+14->15;
+15[label="Node Type: END_IF 15
+"];
+}

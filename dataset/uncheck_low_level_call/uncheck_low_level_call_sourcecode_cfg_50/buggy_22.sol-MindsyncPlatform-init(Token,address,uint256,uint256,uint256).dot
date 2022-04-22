@@ -1,0 +1,45 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->5;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+require(bool)(! initialized)
+
+IRs:
+TMP_64 = ! initialized 
+TMP_65(None) = SOLIDITY_CALL require(bool)(TMP_64)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+initialized = true
+
+IRs:
+initialized(bool) := True(bool)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+changeVotingRules(_tokenAddress,_chairmanAddress,_minimumTokensToVote,_minimumPercentToPassAVote,_minutesForDebate)
+
+IRs:
+INTERNAL_CALL, MindsyncPlatform.changeVotingRules(Token,address,uint256,uint256,uint256)(_tokenAddress,_chairmanAddress,_minimumTokensToVote,_minimumPercentToPassAVote,_minutesForDebate)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+Initialized()
+
+IRs:
+Emit Initialized()"];
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+onlyOwner()
+
+IRs:
+MODIFIER_CALL, owned.onlyOwner()()"];
+5->1;
+}
