@@ -50,21 +50,35 @@ def contract2runtimbin(path_base, labels_path, labels_path_clean):
 def evaluate(data,m):
     y_true = []
     y_pred = []
-    for seq,l in data:
-        logit = m(seq['feature'])
+    embeddings = []
+    colors = []
+    for inputs, l in data:
+        dg, graph_seq_feature = inputs
+        logit = m(dg,graph_seq_feature)
+        #embeddings.append(embedding)
         predict = torch.max(logit,1)[1]
         y_pred.append(predict)
         y_true.append(l)
     print(y_true)
     print(y_pred)
+    # embeddings = torch.stack([eb for eb in embeddings], 0)
+    # embeddings = embeddings.view(-1, 80)
+    # embeddings = embeddings.detach().numpy()
     target_names = ['class 0', 'class 1']
     report = classification_report(y_true, y_pred, target_names=target_names, output_dict=True)
     f1_buggy = report['class 0']['f1-score']
     f1_macro = metrics.f1_score(y_true, y_pred, average='macro')
+    acc = metrics.accuracy_score(y_true, y_pred)
     f1_buggy_score = "%.{}f".format(2) % (100*(f1_buggy))
     f1_macro_score = "%.{}f".format(2) % (100*(f1_macro))
+    acc_score = "%.{}f".format(2) % (100*(acc))
 
-    return {'f1_buggy': str(f1_buggy_score)+'%', 'f1_macro': str(f1_macro_score)+'%'}
+    return {'f1_buggy': str(f1_buggy_score)+'%', 'f1_macro': str(f1_macro_score)+'%', 'acc':str(acc_score)+'%'}
+def readJson(path):
+    with open(path) as f:
+        info = json.load(f)
+    #random.shuffle(info)
+    return info
 
 # given a list of obj, where obj is a dict with {'contract_name': source_file_name-contract_name.sol,'targets':0 or 1}
 # return a dict where {source_file_name:[(contract_name1.sol, targets), (contract_name2.sol, targets)]}
@@ -79,21 +93,3 @@ def readlabel(file):
             res[source_file_name] = []
         res[source_file_name].append((obj['contract_name'],obj['targets']))
     return res
-
-# read crytic exported .sol.json file's name,return a set of file name
-def read_exportJsonName(file):
-    res = set()
-    data = os.listdir(file)
-    for name in data:
-        if '.json' in name:
-            res.add(name[:name.find('.')])
-    return res
-def createCryticStandardExport(path):
-    base1 = 'crytic-compile '
-    path = '/Users/xiechunyao/Downloads/MA_TH/smartbugs-master/dataset/reentrancy/'
-    data = os.listdir(path)
-    base2 = ' --export-format standard'
-
-    for x in data:
-        if '.sol' in x:
-            print(base1 + path + x + base2)

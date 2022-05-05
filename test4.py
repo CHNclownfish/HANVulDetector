@@ -19,3 +19,23 @@ for x in info:
             cnt_clean += 1
 print(cnt_clean)
 print(cnt_buggy)
+base1 = '/Users/xiechunyao/dataset_08_Apr/denial_of_service/denial_of_service_export/'
+base2 = '.sol.json'
+e = 'send_loop'
+file = base1 + e + base2
+x = file.split('/')[3]
+
+t = x[:x.find('.')]
+with open(file) as f:
+    data = f.read()
+finder = JsonPathFinder(data)
+#path_list = finder.find_all('bin')
+path_list = finder.find_all('bin-runtime')
+
+for i,path in enumerate(path_list):
+    with open(file) as f1:
+        obj = json.load(f1)
+    print('java -jar "/Users/xiechunyao/Downloads/EtherSolve.jar" -r -d -o ' + e + '_'+ path[-2]+'.dot')
+    for key in path:
+        obj = obj[key]
+    print(obj)
