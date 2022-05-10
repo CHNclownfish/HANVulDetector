@@ -54,16 +54,26 @@ def evaluate(data,m):
     colors = []
     for inputs, l in data:
         dg, graph_seq_feature = inputs
-        logit = m(dg,graph_seq_feature)
-        #embeddings.append(embedding)
+        logit, embedding = m(dg,graph_seq_feature)
+        embeddings.append(embedding)
         predict = torch.max(logit,1)[1]
         y_pred.append(predict)
         y_true.append(l)
+        if l == predict == torch.LongTensor([1]):
+            colors.append('red')
+        elif l == predict == torch.LongTensor([0]):
+            colors.append('green')
+        elif l == torch.LongTensor([1]) and l != predict:
+            colors.append('blue')
+        else:
+            colors.append('yellow')
+
     print(y_true)
     print(y_pred)
-    # embeddings = torch.stack([eb for eb in embeddings], 0)
-    # embeddings = embeddings.view(-1, 80)
-    # embeddings = embeddings.detach().numpy()
+    embeddings = torch.stack([eb for eb in embeddings], 0)
+    embeddings = embeddings.view(-1, 80)
+    print(embeddings.size())
+    embeddings = embeddings.detach().numpy()
     target_names = ['class 0', 'class 1']
     report = classification_report(y_true, y_pred, target_names=target_names, output_dict=True)
     f1_buggy = report['class 0']['f1-score']
@@ -73,7 +83,7 @@ def evaluate(data,m):
     f1_macro_score = "%.{}f".format(2) % (100*(f1_macro))
     acc_score = "%.{}f".format(2) % (100*(acc))
 
-    return {'f1_buggy': str(f1_buggy_score)+'%', 'f1_macro': str(f1_macro_score)+'%', 'acc':str(acc_score)+'%'}
+    return {'f1_buggy': str(f1_buggy_score)+'%', 'f1_macro': str(f1_macro_score)+'%', 'acc':str(acc_score)+'%'},embeddings,colors
 def readJson(path):
     with open(path) as f:
         info = json.load(f)

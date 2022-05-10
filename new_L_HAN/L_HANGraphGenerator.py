@@ -54,9 +54,9 @@ class graphGenerator_ethersolve:
             #print(node_idx,node_type)
 
             info = obj['label'].split(':')
-            node_info[node_idx] = [info[1][1:9],info[-1][1:-3]]
+            node_info[node_idx] = [info[1][1:9], info[-1][1:-3]]
 
-        for u,v in self.g.edges():
+        for u, v in self.g.edges():
             if node_info[u][endwith] == 'JUMPI':
                 if node_info[v][startwith] == 'JUMPDEST':
                     edgeLabel[(u,v)] = 'True'
@@ -73,7 +73,7 @@ class graphGenerator_ethersolve:
         pos = nx.spring_layout(self.g)
 
         nx.draw_networkx_labels(self.g, pos, nodesLabel, font_size=6, font_color="black")
-        nx.draw_networkx_edge_labels(self.g,pos,edgeLabel,font_size=6,font_color="black")
+        nx.draw_networkx_edge_labels(self.g,pos,edgeLabel, font_size=6,font_color="black")
         nx.draw(self.g,pos)
         plt.show()
 
@@ -99,114 +99,35 @@ class graphGenerator_ethersolve:
 
         return dg
 
-# return a dgl heterogenous graph
+    # return a dgl heterogenous graph
     def reflectHeteroGraph(self):
         candiGraphData = {}
         graphdata = {}
         nodesLabel, edgeLabel = self.createLabel()
         u_vector, v_vector = 0, 1
+        nodeslabelback = {}
+        for idx in nodesLabel:
+            node_type = nodesLabel[idx]
+            if node_type not in nodeslabelback:
+                nodeslabelback[node_type] = [idx]
+            else:
+                nodeslabelback[node_type].append(idx)
+        nodeidx2nodeidx = {}
+        for node_type in nodeslabelback:
+            for id, node in enumerate(nodeslabelback[node_type]):
+                nodeidx2nodeidx[node] = id
         for u,v in self.g.edges():
             e_type = edgeLabel[(u,v)]
-            if (nodesLabel[u],e_type,nodesLabel[v]) not in candiGraphData:
-                candiGraphData[(nodesLabel[u],e_type,nodesLabel[v])] = [[int(u)],[int(v)]]
+            if (nodesLabel[u], e_type, nodesLabel[v]) not in candiGraphData:
+                candiGraphData[(nodesLabel[u],e_type,nodesLabel[v])] = [[nodeidx2nodeidx[u]],[nodeidx2nodeidx[v]]]
             else:
-                candiGraphData[(nodesLabel[u],e_type,nodesLabel[v])][u_vector].append(int(u))
-                candiGraphData[(nodesLabel[u],e_type,nodesLabel[v])][v_vector].append(int(v))
+                candiGraphData[(nodesLabel[u],e_type,nodesLabel[v])][u_vector].append(nodeidx2nodeidx[u])
+                candiGraphData[(nodesLabel[u],e_type,nodesLabel[v])][v_vector].append(nodeidx2nodeidx[v])
         for key in candiGraphData:
             u = candiGraphData[key][u_vector]
             v = candiGraphData[key][v_vector]
             graphdata[key] = (th.tensor(u),th.tensor(v))
-            sn,e,en = key
-            new_e = e[::-1]
-            new_k = (en,new_e,sn)
-            graphdata[new_k] = (th.tensor(v),th.tensor(u))
-        dg = dgl.heterograph(graphdata)
-
-        for node in dg.ntypes:
-            n = dg.num_nodes(node)
-            l = [self.node2oneHot[node] for _ in range(n)]
-            dg.nodes[node].data['f'] = th.tensor(l).float()
-
-        return dg
-
-class graphGenerator_slither:
-    def __init__(self,dotfilepaths):
-        self.node2oneHot = {}
-        g = nx.drawing.nx_pydot.read_dot(dotfilepaths[0])
-        for i in range(1,len(dotfilepaths)):
-            new_g = nx.drawing.nx_pydot.read_dot(dotfilepaths[i])
-            g = nx.algorithms.operators.binary.disjoint_union(g,new_g)
-        self.g = g
-        nodes_type = ['OTHER_ENTRYPOINT', 'IF_LOOP', 'ENTRY_POINT', '_', 'IF', 'NEW', 'THROW', 'BREAK', 'CONTINUE', 'RETURN', 'END_LOOP', 'EXPRESSION', 'END_IF', 'BEGIN_LOOP', 'INLINE']
-        self.d = {nodes_type[i]:str(i) for i in range(len(nodes_type))}
-        for i in range(len(nodes_type)):
-            self.node2oneHot[str(i)] = [0 for _ in range(15)]
-            self.node2oneHot[str(i)][i] = 1
-
-    def createLabel(self):
-        int2label = {}
-        edgeLabel = {}
-        nodes = self.g.nodes()
-        for idx,node_idx in enumerate(nodes):
-            node_type = self.g._node[node_idx]['label'].split(' ')[2] # nodetype without number
-            int2label[node_idx] = self.d[node_type]
-        edgedata = self.g.edges.data()
-        for u,v,fe in edgedata:
-            if 'label' in fe:
-                edgeLabel[(u,v)] = fe['label'][1:-1]
-            else:
-                edgeLabel[(u,v)] = 'CF'
-
-        return int2label, edgeLabel
-
-    def graphVision(self):
-        nodesLabel,edgeLabel = self.createLabel()
-        pos = nx.spring_layout(self.g)
-
-        nx.draw_networkx_labels(self.g, pos, nodesLabel, font_size=6, font_color="black")
-        nx.draw_networkx_edge_labels(self.g,pos,edgeLabel,font_size=6,font_color="black")
-        nx.draw(self.g,pos)
-        plt.show()
-
-
-    def createHeteroGraph(self):
-        candiGraphData = {}
-        graphdata = {}
-        nodesLabel,edgeLabel = self.createLabel()
-        u_vector, v_vector = 0, 1
-        for u, v in self.g.edges():
-            e_type = edgeLabel[(u,v)]
-
-        if (nodesLabel[u],e_type,nodesLabel[v]) not in candiGraphData:
-            candiGraphData[(nodesLabel[u],e_type,nodesLabel[v])] = [[int(u)],[int(v)]]
-        else:
-            candiGraphData[(nodesLabel[u],e_type,nodesLabel[v])][u_vector].append(int(u))
-            candiGraphData[(nodesLabel[u],e_type,nodesLabel[v])][v_vector].append(int(v))
-        for key in candiGraphData:
-            u = candiGraphData[key][u_vector]
-            v = candiGraphData[key][v_vector]
-            graphdata[key] = (th.tensor(u),th.tensor(v))
-        dg = dgl.heterograph(graphdata)
-
-        return dg
-
-    def reflectHeteroGraph(self):
-        candiGraphData = {}
-        graphdata = {}
-        nodesLabel, edgeLabel = self.createLabel()
-        u_vector, v_vector = 0, 1
-        for u,v in self.g.edges():
-            e_type = edgeLabel[(u,v)]
-            if (nodesLabel[u],e_type,nodesLabel[v]) not in candiGraphData:
-                candiGraphData[(nodesLabel[u],e_type,nodesLabel[v])] = [[int(u)],[int(v)]]
-            else:
-                candiGraphData[(nodesLabel[u],e_type,nodesLabel[v])][u_vector].append(int(u))
-                candiGraphData[(nodesLabel[u],e_type,nodesLabel[v])][v_vector].append(int(v))
-        for key in candiGraphData:
-            u = candiGraphData[key][u_vector]
-            v = candiGraphData[key][v_vector]
-            graphdata[key] = (th.tensor(u),th.tensor(v))
-            sn,e,en = key
+            sn, e, en = key
             new_e = e[::-1]
             new_k = (en,new_e,sn)
             graphdata[new_k] = (th.tensor(v),th.tensor(u))

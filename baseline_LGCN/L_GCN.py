@@ -43,6 +43,6 @@ class LGCNModel(nn.Module):
         #h = gcn_embedding
         with dg.local_scope():
             dg.ndata['h'] = h
-            hg = dgl.max_nodes(dg, 'h')
+            hg = dgl.mean_nodes(dg, 'h')
 
-        return self.fc(hg)
+        return self.fc(hg), hg
