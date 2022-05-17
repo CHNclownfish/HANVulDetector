@@ -26,9 +26,9 @@ class LGCNModel(nn.Module):
         x = graph_seq_feature[0]
 
         # Initialize hidden state with zeros
-        h0 = torch.zeros(self.layer_dim, x.size(0), self.seq_hidden_dim).requires_grad_()
+        h0 = torch.zeros(self.layer_dim, 1, self.seq_hidden_dim).requires_grad_()
         # Initialize cell state
-        c0 = torch.zeros(self.layer_dim, x.size(0), self.seq_hidden_dim).requires_grad_()
+        c0 = torch.zeros(self.layer_dim, 1, self.seq_hidden_dim).requires_grad_()
 
         for i, node_seq_feature in enumerate(graph_seq_feature):
             out, (hi, ci) = self.lstm(node_seq_feature, (h0.detach(), c0.detach()))

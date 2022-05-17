@@ -105,13 +105,25 @@ class graphGenerator_ethersolve:
         graphdata = {}
         nodesLabel, edgeLabel = self.createLabel()
         u_vector, v_vector = 0, 1
+        nodeslabelback = {}
+        for idx in nodesLabel:
+            node_type = nodesLabel[idx]
+            if node_type not in nodeslabelback:
+                nodeslabelback[node_type] = [idx]
+            else:
+                nodeslabelback[node_type].append(idx)
+        nodeidx2nodeidx = {}
+        for node_type in nodeslabelback:
+            for id, node in enumerate(nodeslabelback[node_type]):
+                nodeidx2nodeidx[node] = id
         for u,v in self.g.edges():
             e_type = edgeLabel[(u,v)]
-            if (nodesLabel[u],e_type,nodesLabel[v]) not in candiGraphData:
-                candiGraphData[(nodesLabel[u],e_type,nodesLabel[v])] = [[int(u)],[int(v)]]
+            if (nodesLabel[u], e_type, nodesLabel[v]) not in candiGraphData:
+                candiGraphData[(nodesLabel[u],e_type,nodesLabel[v])] = [[nodeidx2nodeidx[u]],[nodeidx2nodeidx[v]]]
             else:
-                candiGraphData[(nodesLabel[u],e_type,nodesLabel[v])][u_vector].append(int(u))
-                candiGraphData[(nodesLabel[u],e_type,nodesLabel[v])][v_vector].append(int(v))
+                candiGraphData[(nodesLabel[u],e_type,nodesLabel[v])][u_vector].append(nodeidx2nodeidx[u])
+                candiGraphData[(nodesLabel[u],e_type,nodesLabel[v])][v_vector].append(nodeidx2nodeidx[v])
+
         for key in candiGraphData:
             u = candiGraphData[key][u_vector]
             v = candiGraphData[key][v_vector]

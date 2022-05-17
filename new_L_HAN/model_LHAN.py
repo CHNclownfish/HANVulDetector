@@ -115,10 +115,10 @@ class HANLayer(nn.Module):
 
         return result                           # (N, D * K)
 
-class HAN(nn.Module):
+class LHAN_parallel(nn.Module):
     def __init__(self, meta_paths, in_size, hidden_size, out_size, num_heads,
                  seq_input_dim, seq_hidden_dim, seq_layer_dim, dropout):
-        super(HAN, self).__init__()
+        super(LHAN_parallel, self).__init__()
         self.layers = nn.ModuleList()
         self.layers.append(HANLayer(meta_paths, in_size, hidden_size, num_heads[0], dropout))
         for l in range(1, len(num_heads)):
@@ -127,22 +127,25 @@ class HAN(nn.Module):
         self.seq_hidden_dim = seq_hidden_dim
         self.layer_dim = seq_layer_dim
         self.lstm = nn.LSTM(seq_input_dim, seq_hidden_dim, seq_layer_dim,batch_first=True)
-        self.predict = nn.Linear(hidden_size * num_heads[-1], out_size)
+        self.predict = nn.Linear(hidden_size * num_heads[-1] + seq_hidden_dim, out_size)
 
     def forward(self, g, h, graph_seq_feature):
-        # h = g.ndata['f']
-        lstm_embedding = []
-        x = graph_seq_feature[0]
+        #h = g.ndata['f']
+        lstm_embedding = {}
         # Initialize hidden state with zeros
-        h0 = torch.zeros(self.layer_dim, x.size(0), self.seq_hidden_dim).requires_grad_()
+        h0 = torch.zeros(self.layer_dim, 1, self.seq_hidden_dim).requires_grad_()
         # Initialize cell state
-        c0 = torch.zeros(self.layer_dim, x.size(0), self.seq_hidden_dim).requires_grad_()
-        for i, node_seq_feature in enumerate(graph_seq_feature):
-            out, (hi, ci) = self.lstm(node_seq_feature, (h0.detach(), c0.detach()))
-            hi = hi.view(self.seq_hidden_dim)
-            lstm_embedding.append(hi)
+        c0 = torch.zeros(self.layer_dim, 1, self.seq_hidden_dim).requires_grad_()
+        for node_type in graph_seq_feature:
+            #print(g.nodes[node_type].data['f'].size())
+            lstm_embedding[node_type] = []
+            spiNodeList = graph_seq_feature[node_type]
+            for i, node_seq_feature in enumerate(spiNodeList):
+                out, (hi, ci) = self.lstm(node_seq_feature, (h0.detach(), c0.detach()))
+                hi = hi.view(self.seq_hidden_dim)
+                lstm_embedding[node_type].append(hi)
 
-        lstm_embeddings = torch.stack([hi for hi in lstm_embedding], 0)
+        lstm_embeddings = {node_type: torch.stack([hi for hi in lstm_embedding[node_type]], 0) for node_type in lstm_embedding}
 
         for gnn in self.layers:
             h = gnn(g, h)
@@ -150,10 +153,14 @@ class HAN(nn.Module):
 
         with g.local_scope():
             for ntype in h.keys():
-                g.nodes[ntype].data['h'] = h[ntype]
+                #print(h[ntype].size(),lstm_embeddings[ntype].size())
+                cat_embedding = torch.cat((h[ntype], lstm_embeddings[ntype]), 1)
+                g.nodes[ntype].data['h'] = cat_embedding
+
             hg = 0
             for ntype in h.keys():
                 hg = hg + dgl.max_nodes(g, 'h', ntype=ntype)
-            #print(hg)
-            return self.predict(hg)
+
+            #print(hg.size())
+            return self.predict(hg), hg
 

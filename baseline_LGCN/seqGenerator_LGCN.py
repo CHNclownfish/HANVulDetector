@@ -119,3 +119,29 @@ class dataGenerator_sourcefile:
             if counter % 10 == 0:
                 print(l, counter)
         return np.array(self.data)
+
+class nodeSeq2oneHot:
+    def __init__(self):
+        s = '0123456789abcdef'
+        self.str2int = {s[i]: i for i in range(len(s))}
+        #self.str2bit = {s[i]: [int(x) for x in (4 - len(bin(i)[2:])) * '0' + bin(i)[2:]] for i in range(len(s))}
+        self.data = []
+
+    # op is a operation code like 'PUSH1' , "RETURN" returns a 256 dim onehot vec for this operation
+    def op2onehot(self, op):
+        onehot_line = [0 for _ in range(256)]
+        if op != 'EXIT BLOCK':
+            op2int = {int2op[key]:key for key in int2op}
+            hexstr = op2int[op]
+            number = self.str2int[hexstr[0]] * 16 + self.str2int[hexstr[1]]
+            onehot_line[number] = 1
+        return onehot_line
+
+    def encoder(self, seq):
+        node_seq_feature = []
+        for unit in seq:
+            op = unit[1:unit.find('\\')]
+            if 'PUSH' in op:
+                op = op.split(' ')[0]
+            node_seq_feature.append(self.op2onehot(op))
+        return node_seq_feature

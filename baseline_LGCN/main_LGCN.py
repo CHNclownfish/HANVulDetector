@@ -15,11 +15,12 @@ import matplotlib.pyplot as plt
 import os
 
 #labels_path = 'files/front_running_trueBalanceForLGCN.json'
-graph_path = '/Users/xiechunyao/Downloads/crytic_byte_code/runtime/access_control/clean_57_buggy_curated_1/'
+graph_path = '/Users/xiechunyao/Downloads/crytic_byte_code/runtime/unchecked_low_level_calls/clean_95_buggy_curated_0/'
 graphdata = os.listdir(graph_path)
 
 with open('files/la.json') as f:
     balance_label = json.load(f)
+f.close()
 info = []
 
 for obj in balance_label:
@@ -29,7 +30,7 @@ for obj in balance_label:
         d['path'] = graph_path + graph_name
         d['target'] = obj['targets']
         info.append(d)
-#random.shuffle(info)
+random.shuffle(info)
 for x in info :
     print(x)
 # info = readJson(labels_path)
@@ -74,8 +75,8 @@ seq_hidden_dim = 64
 seq_layer_dim = 1
 output_dim = 2
 
-np.random.shuffle(data)
-kf = KFold(n_splits=5, random_state=2, shuffle=True)
+
+kf = KFold(n_splits=5, random_state=1, shuffle=True)
 #kf = KFold(n_splits=5)
 losses = []
 scores = []
@@ -92,15 +93,12 @@ for train_idx, test_idx in kf.split(data):
     train_set = data[train_idx]
     test_set = data[test_idx]
     model.train()
-    if cnt > 1:
-        break
     for epoch in range(10):
         epoch_loss = 0
 
         for i, (inputs, l) in enumerate(train_set):
             if i % 50 == 0:
                 print(i)
-
             dg, graph_seq_feature = inputs
             logits, emb = model(dg,graph_seq_feature)
             loss = loss_fcn(logits, l)
@@ -119,12 +117,14 @@ for train_idx, test_idx in kf.split(data):
     print('this is fold ', cnt, ' mat:', scores)
     compressed_embedding = pca.fit_transform(em)
     #fig = plt.figure(figsize=(12, 12))
+    plt.subplot(1, 5, cnt)
     plt.scatter(compressed_embedding[:,0],compressed_embedding[:,1],c=np.array(colors))
-    plt.show()
+
 
 
 new_showResult = showRes(losses,scores)
 new_showResult.showLoss()
 new_showResult.showScores()
+plt.show()
 # with open('true_front_running.json','w') as f:
 #     json.dump(em, f)

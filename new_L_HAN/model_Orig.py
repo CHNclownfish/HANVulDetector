@@ -115,9 +115,9 @@ class HANLayer(nn.Module):
 
         return result                           # (N, D * K)
 
-class HAN(nn.Module):
+class HAN_org(nn.Module):
     def __init__(self, meta_paths, in_size, hidden_size, out_size, num_heads, dropout):
-        super(HAN, self).__init__()
+        super(HAN_org, self).__init__()
 
         self.layers = nn.ModuleList()
         self.layers.append(HANLayer(meta_paths, in_size, hidden_size, num_heads[0], dropout))
@@ -126,7 +126,7 @@ class HAN(nn.Module):
                                         hidden_size, num_heads[l], dropout))
         self.predict = nn.Linear(hidden_size * num_heads[-1], out_size)
 
-    def forward(self, g, h):
+    def forward(self, g, h, seq):
         # h = g.ndata['f']
 
         for gnn in self.layers:
@@ -140,31 +140,5 @@ class HAN(nn.Module):
             for ntype in h.keys():
                 hg = hg + dgl.max_nodes(g, 'h', ntype=ntype)
             #print(hg.size())
-            return self.predict(hg)
-
-class get_embedding(nn.Module):
-    def __init__(self, meta_paths, in_size, hidden_size, out_size, num_heads, dropout):
-        super(get_embedding, self).__init__()
-
-        self.layers = nn.ModuleList()
-        self.layers.append(HANLayer(meta_paths, in_size, hidden_size, num_heads[0], dropout))
-        for l in range(1, len(num_heads)):
-            self.layers.append(HANLayer(meta_paths, hidden_size * num_heads[l-1],
-                                        hidden_size, num_heads[l], dropout))
-        self.predict = nn.Linear(hidden_size * num_heads[-1], out_size)
-
-    def forward(self, g, h):
-        # h = g.ndata['f']
-
-        for gnn in self.layers:
-            h = gnn(g, h)
-
-
-        with g.local_scope():
-            for ntype in h.keys():
-                g.nodes[ntype].data['h'] = h[ntype]
-            hg = 0
-            for ntype in h.keys():
-                hg = hg + dgl.max_nodes(g, 'h', ntype=ntype)
-            #print(hg)
             return self.predict(hg), hg
+

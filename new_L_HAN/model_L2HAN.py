@@ -115,19 +115,37 @@ class HANLayer(nn.Module):
 
         return result                           # (N, D * K)
 
-class HAN(nn.Module):
-    def __init__(self, meta_paths, in_size, hidden_size, out_size, num_heads, dropout):
-        super(HAN, self).__init__()
-
+class LHAN_Series(nn.Module):
+    def __init__(self, meta_paths, hidden_size, out_size, num_heads,
+                 seq_input_dim, seq_hidden_dim, seq_layer_dim, dropout):
+        super(LHAN_Series, self).__init__()
         self.layers = nn.ModuleList()
-        self.layers.append(HANLayer(meta_paths, in_size, hidden_size, num_heads[0], dropout))
+        self.layers.append(HANLayer(meta_paths, seq_hidden_dim, hidden_size, num_heads[0], dropout))
         for l in range(1, len(num_heads)):
             self.layers.append(HANLayer(meta_paths, hidden_size * num_heads[l-1],
                                         hidden_size, num_heads[l], dropout))
+        self.seq_hidden_dim = seq_hidden_dim
+        self.layer_dim = seq_layer_dim
+        self.lstm = nn.LSTM(seq_input_dim, seq_hidden_dim, seq_layer_dim,batch_first=True)
         self.predict = nn.Linear(hidden_size * num_heads[-1], out_size)
 
-    def forward(self, g, h):
-        # h = g.ndata['f']
+    def forward(self, g, f, graph_seq_feature):
+        #h = g.ndata['f']
+        lstm_embedding = {}
+        # Initialize hidden state with zeros
+        h0 = torch.zeros(self.layer_dim, 1, self.seq_hidden_dim).requires_grad_()
+        # Initialize cell state
+        c0 = torch.zeros(self.layer_dim, 1, self.seq_hidden_dim).requires_grad_()
+        for node_type in graph_seq_feature:
+            #print(g.nodes[node_type].data['f'].size())
+            lstm_embedding[node_type] = []
+            spiNodeList = graph_seq_feature[node_type]
+            for i, node_seq_feature in enumerate(spiNodeList):
+                out, (hi, ci) = self.lstm(node_seq_feature, (h0.detach(), c0.detach()))
+                hi = hi.view(self.seq_hidden_dim)
+                lstm_embedding[node_type].append(hi)
+
+        h = {node_type: torch.stack([hi for hi in lstm_embedding[node_type]], 0) for node_type in lstm_embedding}
 
         for gnn in self.layers:
             h = gnn(g, h)
@@ -135,36 +153,13 @@ class HAN(nn.Module):
 
         with g.local_scope():
             for ntype in h.keys():
+                #print(h[ntype].size(),lstm_embeddings[ntype].size())
                 g.nodes[ntype].data['h'] = h[ntype]
+
             hg = 0
             for ntype in h.keys():
                 hg = hg + dgl.max_nodes(g, 'h', ntype=ntype)
+
             #print(hg.size())
-            return self.predict(hg)
-
-class get_embedding(nn.Module):
-    def __init__(self, meta_paths, in_size, hidden_size, out_size, num_heads, dropout):
-        super(get_embedding, self).__init__()
-
-        self.layers = nn.ModuleList()
-        self.layers.append(HANLayer(meta_paths, in_size, hidden_size, num_heads[0], dropout))
-        for l in range(1, len(num_heads)):
-            self.layers.append(HANLayer(meta_paths, hidden_size * num_heads[l-1],
-                                        hidden_size, num_heads[l], dropout))
-        self.predict = nn.Linear(hidden_size * num_heads[-1], out_size)
-
-    def forward(self, g, h):
-        # h = g.ndata['f']
-
-        for gnn in self.layers:
-            h = gnn(g, h)
-
-
-        with g.local_scope():
-            for ntype in h.keys():
-                g.nodes[ntype].data['h'] = h[ntype]
-            hg = 0
-            for ntype in h.keys():
-                hg = hg + dgl.max_nodes(g, 'h', ntype=ntype)
-            #print(hg)
             return self.predict(hg), hg
+

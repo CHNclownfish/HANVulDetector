@@ -1,5 +1,5 @@
 class showRes:
-    def __init__(self,losses,scores):
+    def __init__(self, losses, scores):
         self.losses = losses
         self.scores = scores
 
